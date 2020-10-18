@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c63891f6.chunk.css",
+    "main.js": "/static/js/main.57265034.chunk.js",
+    "main.js.map": "/static/js/main.57265034.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ea1b7941.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ea1b7941.js.map",
+    "static/css/2.e71944c4.chunk.css": "/static/css/2.e71944c4.chunk.css",
+    "static/js/2.31a6210d.chunk.js": "/static/js/2.31a6210d.chunk.js",
+    "static/js/2.31a6210d.chunk.js.map": "/static/js/2.31a6210d.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.03e8b0cc9e562d6ae2861ab66996fdf1.js": "/precache-manifest.03e8b0cc9e562d6ae2861ab66996fdf1.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.e71944c4.chunk.css.map": "/static/css/2.e71944c4.chunk.css.map",
+    "static/css/main.c63891f6.chunk.css.map": "/static/css/main.c63891f6.chunk.css.map",
+    "static/js/2.31a6210d.chunk.js.LICENSE.txt": "/static/js/2.31a6210d.chunk.js.LICENSE.txt",
+    "static/media/LogoProfile.css": "/static/media/ATARA.c3af7f65.jpg",
+    "static/media/Card.css": "/static/media/globe-solid.092da260.svg",
+    "static/media/Cards.css": "/static/media/Rectangle.9f9081d1.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ea1b7941.js",
+    "static/css/2.e71944c4.chunk.css",
+    "static/js/2.31a6210d.chunk.js",
+    "static/css/main.c63891f6.chunk.css",
+    "static/js/main.57265034.chunk.js"
+  ]
+}

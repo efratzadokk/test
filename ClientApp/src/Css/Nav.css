@@ -1,0 +1,61 @@
+/* @media screen and (min-width: 992px) { */
+/* #nav{
+height: 100%;
+overflow-y: auto;
+}
+#nav::-webkit-scrollbar {
+  width: 0em;
+} */
+#nav::-webkit-scrollbar-thumb
+{
+  width: 0em;
+}
+#header
+{
+    font: Regular 16px/18px Roboto;
+    letter-spacing: 0.44px;
+  color: #FFFFFF;
+  text-transform: capitalize;
+}
+
+button{
+height: 25%; 
+border: 1px solid #979797;
+background-color: transparent;
+border-radius: 8px;
+text-align: left;
+font: Regular 16px/21px Roboto;
+font-size: 0.9em !important;
+letter-spacing: 0.22px;
+color: #EBEAEA;
+text-transform: capitalize;
+outline: none;
+opacity: 1;
+}
+
+.title{
+  text-align: left;
+  font: Regular 2px/2px Roboto;
+  letter-spacing: 0.36px;
+  color: #EBEAEA;
+  font-size: 0.9em;
+  /* color: #EBEAEA; */
+  text-transform: capitalize;
+  opacity: 1;
+}
+
+.input{
+    
+text-align: left;
+font: Light 20px/20px Roboto;
+font-size: 0.8em;
+letter-spacing: 0.1px;
+color: #CFD1D9 !important;
+text-transform: capitalize;
+background-color: transparent;
+border: 0;
+  outline: 0;
+  border-bottom: 1px solid #75798E;
+opacity: 1;
+
+}

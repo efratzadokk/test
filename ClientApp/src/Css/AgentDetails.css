@@ -1,0 +1,43 @@
+
+
+#RequiedCallMeButton
+{
+text-align: right;
+font: Regular 14px/19px Roboto;
+letter-spacing: 0.59px;
+color: #E1E1E1;
+text-transform: capitalize;
+opacity: 1;
+}
+
+textarea.form-control {
+    color:#CFD1D9 !important;
+    height: auto;
+    background: transparent !important;
+    border:0;
+    font-size: 0.8em;
+    outline: none;
+}
+
+.textAgentDetails
+{
+    border: 1px solid #484D68;
+}
+
+.labelTextArea
+{
+    background-color: transparent;
+    border:0;
+    border-bottom: 1px solid #484D68;
+    color: #75798E;
+
+    /* color: #75798E; */
+}
+textarea.form-control:focus {
+    color:#CFD1D9;
+    height: auto;
+    background: transparent !important;
+    border:0;
+    outline: none;
+}
+

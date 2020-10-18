@@ -1,0 +1,23 @@
+.MuiDrawer-paperAnchorRight {
+    left: auto;
+    right: 0;
+    /* background: #3a405e 0% 0% no-repeat padding-box !important; */
+    
+    border-radius: 68px 0px 0px 0px !important;
+    
+    opacity: 1;
+    width: 18% !important;
+}
+.MuiPaper {
+    /* background: #3a405e 0% 0% no-repeat padding-box; */
+    border: 1px solid #707070;
+    border-radius: 68px 0px 0px 0px;
+    opacity: 1;
+}
+body{
+   background-color: #d3d3d361;
+   font: Medium 18px/24px SF Pro Display;
+}
+.fast-accses {
+    fill: #5f5757;
+  }

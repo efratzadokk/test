@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Login and Register Sign In</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#fff">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Page description">
+    <!-- Twitter Card data-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Page Title">
+    <meta name="twitter:description" content="Page description less than 200 characters">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="http://www.example.com/image.jpg">
+    <!-- Open Graph data-->
+    <meta property="og:title" content="Title Here">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://www.example.com/">
+    <meta property="og:image" content="http://example.com/image.jpg">
+    <meta property="og:description" content="Description Here">
+    <meta property="og:site_name" content="Site Name, i.e. Moz">
+    <meta property="fb:admins" content="Facebook numeric ID">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" media="all" href="https://leader.codes/assets/css/app.css"> -->
+    <!-- favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leader.codes/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
+    <link rel="manifest" href="https://leader.codes/assets/img/site.webmanifest">
+    <link rel="mask-icon" href="https://leader.codes/assets/img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <link rel="stylesheet" href="./style.css">
+    <!-- <script src="https://leader.codes/assets"></script> -->
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-analytics.js"></script>
+
+    <!-- js -->
+    <script src="./index.js">
+    </script>
+
+    <body>
+        <!-- auth-->
+        <div class="auth">
+            <div class="auth__main" style="background-image: url(https://leader.codes/assets/img/bg-login-mobile.jpg)">
+                <div class="auth__wrap">
+                    <div class="auth__preview"><img class="auth__pic" src="https://leader.codes/assets/img/logo-white.svg" width="48" alt="Logo"></div>
+                    <div class="auth__title title title_xl">Welcome to Know me</div>
+                    <div class="auth__subtitle title title_sm">Enter your details to proceed further</div>
+                </div>
+            </div>
+            <div class="auth__container">
+                <div class="auth__inner">
+                    <div class="auth__head">
+                        <div class="auth__title title title_xl">
+                            <p>Welcome to Know me.</p>
+                            <p>Sign In to see latest updates.</p>
+                        </div>
+                        <div class="auth__text">Enter your details to proceed further</div>
+                    </div>
+                    <form class="auth__form" id="loginFrom" method="post">
+                        <div class="field auth__field">
+                            <div class="field__label">Email</div>
+                            <div class="field__wrap"><input id="email" name="email" class="field__input" type="email" placeholder="Start typing…">
+                                <div class="field__icon"><i class="la la-envelope "></i></div>
+                            </div>
+                        </div>
+                        <div class="field auth__field">
+                            <div class="field__label">Password</div>
+                            <div class="field__wrap"><input id="password" name="password" class="field__input" type="password" placeholder="Start typing…">
+                                <div class="field__icon"><i class="la la-lock "></i></div>
+                            </div>
+                        </div>
+                        <div class="auth__flex"><label class="switch auth__switch"><input id="rememberme" name="rememberme" class="switch__input" type="checkbox" checked><span class="switch__content">Remember me</span></label><a class="auth__link" href="forgotPassword/forgotPassword.php">Recover password</a></div>
+                        <input type="hidden" name="submitedFlag">
+                        <div class="auth__btns"><button id="loginBtn" class="btn auth__btn">Sign In</button><a id="signupBtn" href="#" class="btn btn_light auth__btn">Sign Up</a></div>
+                        <!-- enter-->
+                        <div id="errMsg" style="color:red"></div>
+                        <div class="auth__enter enter">
+                            <div class="enter__text">Or sign in with</div>
+                            <div class="enter__socials">
+                                <a class="enter__btn btn btn_only_icon" id="facebook" style="display:none" href="#" data-provider="facebook"><i class="la la-facebook"></i></a>
+                                <a class="enter__btn btn btn_only_icon" id="google" href="#" data-provider="google"><i class="la la-google"></i></a>
+                                <a class="enter__btn btn btn_only_icon" id="twitter" style="display:none" href="#" data-provider="twitter"><i class="la la-twitter"></i></a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="auth__bg" style="background-image: url(./IMG_9622.jpg)"></div>
+            <div id="wait" style="display:none;z-index:2;position:absolute;top:50%;left:50%;">
+                <img src='https://cdn.dribbble.com/users/225707/screenshots/2958729/attachments/648705/straight-loader.gif' width="64" height="64" /><br>Loading..
+            </div>
+        </div>
+        <!-- scripts-->
+        <script src="https://leader.codes/assets/js/core/jquery.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/datepicker.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/datepicker.en.js"></script>
+        <script src="https://leader.codes/assets/js/core/select2.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/wNumb.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/nouislider.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/apexcharts.min.js"></script>
+        <script src="https://leader.codes/assets/js/charts.js"></script>
+        <script src="https://leader.codes/assets/js/app.js"></script>
+
+
+    </body>
+
+</html>
+
+
+
+
+<!-- <form action="/action_page.php" style="border:1px solid #ccc">
+        <div class="container">
+            <h1>Sign Up</h1>
+            <p>Please fill in this form to create an account.</p>
+            <hr>
+
+            <label for="psw1"><b>email</b></label>
+            <input type="text" id="passInput1" placeholder="Enter email" name="psw1" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" id="passInput" placeholder="Enter Password" name="psw" required>
+
+            <div class="clearfix">
+                <button type="button" onclick="loginWithGoogle()" class="signupbtn">Sign In With Google</button>
+
+                <button type="button" onclick="signUpWithCradentials()" class="signupbtn">Sign Up</button>
+            </div>
+        </div>
+    </form> -->

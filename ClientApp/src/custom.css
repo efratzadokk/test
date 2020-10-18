@@ -1,0 +1,36 @@
+body{
+  overflow: hidden;
+}
+button:focus,input:focus,textarea:focus{
+    outline: none;
+  }
+
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+textarea{
+  border: none;
+}
+textarea::-webkit-scrollbar {
+  width: 0em;
+}
+.load
+{
+  position: fixed;
+  z-index: 2;
+  left:42.5%
+}

@@ -1,0 +1,18 @@
+#agent
+{
+  /* margin-top: 100px;*/
+  margin-left: 57px; 
+  background:transparent url('../img/agentHeder.png') 0% 0% no-repeat padding-box; 
+  background-size: cover;
+  width: 363px;
+  height: 25%;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  opacity: 1;
+
+}
+
+#spacAbove{
+    height: 10%;
+    width: 100%;
+  }
