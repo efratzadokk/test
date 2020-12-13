@@ -204,8 +204,23 @@ const cardSchema = mongoose.Schema({
                 buttonName: { type: String },
             },
             buttonCallMe:{
-                width:{ type: String },
+                titleName:{ type: String },
             }
+            IconbuttonCallMe: {
+                color:{ type: String },
+                width: { type: String },
+              },
+              inputBottomCallMe:{
+                background: { type: String },
+                color: { type: String },
+                textAlign: { type: String },
+                font: { type: String },
+                letterSpacing:{ type: String },
+                fontSize:{ type: String },
+                border:{ type: String },
+                marginLeft: { type: String },
+                marginTop:{ type: String },
+               },
         },
         body_card_desktop: {
             body: {
