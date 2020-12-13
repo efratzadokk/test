@@ -8,6 +8,12 @@ const socialMediaSchema = mongoose.Schema({
     },
     url: {
         type: String
+    },
+    icon: {
+        type: String
+    },
+    show: {
+        type: Boolean
     }
     
 })

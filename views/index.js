@@ -18,13 +18,14 @@ $(document).ready(function () {
         .signOut()
         .then(function () {
             console.log("logged out");
-            document.cookie = 'jwt' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=.leader.codes';
+            document.cookie = 'jwt' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=.knowme.page';
         })
         .catch(function (error) {});
 
 
     $("#loginBtn").click(function (e) {
         e.preventDefault();
+        //alert("dhdh")
         let password = $("input#password").val();
         let email = $("input#email").val();
         if (password != "" && email != "") {
@@ -44,6 +45,7 @@ $(document).ready(function () {
     });
 
     $("#signupBtn").click(function (e) {
+     
         let password = $("input#password").val();
         let email = $("input#email").val();
         firebase
@@ -131,8 +133,11 @@ function checkPremission(data) {
         success: function (data) {
             let jsonWebToken = data.jwt;
             let usename = data.userName;
+            console.log(usename,data.is_username)
             let noQuotesJwtData = jsonWebToken.split('"').join("");
-            document.cookie = "jwt=" + noQuotesJwtData + ";domain=.leader.codes" + "; path=/;";
+            let now = new Date();
+               now.setMonth( now.getMonth() + 1 );
+            document.cookie = "jwt=" + noQuotesJwtData + ";domain=.knowme.page" + "; path=/; Expires="+now.toUTCString()+";"
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const des = urlParams.get('des')
@@ -145,7 +150,7 @@ function checkPremission(data) {
                 }
                 window.location.href = redirectUrl
             } else {
-                window.location.href = (!data.is_username) ? "https://leader.codes/wizard" : "https://knowme.page/" + usename
+                window.location.href = (!data.is_username) ? "https://knowme.page/wizard" : "https://knowme.page/" + usename
             }
         }
     });

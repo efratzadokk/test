@@ -1,37 +1,44 @@
+const express = require('express');
 const router = require('express').Router()
 const path = require('path')
-router.use(ssss)
-function ssss(res, req, next) {
-  console.log("loggwer");
-  next()
-}
+//const app = express();
 
-
-router.get('/*', function (req, res) {
+router.get('/wizard', function (req, res) {
   console.log("uid");
-  res.sendFile(path.join(__dirname, '../build', 'index.html'))
+  res.sendFile(path.join(__dirname, '../views/wizard.html'))
 
 })
 
 router.get('/card/*', function (req, res) {
-  console.log("card id");
-  res.sendFile(path.join(__dirname, '../build_preview/index.html'))
+  router.use(express.static(path.join(__dirname, '../build')));
+  res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
 
+router.get('/:userName', function (req, res) {
+  router.use(express.static(path.join(__dirname, '../build')));
+  res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+router.get('/:userName/AllCards', function (req, res) {
+  router.use(express.static(path.join(__dirname, '../build')));
+  res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+router.get('/', function (req, res) {
+  console.log("home")
+  router.use(express.static(path.join(__dirname, '../front/build')))
+  res.sendFile(path.join(__dirname, '../front/build/index.html'))
 })
 
 
-// router.get('/', function (req, res) {
-//   res.sendfile(path.join(__dirname,  '../views/index.html'));
-// });
-// router.get('/:uid/:cardId', function (req, res) {
-//   res.sendFile(path.join(__dirname, '../build_preview/index.html'))
+
+  
 
 
+
+
+// router.get('*', function (req, res) {
+//   res.sendFile(path.join(__dirname, '../build', 'index.html'))
 // })
 
-// router.get('/',(req,res)=>{
-// res.sendFile(__dirname,'../build/index.html')
-// })
 
 
 
