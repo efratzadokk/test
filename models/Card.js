@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const cardSchema = mongoose.Schema({
     isDelete: { type: Boolean },
-    name: { type: String },
+    showCallMe:  { type: Boolean },
+    cardName: { type: String },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -55,7 +56,7 @@ const cardSchema = mongoose.Schema({
         buttonFooterShow: { type: Boolean },
         footerSendEmailShow: { type: Boolean },
         callMeShow:{ type: Boolean },
-        callMeNameShow{ type: Boolean },
+        callMeNameShow:{ type: Boolean },
         cover: {
             height: { type: String },
             backgroundImage: { type: String }
@@ -205,13 +206,13 @@ const cardSchema = mongoose.Schema({
             },
             buttonCallMe:{
                 titleName:{ type: String },
-            }
+            },
             IconbuttonCallMe: {
                 color:{ type: String },
                 width: { type: String },
               },
               inputBottomCallMe:{
-                background: { type: String },
+                background:{ type: String },
                 color: { type: String },
                 textAlign: { type: String },
                 font: { type: String },
@@ -221,6 +222,28 @@ const cardSchema = mongoose.Schema({
                 marginLeft: { type: String },
                 marginTop:{ type: String },
                },
+               inputBottomCallMeShow:{
+                background:{ type: String },
+                color: { type: String },
+                textAlign: { type: String },
+                font: { type: String },
+                letterSpacing:{ type: String },
+                fontSize:{ type: String },
+                border:{ type: String },
+                marginLeft: { type: String },
+                marginTop:{ type: String },
+               },
+
+               callMeBotton:{
+                backgroundColor:{ type: String },
+                position: { type: String },
+                 width: { type: String },
+                 bottom:{ type: String }, 
+                 borderRadius: { type: String },
+                 height: { type: String }, 
+                 color: { type: String }, 
+                 border: { type: String },
+               }
         },
         body_card_desktop: {
             body: {

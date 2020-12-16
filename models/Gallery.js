@@ -40,13 +40,9 @@ const gallerySchema = mongoose.Schema({
         timeout: { type: Number },
         checkedRadio: { type: Boolean },
     },
-    currentGallery: [{
-        img: { type: String },
+    galleries: [{
+        backgroundImage: { type: String },
         thumbnail: { type: String },
-        // thumbnailWidth: 320,
-        // thumbnailHeight: 174,
-        // isSelected: true,
-        // caption: "After Rain (Jeshu John - designerspics.com)"
     }
     ]
 })

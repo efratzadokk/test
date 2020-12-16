@@ -193,8 +193,41 @@ sendMessageByCard = async (req, res) => {
 
 }
 
+checkUniqCardName = async (req, res) => {
 
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&&");
 
+    let userId = req.body.userId;
+    let cardName = req.body.cardname;
+
+    console.log("req.body.cardname",cardName);
+    console.log("req.body.userId",userId);
+
+ 
+   
+
+    Card.findOne({
+        cardName: cardName,
+        "user.uid":userId
+    },
+    (err,isCardNameExist)=>{
+
+        if(err) res.send(error);
+
+        console.log("isCardNameExist",isCardNameExist)
+
+        //if the card name allredy exist
+        if(isCardNameExist!=null){
+            res.send(false);
+        }
+        else{
+            res.send(true);
+        }
+
+    });
+    
+
+}
 
 
 
@@ -205,5 +238,6 @@ module.exports = {
     getCardById,
     deleteCard,
     getUidByUserName,
-    sendMessageByCard
+    sendMessageByCard,
+    checkUniqCardName
 }
