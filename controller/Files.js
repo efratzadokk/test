@@ -11,10 +11,7 @@ upload = async (req, res) => {
     else
         res.status(200).send(null);
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 6c88334d2c524a58dd947d32a78e58826849bf7e
 (uploadedMultipleFiles = (fileToUpload, uId, headers) => {
     return new Promise(async (resolve, reject) => {
         console.log("in uploadedMultipleFiles")
@@ -35,10 +32,7 @@ upload = async (req, res) => {
                         },
                     })
                     console.log("@@@@@@@@@@@@@@@@@@@@22", formdata)
-<<<<<<< HEAD
-=======
                     // formdata = Object.assign(currentFile, formdata);
->>>>>>> 6c88334d2c524a58dd947d32a78e58826849bf7e
                 })
             }
             else {

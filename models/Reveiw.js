@@ -17,7 +17,6 @@ const reveiwSchema = mongoose.Schema({
                 background: { type: String },
                 textAlign: { type: String }
             },
-
             profile_reveiws: {
                 backgroundImage: { type: String },
                 backgroundSize: { type: String },
@@ -27,7 +26,7 @@ const reveiwSchema = mongoose.Schema({
                 border: { type: String },
                 borderColor: { type: String },
                 borderRadius: { type: String },
-                zIndex: { type: Number }
+                zIndex: { type: Number },
                 indexFile:{ type: Number }
             },
             input_card_fullName: {
