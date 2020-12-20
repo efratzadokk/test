@@ -43,6 +43,7 @@ const gallerySchema = mongoose.Schema({
     galleries: [{
         backgroundImage: { type: String },
         thumbnail: { type: String },
+        indexFile: { type: Number }
     }
     ]
 })
