@@ -1,13 +1,23 @@
+// var firebaseConfig = {
+//     apiKey: "AIzaSyBfZ4ae-W40v1mPivzlPZ7g1ctjls3VwrM",
+//     authDomain: "leader-5fc0d.firebaseapp.com",
+//     databaseURL: "https://leader-5fc0d.firebaseio.com",
+//     projectId: "leader-5fc0d",
+//     storageBucket: "leader-5fc0d.appspot.com",
+//     messagingSenderId: "1014543713524",
+//     appId: "1:1014543713524:web:e76b414c151e7525888aa1",
+//     measurementId: "G-ZER890028H",
+// };
+
 var firebaseConfig = {
-    apiKey: "AIzaSyBfZ4ae-W40v1mPivzlPZ7g1ctjls3VwrM",
-    authDomain: "leader-5fc0d.firebaseapp.com",
-    databaseURL: "https://leader-5fc0d.firebaseio.com",
-    projectId: "leader-5fc0d",
-    storageBucket: "leader-5fc0d.appspot.com",
-    messagingSenderId: "1014543713524",
-    appId: "1:1014543713524:web:e76b414c151e7525888aa1",
-    measurementId: "G-ZER890028H",
-};
+    apiKey: "AIzaSyBG4FbB6eBy-U665nLOA_153D0YE-gSV9k",
+    authDomain: "knowmepage.firebaseapp.com",
+    projectId: "knowmepage",
+    storageBucket: "knowmepage.appspot.com",
+    messagingSenderId: "74025733902",
+    appId: "1:74025733902:web:a737a1219326a4d3fc115f",
+    measurementId: "G-RMEN31486N"
+  };
 
 firebase.initializeApp(firebaseConfig);
 firebase.auth.Auth.Persistence.LOCAL;

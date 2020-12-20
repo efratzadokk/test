@@ -12,76 +12,26 @@ upload = async (req, res) => {
         res.status(200).send(null);
 }
 
-// (uploadedMultipleFiles = (fileToUpload, uId, headers) => {
-//     return new Promise(async (resolve, reject) => {
-//         console.log("in uploadedMultipleFiles")
-//         const uri = `https://files.knowme.page/api/${uId}/uploadMultipleFiles`;
-//         console.log("files:", Object.keys(fileToUpload));
-//         console.log("files value:", fileToUpload["galleries"]);
-
-//         let formdata = {}
-//         Object.keys(fileToUpload).forEach(file => {
-//             let currentFile =
-//             {
-//                 [file]: {
-//                     value: fileToUpload[file].data,
-//                     options: {
-//                         filename: fileToUpload[file].name
-//                     },
-//                 }
-//             }
-
-//             formdata = Object.assign(currentFile, formdata);
-//         });
-//         console.log("formdata", formdata);
-//         const options = {
-//             method: "POST",
-//             url: uri,
-//             headers: {
-//                 Authorization: headers,
-//                 "Content-Type": "multipart/form-data",
-//             },
-//             formData: formdata
-//         }
-//         request(options, async (err, res, body) => {
-//             if (err) {
-//                 console.log(err);
-//                 reject(err);
-//             }
-//             console.log("result from server", body);
-//             try {
-//                 console.log("sucsses");
-//                 const files = JSON.parse(body).filesData;
-//                 resolve(files);
-//             } catch (error) {
-//                 reject(error);
-//             }
-//         });
-//     });
-// });
 (uploadedMultipleFiles = (fileToUpload, uId, headers) => {
     return new Promise(async (resolve, reject) => {
         console.log("in uploadedMultipleFiles")
         const uri = `https://files.knowme.page/api/${uId}/uploadMultipleFiles`;
-        debugger;
         console.log("files:", Object.keys(fileToUpload));
         let formdata = {}
         Object.keys(fileToUpload).forEach(file => {
             let currentFile;
             if (Array.isArray(fileToUpload[file])) {
                 let fileInFileToUpload = fileToUpload[file];
-                fileInFileToUpload.forEach((item,index) => {
-                    currentFile =
-                    {
-                        [file+"_"+index]: {
-                            value: item.data,
-                            options: {
-                                filename: item.name
-                            },
-                        }
-                    }
-                    console.log("@@@@@@@@@@@@@@@@@@@@22",currentFile)
-                    formdata = Object.assign(currentFile, formdata);
+                fileInFileToUpload.forEach((item) => {
+                    if (!formdata.hasOwnProperty(file))
+                        formdata = { ...formdata, ...{ [file]: [] } }                    // formdata = { ...formdata, ...{ [file]: [] } }
+                    formdata[file].push({
+                        value: item.data,
+                        options: {
+                            filename: item.name
+                        },
+                    })
+                    console.log("@@@@@@@@@@@@@@@@@@@@22", formdata)
                 })
             }
             else {
@@ -122,6 +72,7 @@ upload = async (req, res) => {
         });
     });
 });
+
 
 removeMultipleFiles = async (req, res) => {
     const { urls } = req.body;

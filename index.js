@@ -10,7 +10,8 @@ const app = express();
 const routeToApi = require('./routes/api');
 const routeToViews = require('./routes/views');
 const jwt = require("jsonwebtoken");
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+//const registerRouter = require("./routes/register.js");
 // const checkPermission = require('./controller/User.js')
 // res.redirect("https://app.knowme.page/login?des=files.leader.codes");
 

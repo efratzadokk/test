@@ -15,15 +15,12 @@ router.post("/:uId/removeMultipleFiles",FilesController.removeMultipleFiles)
 router.post('/', digitalCardController.sendMessageByCard);
 router.post("/:uId/:cardId", digitalCardController.deleteCard);
 router.get('/:uId', digitalCardController.getDigitalCard);
-router.get("/:uId/:cardId", digitalCardController.getCardById);
+router.get("/:userName/:cardName", digitalCardController.getCardById);
 router.get('/getUser/user/:userName', UserController.getUidByUserName);
 router.get('/getCategories/categories/allCategories/cards', CategoriesController.getCategories);
 router.put("/:uId/:cardId", digitalCardController.updateDigitalCard);
-router.post("/checkUniqCardName", digitalCardController.checkUniqCardName);
+router.post("/editCardName", digitalCardController.editCardName);
+router.post("/checkUniqueCardName", digitalCardController.checkUniqueCardName);
 router.post('/:uId', digitalCardController.createDigitalCard);
-
-
-
-
 
 module.exports = router;
