@@ -15,7 +15,6 @@ upload = async (req, res) => {
     return new Promise(async (resolve, reject) => {
         console.log("in uploadedMultipleFiles")
         const uri = `https://files.knowme.page/api/${uId}/uploadMultipleFiles`;
-        debugger;
         console.log("files:", Object.keys(fileToUpload));
         let formdata = {}
         Object.keys(fileToUpload).forEach(file => {
