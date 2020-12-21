@@ -32,7 +32,6 @@ upload = async (req, res) => {
                         },
                     })
                     console.log("@@@@@@@@@@@@@@@@@@@@22", formdata)
-                    // formdata = Object.assign(currentFile, formdata);
                 })
             }
             else {

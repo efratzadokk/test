@@ -13,6 +13,7 @@ const reveiwSchema = mongoose.Schema({
             message_reveiws: { type: String },
         },
         reveiwsStyle: {
+           
             bodyReveiws: {
                 background: { type: String },
                 textAlign: { type: String }
