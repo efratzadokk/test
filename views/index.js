@@ -105,7 +105,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             .currentUser.getIdToken(true)
             .then((firebaseToken) => {
                 $.ajax({
-                    url: "https://api.leader.codes/register/getAccessToken",
+                    url: "https://kowme.page/register/getAccessToken",
                     method: "post",
                     dataType: "json",
                     contentType: "application/json",
@@ -114,7 +114,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                         jwt: firebaseToken,
                     }),
                     success: function (data) {
-                        checkPremission(data);
+                        checkPermission(data);
                     },
                 });
             })
@@ -124,14 +124,14 @@ firebase.auth().onAuthStateChanged(function (user) {
     }
 });
 
-function checkPremission(data) {
+function checkPermission(data) {
     let TokenToString = data.accessToken.toString();
     let dataToProfilePage = {
         action: "loginCheckPermission",
         token: TokenToString
     };
     $.ajax({
-        url: "https://api.leader.codes/register/checkPremission",
+        url: "https://knowme.page/register/checkPermission",
         headers: {
             Authorization: TokenToString
         },

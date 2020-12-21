@@ -11,7 +11,11 @@ const routeToApi = require('./routes/api');
 const routeToViews = require('./routes/views');
 const jwt = require("jsonwebtoken");
 const cookieParser = require('cookie-parser');
+<<<<<<< HEAD
+const registerRouter = require("./routes/register.js");
+=======
 //const registerRouter = require("./routes/register.js");
+>>>>>>> ff2334798b38820118d9fe89fa6a7d6a24f235aa
 // const checkPermission = require('./controller/User.js')
 // res.redirect("https://app.knowme.page/login?des=files.leader.codes");
 
@@ -28,6 +32,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
+app.use('/register', registerRouter);
 
  app.use("/login", express.static(path.join(__dirname, './views')));
  app.use("/wizard", express.static(path.join(__dirname, './views/wizard')));
