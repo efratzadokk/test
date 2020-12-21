@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 
 const cardSchema = mongoose.Schema({
     isDelete: { type: Boolean },
-    showCallMe:  { type: Boolean },
+    // showCallMe:  { type: Boolean },
     cardName: { type: String },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
+    // user: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User'
+    // },
+    userId:{ type: String , require: true, unique: true },
     gallery: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Gallery'
@@ -126,6 +127,11 @@ const cardSchema = mongoose.Schema({
                 css: { type: String },
                 bodySpaceCss: { type: String }
             },
+            styleTitleBody: {
+                color: { type: String },
+                textAlign: { type: String }
+            },
+
             footerMobile: {
                 titleFooter: { type: String },
                 buttonFooter: { type: String }
@@ -289,6 +295,9 @@ const cardSchema = mongoose.Schema({
                 borderWidth: { type: String },
                 opacity: { type: String },
                 background: { type: String },
+            },
+            styleTitleBodyDesktop: {
+                color: { type: String },
             },
 
             footerDesktop: {

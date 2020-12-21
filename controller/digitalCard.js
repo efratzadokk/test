@@ -30,25 +30,38 @@ getDigitalCard = async (req, res) => {
         })
 }
 
-getCardById = (req, res) => {
-    Card.findOne({ _id: req.params.cardId,isDelete: false })
-        .populate({
-            path: "socialMedias",
-        })
-        .populate({
-            path: 'gallery'
-        })
-        .populate({
-            path: 'reveiw'
-        })
-        .exec((err, card) => {
-            if (err) {
-                res.status(500).send(err);
-            }
-            console.log("card-------------------",card)
-            res.status(200).send(card);
-        });
-};
+getCardById =async (req, res) => {
+
+    let cardName=req.params.cardName.split("_").join(" ");
+    console.log("###############" ,cardName, req.params.userName);
+
+    User.findOne({username:req.params.userName},(err,user)=>{
+
+        Card.findOne({
+            cardName: cardName,
+            userId: user.uid,
+            isDelete: false })
+           .populate({
+               path: "socialMedias",
+           })
+           .populate({
+               path: 'gallery'
+           })
+           .populate({
+               path: 'reveiw'
+           })
+           .exec((err, card) => {
+               if (err) {
+                   res.status(500).send(err);
+               }
+               console.log("card-------------------",card)
+               res.status(200).send(card);
+           });
+
+    })
+
+  
+}
 
 
 createDigitalCard = async (req, res) => {
@@ -65,7 +78,7 @@ createDigitalCard = async (req, res) => {
         let nCard = new Card();
         console.log(nCard._id)
         let currentCard = new Card(card);
-        currentCard.user = currentUser._id;
+        currentCard.userId = req.params.uId;
         currentCard._id = nCard._id;
         currentUser.cards.push(currentCard._id);
         currentCard.gallery = gallery;
@@ -142,7 +155,9 @@ updateDigitalCard = async(req, res) => {
 deleteCard = async (req, res) => {
     let card = req.body;
     try {
+        
         let currentCard = await Card.findOne({ _id: req.params.cardId });
+        console.log({ _id: req.params.cardId });
         currentCard.isDelete = true;
         let result = await currentCard.save();
         res.send(result);
@@ -193,7 +208,7 @@ sendMessageByCard = async (req, res) => {
 
 }
 
-checkUniqCardName = async (req, res) => {
+checkUniqueCardName = async (req, res) => {
 
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&&");
 
@@ -203,12 +218,11 @@ checkUniqCardName = async (req, res) => {
     console.log("req.body.cardname",cardName);
     console.log("req.body.userId",userId);
 
- 
-   
-
+    
     Card.findOne({
         cardName: cardName,
-        "user.uid":userId
+        isDelete: false,
+        userId: userId
     },
     (err,isCardNameExist)=>{
 
@@ -228,7 +242,22 @@ checkUniqCardName = async (req, res) => {
     
 
 }
+editCardName= async(req,res)=>{
 
+    let cardId = req.body.cardId;
+    let cardName = req.body.cardName;
+
+    console.log("req.body.cardname",cardName);
+    console.log("req.body.cardId",cardId);
+
+    const filter = { _id: cardId};
+    const update = { cardName: cardName };
+
+    let doc = await Card.findOneAndUpdate(filter, update);
+
+    res.send();
+
+}
 
 
 module.exports = {
@@ -239,5 +268,6 @@ module.exports = {
     deleteCard,
     getUidByUserName,
     sendMessageByCard,
-    checkUniqCardName
+    checkUniqueCardName,
+    editCardName
 }
