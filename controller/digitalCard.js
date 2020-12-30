@@ -326,7 +326,22 @@ editCardName= async(req,res)=>{
     res.send();
 
 }
+editCardName= async(req,res)=>{
 
+    let cardId = req.body.cardId;
+    let cardName = req.body.cardName;
+
+    console.log("req.body.cardname",cardName);
+    console.log("req.body.cardId",cardId);
+
+    const filter = { _id: cardId};
+    const update = { cardName: cardName };
+
+    let doc = await Card.findOneAndUpdate(filter, update);
+
+    res.send();
+
+}
 
 module.exports = {
     createDigitalCard,

@@ -4,8 +4,6 @@ const cardSchema = mongoose.Schema({
     isDelete: { type: Boolean },
     showCallMe: { type: Boolean },
     cardName: { type: String },
-
-    // userId:{ type: String , require: true},
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

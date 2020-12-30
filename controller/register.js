@@ -256,5 +256,4 @@ module.exports = {
     usernameCheck,
     getUidFromToken,
     usernameExistCheck
-
 }
