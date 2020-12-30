@@ -3,9 +3,13 @@ const Gallery = require('../models/Gallery.js');
 saveGallery = (gallery) => {
     return new Promise(async (resolve, reject) => {
         try {
+            let tmpGalery=new Gallery();
             let newGallery = new Gallery(gallery);
-            newGallery.save().then((gallery_db) => {
-                console.log(gallery_db._id)
+            newGallery._id=tmpGalery._id
+            newGallery.save((err,gallery_db)=>{
+                if(err){
+                    console.log("err galery", err)
+                }
                 resolve(gallery_db);
             });
 

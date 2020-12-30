@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 
 const cardSchema = mongoose.Schema({
     isDelete: { type: Boolean },
-    showCallMe:  { type: Boolean },
+    showCallMe: { type: Boolean },
     cardName: { type: String },
-    user: {
+
+    // userId:{ type: String , require: true},
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
@@ -55,11 +57,14 @@ const cardSchema = mongoose.Schema({
         messageFooterShow: { type: Boolean },
         buttonFooterShow: { type: Boolean },
         footerSendEmailShow: { type: Boolean },
-        callMeShow:{ type: Boolean },
-        callMeNameShow:{ type: Boolean },
+        callMeShow: { type: Boolean },
+        callMeNameShow: { type: Boolean },
         cover: {
             height: { type: String },
             backgroundImage: { type: String }
+        },
+        coverDesktop: {
+            backgroundImage: { type: String },
         },
         logo: {
             backgroundImage: { type: String },
@@ -109,7 +114,9 @@ const cardSchema = mongoose.Schema({
                 textAlign: { type: String },
                 color: { type: String },
                 font: { type: String },
-                letterSpacing: { type: String }
+                letterSpacing: { type: String },
+                marginTop:{ type: String }
+
             },
             socialMedia: {
                 width: { type: String },
@@ -126,6 +133,11 @@ const cardSchema = mongoose.Schema({
                 css: { type: String },
                 bodySpaceCss: { type: String }
             },
+            styleTitleBody: {
+                color: { type: String },
+                textAlign: { type: String }
+            },
+
             footerMobile: {
                 titleFooter: { type: String },
                 buttonFooter: { type: String }
@@ -204,46 +216,59 @@ const cardSchema = mongoose.Schema({
             Add_Contact: {
                 buttonName: { type: String },
             },
-            buttonCallMe:{
-                titleName:{ type: String },
+            buttonCallMe: {
+                titleName: { type: String },
             },
             IconbuttonCallMe: {
-                color:{ type: String },
+                color: { type: String },
                 width: { type: String },
-              },
-              inputBottomCallMe:{
-                background:{ type: String },
+            },
+            inputBottomCallMe: {
+                background: { type: String },
                 color: { type: String },
                 textAlign: { type: String },
                 font: { type: String },
-                letterSpacing:{ type: String },
-                fontSize:{ type: String },
-                border:{ type: String },
+                letterSpacing: { type: String },
+                fontSize: { type: String },
+                border: { type: String },
                 marginLeft: { type: String },
-                marginTop:{ type: String },
-               },
-               inputBottomCallMeShow:{
-                background:{ type: String },
+                marginTop: { type: String },
+            },
+            inputBottomCallMeShow: {
+                background: { type: String },
                 color: { type: String },
                 textAlign: { type: String },
                 font: { type: String },
-                letterSpacing:{ type: String },
-                fontSize:{ type: String },
-                border:{ type: String },
+                letterSpacing: { type: String },
+                fontSize: { type: String },
+                border: { type: String },
                 marginLeft: { type: String },
-                marginTop:{ type: String },
-               },
+                marginTop: { type: String },
+            },
 
-               callMeBotton:{
-                backgroundColor:{ type: String },
+            callMeBotton: {
+                backgroundColor: { type: String },
                 position: { type: String },
-                 width: { type: String },
-                 bottom:{ type: String }, 
-                 borderRadius: { type: String },
-                 height: { type: String }, 
-                 color: { type: String }, 
-                 border: { type: String },
-               }
+                width: { type: String },
+                bottom: { type: String },
+                borderRadius: { type: String },
+                height: { type: String },
+                color: { type: String },
+                border: { type: String },
+            },
+            ScrollTopBottom: {
+                position: { type: String },
+                display: { type: String },
+                right: { type: String },
+                bottom: { type: String },
+                color: { type: String },
+                boxShadow: { type: String },
+            },
+            IconScrool: {
+                background: { type: String },
+                borderRadius: { type: String },
+
+            },
         },
         body_card_desktop: {
             body: {
@@ -289,6 +314,9 @@ const cardSchema = mongoose.Schema({
                 borderWidth: { type: String },
                 opacity: { type: String },
                 background: { type: String },
+            },
+            styleTitleBodyDesktop: {
+                color: { type: String },
             },
 
             footerDesktop: {
@@ -346,12 +374,19 @@ const cardSchema = mongoose.Schema({
 
         cssObjTamplate: {
             cover: { type: String },
+            coverDesktop:{ type: String },
             logo: { type: String },
             profile: { type: String },
             input_about_templet: { type: String },
         }
 
-    }
+    }, viewers: [
+        { date: { type: String }, amount: { type: Number } }
+    ],
+    submitioms: [
+        { date: { type: String }, amount: { type: Number } }
+    ],
+    contactOptions: [{ date: { type: String }, sumContactOptions: { type: String } }]
 
 });
 

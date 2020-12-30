@@ -64,7 +64,7 @@
         const jwt = getCookie('jwt')
         const value = document.querySelector('input#usernameInput').value
         const data = {token: jwt, usernameToCheck: value}
-        fetch("https://api.leader.codes/register/usernameCheck", {
+        fetch("https://knowme.page/register/checkUsername", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
