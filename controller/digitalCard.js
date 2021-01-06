@@ -112,8 +112,6 @@ createDigitalCard = async (req, res) => {
         console.log("before");
 
         await Promise.all(socialMedias.map(async (socialMedia, index) => {
-            console.log("before in loop",index);
-
 
             let nCurrentSocialMedia = new SocialMedia();
             let currentSocialMedia = new SocialMedia(socialMedia);
@@ -294,7 +292,7 @@ checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
     
     console.log("req.body.cardname",cardName);
-    console.log("req.body.userId",userName);
+    console.log("req.body.userName",userName);
 
     let currentUser=await User.findOne({ "username": req.params.userName })
     let _id=currentUser._id

@@ -54,6 +54,7 @@ const cardSchema = mongoose.Schema({
         personalEmailFooterShow: { type: Boolean },
         messageFooterShow: { type: Boolean },
         buttonFooterShow: { type: Boolean },
+        footerShow: { type: Boolean },
         footerSendEmailShow: { type: Boolean },
         callMeShow: { type: Boolean },
         callMeNameShow: { type: Boolean },

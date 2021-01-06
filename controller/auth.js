@@ -20,9 +20,11 @@ const checkPermission = async (req, res, next) => {
         urlRoute=req.originalUrl.split("/")[3]
     if (req.headers["authorization"]=="null"||!req.headers["authorization"]) {
         if (req.cookies && req.cookies.jwt) {
+
             req.headers["authorization"] = req.cookies.jwt;
         }
         else{
+
             return res.status(401).json({des:redirectUrl,routes:urlRoute, apiFlag:apiFlag,status:401});
         }
     }
