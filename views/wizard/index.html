@@ -44,6 +44,26 @@
 
     <!-- js -->
     <script>
+    
+    const baseUrl=window.location.origin;
+    //כשמעלים לשרת להחליף את זה!!!!
+    // const baseUrlClient=window.location.origin;
+    const baseUrlClient="http://localhost:3000"
+
+
+    $(document).ready(function() {
+        
+        document.getElementById("usernameInput").addEventListener("keyup",function(){
+            if (event.keyCode === 13) {
+                usernameCheck();
+            }
+        });
+    });
+
+    const prevent=(event)=>{
+        event.preventDefault()
+    }
+
 
     const getCookie = (c_name) => {
         if (document.cookie.length > 0) {
@@ -64,7 +84,7 @@
         const jwt = getCookie('jwt')
         const value = document.querySelector('input#usernameInput').value
         const data = {token: jwt, usernameToCheck: value}
-        fetch("https://knowme.page/register/checkUsername", {
+        fetch(`${baseUrl}/register/checkUsername`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +98,7 @@
                 document.querySelector('#errMsg').innerText = 'The username is already taken. Please choose another username.'
             } else {
                 alert('Username available and created!')
-                window.location.href = "https://knowme.page/" + $.userName
+                window.location.href = `${baseUrlClient}/${$.userName}`
             }
         })
     }
@@ -104,7 +124,7 @@
                     </div>
                     <p>Please select a username to complete the registration process</p>
                 </div>
-                <form class="auth__form" id="loginFrom" method="post">
+                <form onsubmit="prevent(event)" class="auth__form" id="loginFrom" method="post">
                     <div class="field auth__field">
                         <div class="field__label">Username</div>
                         <div class="field__wrap"><input id="usernameInput" name="username" class="field__input" type="text"

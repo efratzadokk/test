@@ -47,7 +47,6 @@ mongoose.connect(process
 app.use("/api/digitalcard",routeToApi);
 // app.use("/api/digitalcard", auth.checkPermission, routeToApi);
 app.use("/", routeToViews);
-// app.use("/", checkPermission, routeToViews);
 
 app.all("/*", function (req, res, next) {
     res.header("Access-Control-Allow-Origin", req.headers.origin);
