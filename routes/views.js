@@ -9,19 +9,19 @@ router.get('/wizard', function (req, res) {
 
 })
 
-router.get('/card/*', function (req, res) {
+router.get('/admin/*', function (req, res) {
   router.use(express.static(path.join(__dirname, '../build')));
   res.sendFile(path.join(__dirname, '../build', 'index.html'))
 })
 
-router.get('/:userName', function (req, res) {
+router.get('/:userName/:cardId', function (req, res) {
   router.use(express.static(path.join(__dirname, '../build')));
   res.sendFile(path.join(__dirname, '../build', 'index.html'))
 })
-router.get('/:userName/AllCards', function (req, res) {
-  router.use(express.static(path.join(__dirname, '../build')));
-  res.sendFile(path.join(__dirname, '../build', 'index.html'))
-})
+// router.get('/admin/:userName/AllCards', function (req, res) {
+//   router.use(express.static(path.join(__dirname, '../build')));
+//   res.sendFile(path.join(__dirname, '../build', 'index.html'))
+// })
 router.get('/', function (req, res) {
   console.log("home")
   router.use(express.static(path.join(__dirname, '../front/build')))

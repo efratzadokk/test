@@ -43,54 +43,9 @@ mongoose.connect(process
     useCreateIndex: true,
     useFindAndModify: false
 })
-// checkPermission = async (req, res, next) => {
-//     console.log("in checkPermission", req.originalUrl.split("/"));
-//     let uId = req.originalUrl.split("/")[1];
-//     let redirectUrl = req.get('host')
-//     if (req.originalUrl.includes("/view/") || req.headers["authorization"] == "view") return next();
-//     if (req.originalUrl.includes("getUser")) return next();
-//     if (req.originalUrl.includes("getCategories")) return next();
-//     if (req.originalUrl.includes("card")) return next();
-//     if (uId == "api") {
-//         uId = req.originalUrl.split("/")[3];
-//     console.log("uId", uId);
 
-//     }
-//     console.log(!req.headers["authorization"])
-//     if (!req.headers["authorization"]) {
-
-//         if (req.cookies && req.cookies.jwt) req.headers["authorization"] = req.cookies.jwt;
-//         // else
-//         //     res.redirect('https://app.knowme.page/login');
-//     }
-//     console.log("headers",req.headers["authorization"]);
-//     console.log("coockie",req.cookies,req.cookies?req.cookies.jwt:null);
-//     if (!uId ||!req.headers["authorization"]) {
-//         console.log("no uid");
-//         res.redirect("https://knowme.page/login");
-//     } else {
-//         const options = {
-//             method: "GET",
-//             url: "https://api.leader.codes/isPermission",
-//             headers: { Authorization: req.headers["authorization"] },
-//         };
-//         request(options, (error, response, body) => {
-//             console.log("response.statusCode", response.statusCode)
-//             console.log("body", typeof (body), body)
-//             if (error || response.statusCode != 200) {
-//                 console.log("error: ", error);
-//                 res.redirect("https://knowme.page/login");
-//             } else {
-
-//                 console.log("is authorize!!!!!");
-//                 return next();
-//             }
-//         });
-//     }
-// };
-
-// app.use("/api/digitalcard",routeToApi);
-app.use("/api/digitalcard", auth.checkPermission, routeToApi);
+app.use("/api/digitalcard",routeToApi);
+// app.use("/api/digitalcard", auth.checkPermission, routeToApi);
 app.use("/", routeToViews);
 // app.use("/", checkPermission, routeToViews);
 
