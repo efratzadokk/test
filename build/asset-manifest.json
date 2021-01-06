@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.121786b1.chunk.css",
+    "main.js": "/static/js/main.c40a194e.chunk.js",
+    "main.js.map": "/static/js/main.c40a194e.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ea1b7941.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ea1b7941.js.map",
+    "static/css/2.cfed7de4.chunk.css": "/static/css/2.cfed7de4.chunk.css",
+    "static/js/2.017b606d.chunk.js": "/static/js/2.017b606d.chunk.js",
+    "static/js/2.017b606d.chunk.js.map": "/static/js/2.017b606d.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.e31285ee1b89869852641b10897aad3b.js": "/precache-manifest.e31285ee1b89869852641b10897aad3b.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.cfed7de4.chunk.css.map": "/static/css/2.cfed7de4.chunk.css.map",
+    "static/css/main.121786b1.chunk.css.map": "/static/css/main.121786b1.chunk.css.map",
+    "static/js/2.017b606d.chunk.js.LICENSE.txt": "/static/js/2.017b606d.chunk.js.LICENSE.txt",
+    "static/media/AllCards.css": "/static/media/Bitmap.07df1154.png",
+    "static/media/default_card_designs.css": "/static/media/logo2.11624801.PNG",
+    "static/media/Templets.css": "/static/media/profile.6b8d0f4a.PNG",
+    "static/media/Cards.css": "/static/media/Rectangle.9f9081d1.png",
+    "static/media/Reveiws.css": "/static/media/agentPic.415d9373.png",
+    "static/media/defualtUploadImage.svg": "/static/media/defualtUploadImage.cf7c2e48.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ea1b7941.js",
+    "static/css/2.cfed7de4.chunk.css",
+    "static/js/2.017b606d.chunk.js",
+    "static/css/main.121786b1.chunk.css",
+    "static/js/main.c40a194e.chunk.js"
+  ]
+}

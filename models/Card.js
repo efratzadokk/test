@@ -32,13 +32,14 @@ const cardSchema = mongoose.Schema({
     },
     numFillsocialMedia: { type: Number },
     numSocialMedia: { type: Number },
+    numBroderIcon: { type: Number },
+    whatsAppWelcomMassage:{ type: String },
     socialMedias: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "SocialMedia",
         }
     ],
-
     vCardStyle:
     {
         fullNameShow: { type: Boolean },
