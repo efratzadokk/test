@@ -89,8 +89,8 @@ mongoose.connect(process
 //     }
 // };
 
-// app.use("/api/digitalcard",routeToApi);
-app.use("/api/digitalcard", auth.checkPermission, routeToApi);
+app.use("/api/digitalcard",routeToApi);
+// app.use("/api/digitalcard", auth.checkPermission, routeToApi);
 app.use("/", routeToViews);
 // app.use("/", checkPermission, routeToViews);
 
