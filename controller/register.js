@@ -8,26 +8,28 @@ const User = require('../models/User');
 const request = require('request');
 const requestIp = require('request-ip');
 
-
-// var firebaseConfig = {
-//     apiKey: "AIzaSyB9giidNYNmRxYgj3PC4cysla54gHxaNJ4",
-//     authDomain: "lms-leader.firebaseapp.com",
-//     databaseURL: "https://lms-leader.firebaseio.com",
-//     projectId: "lms-leader",
-//     storageBucket: "lms-leader.appspot.com",
-//     messagingSenderId: "451375116419",
-//     appId: "1:451375116419:web:a631ec62e2e0a0304e6bb6",
-//     measurementId: "G-2DZBMG06NZ"
-// };
-var firebaseConfig = {
-    apiKey: "AIzaSyBG4FbB6eBy-U665nLOA_153D0YE-gSV9k",
-    authDomain: "knowmepage.firebaseapp.com",
-    projectId: "knowmepage",
-    storageBucket: "knowmepage.appspot.com",
-    messagingSenderId: "74025733902",
-    appId: "1:74025733902:web:a737a1219326a4d3fc115f",
-    measurementId: "G-RMEN31486N"
+const firebaseConfig = {
+    apiKey: "AIzaSyDK4XGnKfHz_rKMKKNU5oix6BJJfDsmGrM",
+    authDomain: "knowme-page-dev.firebaseapp.com",
+    projectId: "knowme-page-dev",
+    storageBucket: "knowme-page-dev.appspot.com",
+    messagingSenderId: "474755504683",
+    appId: "1:474755504683:web:4782fa2eb9c2c4acc2286e",
+    measurementId: "G-71ZR37P1C5"
   };
+
+  
+// var firebaseConfig = {
+//     apiKey: "AIzaSyBG4FbB6eBy-U665nLOA_153D0YE-gSV9k",
+//     authDomain: "knowmepage.firebaseapp.com",
+//     projectId: "knowmepage",
+//     storageBucket: "knowmepage.appspot.com",
+//     messagingSenderId: "74025733902",
+//     appId: "1:74025733902:web:a737a1219326a4d3fc115f",
+//     measurementId: "G-RMEN31486N"
+//   };
+  
+  
 firebase.initializeApp(firebaseConfig);
 admin.initializeApp(firebaseConfig);
 
@@ -67,6 +69,9 @@ const insertIfExsist = async(userEmail) => {
 const verify = (req, res, next) => {
     return new Promise((resolve, reject) => {
         let token = (typeof req === "object") ? req.body.token : req
+        if(!token){
+            token=req.cookies.accessToken
+        }
         decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         if (!decoded) reject("access deiend")
         resolve(decoded)
@@ -117,7 +122,7 @@ const usernameExistCheck = async (uid) => {
     console.log(uid,"+++++++++")
     return new Promise(async(s, j) => {
       await  User.find({ uid: uid }, (err, $) => {
-            console.log($)
+            console.log("$",$)
             if($.length)
            {
                if($[0].username=="")
@@ -256,5 +261,8 @@ module.exports = {
     usernameCheck,
     getUidFromToken,
     usernameExistCheck
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
 }

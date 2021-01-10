@@ -4,8 +4,11 @@ const cardSchema = mongoose.Schema({
     isDelete: { type: Boolean },
     showCallMe: { type: Boolean },
     cardName: { type: String },
+<<<<<<< HEAD
 
     // userId:{ type: String , require: true},
+=======
+>>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -34,13 +37,18 @@ const cardSchema = mongoose.Schema({
     },
     numFillsocialMedia: { type: Number },
     numSocialMedia: { type: Number },
+    numBroderIcon: { type: Number },
+    whatsAppWelcomMassage:{ type: String },
     socialMedias: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "SocialMedia",
         }
     ],
+<<<<<<< HEAD
     whatsAppWelcomMassage:{ type: String },
+=======
+>>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
     vCardStyle:
     {
         fullNameShow: { type: Boolean },
@@ -57,6 +65,7 @@ const cardSchema = mongoose.Schema({
         personalEmailFooterShow: { type: Boolean },
         messageFooterShow: { type: Boolean },
         buttonFooterShow: { type: Boolean },
+        footerShow: { type: Boolean },
         footerSendEmailShow: { type: Boolean },
         callMeShow: { type: Boolean },
         callMeNameShow: { type: Boolean },

@@ -13,7 +13,10 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require('cookie-parser');
 const registerRouter = require("./routes/register.js");
 const auth = require('./controller/auth');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
 
 dotenv.config();
 app.use(cors());
@@ -44,6 +47,7 @@ mongoose.connect(process
     useCreateIndex: true,
     useFindAndModify: false
 })
+<<<<<<< HEAD
 // checkPermission = async (req, res, next) => {
 //     console.log("in checkPermission", req.originalUrl.split("/"));
 //     let uId = req.originalUrl.split("/")[1];
@@ -92,8 +96,12 @@ mongoose.connect(process
 
 // app.use("/api/digitalcard",routeToApi);
 app.use("/api/digitalcard", auth.checkPermission, routeToApi);
+=======
+
+app.use("/api/digitalcard",routeToApi);
+// app.use("/api/digitalcard", auth.checkPermission, routeToApi);
+>>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
 app.use("/", routeToViews);
-// app.use("/", checkPermission, routeToViews);
 
 app.all("/*", function (req, res, next) {
     res.header("Access-Control-Allow-Origin", req.headers.origin);
