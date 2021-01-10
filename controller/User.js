@@ -2,21 +2,19 @@ const User = require('../models/User.js');
 
 
 getUidByUserName = async (req, res) => {
-    console.log("inside!!")
+    console.log("inside!!!!!!!!!!!!!!!!!")
     const userName = req.params.userName
-    console.log(userName)
     const user = await User.findOne({ username: userName })
     if (user)
-        res.json({ "uid": user.uid })
+        res.json({ "user": user})
     else
         res.json("undifined")
 
 };
 
 checkPermission = async (req, res, next) => {
-    console.log("in checkPermission", req.originalUrl.split("/"));
+    console.log("in checkPermission");
     let uId = req.originalUrl.split("/")[1];
-    console.log("uId", uId);
     let redirectUrl = req.get('host')
     if (req.originalUrl.includes("/view/") || req.headers["authorization"] == "view") return next();
     if (req.originalUrl.includes("getUser")) return next();

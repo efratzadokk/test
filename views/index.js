@@ -105,7 +105,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             .currentUser.getIdToken(true)
             .then((firebaseToken) => {
                 $.ajax({
-                    url: "https://kowme.page/register/getAccessToken",
+                    url: "https://knowme.page/register/getAccessToken",
                     method: "post",
                     dataType: "json",
                     contentType: "application/json",
@@ -141,6 +141,7 @@ function checkPermission(data) {
         withCradentials: true,
         data: JSON.stringify(dataToProfilePage),
         success: function (data) {
+            console.log('in success checkPermission');
             let jsonWebToken = data.jwt;
             let usename = data.userName;
             console.log(usename,data.is_username)
@@ -160,7 +161,7 @@ function checkPermission(data) {
                 }
                 window.location.href = redirectUrl
             } else {
-                window.location.href = (!data.is_username) ? "https://knowme.page/wizard" : "https://knowme.page/" + usename
+                window.location.href = (!data.is_username) ? "https://knowme.page/wizard" : "https://knowme.page/admin/" + usename
             }
         }
     });

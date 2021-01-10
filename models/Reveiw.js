@@ -6,11 +6,15 @@ const reveiwSchema = mongoose.Schema({
     roleShow: { type: Boolean },
     reveiwShow: { type: Boolean },
     titleReveiws: { type: String },
+    showMoreReveiws:{ type: String },
+
     reveiwsList: [{
         reveiwsDetails: {
             full_name: { type: String },
             role: { type: String },
             message_reveiws: { type: String },
+            ReveiwShowDelete:{ type: Boolean }
+
         },
         reveiwsStyle: {
            
