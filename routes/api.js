@@ -25,6 +25,6 @@ router.post("/:userName/:cardId/delete", digitalCardController.deleteCard);
 router.get('/:userName/getUser/user', UserController.getUidByUserName);
 router.put("/:userName/:cardId", digitalCardController.updateDigitalCard);
 router.get('/:userName', digitalCardController.getDigitalCard);
-router.get("/:cardId/:cardName", digitalCardController.getCardById);
+router.get("/:cardName/:cardId", digitalCardController.getCardById);
 router.post('/:userName', digitalCardController.createDigitalCard);
 module.exports = router;
