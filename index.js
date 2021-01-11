@@ -7,6 +7,9 @@ const fileUpload = require("express-fileupload");
 const path = require('path')
 const request = require('request');
 const app = express();
+
+dotenv.config();
+
 const routeToApi = require('./routes/api');
 const routeToViews = require('./routes/views');
 const jwt = require("jsonwebtoken");
@@ -14,7 +17,6 @@ const cookieParser = require('cookie-parser');
 const registerRouter = require("./routes/register.js");
 const auth = require('./controller/auth');
 
-dotenv.config();
 app.use(cors());
 app.use(cookieParser())
 
