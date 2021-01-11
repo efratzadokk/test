@@ -7,7 +7,9 @@ const checkPermission = async (req, res, next) => {
     if (req.headers["authorization"] == "view") return next();
     console.log("inside check premission knowme");
     let userName = req.originalUrl.split("/")[1];
-    let redirectUrl = req.get('host');
+    let redirectUrl = req.headers.origin
+    console.log(redirectUrl);
+    // let redirectUrl = req.get('host');
     let apiFlag = false;
     let urlRoute;
     if (userName == "api") {
@@ -18,9 +20,11 @@ const checkPermission = async (req, res, next) => {
         urlRoute=req.originalUrl.split("/")[3]
     if (req.headers["authorization"]=="null"||!req.headers["authorization"]) {
         if (req.cookies && req.cookies.jwt) {
+
             req.headers["authorization"] = req.cookies.jwt;
         }
         else{
+
             return res.status(401).json({des:redirectUrl,routes:urlRoute, apiFlag:apiFlag,status:401});
         }
     }

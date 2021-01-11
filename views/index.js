@@ -1,23 +1,30 @@
-// var firebaseConfig = {
-//     apiKey: "AIzaSyBfZ4ae-W40v1mPivzlPZ7g1ctjls3VwrM",
-//     authDomain: "leader-5fc0d.firebaseapp.com",
-//     databaseURL: "https://leader-5fc0d.firebaseio.com",
-//     projectId: "leader-5fc0d",
-//     storageBucket: "leader-5fc0d.appspot.com",
-//     messagingSenderId: "1014543713524",
-//     appId: "1:1014543713524:web:e76b414c151e7525888aa1",
-//     measurementId: "G-ZER890028H",
-// };
+const baseUrl=window.location.origin;
 
-var firebaseConfig = {
-    apiKey: "AIzaSyBG4FbB6eBy-U665nLOA_153D0YE-gSV9k",
-    authDomain: "knowmepage.firebaseapp.com",
-    projectId: "knowmepage",
-    storageBucket: "knowmepage.appspot.com",
-    messagingSenderId: "74025733902",
-    appId: "1:74025733902:web:a737a1219326a4d3fc115f",
-    measurementId: "G-RMEN31486N"
+//כשמעלים לשרת להחליף את זה!!!!
+// const baseUrlClient=window.location.origin;
+const baseUrlClient="http://localhost:3000"
+
+console.log(baseUrl)
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDK4XGnKfHz_rKMKKNU5oix6BJJfDsmGrM",
+    authDomain: "knowme-page-dev.firebaseapp.com",
+    projectId: "knowme-page-dev",
+    storageBucket: "knowme-page-dev.appspot.com",
+    messagingSenderId: "474755504683",
+    appId: "1:474755504683:web:4782fa2eb9c2c4acc2286e",
+    measurementId: "G-71ZR37P1C5"
   };
+
+//   var firebaseConfig = {
+//     apiKey: "AIzaSyBG4FbB6eBy-U665nLOA_153D0YE-gSV9k",
+//     authDomain: "knowmepage.firebaseapp.com",
+//     projectId: "knowmepage",
+//     storageBucket: "knowmepage.appspot.com",
+//     messagingSenderId: "74025733902",
+//     appId: "1:74025733902:web:a737a1219326a4d3fc115f",
+//     measurementId: "G-RMEN31486N"
+//   };
 
 firebase.initializeApp(firebaseConfig);
 firebase.auth.Auth.Persistence.LOCAL;
@@ -105,7 +112,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             .currentUser.getIdToken(true)
             .then((firebaseToken) => {
                 $.ajax({
-                    url: "https://knowme.page/register/getAccessToken",
+                    url: `${baseUrl}/register/getAccessToken`,
                     method: "post",
                     dataType: "json",
                     contentType: "application/json",
@@ -130,8 +137,10 @@ function checkPermission(data) {
         action: "loginCheckPermission",
         token: TokenToString
     };
+
+
     $.ajax({
-        url: "https://knowme.page/register/checkPermission",
+        url: `${baseUrl}/register/checkPermission`,
         headers: {
             Authorization: TokenToString
         },
@@ -148,44 +157,30 @@ function checkPermission(data) {
             let noQuotesJwtData = jsonWebToken.split('"').join("");
             let now = new Date();
                now.setMonth( now.getMonth() + 1 );
-            document.cookie = "jwt=" + noQuotesJwtData + ";domain=.knowme.page" + "; path=/; Expires="+now.toUTCString()+";"
+            // document.cookie = "jwt=" + noQuotesJwtData + ";domain=.knowme.page" + "; path=/; Expires="+now.toUTCString()+";"
+            document.cookie =`Expires=${now.toUTCString()};`
+            document.cookie =`path=/;`
+            document.cookie = `jwt=${noQuotesJwtData};`
+            document.cookie =`domain=.localhost:4000;`
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const des = urlParams.get('des')
             const routes = urlParams.get('routes')
             let redirectUrl = ''
             if (des) {
-                redirectUrl = "https://" + des + '/' + usename;
+                
+                redirectUrl =des + '/' + usename;
+            
+
                 if (routes) {
                     redirectUrl += '/' + routes
                 }
                 window.location.href = redirectUrl
             } else {
-                window.location.href = (!data.is_username) ? "https://knowme.page/wizard" : "https://knowme.page/" + usename
+                window.location.href = (!data.is_username) ? `${baseUrl}/wizard` : `${baseUrlClient}/usename`
             }
         }
     });
 }
 
 
-
-
-// const is_existingUsername = await usernameExistCheck(uid)
-// console.log(is_existingUsername)
-// debugger
-
-// const usernameExistCheck = (uid) => {
-//     return new Promise((s, j) => {
-//         fetch('https://api.leader.codes/register/checkPremission', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 uid: uid
-//             })
-//         }).then($ => {
-//             $.json
-//         }).then(s($.is_existingUsername))
-//     })
-// }
