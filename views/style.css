@@ -10683,7 +10683,7 @@ img {
 }
 
 .btn_light:hover {
-    background: #78075a33;
+    background: #78075a33!important;
     border-color: #78075a33
 }
 
