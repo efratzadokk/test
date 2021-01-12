@@ -35,18 +35,27 @@ getCardById =async (req, res) => {
 
     let cardName=req.params.cardName.split("_").join(" ");
     // let cardId=req.params.cardId;
+    console.log("cardName",cardName)
+    console.log("userName",req.params.userName)
 
-    Card.findOne({cardName: cardName, isDelete:false})
-    .populate({path:'userId', match:{userName:req.params.userName}})
+    Card.find({cardName: cardName, isDelete:false})
+    .populate({path:'userId' , match:{username:req.params.userName}})
     .populate({path: "socialMedias"})
     .populate({path: 'gallery'})
     .populate({path: 'reveiw'})
-    .exec((err, card) => {
+    .exec((err, cards) => {
         if (err) {
             res.status(500).send(err);
         }
-        console.log("card-------------------",card)
-        res.status(200).send(card);
+        cards.forEach(card=>{
+            if(card.userId!=null){
+                console.log("card-------------------",card)
+                res.status(200).send(card);
+            }
+        })
+        console.log("card-------------------",cards)
+        res.status(200).send(null);
+        
     });
 
     // User.findOne({username:req.params.userName},(err,user)=>{
