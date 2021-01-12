@@ -46,9 +46,8 @@
     <script>
     
     const baseUrl=window.location.origin;
-    //כשמעלים לשרת להחליף את זה!!!!
-    // const baseUrlClient=window.location.origin;
-    const baseUrlClient="http://localhost:3000"
+
+    const baseUrlClient=baseUrl.includes("localhost")?"http://localhost:3000":baseUrl;
 
 
     $(document).ready(function() {
@@ -98,11 +97,7 @@
                 document.querySelector('#errMsg').innerText = 'The username is already taken. Please choose another username.'
             } else {
                 alert('Username available and created!')
-<<<<<<< HEAD
-                window.location.href = "https://knowme.page/admin/" + $.userName
-=======
-                window.location.href = `${baseUrlClient}/${$.userName}`
->>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
+                window.location.href = `${baseUrlClient}/admin/${$.userName}`
             }
         })
     }

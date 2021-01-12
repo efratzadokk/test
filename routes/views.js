@@ -14,7 +14,7 @@ router.get('/admin/*', function (req, res) {
   res.sendFile(path.join(__dirname, '../build', 'index.html'))
 })
 
-router.get('/:userName/:cardId', function (req, res) {
+router.get('/:cardId/:cardName', function (req, res) {
   router.use(express.static(path.join(__dirname, '../build')));
   res.sendFile(path.join(__dirname, '../build', 'index.html'))
 })

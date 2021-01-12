@@ -33,13 +33,7 @@ getDigitalCard = async (req, res) => {
 
 getCardById =async (req, res) => {
 
-<<<<<<< HEAD
-    let cardName=req.params.cardName.split("_").join(" ");
 
-    let currentUser=await User.findOne({username:req.params.userName})
-    let _id=currentUser._id;
-    Card.findOne({cardName: cardName, isDelete:false})
-=======
     // let cardName=req.params.cardName.split("_").join(" ");
     let cardId=req.params.cardId;
 
@@ -47,7 +41,6 @@ getCardById =async (req, res) => {
     // let currentUser=await User.findOne({username:req.params.userName})
     // let _id=currentUser._id;
     Card.findOne({_id: cardId, isDelete:false})
->>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
     .populate({path:'userId', match:{userName:req.params.userName}})
     .populate({path: "socialMedias"})
     .populate({path: 'gallery'})
@@ -122,11 +115,7 @@ createDigitalCard = async (req, res) => {
         console.log("before");
 
         await Promise.all(socialMedias.map(async (socialMedia, index) => {
-<<<<<<< HEAD
-            console.log("before in loop",index);
 
-=======
->>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
 
             let nCurrentSocialMedia = new SocialMedia();
             let currentSocialMedia = new SocialMedia(socialMedia);
@@ -256,7 +245,7 @@ sendMessageByCard = async (req, res) => {
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
-<<<<<<< HEAD
+
 
         } else {
             console.log('Email sent: ' + info.response);
@@ -322,89 +311,7 @@ checkUniqueCardName = async (req, res) => {
     else{
         res.send(true);
     }  
-=======
 
-        } else {
-            console.log('Email sent: ' + info.response);
-
-        }
-    });
-
-}
-
-
-addContactOptions = async (req, res) => {
-    try {
-        let { name } = req.body;
-        let query = { _id: req.params.cardId, "contactOptions.date": generateDate(new Date()) };
-        let update;
-        console.log(query);
-        let card = await Card.findOne(query)
-        console.log("---card---", card);
-        let summaryToday;
-        if (card) {
-            summaryToday = JSON.parse(card.contactOptions[card.contactOptions.length - 1].sumContactOptions)
-            if (summaryToday[name]) {
-                summaryToday[name]++;
-
-            } else {
-                summaryToday[name] = 1;
-            }
-            console.log('summaryToday', summaryToday);
-            update = { $set: { 'contactOptions.$.sumContactOptions': JSON.stringify(summaryToday) } };
-            success = await Card.updateOne(query, update, { new: true });
-        }
-        else {
-            newDay = { date: generateDate(new Date()), sumContactOptions: JSON.stringify({ [name]: 1 }) }
-            await Card.findOneAndUpdate({ _id: req.params.cardId }, { $push: { contactOptions: newDay } })
-        }
-        res.status(200).send("update successfully")
-    } catch (error) {
-        res.status(500).send(error)
-    }
-
-}
-generateDate = (date) => {
-    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-}
-
-checkUniqueCardName = async (req, res) => {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&&");
-    let userName = req.body.userName;
-    let cardName = req.body.cardname;
-    
-    console.log("req.body.cardname",cardName);
-    console.log("req.body.userName",userName);
-
-    let currentUser=await User.findOne({ "username": req.params.userName })
-    let _id=currentUser._id
-    console.log(_id)
-    let user=await User.findOne({ "username": req.params.userName })
-    .populate({path:'cards', match:{cardName:cardName, isDelete: false,}});
-    if(user.cards.length>0)
-    {
-       return res.send(false)
-    }
-    else{
-        res.send(true);
-    }  
-
-}
-editCardName= async(req,res)=>{
-
-    let cardId = req.body.cardId;
-    let cardName = req.body.cardName;
-
-    console.log("req.body.cardname",cardName);
-    console.log("req.body.cardId",cardId);
-
-    const filter = { _id: cardId};
-    const update = { cardName: cardName };
-
-    let doc = await Card.findOneAndUpdate(filter, update);
-
-    res.send();
->>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
 
 }
 editCardName= async(req,res)=>{
@@ -483,8 +390,6 @@ module.exports = {
 //     })
 
 
-<<<<<<< HEAD
+
 // }
-=======
-// }
->>>>>>> 8d2163eb87c06a2006ff01fe9bc27cafd13d8523
+
