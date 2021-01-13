@@ -31,6 +31,7 @@ const firebaseConfigProd = {
 const env=process.env.BASE_URL;
 const firebaseConfig=env==='http://localhost:4000'?firebaseConfigDev:firebaseConfigProd;
   
+
 firebase.initializeApp(firebaseConfig);
 admin.initializeApp(firebaseConfig);
 
@@ -168,12 +169,14 @@ const usernameExistCheck2 = (uid) => {
 const usernameCheck = async(req, res) => {
     console.log("in usernameCheck");
      usernameToCheck = req.body.usernameToCheck
-    console.log('username to check' + usernameToCheck)
+    console.log('username to check ' +usernameToCheck)
     const decodedToken = await verify(req)
     const uid = decodedToken.uid
-    User.find({ username: usernameToCheck }, async(err, users) => {
+    
+    User.find({username:{ $regex: new RegExp("^" + usernameToCheck, "i") }}, async(err, users) => {
+
         if (users.length) {
-            consolr.log("in users.length == true")
+            console.log("in users.length == true")
             return res.json({availability: false,userName:usernameToCheck})
         }
 
@@ -227,7 +230,7 @@ const sendWelcomeEmail = async(uid) => {
     })
 }
 const getToken = (req, res) => {
-    console.log("getToken register");
+
 
     console.log("register req.token: " + req.body.jwt);
 

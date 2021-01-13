@@ -17,8 +17,6 @@ const cookieParser = require('cookie-parser');
 const registerRouter = require("./routes/register.js");
 const auth = require('./controller/auth');
 
-
-
 app.use(cors());
 app.use(cookieParser())
 

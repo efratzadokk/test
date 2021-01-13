@@ -33,24 +33,29 @@ getDigitalCard = async (req, res) => {
 
 getCardById =async (req, res) => {
 
+    let cardName=req.params.cardName.split("_").join(" ");
+    // let cardId=req.params.cardId;
+    console.log("cardName",cardName)
+    console.log("userName",req.params.userName)
 
-    // let cardName=req.params.cardName.split("_").join(" ");
-    let cardId=req.params.cardId;
-
-    console.log("cardId",cardId)
-    // let currentUser=await User.findOne({username:req.params.userName})
-    // let _id=currentUser._id;
-    Card.findOne({_id: cardId, isDelete:false})
-    .populate({path:'userId', match:{userName:req.params.userName}})
+    Card.find({cardName: cardName, isDelete:false})
+    .populate({path:'userId' , match:{username:req.params.userName}})
     .populate({path: "socialMedias"})
     .populate({path: 'gallery'})
     .populate({path: 'reveiw'})
-    .exec((err, card) => {
+    .exec((err, cards) => {
         if (err) {
             res.status(500).send(err);
         }
-        console.log("card-------------------",card)
-        res.status(200).send(card);
+        let data=null;
+        cards.forEach(card=>{
+            if(card.userId!=null){
+                data=card;;
+            }
+        });
+        console.log("card-------------------",data)
+        res.status(200).send(data);
+        
     });
 
     // User.findOne({username:req.params.userName},(err,user)=>{
