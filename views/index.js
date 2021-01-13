@@ -1,12 +1,10 @@
 const baseUrl=window.location.origin;
 
-//כשמעלים לשרת להחליף את זה!!!!
-// const baseUrlClient=window.location.origin;
-const baseUrlClient="http://localhost:3000"
+const baseUrlClient=baseUrl.includes("localhost")?"http://localhost:3000":baseUrl;
 
 console.log(baseUrl)
 
-const firebaseConfig = {
+const firebaseConfigDev = {
     apiKey: "AIzaSyDK4XGnKfHz_rKMKKNU5oix6BJJfDsmGrM",
     authDomain: "knowme-page-dev.firebaseapp.com",
     projectId: "knowme-page-dev",
@@ -14,17 +12,19 @@ const firebaseConfig = {
     messagingSenderId: "474755504683",
     appId: "1:474755504683:web:4782fa2eb9c2c4acc2286e",
     measurementId: "G-71ZR37P1C5"
-  };
+};
 
-//   var firebaseConfig = {
-//     apiKey: "AIzaSyBG4FbB6eBy-U665nLOA_153D0YE-gSV9k",
-//     authDomain: "knowmepage.firebaseapp.com",
-//     projectId: "knowmepage",
-//     storageBucket: "knowmepage.appspot.com",
-//     messagingSenderId: "74025733902",
-//     appId: "1:74025733902:web:a737a1219326a4d3fc115f",
-//     measurementId: "G-RMEN31486N"
-//   };
+const firebaseConfigProd = {
+    apiKey: "AIzaSyBG4FbB6eBy-U665nLOA_153D0YE-gSV9k",
+    authDomain: "knowmepage.firebaseapp.com",
+    projectId: "knowmepage",
+    storageBucket: "knowmepage.appspot.com",
+    messagingSenderId: "74025733902",
+    appId: "1:74025733902:web:a737a1219326a4d3fc115f",
+    measurementId: "G-RMEN31486N"
+};
+
+const firebaseConfig=baseUrl.includes("localhost")?firebaseConfigDev:firebaseConfigProd;
 
 firebase.initializeApp(firebaseConfig);
 firebase.auth.Auth.Persistence.LOCAL;
@@ -112,6 +112,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             .currentUser.getIdToken(true)
             .then((firebaseToken) => {
                 $.ajax({
+
                     url: `${baseUrl}/register/getAccessToken`,
                     method: "post",
                     dataType: "json",
@@ -157,11 +158,8 @@ function checkPermission(data) {
             let noQuotesJwtData = jsonWebToken.split('"').join("");
             let now = new Date();
                now.setMonth( now.getMonth() + 1 );
-            // document.cookie = "jwt=" + noQuotesJwtData + ";domain=.knowme.page" + "; path=/; Expires="+now.toUTCString()+";"
-            document.cookie =`Expires=${now.toUTCString()};`
-            document.cookie =`path=/;`
-            document.cookie = `jwt=${noQuotesJwtData};`
-            document.cookie =`domain=.localhost:4000;`
+            document.cookie = "jwt=" + noQuotesJwtData + ";domain=.knowme.page" + "; path=/; Expires="+now.toUTCString()+";"
+    
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const des = urlParams.get('des')
@@ -169,15 +167,21 @@ function checkPermission(data) {
             let redirectUrl = ''
             if (des) {
                 
-                redirectUrl =des + '/' + usename;
-            
+                if(baseUrl.includes("localhost")){
+                    redirectUrl = `http://${des}/${usename}`;
+
+                }
+                else{
+                    redirectUrl = `https://${des}/${usename}`;
+                }
 
                 if (routes) {
                     redirectUrl += '/' + routes
                 }
                 window.location.href = redirectUrl
             } else {
-                window.location.href = (!data.is_username) ? `${baseUrl}/wizard` : `${baseUrlClient}/usename`
+
+                window.location.href = (!data.is_username) ? `${baseUrl}/wizard` : `${baseUrlClient}/admin/${usename}`
             }
         }
     });

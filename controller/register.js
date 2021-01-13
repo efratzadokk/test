@@ -8,7 +8,8 @@ const User = require('../models/User');
 const request = require('request');
 const requestIp = require('request-ip');
 
-const firebaseConfig = {
+
+const firebaseConfigDev = {
     apiKey: "AIzaSyDK4XGnKfHz_rKMKKNU5oix6BJJfDsmGrM",
     authDomain: "knowme-page-dev.firebaseapp.com",
     projectId: "knowme-page-dev",
@@ -16,20 +17,22 @@ const firebaseConfig = {
     messagingSenderId: "474755504683",
     appId: "1:474755504683:web:4782fa2eb9c2c4acc2286e",
     measurementId: "G-71ZR37P1C5"
-  };
+};
 
-  
-// var firebaseConfig = {
-//     apiKey: "AIzaSyBG4FbB6eBy-U665nLOA_153D0YE-gSV9k",
-//     authDomain: "knowmepage.firebaseapp.com",
-//     projectId: "knowmepage",
-//     storageBucket: "knowmepage.appspot.com",
-//     messagingSenderId: "74025733902",
-//     appId: "1:74025733902:web:a737a1219326a4d3fc115f",
-//     measurementId: "G-RMEN31486N"
-//   };
-  
-  
+const firebaseConfigProd = {
+    apiKey: "AIzaSyBG4FbB6eBy-U665nLOA_153D0YE-gSV9k",
+    authDomain: "knowmepage.firebaseapp.com",
+    projectId: "knowmepage",
+    storageBucket: "knowmepage.appspot.com",
+    messagingSenderId: "74025733902",
+    appId: "1:74025733902:web:a737a1219326a4d3fc115f",
+    measurementId: "G-RMEN31486N"
+};
+
+const env=process.env.BASE_URL;
+const firebaseConfig=env==='http://localhost:4000'?firebaseConfigDev:firebaseConfigProd;
+
+
 firebase.initializeApp(firebaseConfig);
 admin.initializeApp(firebaseConfig);
 
@@ -167,12 +170,14 @@ const usernameExistCheck2 = (uid) => {
 const usernameCheck = async(req, res) => {
     console.log("in usernameCheck");
      usernameToCheck = req.body.usernameToCheck
-    console.log('username to check' + usernameToCheck)
+    console.log('username to check ' +usernameToCheck)
     const decodedToken = await verify(req)
     const uid = decodedToken.uid
-    User.find({ username: usernameToCheck }, async(err, users) => {
+    
+    User.find({username:{ $regex: new RegExp("^" + usernameToCheck, "i") }}, async(err, users) => {
+
         if (users.length) {
-            consolr.log("in users.length == true")
+            console.log("in users.length == true")
             return res.json({availability: false,userName:usernameToCheck})
         }
 
@@ -226,7 +231,7 @@ const sendWelcomeEmail = async(uid) => {
     })
 }
 const getToken = (req, res) => {
-    console.log("getToken register");
+
 
     console.log("register req.token: " + req.body.jwt);
 

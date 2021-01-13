@@ -32,8 +32,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
     <link rel="manifest" href="https://leader.codes/assets/img/site.webmanifest">
     <link rel="mask-icon" href="https://leader.codes/assets/img/safari-pinned-tab.svg" color="#5bbad5">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
     <meta name="msapplication-TileColor" content="#da532c">
     <link rel="stylesheet" href="./style.css">
+    <link href="./bootstrap-social.css" rel="stylesheet">
+
     <!-- <script src="https://leader.codes/assets"></script> -->
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
@@ -54,7 +61,7 @@
             <div class="auth__main" style="background-image: url(https://leader.codes/assets/img/bg-login-mobile.jpg)">
                 <div class="auth__wrap">
                     <div class="auth__preview"><img class="auth__pic" src="https://leader.codes/assets/img/logo-white.svg" width="48" alt="Logo"></div>
-                    <div class="auth__title title title_xl">Welcome to KnowMe</div>
+                    <div class="auth__title title title_xl">Welcome to Know Me</div>
                     <div class="auth__title title title_xl">Let's create your card!</div>
                     <div class="auth__subtitle title title_sm">Enter your details to proceed further</div>
                 </div>
@@ -66,14 +73,15 @@
                             <p>Welcome to KnowMe</p>
                     
                             <p>Let's create your card!</p>
-                            <p>Sign up or sign in with your details</p>
+                            <!-- <p>Sign up or sign in with your details</p> -->
                         </div>
-                        <div class="auth__text">Enter your details to proceed further</div>
+                        <!-- <div class="auth__text">Enter your details to proceed further</div> -->
                     </div>
                     <form class="auth__form" id="loginFrom" method="post">
                         <div class="field auth__field">
                             <div class="field__label">Email</div>
-                            <div class="field__wrap"><input id="email" name="email" class="field__input" type="email" placeholder="Start typing…">
+                            <div class="field__wrap">
+                                <input id="email" name="email" class="field__input" type="email" placeholder="Start typing…">
                                 <div class="field__icon"><i class="la la-envelope "></i></div>
                             </div>
                         </div>
@@ -91,13 +99,19 @@
                         </div>
                         <!-- enter-->
                         <div id="errMsg" style="color:red"></div>
-                        <div class="auth__enter enter">
-                            <div class="enter__text">Or sign in with</div>
-                            <div class="enter__socials">
-                                <a class="enter__btn btn btn_only_icon" id="facebook" style="display:none" href="#" data-provider="facebook"><i class="la la-facebook"></i></a>
-                                <a class="enter__btn btn btn_only_icon" id="google" href="#" data-provider="google"><i class="la la-google"></i></a>
-                                <a class="enter__btn btn btn_only_icon" id="twitter" style="display:none" href="#" data-provider="twitter"><i class="la la-twitter"></i></a>
-                            </div>
+                        <div class=" enter" style="margin-top: 25px;">
+
+                            <button 
+                                type="button"
+                                class="btn btn-block btn-social btn-btn-google btn_light"
+                                id="google"
+                                style="background-color: white;color: #7e1261;border-color: #7e1261;"
+                            >
+                                Sign in with Google
+                                <!-- <span class="fa fa-google">   -->
+                                    <img src="https://img.icons8.com/fluent/48/000000/google-logo.png"/>
+                            </button>
+                          
                         </div>
 
                     </form>

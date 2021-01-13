@@ -46,9 +46,8 @@
     <script>
     
     const baseUrl=window.location.origin;
-    //כשמעלים לשרת להחליף את זה!!!!
-    // const baseUrlClient=window.location.origin;
-    const baseUrlClient="http://localhost:3000"
+
+    const baseUrlClient=baseUrl.includes("localhost")?"http://localhost:3000":baseUrl;
 
 
     $(document).ready(function() {
@@ -98,7 +97,7 @@
                 document.querySelector('#errMsg').innerText = 'The username is already taken. Please choose another username.'
             } else {
                 alert('Username available and created!')
-                window.location.href = `${baseUrlClient}/${$.userName}`
+                window.location.href = `${baseUrlClient}/admin/${$.userName}`
             }
         })
     }
@@ -119,10 +118,11 @@
         <div class="auth__container">
             <div class="auth__inner">
                 <div class="auth__head">
-                    <div class="auth__title title title_xl">
-                        <p>Welcome to Leader.</p>
+                    <div class="auth__title title title_lg">
+                        <!-- <p>Welcome to Know Me.</p> -->
+                        <p>Please enter a username</p>
                     </div>
-                    <p>Please select a username to complete the registration process</p>
+                    <!-- <p>Please enter a username to complete the registration process</p> -->
                 </div>
                 <form onsubmit="prevent(event)" class="auth__form" id="loginFrom" method="post">
                     <div class="field auth__field">
