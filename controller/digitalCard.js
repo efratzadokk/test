@@ -47,14 +47,14 @@ getCardById =async (req, res) => {
         if (err) {
             res.status(500).send(err);
         }
+        let data=null;
         cards.forEach(card=>{
             if(card.userId!=null){
-                console.log("card-------------------",card)
-                res.status(200).send(card);
+                data=card;;
             }
-        })
-        console.log("card-------------------",cards)
-        res.status(200).send(null);
+        });
+        console.log("card-------------------",data)
+        res.status(200).send(data);
         
     });
 
