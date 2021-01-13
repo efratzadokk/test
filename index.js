@@ -27,7 +27,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-
 app.use('/register', registerRouter);
 
  app.use("/login", express.static(path.join(__dirname, './views')));
