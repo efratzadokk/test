@@ -20,6 +20,7 @@ router.post("/:userName/:uId/removeMultipleFiles", FilesController.removeMultipl
 //card
 router.post("/:userName/checkUniqueCardName", digitalCardController.checkUniqueCardName);
 router.post("/:userName/editCardName", digitalCardController.editCardName);
+router.post("/:userName/updateUserIndexCardName", UserController.updateUserIndexCardName);
 router.put("/:userName/addContactOptions/:cardId", digitalCardController.addContactOptions);
 router.post("/:userName/:cardId/delete", digitalCardController.deleteCard);
 router.get('/:userName/getUser/user', UserController.getUidByUserName);
@@ -27,4 +28,5 @@ router.put("/:userName/:cardId", digitalCardController.updateDigitalCard);
 router.get('/:userName', digitalCardController.getDigitalCard);
 router.get("/:userName/:cardName", digitalCardController.getCardById);
 router.post('/:userName', digitalCardController.createDigitalCard);
+
 module.exports = router;
