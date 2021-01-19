@@ -11,7 +11,7 @@ const Gallery = require('../models/Gallery.js');
 router.get('/getCategories/categories/allCategories/cards', CategoriesController.getCategories);
 
 // mail
-router.post('/', digitalCardController.sendMessageByCard);
+router.post('/sendMessageByCard/:cardId', digitalCardController.sendMessageByCard);
 
 // file
 router.post('/:userName/:uId/upload', FilesController.upload);
