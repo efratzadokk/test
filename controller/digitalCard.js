@@ -6,6 +6,8 @@ const SocialMedia = require('../models/SocialMedia.js');
 const Gallery = require('../models/Gallery.js');
 const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
+const VideoController = require('./Video.js');
+
 const nodemailer = require('nodemailer');
 
 getDigitalCard = async (req, res) => {
@@ -99,7 +101,6 @@ getCardById =async (req, res) => {
 
 
 createDigitalCard = async (req, res) => {
-    console.log("createDigitalCard")
     let card = req.body;
     try {
         let currentUser = await User.findOne({ "username": req.params.userName })
@@ -114,11 +115,13 @@ createDigitalCard = async (req, res) => {
         let socialMedias = card.socialMedias;
         const gallery = await GalleryController.saveGallery(card.gallery);
         const reveiw = await ReveiwieController.saveReveiw(card.reveiw);
+        console.log("avitalllllllllllllllllll")
+        const video = await VideoController.saveVideo(card.video);
+
         card.socialMedias = [];
 
         let nCard = new Card();
         let currentCard = new Card(card);
-        console.log(currentCard, "userId: ", currentUser._id)
         currentCard.userId = currentUser._id;
         currentCard._id = nCard._id;
 
@@ -130,15 +133,24 @@ createDigitalCard = async (req, res) => {
         currentUser.cards.push(currentCard._id);
         currentCard.gallery = gallery;
         currentCard.reveiw = reveiw;
+        currentCard.video = video;
         currentCard.socialMedias = [];
 
+        console.log("before");
+
         await Promise.all(socialMedias.map(async (socialMedia, index) => {
+
             let nCurrentSocialMedia = new SocialMedia();
             let currentSocialMedia = new SocialMedia(socialMedia);
             currentSocialMedia._id = nCurrentSocialMedia._id;
             currentSocialMedia.card = currentCard._id
+            // await
             currentCard.socialMedias.push(currentSocialMedia);
             currentSocialMedia.save()
+            //     console.log("after save socialMedia in loop");
+            // ).then((socialMedia) => {
+
+            // });
 
         })).then(() => {
             console.log("after save out of loop");
@@ -147,11 +159,11 @@ createDigitalCard = async (req, res) => {
         let result = await currentUser.save();
         return res.send(currentCard);
     } catch (error) {
-        console.log("error", error)
         res.send(error)
 
     }
 }
+
 
 
 updateDigitalCard = async (req, res) => {
