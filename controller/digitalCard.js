@@ -32,7 +32,6 @@ getDigitalCard = async (req, res) => {
 }
 
 getCardById =async (req, res) => {
-
     let cardName=req.params.cardName.split("_").join(" ");
     // let cardId=req.params.cardId;
     console.log("cardName",cardName)
