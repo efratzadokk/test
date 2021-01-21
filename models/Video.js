@@ -8,6 +8,7 @@ const videoSchema = mongoose.Schema({
         playing: { type: Boolean },
         playbackRate: { type: Number },
         url: { type: String },
+
     },
 })
 

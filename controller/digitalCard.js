@@ -6,6 +6,7 @@ const SocialMedia = require('../models/SocialMedia.js');
 const Gallery = require('../models/Gallery.js');
 const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
+const VideoController = require('./Video.js');
 const nodemailer = require('nodemailer');
 
 getDigitalCard = async (req, res) => {
@@ -21,6 +22,9 @@ getDigitalCard = async (req, res) => {
                 path: 'gallery',
             }, {
                 path: 'reveiw'
+            },
+            {
+                path: 'video'
             }
             ],
             match: { isDelete: false }
@@ -31,11 +35,12 @@ getDigitalCard = async (req, res) => {
         })
 }
 
-getCardById =async (req, res) => {
-    let cardName=req.params.cardName.split("_").join(" ");
+
+getCardById = async (req, res) => {
+    let cardName = req.params.cardName.split("_").join(" ");
     // let cardId=req.params.cardId;
-    console.log("cardName",cardName)
-    console.log("userName",req.params.userName)
+    console.log("cardName", cardName)
+    console.log("userName", req.params.userName)
     if (req.query.view) {
         let query = { cardName: cardName, "viewers.date": generateDate(new Date()) };
         let inc = { $inc: { 'viewers.$.amount': 1 } };
@@ -51,25 +56,26 @@ getCardById =async (req, res) => {
         }
     }
 
-    Card.find({cardName: cardName, isDelete:false})
-    .populate({path:'userId' , match:{username:req.params.userName}})
-    .populate({path: "socialMedias"})
-    .populate({path: 'gallery'})
-    .populate({path: 'reveiw'})
-    .exec((err, cards) => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        let data=null;
-        cards.forEach(card=>{
-            if(card.userId!=null){
-                data=card;;
+    Card.find({ cardName: cardName, isDelete: false })
+        .populate({ path: 'userId', match: { username: req.params.userName } })
+        .populate({ path: "socialMedias" })
+        .populate({ path: 'gallery' })
+        .populate({ path: 'reveiw' })
+        .populate({ path: 'video' })
+        .exec((err, cards) => {
+            if (err) {
+                res.status(500).send(err);
             }
+            let data = null;
+            cards.forEach(card => {
+                if (card.userId != null) {
+                    data = card;;
+                }
+            });
+            console.log("card-------------------", data)
+            res.status(200).send(data);
+
         });
-        console.log("card-------------------",data)
-        res.status(200).send(data);
-        
-    });
 
     // User.findOne({username:req.params.userName},(err,user)=>{
 
@@ -114,6 +120,8 @@ createDigitalCard = async (req, res) => {
         let socialMedias = card.socialMedias;
         const gallery = await GalleryController.saveGallery(card.gallery);
         const reveiw = await ReveiwieController.saveReveiw(card.reveiw);
+        const video = await VideoController.saveVideo(card.video);
+
         card.socialMedias = [];
 
         let nCard = new Card();
@@ -130,6 +138,7 @@ createDigitalCard = async (req, res) => {
         currentUser.cards.push(currentCard._id);
         currentCard.gallery = gallery;
         currentCard.reveiw = reveiw;
+        currentCard.video = video;
         currentCard.socialMedias = [];
 
         await Promise.all(socialMedias.map(async (socialMedia, index) => {
@@ -139,6 +148,7 @@ createDigitalCard = async (req, res) => {
             currentSocialMedia.card = currentCard._id
             currentCard.socialMedias.push(currentSocialMedia);
             currentSocialMedia.save()
+
 
         })).then(() => {
             console.log("after save out of loop");
@@ -152,7 +162,6 @@ createDigitalCard = async (req, res) => {
 
     }
 }
-
 
 updateDigitalCard = async (req, res) => {
     let card = req.body;
@@ -170,6 +179,7 @@ updateDigitalCard = async (req, res) => {
             }
             const gallery = await GalleryController.updateGallery(card.gallery);
             const review = await ReveiwieController.updateReveiw(card.reveiw);
+            const video = await VideoController.updateVideo(card.video);
 
             socialMedias.forEach((sMedia, index) => {
                 let socialMedia = SocialMedia.findByIdAndUpdate(
@@ -187,12 +197,12 @@ updateDigitalCard = async (req, res) => {
             });
             currentCard.gallery = gallery;
             currentCard.reveiw = review;
+            currentCard.video = video;
             currentCard.socialMedias = socialMedias;
             res.status(200).send(currentCard);
         }
     );
 };
-
 
 deleteCard = async (req, res) => {
     let card = req.body;
@@ -280,7 +290,6 @@ sendMessageByCard = async (req, res) => {
 
 
 addContactOptions = async (req, res) => {
-  console.log("i in concat")
     try {
         let { name } = req.body;
         let query = { _id: req.params.cardId, "contactOptions.date": generateDate(new Date()) };
@@ -312,17 +321,13 @@ addContactOptions = async (req, res) => {
 
 }
 generateDate = (date) => {
-    return ("0" + date.getDate()).slice(-2) + "/" + ("0"+(date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
+    return ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
 }
 
 checkUniqueCardName = async (req, res) => {
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&&");
     let userName = req.body.userName;
     let cardName = req.body.cardname;
-    
-    console.log("req.body.cardname", cardName);
-    console.log("req.body.userId", userName);
-
     let currentUser = await User.findOne({ "username": req.params.userName })
     let _id = currentUser._id
     console.log(_id)

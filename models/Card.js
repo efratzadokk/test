@@ -19,6 +19,10 @@ const cardSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reveiw'
     },
+    video: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Video'
+    },
     agentDetails: {
         fullName: { type: String },
         rule: { type: String },
