@@ -6,10 +6,23 @@ getUidByUserName = async (req, res) => {
     const userName = req.params.userName
     const user = await User.findOne({ username: userName })
     if (user)
-        res.json({ "user": user})
+        res.json({ "user": user })
     else
         res.json("undifined")
 
+};
+
+updateUserIndexCardName = async (req, res) => {
+    console.log("index card name!!!!!!!!!!!!!!!!!")
+    const userName = req.params.userName
+    const user = await User.findOne({ username: userName })
+    if (user) {
+        user.cardIndexName= req.body.indexCardName
+        let result = await user.save();
+        res.send(result);
+    }
+    else
+        res.json("undifined")
 };
 
 checkPermission = async (req, res, next) => {
@@ -43,7 +56,7 @@ checkPermission = async (req, res, next) => {
                 console.log("error: ", error);
                 res.redirect("https://leader.codes/login?des=files.leader.codes");
             } else {
-         
+
                 console.log("is authorize!!!!!");
                 return next();
             }
@@ -54,5 +67,6 @@ checkPermission = async (req, res, next) => {
 
 module.exports = {
     getUidByUserName,
+    updateUserIndexCardName,
     checkPermission,
 }
