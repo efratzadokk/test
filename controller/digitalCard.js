@@ -35,11 +35,14 @@ getDigitalCard = async (req, res) => {
         })
 }
 
+getCardById = async (req, res) => {
 
     let cardName=req.params.cardName;
     // let cardId=req.params.cardId;
     console.log("cardName", cardName)
     console.log("userName", req.params.userName)
+
+
     if (req.query.view) {
         let query = { cardName: cardName, "viewers.date": generateDate(new Date()) };
         let inc = { $inc: { 'viewers.$.amount': 1 } };
@@ -49,11 +52,13 @@ getDigitalCard = async (req, res) => {
         else {
             let newDay = { date: generateDate(new Date()), amount: 1 }
             console.log("newDay", newDay);
+            
             success = await Card.findOneAndUpdate({ cardName: cardName },
                 { $push: { viewers: newDay } },
                 { new: true, upsert: true })
         }
     }
+
 
     Card.find({ cardName: cardName, isDelete: false })
         .populate({ path: 'userId', match: { username: req.params.userName } })

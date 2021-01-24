@@ -142,10 +142,12 @@ function checkPermission(data) {
 
     $.ajax({
         url: `${baseUrl}/register/checkPermission`,
-        headers: {
-            Authorization: TokenToString
-        },
-        method: "post",
+        // headers: {
+        //     Authorization: TokenToString
+        // },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", TokenToString); },
+        type: "post",
         dataType: "json",
         contentType: "application/json",
         withCradentials: true,
