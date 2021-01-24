@@ -33,7 +33,7 @@ getDigitalCard = async (req, res) => {
 
 getCardById =async (req, res) => {
 
-    let cardName=req.params.cardName.split("_").join(" ");
+    let cardName=req.params.cardName;
     // let cardId=req.params.cardId;
     console.log("cardName",cardName)
     console.log("userName",req.params.userName)
@@ -58,30 +58,7 @@ getCardById =async (req, res) => {
         
     });
 
-    // User.findOne({username:req.params.userName},(err,user)=>{
-
-    //     Card.findOne({
-    //         cardName: cardName,
-    //         userId: user.uid,
-    //         isDelete: false })
-    //        .populate({
-    //            path: "socialMedias",
-    //        })
-    //        .populate({
-    //            path: 'gallery'
-    //        })
-    //        .populate({
-    //            path: 'reveiw'
-    //        })
-    //        .exec((err, card) => {
-    //            if (err) {
-    //                res.status(500).send(err);
-    //            }
-    //            console.log("card-------------------",card)
-    //            res.status(200).send(card);
-    //        });
-
-    // })
+  
 }
 
 
