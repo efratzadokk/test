@@ -33,10 +33,10 @@
     <link rel="manifest" href="https://leader.codes/assets/img/site.webmanifest">
     <link rel="mask-icon" href="https://leader.codes/assets/img/safari-pinned-tab.svg" color="#5bbad5">
 
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
     <meta name="msapplication-TileColor" content="#da532c">
     <link rel="stylesheet" href="./style.css">
     <link href="./bootstrap-social.css" rel="stylesheet">
@@ -71,7 +71,7 @@
                     <div class="auth__head">
                         <div class="auth__title title title_xl">
                             <p>Welcome to KnowMe</p>
-                    
+
                             <p>Let's create your card!</p>
                             <!-- <p>Sign up or sign in with your details</p> -->
                         </div>
@@ -91,7 +91,13 @@
                                 <div class="field__icon"><i class="la la-lock "></i></div>
                             </div>
                         </div>
-                        <div class="auth__flex"><label class="switch auth__switch"><input id="rememberme" name="rememberme" class="switch__input" type="checkbox" checked><span class="switch__content">Remember me</span></label><a class="auth__link" href="forgotPassword/forgotPassword.php">Recover password</a></div>
+                        <div class="auth__flex">
+                            <label class="switch auth__switch">
+                                <input id="rememberme" name="rememberme" class="switch__input" type="checkbox" checked>
+                                <span class="switch__content">Remember me</span>
+                            </label>
+                            <a class="auth__link" href="forgotPassword/forgotPassword.php">Recover password</a>
+                        </div>
                         <input type="hidden" name="submitedFlag">
                         <div class="auth__btns">
                             <button id="loginBtn" class="btn auth__btn">Sign In</button>
@@ -101,17 +107,13 @@
                         <div id="errMsg" style="color:red"></div>
                         <div class=" enter" style="margin-top: 25px;">
 
-                            <button 
-                                type="button"
-                                class="btn btn-block btn-social btn-btn-google btn_light"
-                                id="google"
-                                style="background-color: white;color: #7e1261;border-color: #7e1261;"
-                            >
+
+                            <button type="button" class="btn btn-block btn-social btn-btn-google btn_light" id="google" style="background-color: white;color: #7e1261;border-color: #7e1261;">
                                 Sign in with Google
                                 <!-- <span class="fa fa-google">   -->
                                     <img src="https://img.icons8.com/fluent/48/000000/google-logo.png"/>
                             </button>
-                          
+
                         </div>
 
                     </form>

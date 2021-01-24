@@ -4,6 +4,9 @@ const cardSchema = mongoose.Schema({
     isDelete: { type: Boolean },
     showCallMe: { type: Boolean },
     cardName: { type: String },
+    currentCardIndex:{ type: Number },
+    errCardName:{ type: Number },
+
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -15,6 +18,10 @@ const cardSchema = mongoose.Schema({
     reveiw: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reveiw'
+    },
+    video: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Video'
     },
     agentDetails: {
         fullName: { type: String },
@@ -40,6 +47,9 @@ const cardSchema = mongoose.Schema({
             ref: "SocialMedia",
         }
     ],
+
+    whatsAppWelcomMassage:{ type: String },
+
     vCardStyle:
     {
         fullNameShow: { type: Boolean },
@@ -49,6 +59,7 @@ const cardSchema = mongoose.Schema({
         mobileIconShow: { type: Boolean },
         aboutShow: { type: Boolean },
         personalMassegeShow: { type: Boolean },
+        footerShow: { type: Boolean },
         titleFooterShow: { type: Boolean },
         fullNameFooterShow: { type: Boolean },
         mobileFooterShow: { type: Boolean },

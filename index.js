@@ -27,7 +27,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-
 app.use('/register', registerRouter);
 
  app.use("/login", express.static(path.join(__dirname, './views')));
@@ -46,8 +45,8 @@ mongoose.connect(process
     useFindAndModify: false
 })
 
-app.use("/api/digitalcard",routeToApi);
-// app.use("/api/digitalcard", auth.checkPermission, routeToApi);
+app.use("/api/digitalcard", auth.checkPermission, routeToApi);
+
 app.use("/", routeToViews);
 
 app.all("/*", function (req, res, next) {

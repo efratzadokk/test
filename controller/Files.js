@@ -11,7 +11,6 @@ upload = async (req, res) => {
     else
         res.status(200).send(null);
 }
-
 (uploadedMultipleFiles = (fileToUpload, uId, headers) => {
     return new Promise(async (resolve, reject) => {
         console.log("in uploadedMultipleFiles")
@@ -32,6 +31,7 @@ upload = async (req, res) => {
                         },
                     })
                     console.log("@@@@@@@@@@@@@@@@@@@@22", formdata)
+                    // formdata = Object.assign(currentFile, formdata);
                 })
             }
             else {
@@ -72,7 +72,6 @@ upload = async (req, res) => {
         });
     });
 });
-
 
 removeMultipleFiles = async (req, res) => {
     const { urls } = req.body;

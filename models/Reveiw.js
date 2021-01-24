@@ -82,7 +82,9 @@ const reveiwSchema = mongoose.Schema({
                 height: { type: String },
             }
         }
-    }]
+    }],
+    
+    styleColorArrow:{ type: String },
 })
 
 module.exports = mongoose.model('Reveiw', reveiwSchema)

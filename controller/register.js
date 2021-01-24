@@ -8,7 +8,6 @@ const User = require('../models/User');
 const request = require('request');
 const requestIp = require('request-ip');
 
-
 const firebaseConfigDev = {
     apiKey: "AIzaSyDK4XGnKfHz_rKMKKNU5oix6BJJfDsmGrM",
     authDomain: "knowme-page-dev.firebaseapp.com",
@@ -31,7 +30,7 @@ const firebaseConfigProd = {
 
 const env=process.env.BASE_URL;
 const firebaseConfig=env==='http://localhost:4000'?firebaseConfigDev:firebaseConfigProd;
-
+  
 
 firebase.initializeApp(firebaseConfig);
 admin.initializeApp(firebaseConfig);
@@ -266,4 +265,5 @@ module.exports = {
     usernameCheck,
     getUidFromToken,
     usernameExistCheck
+
 }

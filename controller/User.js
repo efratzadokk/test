@@ -28,9 +28,8 @@ updateUserIndexCardName = async (req, res) => {
 checkPermission = async (req, res, next) => {
     console.log("in checkPermission");
     let uId = req.originalUrl.split("/")[1];
-    console.log(req.originalUrl.split("/"));
-    let redirectUrl = req.originalUrl.split("/")[0];
-    // let redirectUrl = req.get('host')
+    let redirectUrl = req.get('host')
+
     if (req.originalUrl.includes("/view/") || req.headers["authorization"] == "view") return next();
     if (req.originalUrl.includes("getUser")) return next();
     if (uId == "api") {
