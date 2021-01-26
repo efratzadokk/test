@@ -29,7 +29,7 @@ const firebaseConfigProd = {
 };
 
 const env=process.env.BASE_URL;
-const firebaseConfig=env==='http://localhost:4000'?firebaseConfigDev:firebaseConfigProd;
+const firebaseConfig=env==='https://knowme.page'?firebaseConfigProd:firebaseConfigDev;
   
 
 firebase.initializeApp(firebaseConfig);
@@ -127,6 +127,7 @@ const usernameExistCheck = async (uid) => {
             console.log("$",$)
             if($.length)
            {
+               console.log("$2",$)
                if($[0].username=="")
               {
                   console.log("in $[0].username==''")
@@ -140,6 +141,7 @@ const usernameExistCheck = async (uid) => {
                }
               }  
          else{
+             console.log("jjjjjjjjjjj")
              j("temporary error, please try again later.")
          }
             // const r = $.username ? true : false

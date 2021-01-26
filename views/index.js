@@ -23,8 +23,9 @@ const firebaseConfigProd = {
     appId: "1:74025733902:web:a737a1219326a4d3fc115f",
     measurementId: "G-RMEN31486N"
 };
+var x='https://knowme.page';
 
-const firebaseConfig=baseUrl.includes("localhost")?firebaseConfigDev:firebaseConfigProd;
+const firebaseConfig=baseUrl===x?firebaseConfigProd:firebaseConfigDev;
 
 firebase.initializeApp(firebaseConfig);
 firebase.auth.Auth.Persistence.LOCAL;
