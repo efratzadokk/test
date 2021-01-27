@@ -7,6 +7,7 @@ const Gallery = require('../models/Gallery.js');
 const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
 const VideoController = require('./Video.js');
+const IframeController = require('./Iframe.js');
 const nodemailer = require('nodemailer');
 
 getDigitalCard = async (req, res) => {
@@ -25,6 +26,9 @@ getDigitalCard = async (req, res) => {
             },
             {
                 path: 'video'
+            },
+            {
+                path: 'iframe'
             }
             ],
             match: { isDelete: false }
@@ -66,6 +70,7 @@ getCardById = async (req, res) => {
         .populate({ path: 'gallery' })
         .populate({ path: 'reveiw' })
         .populate({ path: 'video' })
+        .populate({ path: 'iframe' })
         .exec((err, cards) => {
             if (err) {
                 res.status(500).send(err);
@@ -102,7 +107,8 @@ createDigitalCard = async (req, res) => {
         const gallery = await GalleryController.saveGallery(card.gallery);
         const reveiw = await ReveiwieController.saveReveiw(card.reveiw);
         const video = await VideoController.saveVideo(card.video);
-
+        const iframe = await IframeController.saveIframe(card.iframe);
+       
         card.socialMedias = [];
 
         let nCard = new Card();
@@ -120,6 +126,7 @@ createDigitalCard = async (req, res) => {
         currentCard.gallery = gallery;
         currentCard.reveiw = reveiw;
         currentCard.video = video;
+        currentCard.iframe = iframe;
         currentCard.socialMedias = [];
 
         await Promise.all(socialMedias.map(async (socialMedia, index) => {
@@ -161,6 +168,7 @@ updateDigitalCard = async (req, res) => {
             const gallery = await GalleryController.updateGallery(card.gallery);
             const review = await ReveiwieController.updateReveiw(card.reveiw);
             const video = await VideoController.updateVideo(card.video);
+            const iframe = await IframeController.updateIframe(card.iframe);
 
             socialMedias.forEach((sMedia, index) => {
                 let socialMedia = SocialMedia.findByIdAndUpdate(
@@ -179,6 +187,7 @@ updateDigitalCard = async (req, res) => {
             currentCard.gallery = gallery;
             currentCard.reveiw = review;
             currentCard.video = video;
+            currentCard.iframe = iframe;
             currentCard.socialMedias = socialMedias;
             res.status(200).send(currentCard);
         }

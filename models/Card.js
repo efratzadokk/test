@@ -23,6 +23,10 @@ const cardSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Video'
     },
+    iframe: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Iframe'
+    },
     agentDetails: {
         fullName: { type: String },
         rule: { type: String },
