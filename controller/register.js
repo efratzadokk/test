@@ -29,7 +29,8 @@ const firebaseConfigProd = {
 };
 
 const env=process.env.BASE_URL;
-const firebaseConfig=env==='https://knowme.page'?firebaseConfigProd:firebaseConfigDev;
+// const firebaseConfig=env==='https://knowme.page'?firebaseConfigProd:firebaseConfigDev;
+const firebaseConfig=firebaseConfigProd;
   
 
 firebase.initializeApp(firebaseConfig);
