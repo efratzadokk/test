@@ -167,7 +167,7 @@ function checkPermission(data) {
             const des = urlParams.get('des')
             const routes = urlParams.get('routes')
             let redirectUrl = ''
-            if (des) {
+            if (des&&userName!=="") {
                 
                 if(baseUrl.includes("localhost")){
                     redirectUrl = `http://${des}/${usename}`;
@@ -181,6 +181,7 @@ function checkPermission(data) {
                     redirectUrl += '/' + routes
                 }
                 window.location.href = redirectUrl
+
             } else {
 
                 window.location.href = (!data.is_username) ? `${baseUrl}/wizard` : `${baseUrlClient}/admin/${usename}`
