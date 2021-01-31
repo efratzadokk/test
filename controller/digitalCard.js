@@ -315,10 +315,9 @@ generateDate = (date) => {
 }
 
 checkUniqueCardName = async (req, res) => {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&&");
     let userName = req.body.userName;
     let cardName = req.body.cardname;
-    let currentUser = await User.findOne({ "username": req.params.userName })
+    let currentUser = await User.findOne({ "username": userName })
     let _id = currentUser._id
     console.log(_id)
     let user = await User.findOne({ "username": req.params.userName })
@@ -331,38 +330,28 @@ checkUniqueCardName = async (req, res) => {
     }
 
 }
-editCardName = async (req, res) => {
+ saveCardNameForAllCardsInServer = async (req, res) => {
 
-    let cardId = req.body.cardId;
-    let cardName = req.body.cardName;
+    let cards = req.body.cards;
+    let update;
+    let filter;
 
-    console.log("req.body.cardname", cardName);
-    console.log("req.body.cardId", cardId);
+    await Promise.all(cards.map(async card=>{
 
-    const filter = { _id: cardId };
-    const update = { cardName: cardName };
+        filter = { _id: card._id };
+        update = { cardName: card.cardName };
 
-    let doc = await Card.findOneAndUpdate(filter, update);
+        console.log("cards",cards);
 
-    res.send();
 
-}
-editCardName = async (req, res) => {
 
-    let cardId = req.body.cardId;
-    let cardName = req.body.cardName;
-
-    console.log("req.body.cardname", cardName);
-    console.log("req.body.cardId", cardId);
-
-    const filter = { _id: cardId };
-    const update = { cardName: cardName };
-
-    let doc = await Card.findOneAndUpdate(filter, update);
+        let doc =  await Card.findOneAndUpdate(filter, update);
+    }));
 
     res.send();
 
 }
+
 
 module.exports = {
     createDigitalCard,
@@ -373,7 +362,7 @@ module.exports = {
     getUidByUserName,
     sendMessageByCard,
     checkUniqueCardName,
-    editCardName,
+    saveCardNameForAllCardsInServer,
     addContactOptions
 }
 
