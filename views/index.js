@@ -142,10 +142,12 @@ function checkPermission(data) {
 
     $.ajax({
         url: `${baseUrl}/register/checkPermission`,
-        headers: {
-            Authorization: TokenToString
-        },
-        method: "post",
+        // headers: {
+        //     Authorization: TokenToString
+        // },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", TokenToString); },
+        type: "post",
         dataType: "json",
         contentType: "application/json",
         withCradentials: true,
@@ -165,23 +167,24 @@ function checkPermission(data) {
             const des = urlParams.get('des')
             const routes = urlParams.get('routes')
             let redirectUrl = ''
-            if (des) {
+            if (des&&userName!=="") {
                 
                 if(baseUrl.includes("localhost")){
-                    redirectUrl = `http://${des}/${usename}`;
+                    redirectUrl = `http://${des}/${usename}/AllCards`;
 
                 }
                 else{
-                    redirectUrl = `https://${des}/${usename}`;
+                    redirectUrl = `https://${des}/${usename}/AllCards`;
                 }
 
                 if (routes) {
                     redirectUrl += '/' + routes
                 }
                 window.location.href = redirectUrl
+
             } else {
 
-                window.location.href = (!data.is_username) ? `${baseUrl}/wizard` : `${baseUrlClient}/admin/${usename}`
+                window.location.href = (!data.is_username) ? `${baseUrl}/wizard` : `${baseUrlClient}/admin/${usename}/AllCards`
             }
         }
     });

@@ -7,6 +7,7 @@ const Gallery = require('../models/Gallery.js');
 const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
 const VideoController = require('./Video.js');
+const IframeController = require('./Iframe.js');
 const nodemailer = require('nodemailer');
 
 getDigitalCard = async (req, res) => {
@@ -25,6 +26,9 @@ getDigitalCard = async (req, res) => {
             },
             {
                 path: 'video'
+            },
+            {
+                path: 'iframe'
             }
             ],
             match: { isDelete: false }
@@ -35,12 +39,14 @@ getDigitalCard = async (req, res) => {
         })
 }
 
-
 getCardById = async (req, res) => {
-    let cardName = req.params.cardName.split("_").join(" ");
+
+    let cardName=req.params.cardName;
     // let cardId=req.params.cardId;
     console.log("cardName", cardName)
     console.log("userName", req.params.userName)
+
+
     if (req.query.view) {
         let query = { cardName: cardName, "viewers.date": generateDate(new Date()) };
         let inc = { $inc: { 'viewers.$.amount': 1 } };
@@ -50,11 +56,13 @@ getCardById = async (req, res) => {
         else {
             let newDay = { date: generateDate(new Date()), amount: 1 }
             console.log("newDay", newDay);
+            
             success = await Card.findOneAndUpdate({ cardName: cardName },
                 { $push: { viewers: newDay } },
                 { new: true, upsert: true })
         }
     }
+
 
     Card.find({ cardName: cardName, isDelete: false })
         .populate({ path: 'userId', match: { username: req.params.userName } })
@@ -62,6 +70,7 @@ getCardById = async (req, res) => {
         .populate({ path: 'gallery' })
         .populate({ path: 'reveiw' })
         .populate({ path: 'video' })
+        .populate({ path: 'iframe' })
         .exec((err, cards) => {
             if (err) {
                 res.status(500).send(err);
@@ -77,30 +86,7 @@ getCardById = async (req, res) => {
 
         });
 
-    // User.findOne({username:req.params.userName},(err,user)=>{
-
-    //     Card.findOne({
-    //         cardName: cardName,
-    //         userId: user.uid,
-    //         isDelete: false })
-    //        .populate({
-    //            path: "socialMedias",
-    //        })
-    //        .populate({
-    //            path: 'gallery'
-    //        })
-    //        .populate({
-    //            path: 'reveiw'
-    //        })
-    //        .exec((err, card) => {
-    //            if (err) {
-    //                res.status(500).send(err);
-    //            }
-    //            console.log("card-------------------",card)
-    //            res.status(200).send(card);
-    //        });
-
-    // })
+  
 }
 
 
@@ -121,7 +107,8 @@ createDigitalCard = async (req, res) => {
         const gallery = await GalleryController.saveGallery(card.gallery);
         const reveiw = await ReveiwieController.saveReveiw(card.reveiw);
         const video = await VideoController.saveVideo(card.video);
-
+        const iframe = await IframeController.saveIframe(card.iframe);
+       
         card.socialMedias = [];
 
         let nCard = new Card();
@@ -139,6 +126,7 @@ createDigitalCard = async (req, res) => {
         currentCard.gallery = gallery;
         currentCard.reveiw = reveiw;
         currentCard.video = video;
+        currentCard.iframe = iframe;
         currentCard.socialMedias = [];
 
         await Promise.all(socialMedias.map(async (socialMedia, index) => {
@@ -180,6 +168,7 @@ updateDigitalCard = async (req, res) => {
             const gallery = await GalleryController.updateGallery(card.gallery);
             const review = await ReveiwieController.updateReveiw(card.reveiw);
             const video = await VideoController.updateVideo(card.video);
+            const iframe = await IframeController.updateIframe(card.iframe);
 
             socialMedias.forEach((sMedia, index) => {
                 let socialMedia = SocialMedia.findByIdAndUpdate(
@@ -198,6 +187,7 @@ updateDigitalCard = async (req, res) => {
             currentCard.gallery = gallery;
             currentCard.reveiw = review;
             currentCard.video = video;
+            currentCard.iframe = iframe;
             currentCard.socialMedias = socialMedias;
             res.status(200).send(currentCard);
         }
@@ -325,10 +315,9 @@ generateDate = (date) => {
 }
 
 checkUniqueCardName = async (req, res) => {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&&");
     let userName = req.body.userName;
     let cardName = req.body.cardname;
-    let currentUser = await User.findOne({ "username": req.params.userName })
+    let currentUser = await User.findOne({ "username": userName })
     let _id = currentUser._id
     console.log(_id)
     let user = await User.findOne({ "username": req.params.userName })
@@ -341,38 +330,28 @@ checkUniqueCardName = async (req, res) => {
     }
 
 }
-editCardName = async (req, res) => {
+ saveCardNameForAllCardsInServer = async (req, res) => {
 
-    let cardId = req.body.cardId;
-    let cardName = req.body.cardName;
+    let cards = req.body.cards;
+    let update;
+    let filter;
 
-    console.log("req.body.cardname", cardName);
-    console.log("req.body.cardId", cardId);
+    await Promise.all(cards.map(async card=>{
 
-    const filter = { _id: cardId };
-    const update = { cardName: cardName };
+        filter = { _id: card._id };
+        update = { cardName: card.cardName };
 
-    let doc = await Card.findOneAndUpdate(filter, update);
+        console.log("cards",cards);
 
-    res.send();
 
-}
-editCardName = async (req, res) => {
 
-    let cardId = req.body.cardId;
-    let cardName = req.body.cardName;
-
-    console.log("req.body.cardname", cardName);
-    console.log("req.body.cardId", cardId);
-
-    const filter = { _id: cardId };
-    const update = { cardName: cardName };
-
-    let doc = await Card.findOneAndUpdate(filter, update);
+        let doc =  await Card.findOneAndUpdate(filter, update);
+    }));
 
     res.send();
 
 }
+
 
 module.exports = {
     createDigitalCard,
@@ -383,7 +362,7 @@ module.exports = {
     getUidByUserName,
     sendMessageByCard,
     checkUniqueCardName,
-    editCardName,
+    saveCardNameForAllCardsInServer,
     addContactOptions
 }
 

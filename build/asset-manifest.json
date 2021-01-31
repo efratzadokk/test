@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cd50af7b.chunk.css",
+    "main.js": "/static/js/main.d77234c8.chunk.js",
+    "main.js.map": "/static/js/main.d77234c8.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ea1b7941.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ea1b7941.js.map",
+    "static/css/2.cfed7de4.chunk.css": "/static/css/2.cfed7de4.chunk.css",
+    "static/js/2.2249e5e4.chunk.js": "/static/js/2.2249e5e4.chunk.js",
+    "static/js/2.2249e5e4.chunk.js.map": "/static/js/2.2249e5e4.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.93cda48f7c3a83e52a2aa3c812390f10.js": "/precache-manifest.93cda48f7c3a83e52a2aa3c812390f10.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.cfed7de4.chunk.css.map": "/static/css/2.cfed7de4.chunk.css.map",
+    "static/css/main.cd50af7b.chunk.css.map": "/static/css/main.cd50af7b.chunk.css.map",
+    "static/js/2.2249e5e4.chunk.js.LICENSE.txt": "/static/js/2.2249e5e4.chunk.js.LICENSE.txt",
+    "static/media/AllCards.css": "/static/media/Bitmap.07df1154.png",
+    "static/media/Templets.css": "/static/media/profile.6b8d0f4a.PNG",
+    "static/media/Cards.css": "/static/media/Rectangle.9f9081d1.png",
+    "static/media/Reveiws.css": "/static/media/agentPic.415d9373.png",
+    "static/media/defualtUploadImage.svg": "/static/media/defualtUploadImage.cf7c2e48.svg",
+    "static/media/ErrorPage404.css": "/static/media/footerErr.102491b1.png",
+    "static/media/default_card_designs.css": "/static/media/logo2.11624801.PNG",
+    "static/media/person.png": "/static/media/person.7cf1ed28.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ea1b7941.js",
+    "static/css/2.cfed7de4.chunk.css",
+    "static/js/2.2249e5e4.chunk.js",
+    "static/css/main.cd50af7b.chunk.css",
+    "static/js/main.d77234c8.chunk.js"
+  ]
+}

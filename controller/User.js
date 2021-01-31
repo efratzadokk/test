@@ -17,7 +17,7 @@ updateUserIndexCardName = async (req, res) => {
     const userName = req.params.userName
     const user = await User.findOne({ username: userName })
     if (user) {
-        user.cardIndexName= req.body.indexCardName
+        user.cardIndexName=req.body.indexCardName
         let result = await user.save();
         res.send(result);
     }
