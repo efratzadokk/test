@@ -6,6 +6,7 @@ const cardSchema = mongoose.Schema({
     cardName: { type: String },
     currentCardIndex:{ type: Number },
     errCardName:{ type: Number },
+    enableSaveCard:{ type: String },
 
     userId: {
         type: mongoose.Schema.Types.ObjectId,
