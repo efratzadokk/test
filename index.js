@@ -19,7 +19,6 @@ const auth = require('./controller/auth');
 
 app.use(cors());
 app.use(cookieParser())
-
 app.use(fileUpload({ createParentPath: true }));
 app.use(bodyParser.json());
 
