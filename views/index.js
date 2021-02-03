@@ -166,11 +166,11 @@ function checkPermission(data) {
             if (des&&usename!=="") {
                 
                 if(baseUrl.includes("localhost")){
-                    redirectUrl = `http://${des}/${usename}`;
+                    redirectUrl = `http://${des}/${usename}/AllCards`;
 
                 }
                 else{
-                    redirectUrl = `https://${des}/${usename}`;
+                    redirectUrl = `https://${des}/${usename}/AllCards`;
                 }
 
                 if (routes) {
@@ -180,7 +180,7 @@ function checkPermission(data) {
 
             } else {
 
-                window.location.href = (!data.is_username) ? `${baseUrl}/wizard` : `${baseUrlClient}/admin/${usename}`
+                window.location.href = (!data.is_username) ? `${baseUrl}/wizard` : `${baseUrlClient}/admin/${usename}/AllCards`
             }
         }
     });

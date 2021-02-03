@@ -6,6 +6,7 @@ const cardSchema = mongoose.Schema({
     cardName: { type: String },
     currentCardIndex:{ type: Number },
     errCardName:{ type: Number },
+    enableSaveCard:{ type: String },
 
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -22,6 +23,10 @@ const cardSchema = mongoose.Schema({
     video: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Video'
+    },
+    iframe: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Iframe'
     },
     agentDetails: {
         fullName: { type: String },
@@ -326,6 +331,7 @@ const cardSchema = mongoose.Schema({
                 opacity: { type: String },
                 background: { type: String },
             },
+            socialMediaAlign: { type: String },
             styleTitleBodyDesktop: {
                 color: { type: String },
             },
