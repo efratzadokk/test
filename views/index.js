@@ -24,25 +24,13 @@ const firebaseConfigProd = {
     measurementId: "G-RMEN31486N"
 };
 
-// const firebaseConfig=baseUrl.includes("localhost")||baseUrl.includes("dev")?firebaseConfigDev:firebaseConfigProd;
-const firebaseConfig=firebaseConfigProd;
-
-
-
+const firebaseConfig=baseUrl.includes("localhost")?firebaseConfigDev:firebaseConfigProd;
 
 firebase.initializeApp(firebaseConfig);
 firebase.auth.Auth.Persistence.LOCAL;
 
 $(document).ready(function () {
-    firebase
-        .auth()
-        .signOut()
-        .then(function () {
-            console.log("logged out");
-            document.cookie = 'jwt' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=.knowme.page';
-        })
-        .catch(function (error) {});
-
+ 
 
     $("#loginBtn").click(function (e) {
         e.preventDefault();
@@ -92,6 +80,36 @@ $(document).ready(function () {
         provider = new firebase.auth.TwitterAuthProvider();
         signInWithProvider(provider);
     });
+
+
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            console.log(user);
+            firebase
+                .auth()
+                .currentUser.getIdToken(true)
+                .then((firebaseToken) => {
+                    $.ajax({
+                        url: `${baseUrl}/register/getAccessToken`,
+                        type: "post",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            action: "firebaseloginwithcredentials",
+                            jwt: firebaseToken,
+                        }),
+                        success: function (data) {
+                            console.log("!!")
+                            checkPermission(data);
+                        },
+                    });
+                })
+                .catch(function (error) {
+                    alert(error);
+                });
+        }
+    });
+    
 });
 
 function signInWithProvider(base_provider) {
@@ -108,33 +126,6 @@ function signInWithProvider(base_provider) {
         });
 }
 
-firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-        console.log(user);
-        firebase
-            .auth()
-            .currentUser.getIdToken(true)
-            .then((firebaseToken) => {
-                $.ajax({
-
-                    url: `${baseUrl}/register/getAccessToken`,
-                    method: "post",
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        action: "firebaseloginwithcredentials",
-                        jwt: firebaseToken,
-                    }),
-                    success: function (data) {
-                        checkPermission(data);
-                    },
-                });
-            })
-            .catch(function (error) {
-                alert(error);
-            });
-    }
-});
 
 function checkPermission(data) {
     let TokenToString = data.accessToken.toString();
@@ -150,7 +141,8 @@ function checkPermission(data) {
         //     Authorization: TokenToString
         // },
         beforeSend: function (xhr) {
-            xhr.setRequestHeader ("Authorization", TokenToString); },
+            xhr.setRequestHeader ("Authorization", TokenToString); 
+        },
         type: "post",
         dataType: "json",
         contentType: "application/json",
@@ -171,7 +163,7 @@ function checkPermission(data) {
             const des = urlParams.get('des')
             const routes = urlParams.get('routes')
             let redirectUrl = ''
-            if (des) {
+            if (des&&usename!=="") {
                 
                 if(baseUrl.includes("localhost")){
                     redirectUrl = `http://${des}/${usename}`;
@@ -185,6 +177,7 @@ function checkPermission(data) {
                     redirectUrl += '/' + routes
                 }
                 window.location.href = redirectUrl
+
             } else {
 
                 window.location.href = (!data.is_username) ? `${baseUrl}/wizard` : `${baseUrlClient}/admin/${usename}`

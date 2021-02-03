@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const videoSchema = mongoose.Schema({
     videoShow: { type: Boolean },
     titleVideo: { type: String },
+    titleVideoShow: { type: Boolean },
     codeHtmlIframe: { type: String },
     videoCard: {
         playing: { type: Boolean },
