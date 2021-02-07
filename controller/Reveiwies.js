@@ -5,9 +5,9 @@ saveReveiw = (reveiw) => {
     return new Promise(async (resolve, reject) => {
         console.log("inside Reveiw !")
         try {
-            let tmpReveiw=new Reveiw();
+            let tmpReveiw = new Reveiw();
             let newReveiw = new Reveiw(reveiw);
-            newReveiw._id=tmpReveiw._id;
+            newReveiw._id = tmpReveiw._id;
             newReveiw.save().then((reveiw_db) => {
                 resolve(reveiw_db);
             });
@@ -41,8 +41,26 @@ updateReveiw = (reveiw) => {
     });
 }
 
+deleteReveiw = async (req, res) => {
+    let reveiw = req.body;
+    try {
+        await Reveiw.findByIdAndDelete(
+            reveiw._id,
+            (err) => {
+                if (err) {
+                    console.log(err);
+                    console.log("Successful deletion");
+                }
+                res.status(200).send(reveiw);
+                // res.send(reveiw)
+            });
+    } catch (error) {
+        console.log("reveiw errore deletion: -", error)
+    }
+}
 
 module.exports = {
     saveReveiw,
-    updateReveiw
+    updateReveiw,
+    deleteReveiw,
 }

@@ -176,7 +176,7 @@ function checkPermission(data) {
                 else{
                     redirectUrl = `https://${des}/${usename}/AllCards`;
                 }
-
+                
                 if (routes) {
                     redirectUrl += '/' + routes
                 }

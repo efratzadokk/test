@@ -6,7 +6,7 @@ const CategoriesController = require('../controller/Categories.js')
 const UserController = require('../controller/User.js')
 const FilesController = require('../controller/Files.js')
 const Gallery = require('../models/Gallery.js');
-
+const Review = require('../controller/Reveiwies.js');
 //categories
 router.get('/getCategories/categories/allCategories/cards', CategoriesController.getCategories);
 
@@ -16,6 +16,9 @@ router.post('/sendMessageByCard/:cardId', digitalCardController.sendMessageByCar
 // file
 router.post('/:userName/:uId/upload', FilesController.upload);
 router.post("/:userName/:uId/removeMultipleFiles", FilesController.removeMultipleFiles)
+
+//reveiw
+router.post("/:userName/:reveiwId/deleteReveiws", Review.deleteReveiw);
 
 //card
 router.post("/:userName/checkUniqueCardName", digitalCardController.checkUniqueCardName);

@@ -5,8 +5,9 @@ const reveiwSchema = mongoose.Schema({
     profileShow: { type: Boolean },
     roleShow: { type: Boolean },
     reveiwShow: { type: Boolean },
+    titleReveiwShow: { type: Boolean },
     titleReveiws: { type: String },
-    showMoreReveiws:{ type: String },
+    showMoreReveiws: { type: String },
 
     reveiwsList: [{
         reveiwsDetails: {
