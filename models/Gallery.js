@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const gallerySchema = mongoose.Schema({
     title: { type: String },
     galleryShow: { type: Boolean },
+    titleGalleryShow:{ type: Boolean },
     currentIndex:{ type: Number },
     borderColor: { type: String },
     state: { type: String },//slide

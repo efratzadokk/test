@@ -46,7 +46,6 @@ getCardById = async (req, res) => {
     console.log("cardName", cardName)
     console.log("userName", req.params.userName)
 
-
     if (req.query.view) {
         let query = { cardName: cardName, "viewers.date": generateDate(new Date()) };
         let inc = { $inc: { 'viewers.$.amount': 1 } };
