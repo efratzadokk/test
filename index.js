@@ -44,8 +44,8 @@ mongoose.connect(process
     useFindAndModify: false
 })
 
-// app.use("/api/digitalcard", auth.checkPermission, routeToApi);
-app.use("/api/digitalcard",  routeToApi);
+app.use("/api/digitalcard", auth.checkPermission, routeToApi);
+// app.use("/api/digitalcard",  routeToApi);
 
 app.use("/", routeToViews);
 

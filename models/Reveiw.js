@@ -14,11 +14,11 @@ const reveiwSchema = mongoose.Schema({
             full_name: { type: String },
             role: { type: String },
             message_reveiws: { type: String },
-            ReveiwShowDelete:{ type: Boolean }
+            ReveiwShowDelete: { type: Boolean }
 
         },
         reveiwsStyle: {
-           
+
             bodyReveiws: {
                 background: { type: String },
                 textAlign: { type: String }
@@ -33,20 +33,20 @@ const reveiwSchema = mongoose.Schema({
                 borderColor: { type: String },
                 borderRadius: { type: String },
                 zIndex: { type: Number },
-                indexFile:{ type: Number }
+                indexFile: { type: Number }
             },
             input_card_fullName: {
-                color:{ type: String },
+                color: { type: String },
                 font: { type: String },
-                letterSpacing:{ type: String },
-                textTransform:{ type: String },
-                fontSize:{ type: String },
+                letterSpacing: { type: String },
+                textTransform: { type: String },
+                fontSize: { type: String },
 
             },
             input_card_rule: {
                 color: { type: String },
-                font:{ type: String },
-                letterSpacing:{ type: String },
+                font: { type: String },
+                letterSpacing: { type: String },
                 fontSize: { type: String },
                 marginTop: { type: String },
 
@@ -55,27 +55,27 @@ const reveiwSchema = mongoose.Schema({
                 background: { type: String },
                 width: { type: String },
                 fontSize: { type: String },
-                border:{ type: String },
+                border: { type: String },
                 color: { type: String },
                 lineHeight: { type: Number },
                 height: { type: String }
             },
             label_reveiws_background: {
-                textAlign:{ type: String },
+                textAlign: { type: String },
                 background: { type: String },
                 width: { type: String },
                 fontSize: { type: String },
                 border: { type: String },
-                borderColor:{ type: String },
+                borderColor: { type: String },
                 borderRadius: { type: String },
                 color: { type: String },
                 minHeight: { type: String },
                 maxWidth: { type: String },
-                wordWrap:{ type: String },
+                wordWrap: { type: String },
             },
             buttonReveiws: {
                 width: { type: String },
-                color:{ type: String },
+                color: { type: String },
                 background: { type: String },
                 borderRadius: { type: String },
                 fontSize: { type: String },
@@ -84,8 +84,8 @@ const reveiwSchema = mongoose.Schema({
             }
         }
     }],
-    
-    styleColorArrow:{ type: String },
+
+    styleColorArrow: { type: String },
 })
 
 module.exports = mongoose.model('Reveiw', reveiwSchema)

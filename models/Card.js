@@ -331,6 +331,7 @@ const cardSchema = mongoose.Schema({
                 opacity: { type: String },
                 background: { type: String },
             },
+            socialMediaAlign: { type: String },
             styleTitleBodyDesktop: {
                 color: { type: String },
             },

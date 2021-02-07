@@ -46,7 +46,6 @@ getCardById = async (req, res) => {
     console.log("cardName", cardName)
     console.log("userName", req.params.userName)
 
-
     if (req.query.view) {
         let query = { cardName: cardName, "viewers.date": generateDate(new Date()) };
         let inc = { $inc: { 'viewers.$.amount': 1 } };
@@ -330,23 +329,19 @@ checkUniqueCardName = async (req, res) => {
     }
 
 }
- saveCardNameForAllCardsInServer = async (req, res) => {
+ 
+editCardName = async (req, res) => {
 
-    let cards = req.body.cards;
-    let update;
-    let filter;
+    let cardId = req.body.cardId;
+    let cardName = req.body.cardName;
 
-    await Promise.all(cards.map(async card=>{
+    console.log("req.body.cardname", cardName);
+    console.log("req.body.cardId", cardId);
 
-        filter = { _id: card._id };
-        update = { cardName: card.cardName };
+    const filter = { _id: cardId };
+    const update = { cardName: cardName };
 
-        console.log("cards",cards);
-
-
-
-        let doc =  await Card.findOneAndUpdate(filter, update);
-    }));
+    let doc = await Card.findOneAndUpdate(filter, update);
 
     res.send();
 
@@ -362,8 +357,8 @@ module.exports = {
     getUidByUserName,
     sendMessageByCard,
     checkUniqueCardName,
-    saveCardNameForAllCardsInServer,
-    addContactOptions
+    addContactOptions,
+    editCardName
 }
 
 

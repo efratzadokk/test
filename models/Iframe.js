@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose')
 
 const IframeSchema = mongoose.Schema({
@@ -9,5 +10,4 @@ const IframeSchema = mongoose.Schema({
         codeComponentIframe: { type: String },
     },
 })
-
 module.exports = mongoose.model('Iframe', IframeSchema)

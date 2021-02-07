@@ -44,122 +44,121 @@
 
     <!-- js -->
     <script>
-    
-    const baseUrl=window.location.origin;
+        const baseUrl = window.location.origin;
 
-    const baseUrlClient=baseUrl.includes("localhost")?"http://localhost:3000":baseUrl;
-
-
-    $(document).ready(function() {
-        
-        document.getElementById("usernameInput").addEventListener("keyup",function(){
-            if (event.keyCode === 13) {
-                usernameCheck();
-            }
-        });
-    });
-
-    const prevent=(event)=>{
-        event.preventDefault()
-    }
+        const baseUrlClient = baseUrl.includes("localhost") ? "http://localhost:3000" : baseUrl;
 
 
-    const getCookie = (c_name) => {
-        if (document.cookie.length > 0) {
-            c_start = document.cookie.indexOf(c_name + "=");
-            if (c_start != -1) {
-                c_start = c_start + c_name.length + 1;
-                c_end = document.cookie.indexOf(";", c_start);
-                if (c_end == -1) {
-                    c_end = document.cookie.length;
+        $(document).ready(function() {
+
+            document.getElementById("usernameInput").addEventListener("keyup", function() {
+                if (event.keyCode === 13) {
+                    usernameCheck();
                 }
-                return unescape(document.cookie.substring(c_start, c_end));
-            }
+            });
+        });
+
+        const prevent = (event) => {
+            event.preventDefault()
         }
-        return "";
-    }
 
-    const usernameCheck = () => {
-        const jwt = getCookie('jwt')
-        const value = document.querySelector('input#usernameInput').value
-        const data = {token: jwt, usernameToCheck: value}
-        fetch(`${baseUrl}/register/checkUsername`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': jwt
-            },
-            body: JSON.stringify(data),
-        })
-        .then($ => $.json())
-        .then($ => {
-            if (!$.availability) {
-                document.querySelector('#errMsg').innerText = 'The username is already taken. Please choose another username.'
-            } else {
-                alert('Username available and created!')
-                window.location.href = `${baseUrlClient}/admin/${$.userName}`
+
+        const getCookie = (c_name) => {
+            if (document.cookie.length > 0) {
+                c_start = document.cookie.indexOf(c_name + "=");
+                if (c_start != -1) {
+                    c_start = c_start + c_name.length + 1;
+                    c_end = document.cookie.indexOf(";", c_start);
+                    if (c_end == -1) {
+                        c_end = document.cookie.length;
+                    }
+                    return unescape(document.cookie.substring(c_start, c_end));
+                }
             }
-        })
-    }
+            return "";
+        }
 
+        const usernameCheck = () => {
+            const jwt = getCookie('jwt')
+            const value = document.querySelector('input#usernameInput').value
+            const data = {
+                token: jwt,
+                usernameToCheck: value
+            }
+            fetch(`${baseUrl}/register/checkUsername`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': jwt
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then($ => $.json())
+                .then($ => {
+                    if (!$.availability) {
+                        document.querySelector('#errMsg').innerText = 'The username is already taken. Please choose another username.'
+                    } else {
+                        alert('Username available and created!')
+                        window.location.href = `${baseUrlClient}/admin/${$.userName}`
+                    }
+                })
+        }
     </script>
 
-<body>
-    <!-- auth-->
-    <div class="auth">
-        <div class="auth__main" style="background-image: url(https://leader.codes/assets/img/bg-login-mobile.jpg)">
-            <div class="auth__wrap">
-                <div class="auth__preview"><img class="auth__pic" src="https://leader.codes/assets/img/logo-white.svg" width="48" alt="Logo">
-                </div>
-                <div class="auth__title title title_xl">Welcome to Leader</div>
-                <div class="auth__subtitle title title_sm">Enter your details to proceed further</div>
-            </div>
-        </div>
-        <div class="auth__container">
-            <div class="auth__inner">
-                <div class="auth__head">
-                    <div class="auth__title title title_lg">
-                        <!-- <p>Welcome to Know Me.</p> -->
-                        <p>Please enter a username</p>
+    <body>
+        <!-- auth-->
+        <div class="auth">
+            <div class="auth__main" style="background-image: url(https://leader.codes/assets/img/bg-login-mobile.jpg)">
+                <div class="auth__wrap">
+                    <div class="auth__preview"><img class="auth__pic" src="https://leader.codes/assets/img/logo-white.svg" width="48" alt="Logo">
                     </div>
-                    <!-- <p>Please enter a username to complete the registration process</p> -->
+                    <div class="auth__title title title_xl">Welcome to Leader</div>
+                    <div class="auth__subtitle title title_sm">Enter your details to proceed further</div>
                 </div>
-                <form onsubmit="prevent(event)" class="auth__form" id="loginFrom" method="post">
-                    <div class="field auth__field">
-                        <div class="field__label">Username</div>
-                        <div class="field__wrap"><input id="usernameInput" name="username" class="field__input" type="text"
-                                placeholder="Start typing…">
-                            <div class="field__icon"><i class="la la-user "></i></div>
+            </div>
+            <div class="auth__container">
+                <div class="auth__inner">
+                    <div class="auth__head">
+                        <div class="auth__title title title_lg">
+                            <!-- <p>Welcome to Know Me.</p> -->
+                            <p>Please enter a username</p>
                         </div>
+                        <!-- <p>Please enter a username to complete the registration process</p> -->
                     </div>
-                    <input type="hidden" name="submitedFlag">
-                    <div class="auth__btns">
-                        <a id="signupBtn" class="btn btn_light auth__btn" style="user-select: none; cursor: pointer;"  onclick="usernameCheck()">Continue</a></div>
-                    <!-- enter-->
-                    <div id="errMsg" style="color:red"></div>
+                    <form onsubmit="prevent(event)" class="auth__form" id="loginFrom" method="post">
+                        <div class="field auth__field">
+                            <div class="field__label">Username</div>
+                            <div class="field__wrap"><input id="usernameInput" name="username" class="field__input" type="text" placeholder="Start typing…">
+                                <div class="field__icon"><i class="la la-user "></i></div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="submitedFlag">
+                        <div class="auth__btns">
+                            <a id="signupBtn" class="btn btn_light auth__btn" style="user-select: none; cursor: pointer;" onclick="usernameCheck()">Continue</a></div>
+                        <!-- enter-->
+                        <div id="errMsg" style="color:red"></div>
 
-                </form>
+                    </form>
+                </div>
+            </div>
+
+            <div class="auth__bg" style="background-image: url(./IMG_9622.jpg)"></div>
+            <div id="wait" style="display:none;z-index:2;position:absolute;top:50%;left:50%;">
+                <img src='https://cdn.dribbble.com/users/225707/screenshots/2958729/attachments/648705/straight-loader.gif' width="64" height="64" /><br>Loading..
             </div>
         </div>
-        
-        <div class="auth__bg" style="background-image: url(./IMG_9622.jpg)"></div>
-        <div id="wait" style="display:none;z-index:2;position:absolute;top:50%;left:50%;">
-            <img src='https://cdn.dribbble.com/users/225707/screenshots/2958729/attachments/648705/straight-loader.gif'
-                width="64" height="64" /><br>Loading..
-        </div>
-    </div>
-    <!-- scripts-->
-    <script src="https://leader.codes/assets/js/core/jquery.min.js"></script>
-    <script src="https://leader.codes/assets/js/core/datepicker.min.js"></script>
-    <script src="https://leader.codes/assets/js/core/datepicker.en.js"></script>
-    <script src="https://leader.codes/assets/js/core/select2.min.js"></script>
-    <script src="https://leader.codes/assets/js/core/wNumb.min.js"></script>
-    <script src="https://leader.codes/assets/js/core/nouislider.min.js"></script>
-    <script src="https://leader.codes/assets/js/core/apexcharts.min.js"></script>
-    <script src="https://leader.codes/assets/js/charts.js"></script>
-    <script src="https://leader.codes/assets/js/app.js"></script>
+        <!-- scripts-->
+        <script src="https://leader.codes/assets/js/core/jquery.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/datepicker.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/datepicker.en.js"></script>
+        <script src="https://leader.codes/assets/js/core/select2.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/wNumb.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/nouislider.min.js"></script>
+        <script src="https://leader.codes/assets/js/core/apexcharts.min.js"></script>
+        <script src="https://leader.codes/assets/js/charts.js"></script>
+        <script src="https://leader.codes/assets/js/app.js"></script>
 
 
-</body>
+    </body>
 
 </html>
