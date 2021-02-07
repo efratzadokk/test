@@ -75,7 +75,6 @@ const verify = (req, res, next) => {
         if(!token){
             token=req.cookies.accessToken
         }
-        console.log("token@@@@@@@@",token)
         decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         if (!decoded) reject("access deiend")
         resolve(decoded)
