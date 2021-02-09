@@ -8,7 +8,7 @@ const checkPermission = async (req, res, next) => {
     console.log("inside check premission knowme");
     let userName = req.originalUrl.split("/")[1];
     // let redirectUrl = req.headers.origin
-    let redirectUrl = req.get('host');
+    let redirectUrl = process.env.URL 
     console.log(redirectUrl);
 
     let apiFlag = false;
