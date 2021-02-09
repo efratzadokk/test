@@ -45,14 +45,17 @@ let numSessions = 0;
 let usernameToCheck
 let userName;
 
-const insertIfExsist = async(userEmail) => {
+const insertIfExist = async(userEmail) => {
+    console.log("in insertIfExist")
+
     return new Promise(async(resolve, reject) => {
 
         await User.find({ email: userEmail }, async(err, users) => {
             if (users.length) {
-                resolve({ message: 'user exists' });
+                console.log(users[0])
                 numSessions++;
-                return;
+                console.log("user exist")
+                resolve({user:users[0]});
             }
             const user = new User({
                 _id: new mongoose.Types.ObjectId(),
@@ -60,21 +63,26 @@ const insertIfExsist = async(userEmail) => {
                 uid:uid,
                 username:""
             })
-            let success = await user.save();
-            if (success) {  
-                       
-                resolve({ message: 'user added successfully' });
+            let userFromDB= await user.save();
+            if (userFromDB) {  
+
+                console.log("user added successfully")
+                resolve({ user: userFromDB });
             }
+            reject("err")
         })
     })
 }
 
 const verify = (req, res, next) => {
+    console.log("in verify")
     return new Promise((resolve, reject) => {
         let token = (typeof req === "object") ? req.body.token : req
         if(!token){
             token=req.cookies.accessToken
         }
+        console.log("token")
+
         decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         if (!decoded) reject("access deiend")
         resolve(decoded)
@@ -88,42 +96,46 @@ const createLeaderJwt = (req, res) => {
 
 const checkPermission = async(req, res) => {
     console.log('in checkPermission')
-    verify(req).then((decodedToken) => {
-        uid = decodedToken.uid
-        email = decodedToken.email
-            // ip = decodedToken.ip
-    })
+    decodedToken=await verify(req)
+
+    uid = decodedToken.uid
+    email = decodedToken.email
+
+    console.log("verify")
+    
     try{
-    insertIfExsist(email).then(async(result) => {
-        if (result.message) {
-            console.log("inside if "+result.message)
-            const usernamePresent = await usernameExistCheck(uid)
+        console.log("in try")
+
+        let result =await insertIfExist(email)
+        console.log("result "+result.user)
+        if (result.user) {
+            console.log("inside if "+result.user.uid)
+            const usernamePresent = await usernameExistCheck(result.user.uid)
+            
             console.log("usernamePresent "+usernamePresent)
             console.log("inside if "+userName)
-             jsonWebToken = req.headers["authorization"]
+            jsonWebToken = req.headers["authorization"]
+
             return res.status(200).json({
                 "jwt": jsonWebToken,
-                "uid": uid,
+                "uid": result.user.uid,
                 "redirectUrl": req.redirectUrl,
                 "is_username": usernamePresent,
                 "userName":userName
-            })
+            });
         }
-    }).catch((err) => {
-        res.status(500).send(err)
+    }
 
-    })
-}
-catch(err)
-{
-    res.status(500).send(err)
-}
+    catch(err)
+    {
+        res.status(500).send(err)
+    }
 }
 
 
 const usernameExistCheck = async (uid) => {
     console.log(uid,"+++++++++")
-    return new Promise(async(s, j) => {
+    return new Promise(async(resolve, reject) => {
       await  User.find({ uid: uid }, (err, $) => {
             console.log("$",$)
             if($.length)
@@ -131,55 +143,39 @@ const usernameExistCheck = async (uid) => {
                console.log("$2",$)
                if($[0].username=="")
               {
-                  console.log("in $[0].username==''")
+                console.log("in $[0].username==''")
                 userName=""
-                  s(false)
+                  resolve(false)
               }
               else{
                 console.log("in $[0].username!=''")
                 userName= $[0].username
-                s(true)
+                resolve(true)
                }
               }  
          else{
              console.log("jjjjjjjjjjj")
-             j("temporary error, please try again later.")
+             reject("temporary error, please try again later.")
          }
-            // const r = $.username ? true : false
-            // s(r);
+           
         })
     })
-    // return new Promise(async(s, j) => {
-     //   User.find({ uid: uid, username: {$exists: true} }, (err, $) => { 
-    //         if($)
-    //        {console.log("+++++",$,$.username)
-    //            userName= $.username
-    //            const r=  $.username==""? true : false
-    //            s(r)
-    //         }
-    //        else{
-    //            userName=""
-    //        }
-    //        // const r = $.username? true : false
-    //         s(false);
-    //     })
-    // })
+    
 }
-const usernameExistCheck2 = (uid) => {
 
-}
 
 const usernameCheck = async(req, res) => {
     console.log("in usernameCheck");
-     usernameToCheck = req.body.usernameToCheck
+    usernameToCheck = req.body.usernameToCheck
     console.log('username to check ' +usernameToCheck)
     const decodedToken = await verify(req)
     const uid = decodedToken.uid
+
     
-    User.find({username:{ $regex: new RegExp("^" + usernameToCheck, "i") }}, async(err, users) => {
+    User.find({username:{ $regex: new RegExp(`^${usernameToCheck}*$`,"i") }}, async(err, users) => {
 
         if (users.length) {
-            console.log("in users.length == true")
+            console.log("in users.length == true",users)
             return res.json({availability: false,userName:usernameToCheck})
         }
 

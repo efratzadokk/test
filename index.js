@@ -26,11 +26,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use('/register', registerRouter);
 
- app.use("/login", express.static(path.join(__dirname, './views')));
- app.use("/wizard", express.static(path.join(__dirname, './views/wizard')));
-// app.use("/", express.static(path.join(__dirname, './build')));
 
 app.get((req, res, next) => {
     console.log('BOO')
@@ -43,6 +39,7 @@ mongoose.connect(process
     useCreateIndex: true,
     useFindAndModify: false
 })
+app.use('/register', registerRouter);
 
 app.use("/api/digitalcard", auth.checkPermission, routeToApi);
 
