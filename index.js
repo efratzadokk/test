@@ -19,7 +19,6 @@ const auth = require('./controller/auth');
 
 app.use(cors());
 app.use(cookieParser())
-
 app.use(fileUpload({ createParentPath: true }));
 app.use(bodyParser.json());
 
@@ -27,11 +26,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use('/register', registerRouter);
-
-app.get((req, res, next) => {
-    console.log('BOO')
-})
 
 mongoose.connect(process
     .env.DB_CONNECT, {
@@ -40,6 +34,7 @@ mongoose.connect(process
     useCreateIndex: true,
     useFindAndModify: false
 })
+app.use('/register', registerRouter);
 
 app.use("/api/digitalcard", auth.checkPermission, routeToApi);
 

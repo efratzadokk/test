@@ -18,6 +18,8 @@ router.get('/:cardId/:cardName', function (req, res) {
   res.sendFile(path.join(__dirname, '../build', 'index.html'))
 })
 
+
+
 router.get('/tos', function (req, res) {
   router.use(express.static(path.join(__dirname, '../front/build')))
   res.sendFile(path.join(__dirname, '../front/build/index.html'))
