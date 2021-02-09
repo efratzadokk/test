@@ -16,4 +16,10 @@ const userSchema = mongoose.Schema({
     }]
 })
 
+userSchema.pre('save', function(next){
+    const user=this
+    user.username=user.username.replace(/\s/g, "");    
+    next()
+})
+
 module.exports = mongoose.model('User', userSchema)
