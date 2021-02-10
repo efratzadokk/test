@@ -28,8 +28,9 @@ router.put("/:userName/addContactOptions/:cardId", digitalCardController.addCont
 router.post("/:userName/:cardId/delete", digitalCardController.deleteCard);
 router.get('/:userName/getUser/user', UserController.getUidByUserName);
 router.put("/:userName/:cardId", digitalCardController.updateDigitalCard);
+router.get("/getCard/:cardName", digitalCardController.getCardById);
 router.get('/:userName', digitalCardController.getDigitalCard);
-router.get("/:userName/:cardName", digitalCardController.getCardById);
 router.post('/:userName', digitalCardController.createDigitalCard);
+router.get('/:userName/getCardsIndex', digitalCardController.getCardsIndex);
 
 module.exports = router;

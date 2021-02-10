@@ -13,8 +13,7 @@ const nodemailer = require('nodemailer');
 getDigitalCard = async (req, res) => {
     console.log("get")
     let currentUser = await User.findOne({ "username": req.params.userName });
-    User
-        .findOne({ "_id": currentUser._id })
+    User.findOne({ "_id": currentUser._id })
         .populate({
             path: 'cards',
             populate: [{
@@ -63,29 +62,43 @@ getCardById = async (req, res) => {
     }
 
 
-    Card.find({ cardName: cardName, isDelete: false })
-        .populate({ path: 'userId', match: { username: req.params.userName } })
-        .populate({ path: "socialMedias" })
-        .populate({ path: 'gallery' })
-        .populate({ path: 'reveiw' })
-        .populate({ path: 'video' })
-        .populate({ path: 'iframe' })
-        .exec((err, cards) => {
-            if (err) {
-                res.status(500).send(err);
-            }
-            let data = null;
-            cards.forEach(card => {
-                if (card.userId != null) {
-                    data = card;;
-                }
-            });
-            console.log("card-------------------", data)
-            res.status(200).send(data);
+    // Card.find({ cardName: cardName, isDelete: false })
+    //     .populate({ path: 'userId', match: { username: req.params.userName } })
+    //     .populate({ path: "socialMedias" })
+    //     .populate({ path: 'gallery' })
+    //     .populate({ path: 'reveiw' })
+    //     .populate({ path: 'video' })
+    //     .populate({ path: 'iframe' })
+    //     .exec((err, cards) => {
+    //         if (err) {
+    //             res.status(500).send(err);
+    //         }
+    //         let data = null;
+    //         cards.forEach(card => {
+    //             if (card.userId != null) {
+    //                 data = card;;
+    //             }
+    //         });
+    //         console.log("card-------------------", data)
+    //         res.status(200).send(data);
 
-        });
+    //     });
 
-  
+    Card.findOne({ cardName: cardName, isDelete: false })
+    .populate({ path: "socialMedias" })
+    .populate({ path: 'gallery' })
+    .populate({ path: 'reveiw' })
+    .populate({ path: 'video' })
+    .populate({ path: 'iframe' })
+    .exec((err, card) => {
+        if (err) {
+            res.status(500).send(err);
+        }  
+        console.log("card-------------------", card)
+       
+        res.status(200).send(card);
+
+    });
 }
 
 
@@ -313,20 +326,36 @@ generateDate = (date) => {
     return ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
 }
 
+//by card name and username
+
+// checkUniqueCardName = async (req, res) => {
+//     let userName = req.body.userName;
+//     let cardName = req.body.cardname;
+//     let currentUser = await User.findOne({ "username": userName })
+//     let _id = currentUser._id
+//     console.log(_id)
+//     let user = await User.findOne({ "username": req.params.userName })
+//         .populate({ path: 'cards', match: { cardName: cardName, isDelete: false, } });
+//     if (user.cards.length > 0) {
+//         return res.send(false)
+//     }
+//     else {
+//         res.send(true);
+//     }
+
+// }
+
+
+//by card name only
 checkUniqueCardName = async (req, res) => {
-    let userName = req.body.userName;
     let cardName = req.body.cardname;
-    let currentUser = await User.findOne({ "username": userName })
-    let _id = currentUser._id
-    console.log(_id)
-    let user = await User.findOne({ "username": req.params.userName })
-        .populate({ path: 'cards', match: { cardName: cardName, isDelete: false, } });
-    if (user.cards.length > 0) {
+
+    let card = await Card.findOne({ "cardNane": cardName })
+        
+    if (card) {
         return res.send(false)
     }
-    else {
-        res.send(true);
-    }
+    res.send(true);
 
 }
  
@@ -347,6 +376,18 @@ editCardName = async (req, res) => {
 
 }
 
+getCardsIndex=(req, res)=>{
+
+    Card.countDocuments({},(err,count)=>{
+        if(err){
+            res.status(500).send(err);
+        } 
+        console.log("count",count)
+        res.status(200).send({count:count});
+    })
+
+}
+
 
 module.exports = {
     createDigitalCard,
@@ -358,7 +399,8 @@ module.exports = {
     sendMessageByCard,
     checkUniqueCardName,
     addContactOptions,
-    editCardName
+    editCardName,
+    getCardsIndex
 }
 
 

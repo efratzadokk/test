@@ -11,14 +11,22 @@ const checkPermission = async (req, res, next) => {
     let redirectUrl = process.env.URL 
     console.log(redirectUrl);
 
+
     let apiFlag = false;
     let urlRoute;
     if (userName == "api") {
         userName = req.originalUrl.split("/")[3];
         apiFlag=true;
     }
-    if(!apiFlag) //not api request
-        urlRoute=req.originalUrl.split("/")[3]
+    if(!apiFlag){
+       
+         //not api request
+        urlRoute=req.originalUrl
+        console.log("urlRoute",urlRoute)
+    }
+    console.log("urlRoute",req.originalUrl)
+
+       
     if (req.headers["authorization"]=="null"||!req.headers["authorization"]) {
         if (req.cookies && req.cookies.jwt) {
 
