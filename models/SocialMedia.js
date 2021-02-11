@@ -14,8 +14,6 @@ const socialMediaSchema = mongoose.Schema({
     },
     show: {
         type: Boolean
-    }
-    
+    } 
 })
-
 module.exports = mongoose.model('SocialMedia', socialMediaSchema)

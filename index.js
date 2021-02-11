@@ -27,11 +27,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-
-app.get((req, res, next) => {
-    console.log('BOO')
-})
-
 mongoose.connect(process
     .env.DB_CONNECT, {
     useNewUrlParser: true,
