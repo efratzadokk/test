@@ -7,7 +7,7 @@ const cardSchema = mongoose.Schema({
     currentCardIndex:{ type: Number },
     errCardName:{ type: Number },
     enableSaveCard:{ type: String },
-
+    fabTitle:{ type: String },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -75,6 +75,9 @@ const cardSchema = mongoose.Schema({
         footerSendEmailShow: { type: Boolean },
         callMeShow: { type: Boolean },
         callMeNameShow: { type: Boolean },
+        fabIcon:{
+            backgroundImage:{ type: String }
+        },
         cover: {
             height: { type: String },
             backgroundImage: { type: String }
