@@ -7,10 +7,24 @@ const cardSchema = mongoose.Schema({
     currentCardIndex:{ type: Number },
     errCardName:{ type: Number },
     enableSaveCard:{ type: String },
-
+    fabTitle:{ type: String },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    buttons: {
+        callMe: {
+            title: { type: String },
+            show: { type: Boolean },
+            iconShow: { type: Boolean },
+            titleShow:{ type: Boolean }
+        },
+        contact: {
+            title:{ type: String },
+            show: { type: Boolean },
+            iconShow: { type: Boolean },
+            titleShow:{ type: Boolean },
+        }
     },
     gallery: {
         type: mongoose.Schema.Types.ObjectId,
@@ -75,6 +89,9 @@ const cardSchema = mongoose.Schema({
         footerSendEmailShow: { type: Boolean },
         callMeShow: { type: Boolean },
         callMeNameShow: { type: Boolean },
+        fabIcon:{
+            backgroundImage:{ type: String }
+        },
         cover: {
             height: { type: String },
             backgroundImage: { type: String }
@@ -106,6 +123,23 @@ const cardSchema = mongoose.Schema({
             borderColor: { type: String },
             borderRadius: { type: String },
             zIndex: { type: String }
+        },
+        buttons: {
+            top:{ type: String },
+            callMe: {
+                background:{ type: String },
+                border:{ type: String },
+                borderRadius:{ type: String },
+                color: { type: String },
+                reverse:{ type: Boolean }
+            },
+            contact: {
+                background:{ type: String },
+                border:{ type: String },
+                borderRadius:{ type: String },
+                color: { type: String },
+                reverse:{ type: Boolean }
+            }
         },
         bodyCardMobile:
         {

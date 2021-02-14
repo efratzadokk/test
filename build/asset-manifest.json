@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.69d2f2a7.chunk.css",
-    "main.js": "/static/js/main.bcf10150.chunk.js",
-    "main.js.map": "/static/js/main.bcf10150.chunk.js.map",
+    "main.css": "/static/css/main.3d1f12dc.chunk.css",
+    "main.js": "/static/js/main.540e2190.chunk.js",
+    "main.js.map": "/static/js/main.540e2190.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.ea1b7941.js",
     "runtime-main.js.map": "/static/js/runtime-main.ea1b7941.js.map",
     "static/css/2.6dceee5b.chunk.css": "/static/css/2.6dceee5b.chunk.css",
-    "static/js/2.7ba0cba0.chunk.js": "/static/js/2.7ba0cba0.chunk.js",
-    "static/js/2.7ba0cba0.chunk.js.map": "/static/js/2.7ba0cba0.chunk.js.map",
+    "static/js/2.6027aecf.chunk.js": "/static/js/2.6027aecf.chunk.js",
+    "static/js/2.6027aecf.chunk.js.map": "/static/js/2.6027aecf.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.0f3b1a7118da1e11f4e1ae7c08d9e5f4.js": "/precache-manifest.0f3b1a7118da1e11f4e1ae7c08d9e5f4.js",
+    "precache-manifest.90f82ecb8a733ab5ee8cc81be5b3e4dc.js": "/precache-manifest.90f82ecb8a733ab5ee8cc81be5b3e4dc.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.6dceee5b.chunk.css.map": "/static/css/2.6dceee5b.chunk.css.map",
-    "static/css/main.69d2f2a7.chunk.css.map": "/static/css/main.69d2f2a7.chunk.css.map",
-    "static/js/2.7ba0cba0.chunk.js.LICENSE.txt": "/static/js/2.7ba0cba0.chunk.js.LICENSE.txt",
+    "static/css/main.3d1f12dc.chunk.css.map": "/static/css/main.3d1f12dc.chunk.css.map",
+    "static/js/2.6027aecf.chunk.js.LICENSE.txt": "/static/js/2.6027aecf.chunk.js.LICENSE.txt",
     "static/media/AllCards.css": "/static/media/Bitmap.07df1154.png",
     "static/media/Templets.css": "/static/media/profile.6b8d0f4a.PNG",
     "static/media/Cards.css": "/static/media/Rectangle.9f9081d1.png",
@@ -21,13 +21,15 @@
     "static/media/defualtUploadImage.svg": "/static/media/defualtUploadImage.cf7c2e48.svg",
     "static/media/ErrorPage404.css": "/static/media/footerErr.102491b1.png",
     "static/media/default_card_designs.css": "/static/media/logo2.11624801.PNG",
-    "static/media/person.png": "/static/media/person.7cf1ed28.png"
+    "static/media/person.png": "/static/media/person.7cf1ed28.png",
+    "static/media/shapes.png": "/static/media/shapes.9809d077.png",
+    "static/media/login.css": "/static/media/wave.7e0b90f5.png"
   },
   "entrypoints": [
     "static/js/runtime-main.ea1b7941.js",
     "static/css/2.6dceee5b.chunk.css",
-    "static/js/2.7ba0cba0.chunk.js",
-    "static/css/main.69d2f2a7.chunk.css",
-    "static/js/main.bcf10150.chunk.js"
+    "static/js/2.6027aecf.chunk.js",
+    "static/css/main.3d1f12dc.chunk.css",
+    "static/js/main.540e2190.chunk.js"
   ]
 }

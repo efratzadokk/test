@@ -11,6 +11,8 @@ upload = async (req, res) => {
     else
         res.status(200).send(null);
 }
+
+
 (uploadedMultipleFiles = (fileToUpload, uId, headers) => {
     return new Promise(async (resolve, reject) => {
         console.log("in uploadedMultipleFiles")
@@ -155,5 +157,5 @@ updateFiles = async (req, res) => {//update post
 
 module.exports = {
     upload,
-    removeMultipleFiles
+    removeMultipleFiles,
 }
