@@ -258,7 +258,22 @@ const getUidFromToken = async(token) => {
     return uid
 }
 
+const getUserNameByEmail=(req, res)=>{
+
+    User.findOne({email:req.query.email},(err,user)=>{
+
+        if(err){
+            console.log("error: " + error)
+            res.status(500)
+        }
+        console.log("user: " + user)
+        res.status(200).json(user)
+
+    });
+}
+
 module.exports = {
+    getUserNameByEmail,
     getToken,
     checkPermission,
     usernameCheck,

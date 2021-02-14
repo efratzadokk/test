@@ -350,7 +350,7 @@ generateDate = (date) => {
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
 
-    let card = await Card.findOne({ "cardNane": cardName })
+    let card = await Card.findOne({ "cardName": cardName })
         
     if (card) {
         return res.send(false)
