@@ -12,6 +12,20 @@ const cardSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    buttons: {
+        callMe: {
+            title: { type: String },
+            show: { type: Boolean },
+            iconShow: { type: Boolean },
+            titleShow:{ type: Boolean }
+        },
+        contact: {
+            title:{ type: String },
+            show: { type: Boolean },
+            iconShow: { type: Boolean },
+            titleShow:{ type: Boolean },
+        }
+    },
     gallery: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Gallery'
@@ -109,6 +123,23 @@ const cardSchema = mongoose.Schema({
             borderColor: { type: String },
             borderRadius: { type: String },
             zIndex: { type: String }
+        },
+        buttons: {
+            top:{ type: String },
+            callMe: {
+                background:{ type: String },
+                border:{ type: String },
+                borderRadius:{ type: String },
+                color: { type: String },
+                reverse:{ type: Boolean }
+            },
+            contact: {
+                background:{ type: String },
+                border:{ type: String },
+                borderRadius:{ type: String },
+                color: { type: String },
+                reverse:{ type: Boolean }
+            }
         },
         bodyCardMobile:
         {
