@@ -26,6 +26,13 @@ const cardSchema = mongoose.Schema({
             titleShow:{ type: Boolean },
         }
     },
+    expanded:{ 
+        about:{ type: Boolean },
+        gallery:{ type: Boolean },
+        reveiws:{ type: Boolean },
+        video:{ type: Boolean },
+        iframe:{ type: Boolean }
+    },
     gallery: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Gallery'
