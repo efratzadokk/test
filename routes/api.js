@@ -11,7 +11,7 @@ const Review = require('../controller/Reveiwies.js');
 router.get('/getCategories/categories/allCategories/cards', CategoriesController.getCategories);
 
 // mail
-router.post('/sendMessageByCard/:cardId', digitalCardController.sendMessageByCard);
+router.post('/sendMessageByCard/:cardName', digitalCardController.sendMessageByCard);
 
 // file
 router.post('/:userName/:uId/upload', FilesController.upload);
