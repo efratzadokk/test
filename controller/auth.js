@@ -8,37 +8,37 @@ const checkPermission = async (req, res, next) => {
     console.log("inside check premission knowme");
     let userName = req.originalUrl.split("/")[1];
     // let redirectUrl = req.headers.origin
-    let redirectUrl = process.env.URL 
+    let redirectUrl = process.env.URL
     console.log(redirectUrl);
 
 
     let apiFlag = false;
     let urlRoute;
     if (userName == "api") {
-        userName = req.originalUrl.split("/")[3];
-        apiFlag=true;
+        userName = decodeURI(req.originalUrl.split("/")[3]);
+        apiFlag = true;
     }
-    if(!apiFlag){
-       
-         //not api request
-        urlRoute=req.originalUrl
-        console.log("urlRoute",urlRoute)
-    }
-    console.log("urlRoute",req.originalUrl)
+    if (!apiFlag) {
 
-       
-    if (req.headers["authorization"]=="null"||!req.headers["authorization"]) {
+        //not api request
+        urlRoute = req.originalUrl
+        console.log("urlRoute", urlRoute)
+    }
+    console.log("urlRoute", req.originalUrl)
+
+
+    if (req.headers["authorization"] == "null" || !req.headers["authorization"]) {
         if (req.cookies && req.cookies.jwt) {
 
             req.headers["authorization"] = req.cookies.jwt;
         }
-        else{
+        else {
 
-            return res.status(401).json({des:redirectUrl,routes:urlRoute, apiFlag:apiFlag,status:401});
+            return res.status(401).json({ des: redirectUrl, routes: urlRoute, apiFlag: apiFlag, status: 401 });
         }
     }
-    if (!userName ||!req.headers["authorization"]) { 
-        return res.status(401).json({des:redirectUrl,routes:urlRoute, apiFlag:apiFlag,status:401});
+    if (!userName || !req.headers["authorization"]) {
+        return res.status(401).json({ des: redirectUrl, routes: urlRoute, apiFlag: apiFlag, status: 401 });
     }
     else {//if authorization
         console.log('in if authorization');
@@ -48,24 +48,24 @@ const checkPermission = async (req, res, next) => {
                     let jwtFirstIp = verifyResult.ip
                     let currentClientIp = requestIp.getClientIp(req);
                     console.log(jwtFirstIp, currentClientIp)
-        
+
                     let uId = verifyResult.uid;
                     req.uId = uId;
                     verifyUsername(userName, uId)
-                        .then(()=>{
+                        .then(() => {
                             return next();
                         })
-                        .catch((err)=>{
+                        .catch((err) => {
                             console.log(err);
-                            return res.status(401).json({des:redirectUrl,routes:urlRoute, apiFlag:apiFlag,status:401});
+                            return res.status(401).json({ des: redirectUrl, routes: urlRoute, apiFlag: apiFlag, status: 401 });
                         })
                 }
             })
             .catch((err) => {
                 console.log(err);
-                return res.status(401).json({des:redirectUrl,routes:urlRoute, apiFlag:apiFlag,status:401});
+                return res.status(401).json({ des: redirectUrl, routes: urlRoute, apiFlag: apiFlag, status: 401 });
             }
-        );
+            );
     }
 }
 
@@ -80,17 +80,17 @@ const verifyToken = (token) => {
     });
 };
 
-const verifyUsername =  (userName, uId) => {
+const verifyUsername = (userName, uId) => {
     console.log('in verifyUsername');
-    return new Promise(async (resolve, reject)=>{
+    return new Promise(async (resolve, reject) => {
         try {
             let currentUser = await User.findOne({ "uid": uId });;
-            if(currentUser.username != userName){
+            if (currentUser.username != userName) {
                 reject('access denied')
             }
             resolve();
         }
-        catch( err ){
+        catch (err) {
             reject(err);
         }
     })

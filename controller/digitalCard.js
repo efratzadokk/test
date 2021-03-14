@@ -268,7 +268,7 @@ sendMessageByCard = async (req, res) => {
 
     transporter.sendMail(mailOptions, async function (error, info) {
 
-        let query = { _id: req.params.cardId, "submitioms.date": generateDate(new Date()) };
+        let query = { cardName: req.params.cardName, "submitioms.date": generateDate(new Date()) };
         let inc = { $inc: { 'submitioms.$.amount': 1 } };
         let currentCard = await Card.findOne(query);
         let success;
@@ -277,13 +277,14 @@ sendMessageByCard = async (req, res) => {
         else {
             let newDay = { date: generateDate(new Date()), amount: 1 }
             console.log("newDay", newDay);
-            success = await Card.findOneAndUpdate({ _id: req.params.cardId }, { $push: { submitioms: newDay } }, { new: true, upsert: true })
+            success = await Card.findOneAndUpdate({ cardName: req.params.cardName }, { $push: { submitioms: newDay } }, { new: true, upsert: true })
         }
         if (error) {
             console.log(error);
-
+            res.send(error);
         } else {
             console.log('Email sent: ' + info.response);
+            res.send();
 
         }
     });

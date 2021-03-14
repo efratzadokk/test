@@ -6,7 +6,11 @@ const cardSchema = mongoose.Schema({
     cardName: { type: String },
     errCardName:{ type: String },
     enableSaveCard:{ type: String },
-    fabTitle:{ type: String },
+    fabTitle: { type: String },
+    ips: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Stastistic'
+    }],
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
