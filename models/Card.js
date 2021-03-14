@@ -4,8 +4,7 @@ const cardSchema = mongoose.Schema({
     isDelete: { type: Boolean },
     showCallMe: { type: Boolean },
     cardName: { type: String },
-    currentCardIndex:{ type: Number },
-    errCardName:{ type: Number },
+    errCardName:{ type: String },
     enableSaveCard:{ type: String },
     fabTitle:{ type: String },
     userId: {

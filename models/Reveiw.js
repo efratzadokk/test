@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const reveiwSchema = mongoose.Schema({
+    isDeleted: { type: Boolean },
     IndexReveiws: { type: Number },
     profileShow: { type: Boolean },
     roleShow: { type: Boolean },

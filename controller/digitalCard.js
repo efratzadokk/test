@@ -349,10 +349,15 @@ generateDate = (date) => {
 //by card name only
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
+    let id=req.body.id;
 
-    let card = await Card.findOne({ "cardName": cardName })
+    let card = await Card.findOne({"cardName": cardName,isDelete:false })
+
+    console.log("id",id);
+    
         
-    if (card) {
+    if (card && card._id!=id) {
+        console.log("+++++")
         return res.send(false)
     }
     res.send(true);

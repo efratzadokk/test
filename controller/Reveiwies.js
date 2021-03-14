@@ -42,16 +42,16 @@ updateReveiw = (reveiw) => {
 }
 
 deleteReveiw = async (req, res) => {
-    let reveiw = req.body;
+    let reveiwId = req.params.reveiwId;
     try {
         await Reveiw.findByIdAndDelete(
-            reveiw._id,
+            reveiwId,
             (err) => {
                 if (err) {
                     console.log(err);
                     console.log("Successful deletion");
                 }
-                res.status(200).send(reveiw);
+                res.status(200).send("delete success");
                 // res.send(reveiw)
             });
     } catch (error) {
