@@ -85,6 +85,7 @@ getCardById = async (req, res) => {
     //     });
 
     Card.findOne({ cardName: cardName, isDelete: false })
+    .populate({ path: "userId" })
     .populate({ path: "socialMedias" })
     .populate({ path: 'gallery' })
     .populate({ path: 'reveiw' })
@@ -393,6 +394,45 @@ getCardsIndex=(req, res)=>{
     })
 
 }
+
+
+
+sendMessageByCard = async (req, res) => {
+    const { body, mailTo, username } = req.body;
+    console.log("body__________", body);
+    console.log("mailTo__________", mailTo);
+    console.log("username__________", username);
+
+    const email = {
+        from: `${username}@mails.codes`,
+        to: mailTo,//emailTo
+        subject: "Knowme",
+        html: body
+
+    }
+    const options = {
+        url: 'https://mails.codes/mail/sendEmail',
+        method: 'POST',
+        headers: { Authorization: "secretKEY@2021" },
+        json: email,
+    };
+    return new Promise((resolve, reject) => {
+        request(options, (error, res, body) => {
+            if (error) {
+                console.error("error:" + error);
+                                reject(false);
+            }
+           
+            console.log(`statusCode: ${res.statusCode}`);
+            console.log(body);
+            resolve('sent');
+            
+        });
+        res.send(true);
+    });
+
+}
+
 
 
 module.exports = {
