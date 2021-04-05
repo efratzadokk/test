@@ -260,10 +260,12 @@ const getUidFromToken = async(token) => {
 
 const getUserNameByEmail=(req, res)=>{
 
+    console.log("$$$$$$$$$$$$$$$$$$$$$$")
+
     User.findOne({email:req.query.email},(err,user)=>{
 
         if(err){
-            console.log("error: " + error)
+            console.log("error: " + err)
             res.status(500)
         }
         console.log("user: " + user)
