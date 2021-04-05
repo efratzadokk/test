@@ -5,12 +5,9 @@ const cardSchema = mongoose.Schema({
     showCallMe: { type: Boolean },
     cardName: { type: String },
     errCardName:{ type: String },
+    
     enableSaveCard:{ type: String },
-    fabTitle: { type: String },
-    ips: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Stastistic'
-    }],
+    fabTitle:{ type: String },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -69,6 +66,7 @@ const cardSchema = mongoose.Schema({
     numFillsocialMedia: { type: Number },
     numSocialMedia: { type: Number },
     numBroderIcon: { type: Number },
+    colorIconEmail: { type: String },
     whatsAppWelcomMassage:{ type: String },
     socialMedias: [
         {
@@ -78,7 +76,12 @@ const cardSchema = mongoose.Schema({
     ],
 
     whatsAppWelcomMassage:{ type: String },
-
+    emailWelcomeMassege: {
+        emailShow: { type: String },
+        titleEmail: { type: String },
+        titleEmailShow: { type: String },
+        WelcomeMassege: { type: String },
+    },
     vCardStyle:
     {
         fullNameShow: { type: Boolean },
@@ -423,7 +426,6 @@ const cardSchema = mongoose.Schema({
         },
         socialMediaSpace: {
             minHeight: { type: String },
-            height: { type: String },
             height: { type: String },
             whiteSpace: { type: String },
             overflow: { type: String },
