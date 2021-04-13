@@ -28,10 +28,10 @@ const firebaseConfigProd = {
     measurementId: "G-RMEN31486N"
 };
 
-const env=process.env.BASE_URL;
-const firebaseConfig=env==='http://localhost:4000'?firebaseConfigDev:firebaseConfigProd;
+const env = process.env.BASE_URL;
+const firebaseConfig = env === 'http://localhost:4000' ? firebaseConfigDev : firebaseConfigProd;
 
-  
+
 
 firebase.initializeApp(firebaseConfig);
 admin.initializeApp(firebaseConfig);
@@ -45,31 +45,34 @@ let numSessions = 0;
 let usernameToCheck
 let userName;
 
-const insertIfExist = async(userEmail) => {
+const insertIfExist = async (userEmail) => {
     console.log("in insertIfExist")
 
-    return new Promise(async(resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
 
-        await User.find({ email: userEmail }, async(err, users) => {
+        await User.find({ email: userEmail }, async (err, users) => {
             if (users.length) {
                 console.log(users[0])
                 numSessions++;
                 console.log("user exist")
-                resolve({user:users[0]});
+                resolve({ user: users[0] });
             }
-            const user = new User({
-                _id: new mongoose.Types.ObjectId(),
-                email: userEmail,
-                uid:uid,
-                username:""
-            })
-            let userFromDB= await user.save();
-            if (userFromDB) {  
+            else {
+                const user = new User({
+                    _id: new mongoose.Types.ObjectId(),
+                    email: userEmail,
+                    uid: uid,
+                    username: ""
+                })
+                let userFromDB = await user.save();
+                if (userFromDB) {
 
-                console.log("user added successfully")
-                resolve({ user: userFromDB });
+                    console.log("user added successfully")
+                    resolve({ user: userFromDB });
+                }
             }
-            reject("err")
+
+            //reject("err")
         })
     })
 }
@@ -78,8 +81,8 @@ const verify = (req, res, next) => {
     console.log("in verify")
     return new Promise((resolve, reject) => {
         let token = (typeof req === "object") ? req.body.token : req
-        if(!token){
-            token=req.cookies.accessToken
+        if (!token) {
+            token = req.cookies.accessToken
         }
         console.log("token")
 
@@ -94,26 +97,26 @@ const createLeaderJwt = (req, res) => {
     accessToken = jwt.sign({ uid: uid, email: email, ip: clientIp }, process.env.ACCESS_TOKEN_SECRET);
 }
 
-const checkPermission = async(req, res) => {
+const checkPermission = async (req, res) => {
     console.log('in checkPermission')
-    decodedToken=await verify(req)
+    decodedToken = await verify(req)
 
     uid = decodedToken.uid
     email = decodedToken.email
 
     console.log("verify")
-    
-    try{
+
+    try {
         console.log("in try")
 
-        let result =await insertIfExist(email)
-        console.log("result "+result.user)
+        let result = await insertIfExist(email)
+        console.log("result " + result.user)
         if (result.user) {
-            console.log("inside if "+result.user.uid)
+            console.log("inside if " + result.user.uid)
             const usernamePresent = await usernameExistCheck(result.user.uid)
-            
-            console.log("usernamePresent "+usernamePresent)
-            console.log("inside if "+userName)
+
+            console.log("usernamePresent " + usernamePresent)
+            console.log("inside if " + userName)
             jsonWebToken = req.headers["authorization"]
 
             return res.status(200).json({
@@ -121,78 +124,76 @@ const checkPermission = async(req, res) => {
                 "uid": result.user.uid,
                 "redirectUrl": req.redirectUrl,
                 "is_username": usernamePresent,
-                "userName":userName
+                "userName": userName
             });
         }
     }
 
-    catch(err)
-    {
+    catch (err) {
         res.status(500).send(err)
     }
 }
 
 
 const usernameExistCheck = async (uid) => {
-    console.log(uid,"+++++++++")
-    return new Promise(async(resolve, reject) => {
-      await  User.find({ uid: uid }, (err, $) => {
-            console.log("$",$)
-            if($.length)
-           {
-               console.log("$2",$)
-               if($[0].username=="")
-              {
-                console.log("in $[0].username==''")
-                userName=""
-                  resolve(false)
-              }
-              else{
-                console.log("in $[0].username!=''")
-                userName= $[0].username
-                resolve(true)
-               }
-              }  
-         else{
-             console.log("jjjjjjjjjjj")
-             reject("temporary error, please try again later.")
-         }
-           
+    console.log(uid, "+++++++++")
+    return new Promise(async (resolve, reject) => {
+        await User.find({ uid: uid }, (err, $) => {
+            console.log("$", $)
+            if ($.length) {
+                console.log("$2", $)
+                if ($[0].username == "") {
+                    console.log("in $[0].username==''")
+                    userName = ""
+                    resolve(false)
+                }
+                else {
+                    console.log("in $[0].username!=''")
+                    userName = $[0].username
+                    resolve(true)
+                }
+            }
+            else {
+                console.log("jjjjjjjjjjj")
+                reject("temporary error, please try again later.")
+            }
+
         })
     })
-    
+
 }
 
 
-const usernameCheck = async(req, res) => {
+const usernameCheck = async (req, res) => {
     console.log("in usernameCheck");
     usernameToCheck = req.body.usernameToCheck
-    console.log('username to check ' +usernameToCheck)
+    console.log('username to check ' + usernameToCheck)
     const decodedToken = await verify(req)
     const uid = decodedToken.uid
 
-    
-    User.find({username:{ $regex: new RegExp(`^${usernameToCheck}*$`,"i") }}, async(err, users) => {
+
+    User.find({ username: { $regex: new RegExp(`^${usernameToCheck}*$`, "i") } }, async (err, users) => {
 
         if (users.length) {
-            console.log("in users.length == true",users)
-            return res.json({availability: false,userName:usernameToCheck})
+            console.log("in users.length == true", users)
+            return res.json({ availability: false, userName: usernameToCheck })
         }
 
-        if(err){
+        if (err) {
             console.log("errorrrrr = " + err);
         }
 
-        User.findOneAndUpdate({'uid' : uid}, {'username' : usernameToCheck}, {upsert: true}, function(err, doc) {
+        User.findOneAndUpdate({ 'uid': uid }, { 'username': usernameToCheck }, { upsert: true }, function (err, doc) {
             if (err) {
                 console.log("errorrrrr = " + err);
-                return res.json({error: err});
+                return res.json({ error: err });
             }
-            else
-           {
-               sendWelcomeEmail(uid)
+            else {
+                sendWelcomeEmail(uid)
                 return res.json({
-                availability : true, uid: uid,userName:usernameToCheck})}
+                    availability: true, uid: uid, userName: usernameToCheck
+                })
+            }
         });
 
         // User.update({'uid' : uid},{'username' : usernameToCheck})
@@ -200,7 +201,7 @@ const usernameCheck = async(req, res) => {
     })
 }
 
-const sendWelcomeEmail = async(uid) => {
+const sendWelcomeEmail = async (uid) => {
     // const jwt = req.headers.authentication;
     // console.log("jwt", jwt);
     const Cuser = await User.findOne({ uid: uid });
@@ -208,15 +209,15 @@ const sendWelcomeEmail = async(uid) => {
     const conversation = { subject: 'thank you for choosing leader codes' }
     const wave = {
         //  body: '<h1>hi ' + userName + '</h1>' +
-        body: '<h1>hi '+usernameToCheck+'</h1>' +
+        body: '<h1>hi ' + usernameToCheck + '</h1>' +
             '<h2> thank you for choosing leader, you can click ' + '<a href="https://leader.codes/login#">here </a> to login to you account </h2>' +
 
             '<h2> -leader.codes- </h2>'
     };
-    const from="NoReplay"
+    const from = "NoReplay"
     const sendEmailToUser = true;
     request.post('https://box.leader.codes/api/' + Cuser.uid + '/conversation/saveConversationGlobal', {
-        json: { conversation, wave, sendEmailToUser,from },
+        json: { conversation, wave, sendEmailToUser, from },
         headers: { authentication: jsonWebToken }
     }, (error, res, body) => {
         console.log("arrive to saveConversationGlobal");
@@ -234,7 +235,7 @@ const getToken = (req, res) => {
     console.log("register req.token: " + req.body.jwt);
 
     admin.auth().verifyIdToken(req.body.jwt)
-        .then(function(decodedToken) {
+        .then(function (decodedToken) {
             var token = req.body.jwt
             uid = decodedToken.uid;
             email = decodedToken.email;
@@ -246,25 +247,25 @@ const getToken = (req, res) => {
                 accessToken
                 //email
             })
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log("error: " + error)
             res.status(500)
         });
 }
 
-const getUidFromToken = async(token) => {
+const getUidFromToken = async (token) => {
     const decodedToken = await verify(token)
     const uid = decodedToken.uid
     return uid
 }
 
-const getUserNameByEmail=(req, res)=>{
+const getUserNameByEmail = (req, res) => {
 
     console.log("$$$$$$$$$$$$$$$$$$$$$$")
 
-    User.findOne({email:req.query.email},(err,user)=>{
+    User.findOne({ email: req.query.email }, (err, user) => {
 
-        if(err){
+        if (err) {
             console.log("error: " + err)
             res.status(500)
         }
@@ -274,12 +275,42 @@ const getUserNameByEmail=(req, res)=>{
     });
 }
 
+
+
+const newCheakPremission = async (req, res) => {
+    let currentUser = await User.findOne({ username: req.params.userName })
+    if (!currentUser) {
+        let newUser = new User();
+        const jwt = req.cookies.devJwt ? req.cookies.devJwt : req.headers['authorization'] ? req.headers['authorization'] : null
+        const cookie = request.cookie(`jwt=${jwt}`)
+        const options = {
+            method: "GET",
+            url: `https://accounts.codes/api/${req.params.userName}`,
+            headers: { Cookie: cookie }
+        };
+        request(options, (error, response, body) => {
+            console.log("response.statusCode", response.statusCode)
+            if (error || response.statusCode != 200) {
+                return res.status(401).json({ des: redirectUrl, routes: urlRoute, apiFlag: apiFlag, status: 401 })
+            }
+            else {
+                console.log("userName", req.params.userName)
+                newUser.username = req.params.userName;
+                newUser.email = body.user.email
+                newUser.save();
+            }
+
+        });
+    }
+    res.status(200).send()
+}
+
 module.exports = {
     getUserNameByEmail,
     getToken,
     checkPermission,
     usernameCheck,
     getUidFromToken,
-    usernameExistCheck
-
+    usernameExistCheck,
+    newCheakPremission
 }

@@ -11,7 +11,8 @@ const IframeController = require('./Iframe.js');
 const nodemailer = require('nodemailer');
 
 getDigitalCard = async (req, res) => {
-    console.log("get")
+    console.log("userName--------------", req.params.userName);
+    
     let currentUser = await User.findOne({ "username": req.params.userName });
     User.findOne({ "_id": currentUser._id })
         .populate({
