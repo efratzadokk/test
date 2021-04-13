@@ -427,7 +427,6 @@ const cardSchema = mongoose.Schema({
         socialMediaSpace: {
             minHeight: { type: String },
             height: { type: String },
-            height: { type: String },
             whiteSpace: { type: String },
             overflow: { type: String },
             width: { type: String },

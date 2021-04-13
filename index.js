@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const fileUpload = require("express-fileupload");
-const path = require('path')
+const path = require('path');
 const request = require('request');
 const app = express();
 
@@ -16,6 +16,8 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require('cookie-parser');
 const registerRouter = require("./routes/register.js");
 const auth = require('./controller/auth');
+const registerController = require('./controller/register');
+
 
 app.use(cors());
 app.use(cookieParser())
@@ -34,9 +36,14 @@ mongoose.connect(process
     useCreateIndex: true,
     useFindAndModify: false
 })
+
+// app.use('/:userName/isPermission', auth.checkPermission,registerController.newCheakPremission);
+
 app.use('/register', registerRouter);
 
-app.use("/api/digitalcard", auth.checkPermission, routeToApi);
+app.use("/api/digitalcard",auth.checkPermission, routeToApi);
+// app.use("/api/digitalcard", routeToApi);
+
 
 app.use("/", routeToViews);
 
@@ -56,5 +63,5 @@ app.all("/*", function (req, res, next) {
 console.log("is new!!!");
 app.listen(process
     .env.PORT, (err) => {
-    console.log("server is up!!!!!");
-});
+        console.log("server is up!!!!!");
+    });
