@@ -3,6 +3,8 @@ const userSchema = mongoose.Schema({
     email: { type: String, require: true, unique: true, match: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ },
     uid: { type: String, require: true },
     username: { type: String },
+    profile: { type: String},
+    gender: { type: String},
     isPaying: { type: Boolean, default: false },
     premium: { type: Boolean },
     suspend: { type: Boolean },
