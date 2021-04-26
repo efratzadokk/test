@@ -7,6 +7,9 @@ const UserController = require('../controller/User.js')
 const FilesController = require('../controller/Files.js')
 const Gallery = require('../models/Gallery.js');
 const Review = require('../controller/Reveiwies.js');
+
+router.post('/sendMessageByCard/:cardName', digitalCardController.sendMessageByCard);
+
 //categories
 router.get('/getCategories/categories/allCategories/cards', CategoriesController.getCategories);
 

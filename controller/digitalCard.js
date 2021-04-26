@@ -244,54 +244,54 @@ getUidByUserName = async (req, res) => {
 };
 
 
-sendMessageByCard = async (req, res) => {
+// sendMessageByCard = async (req, res) => {
 
-    const { body, mailTo } = req.body;
+//     const { body, mailTo } = req.body;
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'knowme.page@gmail.com',
-            pass: 'knowmeteema315292482',
-            type: "login",
-        }
-    });
+//     const transporter = nodemailer.createTransport({
+//         service: 'gmail',
+//         auth: {
+//             user: 'knowme.page@gmail.com',
+//             pass: 'knowmeteema315292482',
+//             type: "login",
+//         }
+//     });
 
-    const mailOptions = {
-        from: {
-            name: 'no-replay',
-            address: 'knowme.page@gmail.com',
-        },
-        to: mailTo,
-        subject: 'no-replay',
-        html: body
-    };
+//     const mailOptions = {
+//         from: {
+//             name: 'no-replay',
+//             address: 'knowme.page@gmail.com',
+//         },
+//         to: mailTo,
+//         subject: 'no-replay',
+//         html: body
+//     };
 
 
-    transporter.sendMail(mailOptions, async function (error, info) {
+//     transporter.sendMail(mailOptions, async function (error, info) {
 
-        let query = { cardName: req.params.cardName, "submitioms.date": generateDate(new Date()) };
-        let inc = { $inc: { 'submitioms.$.amount': 1 } };
-        let currentCard = await Card.findOne(query);
-        let success;
-        console.log('currentCard', currentCard);
-        if (currentCard) { success = await Card.updateOne(query, inc); }
-        else {
-            let newDay = { date: generateDate(new Date()), amount: 1 }
-            console.log("newDay", newDay);
-            success = await Card.findOneAndUpdate({ cardName: req.params.cardName }, { $push: { submitioms: newDay } }, { new: true, upsert: true })
-        }
-        if (error) {
-            console.log(error);
-            res.send(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-            res.send();
+//         let query = { cardName: req.params.cardName, "submitioms.date": generateDate(new Date()) };
+//         let inc = { $inc: { 'submitioms.$.amount': 1 } };
+//         let currentCard = await Card.findOne(query);
+//         let success;
+//         console.log('currentCard', currentCard);
+//         if (currentCard) { success = await Card.updateOne(query, inc); }
+//         else {
+//             let newDay = { date: generateDate(new Date()), amount: 1 }
+//             console.log("newDay", newDay);
+//             success = await Card.findOneAndUpdate({ cardName: req.params.cardName }, { $push: { submitioms: newDay } }, { new: true, upsert: true })
+//         }
+//         if (error) {
+//             console.log(error);
+//             res.send(error);
+//         } else {
+//             console.log('Email sent: ' + info.response);
+//             res.send();
 
-        }
-    });
+//         }
+//     });
 
-}
+// }
 
 
 addContactOptions = async (req, res) => {
@@ -426,14 +426,12 @@ sendMessageByCard = async (req, res) => {
            
             console.log(`statusCode: ${res.statusCode}`);
             console.log(body);
-            resolve('sent');
-            
+            resolve(true);   
         });
         res.send(true);
     });
 
 }
-
 
 
 module.exports = {
