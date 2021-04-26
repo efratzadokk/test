@@ -12,7 +12,7 @@ const nodemailer = require('nodemailer');
 
 getDigitalCard = async (req, res) => {
     console.log("userName--------------", req.params.userName);
-    
+
     let currentUser = await User.findOne({ "username": req.params.userName });
     User.findOne({ "_id": currentUser._id })
         .populate({
@@ -38,10 +38,28 @@ getDigitalCard = async (req, res) => {
             res.status(200).send(user.cards);
         })
 }
-
+newActivIP =(req) => {
+    return new Promise((resolve, reject) => {
+        const clientIp = requestIp.getClientIp(req);
+        let geo = geoip.lookup(clientIp);
+        let parser1 = new UAParser();
+        let ua = req.headers['user-agent'];
+        let browserName = parser1.setUA(ua).getBrowser().name;
+        let deviceType = os.type()
+        const active = {
+            country: geo.country,
+            ip: clientIp,
+            deviceType: deviceType,
+            browser: browserName,
+            languageBrowser: req.headers["accept-language"]
+        }
+        if (!active) reject("not active");
+        resolve(active);
+    });
+}
 getCardById = async (req, res) => {
 
-    let cardName=req.params.cardName;
+    let cardName = req.params.cardName;
     // let cardId=req.params.cardId;
     console.log("cardName", cardName)
     console.log("userName", req.params.userName)
@@ -55,7 +73,7 @@ getCardById = async (req, res) => {
         else {
             let newDay = { date: generateDate(new Date()), amount: 1 }
             console.log("newDay", newDay);
-            
+
             success = await Card.findOneAndUpdate({ cardName: cardName },
                 { $push: { viewers: newDay } },
                 { new: true, upsert: true })
@@ -84,23 +102,30 @@ getCardById = async (req, res) => {
     //         res.status(200).send(data);
 
     //     });
-
+    const newActive = await newActivIP(req)
     Card.findOne({ cardName: cardName, isDelete: false })
-    .populate({ path: "userId" })
-    .populate({ path: "socialMedias" })
-    .populate({ path: 'gallery' })
-    .populate({ path: 'reveiw' })
-    .populate({ path: 'video' })
-    .populate({ path: 'iframe' })
-    .exec((err, card) => {
-        if (err) {
-            res.status(500).send(err);
-        }  
-        console.log("card-------------------", card)
-       
-        res.status(200).send(card);
+        .populate({ path: "userId" })
+        .populate({ path: "socialMedias" })
+        .populate({ path: 'gallery' })
+        .populate({ path: 'reveiw' })
+        .populate({ path: 'video' })
+        .populate({ path: 'iframe' })
+        .populate({
+            path: 'statistic',
+            match: {
+                $inc: { 'viwesCnt': 1 },
+                $push: { actives: newActive }
+            }
+        })
+        .exec((err, card) => {
+            if (err) {
+                res.status(500).send(err);
+            }
+            console.log("card-------------------", card)
 
-    });
+            res.status(200).send(card);
+
+        });
 }
 
 
@@ -122,7 +147,7 @@ createDigitalCard = async (req, res) => {
         const reveiw = await ReveiwieController.saveReveiw(card.reveiw);
         const video = await VideoController.saveVideo(card.video);
         const iframe = await IframeController.saveIframe(card.iframe);
-       
+
         card.socialMedias = [];
 
         let nCard = new Card();
@@ -352,21 +377,21 @@ generateDate = (date) => {
 //by card name only
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
-    let id=req.body.id;
+    let id = req.body.id;
 
-    let card = await Card.findOne({"cardName": cardName,isDelete:false })
+    let card = await Card.findOne({ "cardName": cardName, isDelete: false })
 
-    console.log("id",id);
-    
-        
-    if (card && card._id!=id) {
+    console.log("id", id);
+
+
+    if (card && card._id != id) {
         console.log("+++++")
         return res.send(false)
     }
     res.send(true);
 
 }
- 
+
 editCardName = async (req, res) => {
 
     let cardId = req.body.cardId;
@@ -384,26 +409,37 @@ editCardName = async (req, res) => {
 
 }
 
-getCardsIndex=(req, res)=>{
+getCardsIndex = (req, res) => {
 
-    Card.countDocuments({},(err,count)=>{
-        if(err){
+    Card.countDocuments({}, (err, count) => {
+        if (err) {
             res.status(500).send(err);
-        } 
-        console.log("count",count)
-        res.status(200).send({count:count});
+        }
+        console.log("count", count)
+        res.status(200).send({ count: count });
     })
 
 }
 
 
+sumEmailSend =(username) => {
+    return new Promise(async(resolve, reject) => {
+        const card = await Card.find({ cardName: username })
+        const statisticEmail = await Statistic.findOneAndUpdate({ idCard: card._id },
+            { $inc: { 'emailCnt': 1 } },
+            { new: true })
+        if (statisticEmail) resolve("access denied");
+        console.log(statisticEmail.emailCnt);
+        reject('access denied');
+    });
+}
 
 sendMessageByCard = async (req, res) => {
     const { body, mailTo, username } = req.body;
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
-
+    await sumEmailSend(username)
     const email = {
         from: `${username}@mails.codes`,
         to: mailTo,//emailTo
@@ -421,19 +457,18 @@ sendMessageByCard = async (req, res) => {
         request(options, (error, res, body) => {
             if (error) {
                 console.error("error:" + error);
-                                reject(false);
+                reject(false);
             }
-           
+
             console.log(`statusCode: ${res.statusCode}`);
             console.log(body);
             resolve('sent');
-            
+
         });
         res.send(true);
     });
 
 }
-
 
 
 module.exports = {
