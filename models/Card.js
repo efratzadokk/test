@@ -287,7 +287,7 @@ const cardSchema = mongoose.Schema({
         arrowsColor: { type: String },
     },
     galleryStyle: {
-        grid: { type: Boolean },
+        design: { type: String },
         color: { type: String },
         fade: { type: Boolean },
         autoPlay: { type: Number },
