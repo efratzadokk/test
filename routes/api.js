@@ -34,6 +34,24 @@ router.post('/:userName', digitalCardController.createDigitalCard);
 router.get('/:userName/getCardsIndex', digitalCardController.getCardsIndex);
 
 
+router.get('/:userName/getCardsIndex', (req,res)=>{
+
+    digitalCardController.example(req.param.cardName)
+    
+    .then(data=>{
+        res.send(data)
+    })
+    .catch(err=>{
+        res.send(err)
+    })
+
+});
+
+
+
+
+module.exports = router;
+
 // router.get('/:userName/getCardsIndex', (req,res)=>{
 
 //     digitalCardController.example(req.param.cardName)
