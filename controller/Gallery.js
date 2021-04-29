@@ -1,19 +1,21 @@
 const Gallery = require('../models/Gallery.js');
 
-saveGallery = (gallery) => {
+saveGallerys = (gallery) => {
     return new Promise(async (resolve, reject) => {
+        let gallerys = []
+        console.log("inside Gallery !")
         try {
-            let tmpGalery=new Gallery();
-            let newGallery = new Gallery(gallery);
-            newGallery._id=tmpGalery._id
-            newGallery.save((err,gallery_db)=>{
-                if(err){
-                    console.log("err galery", err)
-                }
-                resolve(gallery_db);
-            });
+            Promise.all(
+                gallery.map(async (galleryIndex) => {
+                    let g = new Gallery(galleryIndex);
+                    await g.save()
+                    gallerys.push(g._id)
+                })).then(() => {
+                    resolve(gallerys)
+                })
 
         } catch (error) {
+            console.log("reveiw errore: -", error)
             reject(error);
         }
     });
@@ -42,7 +44,7 @@ updateGallery = (gallery) => {
 }
 
 module.exports = {
-    saveGallery,
+    saveGallerys,
     updateGallery
 }
 
