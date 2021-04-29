@@ -47,6 +47,18 @@ router.get('/:userName/getCardsIndex', (req,res)=>{
 
 });
 
+
+router.get('/:userName/getAllCards',(req,res)=>{
+
+    digitalCardController.getAllCards(req.params.userName)
+    .then(data=>{
+        res.send(data)
+    })
+    .catch(err=>{
+        res.send(err)
+    })
+});
+
 module.exports = router;
 
 
