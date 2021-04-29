@@ -470,6 +470,18 @@ sendMessageByCard = async (req, res) => {
 
 }
 
+example=(cardName)=>{
+    return new Promise((resolve, reject) => {
+
+        Card.findOne({cardName:cardName},(err,card)=>{
+
+            if(err){
+                reject(err)
+            }
+            resolve(card)
+        })
+    });
+}
 
 module.exports = {
     createDigitalCard,
@@ -482,7 +494,8 @@ module.exports = {
     checkUniqueCardName,
     addContactOptions,
     editCardName,
-    getCardsIndex
+    getCardsIndex,
+    example
 }
 
 
