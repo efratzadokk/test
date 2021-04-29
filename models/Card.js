@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const cardSchema = mongoose.Schema({
     
     isDelete:{ type: Boolean },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     cardName: {
         title: { type: String },
         show: { type: Boolean }
@@ -295,26 +299,27 @@ const cardSchema = mongoose.Schema({
         autoPlay: { type: Number },
         margin: { type: Number },
         rowHeight: { type: Number },
-        maxRows: { type: Number }
+        maxRows: { type: Number },
+        design: { type: String }
     },
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reveiw'
     }],
-    gallery: {
+    gallery: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Gallery'
-    },
+    }],
     lead: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Leads'
     },
 });
 
-cardSchema.pre('save', function (next) {
-    const card = this
-    card.cardName = card.cardName.replace(/\s/g, "");
-    next()
-})
+// cardSchema.pre('save', function (next) {
+//     const card = this
+//     card.cardName = card.cardName.replace(/\s/g, "");
+//     next()
+// })
 
 module.exports = mongoose.model("Card", cardSchema);
