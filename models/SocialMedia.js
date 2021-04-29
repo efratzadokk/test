@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const socialMediaSchema = mongoose.Schema({
-
     name: { type: String },
     title: { type: String },
     url: { type: String },
