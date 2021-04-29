@@ -142,14 +142,12 @@ createDigitalCard = async (req, res) => {
         card.user = await User.findOne({ "username": req.params.userName })
         card.statistic = statistic._id
         card.lead = lead._id
-        card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia)
-        card.gallery = await GalleryController.saveGallerys(req.body.gallery)
-        card.reviews = await ReveiwieController.saveReveiws(req.body.reviews)
-
+        card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
+        card.gallery = await GalleryController.saveGallerys(req.body.gallery);
+        card.reviews = await ReveiwieController.saveReveiws(req.body.reviews);
 
         // console.log("card-----", card);
         // await card.save()
-
         card.save(async (err, c) => {
 
             Card.findOne(
