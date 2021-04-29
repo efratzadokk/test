@@ -442,6 +442,23 @@ example=(cardName)=>{
     });
 }
 
+getAllCards=(userName)=>{
+
+    return new Promise((resolve, reject) => {
+
+        User.find({userName:userName})
+        .populate({path: "cards"})
+        .exec((err,cards)=>{
+
+            if(err){
+                reject(err);
+            }
+            resolve(cards)
+        })
+
+    });
+}
+
 module.exports = {
     createDigitalCard,
     updateDigitalCard,
