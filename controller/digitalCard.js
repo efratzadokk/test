@@ -10,7 +10,6 @@ const Reveiw = require('../models/Reveiw');
 const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
 const SocialMediaController = require('./socialMedias');
-const VideoController = require('./Video.js');
 const IframeController = require('./Iframe.js');
 const nodemailer = require('nodemailer');
 
@@ -61,54 +60,7 @@ newActivIP = (req) => {
         resolve(active);
     });
 }
-getCardById = async (req, res) => {
 
-    let cardName = req.params.cardName;
-    // let cardId=req.params.cardId;
-    console.log("cardName", cardName)
-    console.log("userName", req.params.userName)
-
-    if (req.query.view) {
-        let query = { cardName: cardName, "viewers.date": generateDate(new Date()) };
-        let inc = { $inc: { 'viewers.$.amount': 1 } };
-        let currentCard = await Card.findOne(query);
-        let success;
-        if (currentCard) { success = await Card.updateOne(query, inc); }
-        else {
-            let newDay = { date: generateDate(new Date()), amount: 1 }
-            console.log("newDay", newDay);
-
-            success = await Card.findOneAndUpdate({ cardName: cardName },
-                { $push: { viewers: newDay } },
-                { new: true, upsert: true })
-        }
-    }
-
-    const newActive = await newActivIP(req)
-    Card.findOne({ cardName: cardName, isDelete: false })
-        .populate({ path: "userId" })
-        .populate({ path: "socialMedias" })
-        .populate({ path: 'gallery' })
-        .populate({ path: 'reveiw' })
-        .populate({ path: 'video' })
-        .populate({ path: 'iframe' })
-        .populate({
-            path: 'statistic',
-            match: {
-                $inc: { 'viwesCnt': 1 },
-                $push: { actives: newActive }
-            }
-        })
-        .exec((err, card) => {
-            if (err) {
-                res.status(500).send(err);
-            }
-            console.log("card-------------------", card)
-
-            res.status(200).send(card);
-
-        });
-}
 
 
 createDigitalCard = async (req, res) => {
@@ -429,19 +381,6 @@ sendMessageByCard = async (req, res) => {
 
 }
 
-example=(cardName)=>{
-    return new Promise((resolve, reject) => {
-
-        Card.findOne({cardName:cardName},(err,card)=>{
-
-            if(err){
-                reject(err)
-            }
-            resolve(card)
-        })
-    });
-}
-
 getAllCards=(userName)=>{
 
     return new Promise((resolve, reject) => {
@@ -459,11 +398,43 @@ getAllCards=(userName)=>{
     });
 }
 
+getCardByName=async(req)=>{
+
+    const { cardName } =req;
+    const newActive = await newActivIP(req)
+
+    return new Promise((resolve, reject) => {
+
+        Card.findOne({ "cardName.title": cardName, isDelete: false })
+        .populate({ path: "user" })
+        .populate({ path: "socialMedia" })
+        .populate({ path: 'gallery' })
+        .populate({ path: 'reviews' })
+        .populate({ path: 'lead' })
+        .populate({
+            path: 'statistic',
+            match: {
+                $inc: { 'viewsCnt': 1 },
+                $push: { actives: newActive }
+            }
+        })
+        .exec((err, card) => {
+
+            if (err) {
+                reject(err);
+            }
+            console.log("card-------------------", card)
+
+            resolve(card)
+
+        })
+    });
+}
+
 module.exports = {
     createDigitalCard,
     updateDigitalCard,
     getDigitalCard,
-    getCardById,
     deleteCard,
     getUidByUserName,
     sendMessageByCard,
@@ -471,7 +442,7 @@ module.exports = {
     addContactOptions,
     editCardName,
     getCardsIndex,
-    example
+    getCardByName
 }
 
 

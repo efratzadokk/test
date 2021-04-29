@@ -12,6 +12,18 @@ router.get('/getCategories/categories/allCategories/cards', CategoriesController
 router.post('/sendMessageByCard/:cardName', digitalCardController.sendMessageByCard);
 
 
+router.get('/getCardByName/:cardName',(req,res)=>{
+
+    digitalCardController.getCardByName(req)
+    .then(data=>{
+        res.send(data);
+    })
+    .catch(err=>{
+        res.send(err)
+    })
+})
+
+
 module.exports = router;
 
 
