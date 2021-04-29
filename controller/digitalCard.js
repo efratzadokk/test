@@ -139,7 +139,7 @@ createDigitalCard = async (req, res) => {
         let card = new Card(req.body)
         let statistic = await new Statistic(req.body.statistic)
         let lead = await new Lead(req.body.lead)
-        card.user = await User.findOne({"username": req.params.userName})
+        card.user = await User.findOne({ "username": req.params.userName })
         card.statistic = statistic._id
         card.lead = lead._id
         card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia)
@@ -154,16 +154,17 @@ createDigitalCard = async (req, res) => {
 
             Card.findOne(
                 { "cardName.title": c.cardName.title },
-                (err, myCard) => {
+                (async (err, myCard) => {
                     console.log("card-----", myCard._id);
-                    let user = User.findOneAndUpdate(
+                    let user = await User.findOneAndUpdate(
                         { "username": req.params.userName },
                         { $push: { cards: myCard._id } },
                         { new: true }
                     )
-                    console.log("username!!!!!!", user);
+                    console.log("cards user!!!!!!", user.cards);
                     return res.status(200).json(myCard)
                 })
+            )
         })
     }
     catch (error) {
