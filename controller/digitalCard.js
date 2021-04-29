@@ -169,8 +169,6 @@ createDigitalCard = async (req, res) => {
         console.log("error", error)
         res.send(error)
     }
-
-
 }
 
 updateDigitalCard = async (req, res) => {
