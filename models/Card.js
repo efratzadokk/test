@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const cardSchema = mongoose.Schema({
-    
     isDelete:{ type: Boolean },
     user: {
         type: mongoose.Schema.Types.ObjectId,

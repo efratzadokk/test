@@ -41,6 +41,7 @@ getDigitalCard = async (req, res) => {
             res.status(200).send(user.cards);
         })
 }
+
 newActivIP = (req) => {
     return new Promise((resolve, reject) => {
         const clientIp = requestIp.getClientIp(req);
@@ -65,34 +66,24 @@ newActivIP = (req) => {
 
 createDigitalCard = async (req, res) => {
     try {
-
-        let card = new Card(req.body)
+        let card = await new Card(req.body)
         let statistic = await new Statistic(req.body.statistic)
         let lead = await new Lead(req.body.lead)
         card.user = await User.findOne({ "username": req.params.userName })
-        card.statistic = statistic._id
-        card.lead = lead._id
+        card.statistic = statistic;
+        card.lead = lead;
         card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
         card.gallery = await GalleryController.saveGallerys(req.body.gallery);
         card.reviews = await ReveiwieController.saveReveiws(req.body.reviews);
 
-        // console.log("card-----", card);
-        // await card.save()
-        card.save(async (err, c) => {
-
-            Card.findOne(
-                { "cardName.title": c.cardName.title },
-                (async (err, myCard) => {
-                    console.log("card-----", myCard._id);
-                    let user = await User.findOneAndUpdate(
-                        { "username": req.params.userName },
-                        { $push: { cards: myCard._id } },
-                        { new: true }
-                    )
-                    console.log("cards user!!!!!!", user.cards);
-                    return res.status(200).json(myCard)
-                })
+        card.save(async (err, cardAfterSave) => {
+            console.log("card-----", cardAfterSave);
+            await User.findOneAndUpdate(
+                { "username": req.params.userName },
+                { $push: { cards: cardAfterSave._id } },
+                { new: true }
             )
+            return res.status(200).json(cardAfterSave)
         })
     }
     catch (error) {
@@ -180,56 +171,6 @@ getUidByUserName = async (req, res) => {
 };
 
 
-sendMessageByCard = async (req, res) => {
-
-    const { body, mailTo } = req.body;
-
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'knowme.page@gmail.com',
-            pass: 'knowmeteema315292482',
-            type: "login",
-        }
-    });
-
-    const mailOptions = {
-        from: {
-            name: 'no-replay',
-            address: 'knowme.page@gmail.com',
-        },
-        to: mailTo,
-        subject: 'no-replay',
-        html: body
-    };
-
-
-    transporter.sendMail(mailOptions, async function (error, info) {
-
-        let query = { cardName: req.params.cardName, "submitioms.date": generateDate(new Date()) };
-        let inc = { $inc: { 'submitioms.$.amount': 1 } };
-        let currentCard = await Card.findOne(query);
-        let success;
-        console.log('currentCard', currentCard);
-        if (currentCard) { success = await Card.updateOne(query, inc); }
-        else {
-            let newDay = { date: generateDate(new Date()), amount: 1 }
-            console.log("newDay", newDay);
-            success = await Card.findOneAndUpdate({ cardName: req.params.cardName }, { $push: { submitioms: newDay } }, { new: true, upsert: true })
-        }
-        if (error) {
-            console.log(error);
-            res.send(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-            res.send();
-
-        }
-    });
-
-}
-
-
 addContactOptions = async (req, res) => {
     try {
         let { name } = req.body;
@@ -265,24 +206,7 @@ generateDate = (date) => {
     return ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
 }
 
-//by card name and username
 
-// checkUniqueCardName = async (req, res) => {
-//     let userName = req.body.userName;
-//     let cardName = req.body.cardname;
-//     let currentUser = await User.findOne({ "username": userName })
-//     let _id = currentUser._id
-//     console.log(_id)
-//     let user = await User.findOne({ "username": req.params.userName })
-//         .populate({ path: 'cards', match: { cardName: cardName, isDelete: false, } });
-//     if (user.cards.length > 0) {
-//         return res.send(false)
-//     }
-//     else {
-//         res.send(true);
-//     }
-
-// }
 
 
 //by card name only
@@ -333,15 +257,41 @@ getCardsIndex = (req, res) => {
 }
 
 
-sumEmailSend = (username) => {
+sumEmailSend = async (username) => {
     return new Promise(async (resolve, reject) => {
         const card = await Card.find({ cardName: username })
         const statisticEmail = await Statistic.findOneAndUpdate({ idCard: card._id },
             { $inc: { 'emailCnt': 1 } },
             { new: true })
-        if (statisticEmail) resolve("access denied");
-        console.log(statisticEmail.emailCnt);
+        if (statisticEmail)
+            resolve("access denied");
         reject('access denied');
+    });
+}
+
+createContactLeaderBox = async (data) => {
+    const { body, mailTo, username } = data;
+    const email = {
+        source: "KnowMe",
+        subject: "Form Knowme🙂",
+        from: "knowme@noreply.leader.codes",
+        to: mailTo,
+        body: body,
+        files: null
+    }
+    const options = {
+        url: `https://api.dev.leader.codes/${username}/createSystemWave`,
+        method: 'POST',
+        headers: { Authorization: "secretKEY@2021" },
+        json: email,
+    };
+    return new Promise((resolve, reject) => {
+        request(options, (error, res) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(res);
+        });
     });
 }
 
@@ -368,7 +318,7 @@ sendMessageByCard = async (req, res) => {
         request(options, (error, res, body) => {
             if (error) {
                 console.error("error:" + error);
-                reject(false);
+                reject(error);
             }
 
             console.log(`statusCode: ${res.statusCode}`);
@@ -381,53 +331,49 @@ sendMessageByCard = async (req, res) => {
 
 }
 
-getAllCards=(userName)=>{
+getAllCards = (userName) => {
 
     return new Promise((resolve, reject) => {
-
-        User.find({userName:userName})
-        .populate({path: "cards"})
-        .exec((err,cards)=>{
-
-            if(err){
-                reject(err);
-            }
-            resolve(cards)
-        })
+        User.find({ userName: userName })
+            .populate({ path: "cards" })
+            .exec((err, cards) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(cards)
+            })
 
     });
 }
 
-getCardByName=async(req)=>{
+getCardByName = async (req) => {
 
-    const { cardName } =req;
+    const { cardName } = req;
     const newActive = await newActivIP(req)
 
     return new Promise((resolve, reject) => {
-
         Card.findOne({ "cardName.title": cardName, isDelete: false })
-        .populate({ path: "user" })
-        .populate({ path: "socialMedia" })
-        .populate({ path: 'gallery' })
-        .populate({ path: 'reviews' })
-        .populate({ path: 'lead' })
-        .populate({
-            path: 'statistic',
-            match: {
-                $inc: { 'viewsCnt': 1 },
-                $push: { actives: newActive }
-            }
-        })
-        .exec((err, card) => {
+            .populate({ path: "user" })
+            .populate({ path: "socialMedia" })
+            .populate({ path: 'gallery' })
+            .populate({ path: 'reviews' })
+            .populate({ path: 'lead' })
+            .populate({
+                path: 'statistic',
+                match: {
+                    $inc: { 'viewsCnt': 1 },
+                    $push: { actives: newActive }
+                }
+            })
+            .exec((err, card) => {
+                if (err) {
+                    reject(err);
+                }
+                console.log("card-------------------", card)
 
-            if (err) {
-                reject(err);
-            }
-            console.log("card-------------------", card)
+                resolve(card)
 
-            resolve(card)
-
-        })
+            })
     });
 }
 

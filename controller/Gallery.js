@@ -7,9 +7,9 @@ saveGallerys = (gallery) => {
         try {
             Promise.all(
                 gallery.map(async (galleryIndex) => {
-                    let g = new Gallery(galleryIndex);
-                    await g.save()
-                    gallerys.push(g._id)
+                    let newGallery = new Gallery(galleryIndex);
+                    await newGallery.save()
+                    gallerys.push(newGallery)
                 })).then(() => {
                     resolve(gallerys)
                 })

@@ -7,13 +7,12 @@ saveSocialMedias = (socialMedia) => {
         console.log("inside SocialMedia !")
         try {
             Promise.all(
-                socialMedia.map(async (socialIndex) => {
-                    let social = new SocialMedia(socialIndex);
-                    await social.save()
-                    await socialMedias.push(social._id)
+                socialMedia.map(async (social) => {
+                    let newSocial = new SocialMedia(social);
+                    await newSocial.save();
+                    await socialMedias.push(newSocial);
                    
                 })).then(() => {
-
                     resolve(socialMedias)
                 })
 
