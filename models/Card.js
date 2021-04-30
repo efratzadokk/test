@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
 
 const cardSchema = mongoose.Schema({
+   
+    timeCreated: {
+        type: Date,
+        default: new Date()
+    },
+    timeUpdate: {
+        type: Date,
+        default: new Date()
+    },
     isDelete:{ type: Boolean },
     user: {
         type: mongoose.Schema.Types.ObjectId,

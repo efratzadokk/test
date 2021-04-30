@@ -78,6 +78,8 @@ createDigitalCard = async (req, res) => {
 
         card.save(async (err, cardAfterSave) => {
             console.log("card-----", cardAfterSave);
+            if (err)
+                return res.send(err)
             await User.findOneAndUpdate(
                 { "username": req.params.userName },
                 { $push: { cards: cardAfterSave._id } },
