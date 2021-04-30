@@ -216,7 +216,7 @@ checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
     let id = req.body.id;
 
-    let card = await Card.findOne({ "cardName": cardName, isDelete: false })
+    let card = await Card.findOne({ "cardName.title": cardName, isDelete: false })
 
     console.log("id", id);
 
