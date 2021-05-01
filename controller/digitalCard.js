@@ -350,8 +350,8 @@ getAllCards = (userName) => {
 
 getCardByName = async (req) => {
 
-    const { cardName } = req;
-    const newActive = await newActivIP(req)
+    const { cardName } = req.params;
+    // const newActive = await newActivIP(req)
 
     return new Promise((resolve, reject) => {
         Card.findOne({ "cardName.title": cardName, isDelete: false })
@@ -360,13 +360,13 @@ getCardByName = async (req) => {
             .populate({ path: 'gallery' })
             .populate({ path: 'reviews' })
             .populate({ path: 'lead' })
-            .populate({
-                path: 'statistic',
-                match: {
-                    $inc: { 'viewsCnt': 1 },
-                    $push: { actives: newActive }
-                }
-            })
+            // .populate({
+            //     path: 'statistic',
+            //     match: {
+            //         $inc: { 'viewsCnt': 1 },
+            //         $push: { actives: newActive }
+            //     }
+            // })
             .exec((err, card) => {
                 if (err) {
                     reject(err);
