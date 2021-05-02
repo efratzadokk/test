@@ -30,10 +30,10 @@ router.post("/:userName/updateUserIndexCardName", UserController.updateUserIndex
 router.put("/:userName/addContactOptions/:cardId", digitalCardController.addContactOptions);
 router.post("/:userName/:cardId/delete", digitalCardController.deleteCard);
 router.get('/:userName/getUser/user', UserController.getUidByUserName);
-router.put("/:userName/:cardId", digitalCardController.updateDigitalCard);
+router.post("/:userName/updateDigitalCard/:cardId", digitalCardController.updateDigitalCard);
 router.get("/getCard/:cardName", digitalCardController.getCardById);
 router.get('/:userName', digitalCardController.getDigitalCard);
-router.post('/:userName', digitalCardController.createDigitalCard);
+router.post('/:userName/saveNewCard', digitalCardController.createDigitalCard);
 router.get('/:userName/getCardsIndex', digitalCardController.getCardsIndex);
 
 module.exports = router;
