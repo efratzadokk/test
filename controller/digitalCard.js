@@ -74,8 +74,8 @@ createDigitalCard = async (req, res) => {
         card.statistic = statistic;
         card.lead = lead;
         card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
-        card.gallery = await GalleryController.saveGallerys(req.body.gallery);
-        card.reviews = await ReveiwieController.saveReveiws(req.body.reviews);
+        card.galleryList = await GalleryController.saveGallerys(req.body.galleryList);
+        card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
 
         card.save(async (err, cardAfterSave) => {
             console.log("card-----", cardAfterSave);
@@ -100,8 +100,8 @@ updateDigitalCard = async (req, res) => {
     let card = req.body;
     
     card.socialMedia = await SocialMediaController.updateSocialMedia(req.body.socialMedia)
-    card.gallery = await GalleryController.updateGallery(req.body.gallery)
-    card.reviews = await ReveiwieController.updateReveiw(req.body.reviews)
+    card.galleryList = await GalleryController.updateGallery(req.body.galleryList)
+    card.reviewsList = await ReveiwieController.updateReveiw(req.body.reviewsList)
     card.statistic = await StatisticController.updateReveiw(req.body.statistic)
     card.lead = await LeadController.updateLead(req.body.lead)
 
@@ -341,8 +341,8 @@ getCardByName = async (req) => {
         Card.findOne({ "cardName.title": cardName, isDelete: false })
             .populate({ path: "user" })
             .populate({ path: "socialMedia" })
-            .populate({ path: 'gallery' })
-            .populate({ path: 'reviews' })
+            .populate({ path: 'galleryList' })
+            .populate({ path: 'reviewsList' })
             .populate({ path: 'lead' })
             // .populate({
             //     path: 'statistic',
