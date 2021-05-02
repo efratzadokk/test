@@ -414,7 +414,7 @@ sendMessageByCard = async (req, res) => {
     const options = {
         url: 'https://mails.codes/mail/sendEmail',
         method: 'POST',
-        headers: { Authorization: "secretKEY@2021" },
+        headers: { Authorization: "secretKEY@2021"},
         json: email,
     };
     return new Promise((resolve, reject) => {

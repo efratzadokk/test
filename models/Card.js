@@ -144,6 +144,7 @@ const cardSchema = mongoose.Schema({
                 border:{ type: String },
                 borderRadius:{ type: String },
                 color: { type: String },
+                textAlign: { type: String },
                 reverse:{ type: Boolean }
             },
             contact: {
@@ -151,8 +152,10 @@ const cardSchema = mongoose.Schema({
                 border:{ type: String },
                 borderRadius:{ type: String },
                 color: { type: String },
+                textAlign: { type: String },
                 reverse:{ type: Boolean }
             }
+            
         },
         bodyCardMobile:
         {
