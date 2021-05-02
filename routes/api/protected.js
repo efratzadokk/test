@@ -11,7 +11,7 @@ const ReviewController = require('../../controller/Reveiwies.js');
 router.get('/:userName/isPermission',RegisterController.cheakPremission);
 
 // file
-router.post('/:userName/:uId/upload', FilesController.upload);
+router.post('/:userName/uploadFile', FilesController.upload);
 router.post("/:userName/:uId/removeMultipleFiles", FilesController.removeMultipleFiles)
 
 //reveiw
