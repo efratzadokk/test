@@ -23,7 +23,6 @@ updateLead = (lead) => {
         }
     });
 }
-
 module.exports = {
     updateLead
 }
