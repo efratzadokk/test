@@ -7,12 +7,9 @@ const UserController = require('../controller/User.js')
 const FilesController = require('../controller/Files.js')
 const Gallery = require('../models/Gallery.js');
 const Review = require('../controller/Reveiwies.js');
-<<<<<<< HEAD
-=======
 
 router.post('/sendMessageByCard/:cardName', digitalCardController.sendMessageByCard);
 
->>>>>>> ac2e68e5530299db5cd709c5d74ad6d5103ede74
 //categories
 router.get('/getCategories/categories/allCategories/cards', CategoriesController.getCategories);
 
@@ -33,17 +30,10 @@ router.post("/:userName/updateUserIndexCardName", UserController.updateUserIndex
 router.put("/:userName/addContactOptions/:cardId", digitalCardController.addContactOptions);
 router.post("/:userName/:cardId/delete", digitalCardController.deleteCard);
 router.get('/:userName/getUser/user', UserController.getUidByUserName);
-<<<<<<< HEAD
-router.post("/:userName/updateDigitalCard/:cardId", digitalCardController.updateDigitalCard);
-router.get("/getCard/:cardName", digitalCardController.getCardById);
-router.get('/:userName', digitalCardController.getDigitalCard);
-router.post('/:userName/saveNewCard', digitalCardController.createDigitalCard);
-=======
 router.put("/:userName/:cardId", digitalCardController.updateDigitalCard);
 router.get("/getCard/:cardName", digitalCardController.getCardById);
 router.get('/:userName', digitalCardController.getDigitalCard);
 router.post('/:userName', digitalCardController.createDigitalCard);
->>>>>>> ac2e68e5530299db5cd709c5d74ad6d5103ede74
 router.get('/:userName/getCardsIndex', digitalCardController.getCardsIndex);
 
 module.exports = router;
