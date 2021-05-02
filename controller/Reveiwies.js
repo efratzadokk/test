@@ -8,10 +8,10 @@ saveReveiws = (reveiw) => {
         try {
             Promise.all(
                 reveiw.map(async (reveiwIndex) => {
-                    let r = new Reveiw(reveiwIndex);
-                    await r.save()
-                    reveiws.push(r._id)
-
+                    let newReveiw = new Reveiw(reveiwIndex);
+                    await newReveiw.save()
+                    reveiws.push(newReveiw);
+        
                 })).then(() => {
                     resolve(reveiws)
                 })

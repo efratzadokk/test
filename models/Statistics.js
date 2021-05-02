@@ -5,7 +5,7 @@ const stasSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card'
     },
-    viwesCnt: { type: Number },
+    viewsCnt: { type: Number },
     socialMediaCnt: { type: Number },
     callMeCnt: { type: Number },
     emailCnt: { type: Number },

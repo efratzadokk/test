@@ -2,6 +2,15 @@ const mongoose = require("mongoose");
 
 const cardSchema = mongoose.Schema({
    
+    timeCreated: {
+        type: Date,
+        default: new Date()
+    },
+    timeUpdate: {
+        type: Date,
+        default: new Date()
+    },
+    isDelete:{ type: Boolean },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -217,7 +226,7 @@ const cardSchema = mongoose.Schema({
         },
         socialMediaSpace: {
             mobile: {
-                wrap: { type: Boolean },
+                flexWrap: { type: String },
                 top: { type: String }
             },
             desktop: {
@@ -292,7 +301,7 @@ const cardSchema = mongoose.Schema({
         arrowsColor: { type: String },
     },
     galleryStyle: {
-        grid: { type: Boolean },
+        design: { type: String },
         color: { type: String },
         fade: { type: Boolean },
         autoPlay: { type: Number },
