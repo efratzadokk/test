@@ -95,12 +95,13 @@ createDigitalCard = async (req, res) => {
 }
 
 updateDigitalCard = async (req, res) => {
+
     let card = req.body;
     card.socialMedia = await SocialMediaController.updateSocialMedia(req.body.socialMedia)
     card.gallery = await GalleryController.updateGallery(req.body.gallery)
     card.reviews = await ReveiwieController.updateReveiw(req.body.reviews)
     card.statistic = await StatisticController.updateReveiw(req.body.statistic)
-    let lead = await LeadController.updateLead(req.body.lead)
+    card.lead = await LeadController.updateLead(req.body.lead)
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -117,7 +118,7 @@ updateDigitalCard = async (req, res) => {
 };
 
 deleteCard = async (req, res) => {
-    let card = req.body;
+
     try {
 
         let currentCard = await Card.findOne({ _id: req.params.cardId });
@@ -314,13 +315,14 @@ sendMessageByCard = async (req, res) => {
 getAllCards = (userName) => {
 
     return new Promise((resolve, reject) => {
-        User.find({ userName: userName })
-            .populate({ path: "cards" })
-            .exec((err, cards) => {
+        console.log("username",userName)
+        User.findOne({ username: userName })
+            .populate({ path: "cards", match:{ isDelete:false} })
+            .exec((err, user) => {
                 if (err) {
                     reject(err);
                 }
-                resolve(cards)
+                resolve(user.cards)
             })
 
     });
@@ -368,7 +370,8 @@ module.exports = {
     addContactOptions,
     editCardName,
     getCardsIndex,
-    getCardByName
+    getCardByName,
+    getAllCards
 }
 
 
