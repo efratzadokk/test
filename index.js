@@ -10,13 +10,14 @@ const app = express();
 
 dotenv.config();
 
-const routeToApi = require('./routes/api');
-const routeToViews = require('./routes/views');
+
+
 const jwt = require("jsonwebtoken");
 const cookieParser = require('cookie-parser');
-const registerRouter = require("./routes/register.js");
+const routeProtectedApi = require('./routes/api/protected');
+const routePublicApi = require('./routes/api/public');
+const routeToViews = require('./routes/view/views');
 const auth = require('./controller/auth');
-const registerController = require('./controller/register');
 
 
 app.use(cors());
@@ -37,14 +38,8 @@ mongoose.connect(process
     useFindAndModify: false
 })
 
-// app.use('/:userName/isPermission', auth.checkPermission,registerController.newCheakPremission);
-
-app.use('/register', registerRouter);
-
-app.use("/api/digitalcard",auth.checkPermission, routeToApi);
-// app.use("/api/digitalcard", routeToApi);
-
-
+app.use("/api/admin", auth.checkPermission, routeProtectedApi);
+app.use("/api/public", routePublicApi);
 app.use("/", routeToViews);
 
 app.all("/*", function (req, res, next) {

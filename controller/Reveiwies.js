@@ -1,16 +1,20 @@
 const Reveiw = require('../models/Reveiw.js');
 
 
-saveReveiw = (reveiw) => {
+saveReveiws = (reveiw) => {
     return new Promise(async (resolve, reject) => {
+        let reveiws = []
         console.log("inside Reveiw !")
         try {
-            let tmpReveiw = new Reveiw();
-            let newReveiw = new Reveiw(reveiw);
-            newReveiw._id = tmpReveiw._id;
-            newReveiw.save().then((reveiw_db) => {
-                resolve(reveiw_db);
-            });
+            Promise.all(
+                reveiw.map(async (reveiwIndex) => {
+                    let newReveiw = new Reveiw(reveiwIndex);
+                    await newReveiw.save()
+                    reveiws.push(newReveiw);
+        
+                })).then(() => {
+                    resolve(reveiws)
+                })
 
         } catch (error) {
             console.log("reveiw errore: -", error)
@@ -60,7 +64,7 @@ deleteReveiw = async (req, res) => {
 }
 
 module.exports = {
-    saveReveiw,
+    saveReveiws,
     updateReveiw,
     deleteReveiw,
 }
