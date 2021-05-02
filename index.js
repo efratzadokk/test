@@ -41,8 +41,8 @@ mongoose.connect(process
 
 app.use('/register', registerRouter);
 
-app.use("/api/digitalcard",auth.checkPermission, routeToApi);
-// app.use("/api/digitalcard", routeToApi);
+// app.use("/api/digitalcard",auth.checkPermission, routeToApi);
+app.use("/api/digitalcard", routeToApi);
 
 
 app.use("/", routeToViews);

@@ -2,14 +2,13 @@ const User = require('../models/User.js');
 const path = require('path');
 const request = require('request');
 const Card = require('../models/Card.js');
-const SocialMedia = require('../models/SocialMedia.js');
-const Gallery = require('../models/Gallery.js');
 const Statistic = require('../models/Statistics.js');
 const Lead = require('../models/Leads.js');
-const Reveiw = require('../models/Reveiw');
 const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
 const SocialMediaController = require('./socialMedias');
+const LeadController = require('./lead')
+const StatisticController = require('./statistic')
 const VideoController = require('./Video.js');
 const IframeController = require('./Iframe.js');
 const nodemailer = require('nodemailer');
@@ -134,6 +133,7 @@ getCardById = async (req, res) => {
 
 
 createDigitalCard = async (req, res) => {
+    console.log("///",req.body);
     try {
 
         let card = new Card(req.body)
@@ -177,43 +177,22 @@ createDigitalCard = async (req, res) => {
 
 updateDigitalCard = async (req, res) => {
     let card = req.body;
-    let socialMedias = card.socialMedias ? card.socialMedias : [];
-    delete card.socialMedias;
-    delete card._id;
+    card.socialMedia = await SocialMediaController.updateSocialMedia(req.body.socialMedia)
+    card.gallery = await GalleryController.updateGallery(req.body.gallery)
+    card.reviews = await ReveiwieController.updateReveiw(req.body.reviews)
+    card.statistic = await StatisticController.updateReveiw(req.body.statistic)
+    let lead = await LeadController.updateLead(req.body.lead)
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
         { new: true },
-        async (err, currentCard) => {
+         (err, currentCard) => {
             if (err) {
                 console.log(err);
                 res.send(err);
             }
-            const gallery = await GalleryController.updateGallery(card.gallery);
-            const review = await ReveiwieController.updateReveiw(card.reveiw);
-            const video = await VideoController.updateVideo(card.video);
-            const iframe = await IframeController.updateIframe(card.iframe);
-
-            socialMedias.forEach((sMedia, index) => {
-                let socialMedia = SocialMedia.findByIdAndUpdate(
-                    sMedia._id,
-                    sMedia,
-                    { new: true },
-                    (err, media) => {
-                        if (err) {
-                            console.log(err);
-                            return res.status(500).send(err);
-                        }
-                    }
-
-                );
-            });
-            currentCard.gallery = gallery;
-            currentCard.reveiw = review;
-            currentCard.video = video;
-            currentCard.iframe = iframe;
-            currentCard.socialMedias = socialMedias;
-            res.status(200).send(currentCard);
+            console.log(currentCard);
+            res.status(200).json(currentCard);
         }
     );
 };
@@ -377,6 +356,7 @@ checkUniqueCardName = async (req, res) => {
 
 }
 
+
 editCardName = async (req, res) => {
 
     let cardId = req.body.cardId;
@@ -395,7 +375,6 @@ editCardName = async (req, res) => {
 }
 
 getCardsIndex = (req, res) => {
-
     Card.countDocuments({}, (err, count) => {
         if (err) {
             res.status(500).send(err);
@@ -403,7 +382,6 @@ getCardsIndex = (req, res) => {
         console.log("count", count)
         res.status(200).send({ count: count });
     })
-
 }
 
 

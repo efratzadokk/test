@@ -11,7 +11,7 @@ saveReveiws = (reveiw) => {
                     let r = new Reveiw(reveiwIndex);
                     await r.save()
                     reveiws.push(r._id)
-        
+
                 })).then(() => {
                     resolve(reveiws)
                 })
@@ -25,19 +25,22 @@ saveReveiws = (reveiw) => {
 
 updateReveiw = (reveiw) => {
     return new Promise(async (resolve, reject) => {
+        console.log("inside update reveiw !")
         try {
-            Reveiw.findByIdAndUpdate(
-                reveiw._id,
-                reveiw,
-                { new: true },
-                (err, n_reveiw) => {
-                    if (err) {
-                        console.log(err);
-                        reject(err);
-                    }
-                    resolve(n_reveiw);
-                }
-            )
+            Promise.all(
+                reveiw.map(async (reveiwIndex) => {
+                    Gallery.findByIdAndUpdate(
+                        reveiwIndex._id,
+                        reveiwIndex,
+                        { new: true }),
+                        (err, n_reveiw) => {
+                            if (err) {
+                                console.log(err);
+                                reject(err);
+                            }
+                            resolve(n_reveiw);
+                        }
+                }))
         } catch (error) {
             console.log("reveiw errore: -", error)
             reject(error);
