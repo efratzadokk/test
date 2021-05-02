@@ -22,9 +22,13 @@ router.post("/:userName/checkUniqueCardName", DigitalCardController.checkUniqueC
 router.post("/:userName/editCardName", DigitalCardController.editCardName);
 router.post("/:userName/updateUserIndexCardName", UserController.updateUserIndexCardName);
 router.put("/:userName/addContactOptions/:cardId", DigitalCardController.addContactOptions);
-router.post("/:userName/:cardId/delete", DigitalCardController.deleteCard);
+
+router.get("/:userName/deleteCard/:cardId", DigitalCardController.deleteCard);
+
 router.get('/:userName/getUser/user', UserController.getUidByUserName);
-router.put("/:userName/:cardId", DigitalCardController.updateDigitalCard);
+
+router.post("/:userName/updateCard/:cardId", DigitalCardController.updateDigitalCard);
+
 router.get('/:userName', DigitalCardController.getDigitalCard);
 router.post('/:userName/saveNewCard', DigitalCardController.createDigitalCard);
 router.get('/:userName/getCardsIndex', DigitalCardController.getCardsIndex);
