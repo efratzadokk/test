@@ -96,50 +96,32 @@ createDigitalCard = async (req, res) => {
 }
 
 updateDigitalCard = async (req, res) => {
+
     let card = req.body;
-    let socialMedias = card.socialMedias ? card.socialMedias : [];
-    delete card.socialMedias;
-    delete card._id;
+    
+    card.socialMedia = await SocialMediaController.updateSocialMedia(req.body.socialMedia)
+    card.gallery = await GalleryController.updateGallery(req.body.gallery)
+    card.reviews = await ReveiwieController.updateReveiw(req.body.reviews)
+    card.statistic = await StatisticController.updateReveiw(req.body.statistic)
+    card.lead = await LeadController.updateLead(req.body.lead)
+
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
         { new: true },
-        async (err, currentCard) => {
+        (err, currentCard) => {
             if (err) {
                 console.log(err);
                 res.send(err);
             }
-            const gallery = await GalleryController.updateGallery(card.gallery);
-            const review = await ReveiwieController.updateReveiw(card.reveiw);
-            const video = await VideoController.updateVideo(card.video);
-            const iframe = await IframeController.updateIframe(card.iframe);
-
-            socialMedias.forEach((sMedia, index) => {
-                let socialMedia = SocialMedia.findByIdAndUpdate(
-                    sMedia._id,
-                    sMedia,
-                    { new: true },
-                    (err, media) => {
-                        if (err) {
-                            console.log(err);
-                            return res.status(500).send(err);
-                        }
-                    }
-
-                );
-            });
-            currentCard.gallery = gallery;
-            currentCard.reveiw = review;
-            currentCard.video = video;
-            currentCard.iframe = iframe;
-            currentCard.socialMedias = socialMedias;
-            res.status(200).send(currentCard);
+            console.log(currentCard);
+            res.status(200).json(currentCard);
         }
     );
 };
 
 deleteCard = async (req, res) => {
-    let card = req.body;
+
     try {
 
         let currentCard = await Card.findOne({ _id: req.params.cardId });
@@ -337,13 +319,14 @@ sendMessageByCard = async (req, res) => {
 getAllCards = (userName) => {
 
     return new Promise((resolve, reject) => {
-        User.find({ userName: userName })
-            .populate({ path: "cards" })
-            .exec((err, cards) => {
+        console.log("username",userName)
+        User.findOne({ username: userName })
+            .populate({ path: "cards", match:{ isDelete:false} })
+            .exec((err, user) => {
                 if (err) {
                     reject(err);
                 }
-                resolve(cards)
+                resolve(user.cards)
             })
 
     });
@@ -391,7 +374,8 @@ module.exports = {
     addContactOptions,
     editCardName,
     getCardsIndex,
-    getCardByName
+    getCardByName,
+    getAllCards
 }
 
 
