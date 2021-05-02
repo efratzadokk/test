@@ -12,6 +12,7 @@ const GalleryController = require('./Gallery.js');
 const SocialMediaController = require('./socialMedias');
 const IframeController = require('./Iframe.js');
 const nodemailer = require('nodemailer');
+const requestIp = require('request-ip');
 
 getDigitalCard = async (req, res) => {
     console.log("userName--------------", req.params.userName);

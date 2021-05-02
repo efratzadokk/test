@@ -226,7 +226,7 @@ const cardSchema = mongoose.Schema({
         },
         socialMediaSpace: {
             mobile: {
-                wrap: { type: Boolean },
+                flexWrap: { type: String },
                 top: { type: String }
             },
             desktop: {
