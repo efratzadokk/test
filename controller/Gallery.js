@@ -23,21 +23,23 @@ saveGallerys = (gallery) => {
 
 updateGallery = (gallery) => {
     return new Promise(async (resolve, reject) => {
+        console.log("inside update gallery !")
         try {
-            Gallery.findByIdAndUpdate(
-                gallery._id,
-                gallery,
-                { new: true },
-                (err, gallery_db) => {
-                    if (err) {
-                        console.log(err);
-                        return res.status(500).send(err);
+            Promise.all(
+                gallery.map(async (galleryIndex) => {
+                    if (galleryIndex._id !== null) {
+                        Gallery.findByIdAndUpdate(
+                            galleryIndex._id,
+                            galleryIndex,
+                            { new: true })
                     }
-                    resolve(gallery_db);
-                }
-            )
+                })).then(() => {
+
+                }).then(() => {
+                    resolve("update")
+                })
         } catch (error) {
-            console.log("reveiw errore: -", error)
+            console.log("gallery errore: -", error)
             reject(error);
         }
     });

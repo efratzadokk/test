@@ -2,16 +2,15 @@ const User = require('../models/User.js');
 const path = require('path');
 const request = require('request');
 const Card = require('../models/Card.js');
-const SocialMedia = require('../models/SocialMedia.js');
-const Gallery = require('../models/Gallery.js');
 const Statistic = require('../models/Statistics.js');
 const Lead = require('../models/Leads.js');
-const Reveiw = require('../models/Reveiw');
 const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
 const SocialMediaController = require('./socialMedias');
-const IframeController = require('./Iframe.js');
+const LeadController = require('./lead')
+const StatisticController = require('./statistic')
 const nodemailer = require('nodemailer');
+const requestIp = require('request-ip');
 
 getDigitalCard = async (req, res) => {
     console.log("userName--------------", req.params.userName);
@@ -65,6 +64,7 @@ newActivIP = (req) => {
 
 
 createDigitalCard = async (req, res) => {
+    console.log("///", req.body);
     try {
         let card = await new Card(req.body)
         let statistic = await new Statistic(req.body.statistic)
@@ -73,11 +73,10 @@ createDigitalCard = async (req, res) => {
         card.statistic = statistic;
         card.lead = lead;
         card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
-        card.gallery = await GalleryController.saveGallerys(req.body.gallery);
-        card.reviews = await ReveiwieController.saveReveiws(req.body.reviews);
+        card.galleryList = await GalleryController.saveGallerys(req.body.galleryList);
+        card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
 
         card.save(async (err, cardAfterSave) => {
-            console.log("card-----", cardAfterSave);
             if (err)
                 return res.send(err)
             await User.findOneAndUpdate(
@@ -95,50 +94,29 @@ createDigitalCard = async (req, res) => {
 }
 
 updateDigitalCard = async (req, res) => {
+
     let card = req.body;
-    let socialMedias = card.socialMedias ? card.socialMedias : [];
-    delete card.socialMedias;
-    delete card._id;
+    await SocialMediaController.updateSocialMedia(req.body.socialMedia)
+    await GalleryController.updateGallery(req.body.galleryList)
+    await ReveiwieController.updateReveiw(req.body.reviewsList)
+    await StatisticController.updateStatistic(req.body.statistic)
+    await LeadController.updateLead(req.body.lead)
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
         { new: true },
-        async (err, currentCard) => {
+        (err, currentCard) => {
             if (err) {
                 console.log(err);
                 res.send(err);
             }
-            const gallery = await GalleryController.updateGallery(card.gallery);
-            const review = await ReveiwieController.updateReveiw(card.reveiw);
-            const video = await VideoController.updateVideo(card.video);
-            const iframe = await IframeController.updateIframe(card.iframe);
-
-            socialMedias.forEach((sMedia, index) => {
-                let socialMedia = SocialMedia.findByIdAndUpdate(
-                    sMedia._id,
-                    sMedia,
-                    { new: true },
-                    (err, media) => {
-                        if (err) {
-                            console.log(err);
-                            return res.status(500).send(err);
-                        }
-                    }
-
-                );
-            });
-            currentCard.gallery = gallery;
-            currentCard.reveiw = review;
-            currentCard.video = video;
-            currentCard.iframe = iframe;
-            currentCard.socialMedias = socialMedias;
-            res.status(200).send(currentCard);
+            res.status(200).json(currentCard);
         }
     );
 };
 
 deleteCard = async (req, res) => {
-    let card = req.body;
+
     try {
 
         let currentCard = await Card.findOne({ _id: req.params.cardId });
@@ -208,9 +186,6 @@ generateDate = (date) => {
     return ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
 }
 
-
-
-
 //by card name only
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
@@ -228,6 +203,7 @@ checkUniqueCardName = async (req, res) => {
     res.send(true);
 
 }
+
 
 editCardName = async (req, res) => {
 
@@ -247,7 +223,6 @@ editCardName = async (req, res) => {
 }
 
 getCardsIndex = (req, res) => {
-
     Card.countDocuments({}, (err, count) => {
         if (err) {
             res.status(500).send(err);
@@ -255,7 +230,6 @@ getCardsIndex = (req, res) => {
         console.log("count", count)
         res.status(200).send({ count: count });
     })
-
 }
 
 
@@ -325,7 +299,7 @@ sendMessageByCard = async (req, res) => {
 
             console.log(`statusCode: ${res.statusCode}`);
             console.log(body);
-            resolve('sent');
+            resolve(true);
 
         });
         res.send(true);
@@ -336,13 +310,14 @@ sendMessageByCard = async (req, res) => {
 getAllCards = (userName) => {
 
     return new Promise((resolve, reject) => {
-        User.find({ userName: userName })
-            .populate({ path: "cards" })
-            .exec((err, cards) => {
+        console.log("username", userName)
+        User.findOne({ username: userName })
+            .populate({ path: "cards", match: { isDelete: false } })
+            .exec((err, user) => {
                 if (err) {
                     reject(err);
                 }
-                resolve(cards)
+                resolve(user.cards)
             })
 
     });
@@ -357,8 +332,8 @@ getCardByName = async (req) => {
         Card.findOne({ "cardName.title": cardName, isDelete: false })
             .populate({ path: "user" })
             .populate({ path: "socialMedia" })
-            .populate({ path: 'gallery' })
-            .populate({ path: 'reviews' })
+            .populate({ path: 'galleryList' })
+            .populate({ path: 'reviewsList' })
             .populate({ path: 'lead' })
             // .populate({
             //     path: 'statistic',
@@ -390,7 +365,8 @@ module.exports = {
     addContactOptions,
     editCardName,
     getCardsIndex,
-    getCardByName
+    getCardByName,
+    getAllCards
 }
 
 

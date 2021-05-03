@@ -32,13 +32,17 @@ const cardSchema = mongoose.Schema({
             title: { type: String },
             show: { type: Boolean },
             iconShow: { type: Boolean },
-            titleShow: { type: Boolean }
+            titleShow: { type: Boolean },
+            textAlign: { type: Boolean },
+            reverse:  { type: Boolean },
         },
         contact: {
             title: { type: String },
             show: { type: Boolean },
             iconShow: { type: Boolean },
             titleShow: { type: Boolean },
+            textAlign: { type: Boolean },
+            reverse:  { type: Boolean },
         }
     },
     socialMediaSpace: {
@@ -86,7 +90,23 @@ const cardSchema = mongoose.Schema({
         button: {
             title: { type: String },
             show: { type: Boolean },
-        }
+        },
+        name:{
+            title: { type: String },
+            show: { type: Boolean }
+        },
+        email:{
+            title: { type: String },
+            show: { type: Boolean }
+        },
+        mobile: {
+            title: { type: String },
+            show: { type: Boolean }
+        },
+        message: {
+            title: { type: String },
+            show: { type: Boolean }
+        },
     },
     socialMedia: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -226,7 +246,7 @@ const cardSchema = mongoose.Schema({
         },
         socialMediaSpace: {
             mobile: {
-                wrap: { type: Boolean },
+                flexWrap: { type: String },
                 top: { type: String }
             },
             desktop: {
@@ -278,6 +298,11 @@ const cardSchema = mongoose.Schema({
                 font: { type: String },
                 textAlign: { type: String },
                 background: { type: String },
+            },
+            input:{
+                background:{ type: String },
+                textAlign:{ type: String },
+                color:{ type: String },
             }
         },
         video: {
@@ -310,11 +335,11 @@ const cardSchema = mongoose.Schema({
         maxRows: { type: Number },
         design: { type: String }
     },
-    reviews: [{
+    reviewsList: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reveiw'
     }],
-    gallery: [{
+    galleryList: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Gallery'
     }],
@@ -324,10 +349,6 @@ const cardSchema = mongoose.Schema({
     },
 });
 
-// cardSchema.pre('save', function (next) {
-//     const card = this
-//     card.cardName = card.cardName.replace(/\s/g, "");
-//     next()
-// })
+
 
 module.exports = mongoose.model("Card", cardSchema);
