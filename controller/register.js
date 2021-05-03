@@ -4,10 +4,13 @@ const request = require('request');
 
 const cheakPremission =  async (req, res) => {
     let currentUser = await User.findOne({ username: req.params.userName })
+    console.log("username----------------",req.params.userName);
+
     if (!currentUser) {
         currentUser = new User(); 
     }
     const jwt = req.cookies.devJwt ? req.cookies.devJwt : req.headers['authorization'] ? req.headers['authorization'] : null
+    console.log("jwt----------------",jwt)
     const cookie = request.cookie(`jwt=${jwt}`)
     const options = {
         method: "GET",
