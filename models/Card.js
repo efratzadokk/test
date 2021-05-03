@@ -335,11 +335,11 @@ const cardSchema = mongoose.Schema({
         maxRows: { type: Number },
         design: { type: String }
     },
-    reviews: [{
+    reviewsList: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reveiw'
     }],
-    gallery: [{
+    galleryList: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Gallery'
     }],

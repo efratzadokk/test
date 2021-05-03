@@ -4,7 +4,8 @@ const request = require('request')
 
 upload = async (req, res) => {
     if (req.files) {
-        let files = await uploadedMultipleFiles(req.files, req.params.uId, req.headers["authorization"])//upload img
+        const user = await User.findOne({ "username": req.params.userName })
+        let files = await uploadedMultipleFiles(req.files,user.uid, req.headers["authorization"])//upload img
         console.log("data upload succeddded!!!", files);
         res.status(200).send({ files });
     }
