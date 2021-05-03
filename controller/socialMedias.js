@@ -11,7 +11,7 @@ saveSocialMedias = (socialMedia) => {
                     let newSocial = new SocialMedia(social);
                     await newSocial.save();
                     await socialMedias.push(newSocial);
-                   
+
                 })).then(() => {
                     resolve(socialMedias)
                 })
@@ -22,32 +22,32 @@ saveSocialMedias = (socialMedia) => {
         }
     });
 }
+
 updateSocialMedia = (socialMedia) => {
     return new Promise(async (resolve, reject) => {
         console.log("inside update SocialMedia !")
         try {
             Promise.all(
                 socialMedia.map(async (socialIndex) => {
-                    SocialMedia.findByIdAndUpdate(
+                    if(socialIndex._id!=null){
+                         SocialMedia.findByIdAndUpdate(
                         socialIndex._id,
                         socialIndex,
-                        { new: true }),
-                        (err, n_socialMedia) => {
-                            if (err) {
-                                console.log(err);
-                                reject(err);
-                            }
-                            resolve(n_socialMedia);
-                        }
-                }))
-
+                        { new: true })
+                    }
+                   
+                })).then(() => {
+                    
+                }).then(()=>{
+                    console.log("------------------");
+                    resolve("update")
+                })
         } catch (error) {
             console.log("socialMedia errore: -", error)
             reject(error);
         }
     });
 }
-
 module.exports = {
     saveSocialMedias,
     updateSocialMedia

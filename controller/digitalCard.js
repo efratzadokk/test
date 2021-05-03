@@ -77,7 +77,6 @@ createDigitalCard = async (req, res) => {
         card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
 
         card.save(async (err, cardAfterSave) => {
-            console.log("card-----", cardAfterSave);
             if (err)
                 return res.send(err)
             await User.findOneAndUpdate(
@@ -97,11 +96,11 @@ createDigitalCard = async (req, res) => {
 updateDigitalCard = async (req, res) => {
 
     let card = req.body;
-    card.socialMedia = await SocialMediaController.updateSocialMedia(req.body.socialMedia)
-    card.galleryList = await GalleryController.updateGallery(req.body.galleryList)
-    card.reviewsList = await ReveiwieController.updateReveiw(req.body.reviewsList)
-    card.statistic = await StatisticController.updateReveiw(req.body.statistic)
-    card.lead = await LeadController.updateLead(req.body.lead)
+    await SocialMediaController.updateSocialMedia(req.body.socialMedia)
+    await GalleryController.updateGallery(req.body.galleryList)
+    await ReveiwieController.updateReveiw(req.body.reviewsList)
+    await StatisticController.updateStatistic(req.body.statistic)
+    await LeadController.updateLead(req.body.lead)
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -111,7 +110,6 @@ updateDigitalCard = async (req, res) => {
                 console.log(err);
                 res.send(err);
             }
-            console.log(currentCard);
             res.status(200).json(currentCard);
         }
     );
@@ -187,9 +185,6 @@ addContactOptions = async (req, res) => {
 generateDate = (date) => {
     return ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
 }
-
-
-
 
 //by card name only
 checkUniqueCardName = async (req, res) => {
@@ -292,7 +287,7 @@ sendMessageByCard = async (req, res) => {
     const options = {
         url: 'https://mails.codes/mail/sendEmail',
         method: 'POST',
-        headers: { Authorization: "secretKEY@2021"},
+        headers: { Authorization: "secretKEY@2021" },
         json: email,
     };
     return new Promise((resolve, reject) => {
@@ -315,9 +310,9 @@ sendMessageByCard = async (req, res) => {
 getAllCards = (userName) => {
 
     return new Promise((resolve, reject) => {
-        console.log("username",userName)
+        console.log("username", userName)
         User.findOne({ username: userName })
-            .populate({ path: "cards", match:{ isDelete:false} })
+            .populate({ path: "cards", match: { isDelete: false } })
             .exec((err, user) => {
                 if (err) {
                     reject(err);

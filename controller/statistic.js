@@ -4,7 +4,8 @@ const Statistic = require('../models/Statistics');
 updateStatistic = (statistic) => {
     return new Promise(async (resolve, reject) => {
         try {
-            Statistic.findByIdAndUpdate(
+            if(statistic._id !== null){
+                 Statistic.findByIdAndUpdate(
                 statistic._id,
                 statistic,
                 { new: true },
@@ -15,7 +16,11 @@ updateStatistic = (statistic) => {
                     }
                     resolve(n_statistic);
                 }
-            )
+            ) 
+            }
+          else{
+            reject('error');
+          }
         } catch (error) {
             console.log("statistic errore: -", error)
             reject(error);
