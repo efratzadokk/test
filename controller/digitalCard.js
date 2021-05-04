@@ -145,7 +145,7 @@ checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
     let id = req.body.id;
 
-    let card = await Card.findOne({ "cardName.title": cardName, isDelete: false })
+    let card = await Card.findOne({ cardName: cardName, isDelete: false })
     if (card && card._id != id) {
         console.log("+++++")
         return res.send(false)
@@ -158,7 +158,7 @@ editCardName = async (req, res) => {
     let cardId = req.body.cardId;
     let cardName = req.body.cardName;
     const filter = { _id: cardId };
-    const update = { "cardName.title": cardName };
+    const update = { cardName: cardName };
     let doc = await Card.findOneAndUpdate(filter, update);
     res.send(doc);
 
@@ -290,7 +290,7 @@ getCardByName = async (req) => {
 
     return new Promise((resolve, reject) => {
         Card.findOne({
-            "cardName.title": cardName,
+            cardName: cardName,
             isDelete: false
         }).populate({ path: "user" })
             .populate({ path: "socialMedia" })
