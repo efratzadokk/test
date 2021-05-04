@@ -357,14 +357,32 @@ getAllCards = (userName) => {
     return new Promise((resolve, reject) => {
         console.log("username", userName)
         User.findOne({ username: userName })
-            .populate({ path: "cards", match: { isDelete: false } })
+            .populate({
+                path: "cards",
+                populate: [{
+                    path: 'user'
+                },
+                {
+                    path: 'socialMedia',
+                },
+                {
+                    path: 'galleryList'
+                },
+                {
+                    path: 'reviewsList'
+                },
+                {
+                    path: 'lead'
+                }
+                ],
+                match: { isDelete: false }
+            })
             .exec((err, user) => {
                 if (err) {
                     reject(err);
                 }
                 resolve(user.cards)
             })
-
     });
 }
 
