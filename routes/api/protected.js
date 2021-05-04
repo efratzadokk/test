@@ -33,6 +33,9 @@ router.get('/:userName', DigitalCardController.getDigitalCard);
 router.post('/:userName/saveNewCard', DigitalCardController.createDigitalCard);
 router.get('/:userName/getCardsIndex', DigitalCardController.getCardsIndex);
 
+router.post('/:userName/copyCard', DigitalCardController.copyCard);
+
+
 
 router.get('/:userName/getAllCards',(req,res)=>{
 
@@ -43,7 +46,8 @@ router.get('/:userName/getAllCards',(req,res)=>{
     .catch(err=>{
         res.send(err)
     })
-})
+});
+
 
 module.exports = router;
 

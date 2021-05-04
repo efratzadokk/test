@@ -7,7 +7,12 @@ saveGallerys = (gallery) => {
         try {
             Promise.all(
                 gallery.map(async (galleryIndex) => {
+
+                    //for copy gallery
+                    let temp = new Gallery();
                     let newGallery = new Gallery(galleryIndex);
+                    newGallery._id=temp._id
+
                     await newGallery.save()
                     gallerys.push(newGallery)
                 })).then(() => {
