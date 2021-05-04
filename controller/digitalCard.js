@@ -98,31 +98,28 @@ deleteCard = async (req, res) => {
 
 copyCard = async (req, res) => {
 
-    const cardToCopy=req.body;
-    const userName=req.params.userName;
-       
+    const cardToCopy = req.body;
+    const userName = req.params.userName;
+
     try {
         let card = await new Card()
         let newCard = await new Card(cardToCopy)
-        newCard._id=card._id
-
         let statistic = await new Statistic()
         let newStatistic = await new Statistic(cardToCopy.statistic)
-        newStatistic._id=statistic._id
-        await newStatistic.save()
-        newCard.statistic=newStatistic;
-
         let lead = await new Lead()
         let newLead = await new Lead(cardToCopy.lead)
-        newLead._id=lead._id
-        await newLead.save()
-        newCard.lead=newLead;
 
-        //card.user = await User.findOne({ "username": userName })
-        
+        newCard._id = card._id
+        newCard.statistic = newStatistic;
+        newStatistic._id = statistic._id
+        newLead._id = lead._id
+        newCard.lead = newLead;
         newCard.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
         newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
         newCard.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
+
+        await newStatistic.save();
+        await newLead.save();
 
         newCard.save(async (err, cardAfterSave) => {
             console.log("card-----", cardAfterSave);
@@ -142,61 +139,6 @@ copyCard = async (req, res) => {
     }
 }
 
-getUidByUserName = async (req, res) => {
-    const userName = req.params.userName
-    const user = await User.findOne({ username: userName })
-    console.log("user email", user.email);
-    let query = { _id: req.params.cardId, "viewers.date": generateDate(new Date()) };
-    let inc = { $inc: { 'viewers.$.amount': 1 } };
-    let currentCard = await Card.findOne(query);
-    let success;
-    console.log('currentCard', currentCard._id);
-    if (currentCard) { success = await Card.updateOne(query, inc); }
-    else {
-        let newDay = { date: generateDate(new Date()), amount: 1 }
-        console.log("newDay", newDay);
-        success = await Card.findOneAndUpdate({ _id: req.params.cardId }, { $push: { viewers: newDay } }, { new: true, upsert: true })
-    }
-    console.log(success);
-    if (user)
-        res.json({ "uid": user.uid })
-};
-
-
-addContactOptions = async (req, res) => {
-    try {
-        let { name } = req.body;
-        let query = { _id: req.params.cardId, "contactOptions.date": generateDate(new Date()) };
-        let update;
-        console.log(query);
-        let card = await Card.findOne(query)
-        console.log("---card---", card);
-        let summaryToday;
-        if (card) {
-            summaryToday = JSON.parse(card.contactOptions[card.contactOptions.length - 1].sumContactOptions)
-            if (summaryToday[name]) {
-                summaryToday[name]++;
-
-            } else {
-                summaryToday[name] = 1;
-            }
-            console.log('summaryToday', summaryToday);
-            update = { $set: { 'contactOptions.$.sumContactOptions': JSON.stringify(summaryToday) } };
-            success = await Card.updateOne(query, update, { new: true });
-        }
-        else {
-            newDay = { date: generateDate(new Date()), sumContactOptions: JSON.stringify({ [name]: 1 }) }
-            await Card.findOneAndUpdate({ _id: req.params.cardId }, { $push: { contactOptions: newDay } })
-        }
-        res.status(200).send("update successfully")
-    } catch (error) {
-        res.status(500).send(error)
-    }
-
-}
-generateDate = (date) => {
-    return ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
-}
 
 //by card name only
 checkUniqueCardName = async (req, res) => {
@@ -378,10 +320,8 @@ module.exports = {
     createDigitalCard,
     updateDigitalCard,
     deleteCard,
-    getUidByUserName,
     sendMessageByCard,
     checkUniqueCardName,
-    addContactOptions,
     editCardName,
     getCardsIndex,
     getCardByName,

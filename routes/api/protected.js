@@ -21,11 +21,8 @@ router.post("/:userName/:reveiwId/deleteReveiws", ReviewController.deleteReveiw)
 router.post("/:userName/checkUniqueCardName", DigitalCardController.checkUniqueCardName);
 router.post("/:userName/editCardName", DigitalCardController.editCardName);
 router.post("/:userName/updateUserIndexCardName", UserController.updateUserIndexCardName);
-router.put("/:userName/addContactOptions/:cardId", DigitalCardController.addContactOptions);
 
 router.get("/:userName/deleteCard/:cardId", DigitalCardController.deleteCard);
-
-router.get('/:userName/getUser/user', UserController.getUidByUserName);
 
 router.post("/:userName/updateCard/:cardId", DigitalCardController.updateDigitalCard);
 
