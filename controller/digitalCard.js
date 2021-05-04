@@ -97,10 +97,10 @@ createDigitalCard = async (req, res) => {
 updateDigitalCard = async (req, res) => {
 
     let card = req.body;
-    card.socialMedia = await SocialMediaController.updateSocialMedia(req.body.socialMedia)
-    card.galleryList = await GalleryController.updateGallery(req.body.galleryList)
-    card.reviewsList = await ReveiwieController.updateReveiw(req.body.reviewsList)
-    card.statistic = await StatisticController.updateReveiw(req.body.statistic)
+    //card.socialMedia = await SocialMediaController.updateSocialMedia(req.body.socialMedia)
+    //card.galleryList = await GalleryController.updateGallery(req.body.galleryList)
+    //card.reviewsList = await ReveiwieController.updateReveiw(req.body.reviewsList)
+    card.statistic = await StatisticController.updateStatistic(req.body.statistic)
     card.lead = await LeadController.updateLead(req.body.lead)
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
@@ -131,6 +131,44 @@ deleteCard = async (req, res) => {
     }
 }
 
+copyCard = async (req, res) => {
+
+    const cardToCopy=req.body;
+    const userName=req.params.userName;
+       
+    try {
+        let card = await new Card(req.body)
+        cardToCopy._id=card._id
+
+        let statistic = await new Statistic()
+        let lead = await new Lead()
+
+        cardToCopy.statistic._id=statistic._id;
+        cardToCopy.lead._id=lead._id
+
+        //card.user = await User.findOne({ "username": userName })
+        
+        cardToCopy.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
+        cardToCopy.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
+        cardToCopy.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
+
+        card.save(async (err, cardAfterSave) => {
+            console.log("card-----", cardAfterSave);
+            if (err)
+                return res.send(err)
+            await User.findOneAndUpdate(
+                { "username": userName },
+                { $push: { cards: cardAfterSave._id } },
+                { new: true }
+            )
+            return res.status(200).json(cardAfterSave)
+        })
+    }
+    catch (error) {
+        console.log("error", error)
+        res.send(error)
+    }
+}
 
 getUidByUserName = async (req, res) => {
     const userName = req.params.userName
@@ -371,7 +409,8 @@ module.exports = {
     editCardName,
     getCardsIndex,
     getCardByName,
-    getAllCards
+    getAllCards,
+    copyCard
 }
 
 

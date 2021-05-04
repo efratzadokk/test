@@ -8,7 +8,12 @@ saveReveiws = (reveiw) => {
         try {
             Promise.all(
                 reveiw.map(async (reveiwIndex) => {
+                    
+                    //for copy review
+                    let temp = new Reveiw();
                     let newReveiw = new Reveiw(reveiwIndex);
+                    newReveiw._id=temp._id
+
                     await newReveiw.save()
                     reveiws.push(newReveiw);
         
