@@ -29,7 +29,6 @@ router.get('/:userName/getUser/user', UserController.getUidByUserName);
 
 router.post("/:userName/updateCard/:cardId", DigitalCardController.updateDigitalCard);
 
-router.get('/:userName', DigitalCardController.getDigitalCard);
 router.post('/:userName/saveNewCard', DigitalCardController.createDigitalCard);
 router.get('/:userName/getCardsIndex', DigitalCardController.getCardsIndex);
 

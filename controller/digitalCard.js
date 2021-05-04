@@ -9,57 +9,7 @@ const GalleryController = require('./Gallery.js');
 const SocialMediaController = require('./socialMedias');
 const LeadController = require('./lead')
 const StatisticController = require('./statistic')
-const nodemailer = require('nodemailer');
 const requestIp = require('request-ip');
-
-getDigitalCard = async (req, res) => {
-    console.log("userName--------------", req.params.userName);
-
-    let currentUser = await User.findOne({ "username": req.params.userName });
-    User.findOne({ "_id": currentUser._id })
-        .populate({
-            path: 'cards',
-            populate: [{
-                path: 'socialMedias'
-            }, {
-                path: 'gallery',
-            }, {
-                path: 'reveiw'
-            },
-            {
-                path: 'video'
-            },
-            {
-                path: 'iframe'
-            }
-            ],
-            match: { isDelete: false }
-        })
-        .exec((err, user) => {
-            if (err) { res.status(500).send(err) }
-            res.status(200).send(user.cards);
-        })
-}
-
-newActivIP = (req) => {
-    return new Promise((resolve, reject) => {
-        const clientIp = requestIp.getClientIp(req);
-        let geo = geoip.lookup(clientIp);
-        let parser1 = new UAParser();
-        let ua = req.headers['user-agent'];
-        let browserName = parser1.setUA(ua).getBrowser().name;
-        let deviceType = os.type()
-        const active = {
-            country: geo.country,
-            ip: clientIp,
-            deviceType: deviceType,
-            browser: browserName,
-            languageBrowser: req.headers["accept-language"]
-        }
-        if (!active) reject("not active");
-        resolve(active);
-    });
-}
 
 
 
@@ -92,6 +42,25 @@ createDigitalCard = async (req, res) => {
         res.send(error)
     }
 }
+newActivIP = (req) => {
+    return new Promise((resolve, reject) => {
+        const clientIp = requestIp.getClientIp(req);
+        let geo = geoip.lookup(clientIp);
+        let parser1 = new UAParser();
+        let ua = req.headers['user-agent'];
+        let browserName = parser1.setUA(ua).getBrowser().name;
+        let deviceType = os.type()
+        const active = {
+            country: geo.country,
+            ip: clientIp,
+            deviceType: deviceType,
+            browser: browserName,
+            languageBrowser: req.headers["accept-language"]
+        }
+        if (!active) reject("not active");
+        resolve(active);
+    });
+}
 
 updateDigitalCard = async (req, res) => {
 
@@ -116,9 +85,7 @@ updateDigitalCard = async (req, res) => {
 };
 
 deleteCard = async (req, res) => {
-
     try {
-
         let currentCard = await Card.findOne({ _id: req.params.cardId });
         console.log({ _id: req.params.cardId });
         currentCard.isDelete = true;
@@ -192,33 +159,21 @@ checkUniqueCardName = async (req, res) => {
     let id = req.body.id;
 
     let card = await Card.findOne({ "cardName.title": cardName, isDelete: false })
-
-    console.log("id", id);
-
-
     if (card && card._id != id) {
         console.log("+++++")
         return res.send(false)
     }
     res.send(true);
-
 }
-
 
 editCardName = async (req, res) => {
 
     let cardId = req.body.cardId;
     let cardName = req.body.cardName;
-
-    console.log("req.body.cardname", cardName);
-    console.log("req.body.cardId", cardId);
-
     const filter = { _id: cardId };
-    const update = { cardName: cardName };
-
+    const update = { "cardName.title": cardName };
     let doc = await Card.findOneAndUpdate(filter, update);
-
-    res.send();
+    res.send(doc);
 
 }
 
@@ -347,8 +302,10 @@ getCardByName = async (req) => {
     // const newActive = await newActivIP(req)
 
     return new Promise((resolve, reject) => {
-        Card.findOne({ "cardName.title": cardName, isDelete: false })
-            .populate({ path: "user" })
+        Card.findOne({
+            "cardName.title": cardName,
+            isDelete: false
+        }).populate({ path: "user" })
             .populate({ path: "socialMedia" })
             .populate({ path: 'galleryList' })
             .populate({ path: 'reviewsList' })
@@ -375,7 +332,6 @@ getCardByName = async (req) => {
 module.exports = {
     createDigitalCard,
     updateDigitalCard,
-    getDigitalCard,
     deleteCard,
     getUidByUserName,
     sendMessageByCard,
