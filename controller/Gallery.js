@@ -32,18 +32,17 @@ updateGallery = (gallery) => {
         try {
             Promise.all(
                 gallery.map(async (galleryIndex) => {
-                    Gallery.findByIdAndUpdate(
-                        galleryIndex._id,
-                        galleryIndex,
-                        { new: true }),
-                        (err, n_gallery) => {
-                            if (err) {
-                                console.log(err);
-                                reject(err);
-                            }
-                            resolve(n_gallery);
-                        }
-                }))
+                    if (galleryIndex._id !== null) {
+                        Gallery.findByIdAndUpdate(
+                            galleryIndex._id,
+                            galleryIndex,
+                            { new: true })
+                    }
+                })).then(() => {
+
+                }).then(() => {
+                    resolve("update")
+                })
         } catch (error) {
             console.log("gallery errore: -", error)
             reject(error);

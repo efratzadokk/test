@@ -77,7 +77,6 @@ createDigitalCard = async (req, res) => {
         card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
 
         card.save(async (err, cardAfterSave) => {
-            console.log("card-----", cardAfterSave);
             if (err)
                 return res.send(err)
             await User.findOneAndUpdate(
@@ -97,11 +96,11 @@ createDigitalCard = async (req, res) => {
 updateDigitalCard = async (req, res) => {
 
     let card = req.body;
-    //card.socialMedia = await SocialMediaController.updateSocialMedia(req.body.socialMedia)
-    //card.galleryList = await GalleryController.updateGallery(req.body.galleryList)
-    //card.reviewsList = await ReveiwieController.updateReveiw(req.body.reviewsList)
-    card.statistic = await StatisticController.updateStatistic(req.body.statistic)
-    card.lead = await LeadController.updateLead(req.body.lead)
+    //await SocialMediaController.updateSocialMedia(req.body.socialMedia)
+    //await GalleryController.updateGallery(req.body.galleryList)
+    //card.reviewsList=await ReveiwieController.updateReveiw(req.body.reviewsList)
+    await StatisticController.updateStatistic(req.body.statistic)
+    await LeadController.updateLead(req.body.lead)
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -111,7 +110,6 @@ updateDigitalCard = async (req, res) => {
                 console.log(err);
                 res.send(err);
             }
-            console.log(currentCard);
             res.status(200).json(currentCard);
         }
     );
@@ -137,22 +135,29 @@ copyCard = async (req, res) => {
     const userName=req.params.userName;
        
     try {
-        let card = await new Card(req.body)
-        cardToCopy._id=card._id
+        let card = await new Card()
+        let newCard = await new Card(cardToCopy)
+        newCard._id=card._id
 
         let statistic = await new Statistic()
-        let lead = await new Lead()
+        let newStatistic = await new Statistic(cardToCopy.statistic)
+        newStatistic._id=statistic._id
+        await newStatistic.save()
+        newCard.statistic=newStatistic;
 
-        cardToCopy.statistic._id=statistic._id;
-        cardToCopy.lead._id=lead._id
+        let lead = await new Lead()
+        let newLead = await new Lead(cardToCopy.lead)
+        newLead._id=lead._id
+        await newLead.save()
+        newCard.lead=newLead;
 
         //card.user = await User.findOne({ "username": userName })
         
-        cardToCopy.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
-        cardToCopy.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
-        cardToCopy.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
+        newCard.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
+        newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
+        newCard.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
 
-        card.save(async (err, cardAfterSave) => {
+        newCard.save(async (err, cardAfterSave) => {
             console.log("card-----", cardAfterSave);
             if (err)
                 return res.send(err)
@@ -225,9 +230,6 @@ addContactOptions = async (req, res) => {
 generateDate = (date) => {
     return ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
 }
-
-
-
 
 //by card name only
 checkUniqueCardName = async (req, res) => {
@@ -330,7 +332,7 @@ sendMessageByCard = async (req, res) => {
     const options = {
         url: 'https://mails.codes/mail/sendEmail',
         method: 'POST',
-        headers: { Authorization: "secretKEY@2021"},
+        headers: { Authorization: "secretKEY@2021" },
         json: email,
     };
     return new Promise((resolve, reject) => {
@@ -353,9 +355,9 @@ sendMessageByCard = async (req, res) => {
 getAllCards = (userName) => {
 
     return new Promise((resolve, reject) => {
-        console.log("username",userName)
+        console.log("username", userName)
         User.findOne({ username: userName })
-            .populate({ path: "cards", match:{ isDelete:false} })
+            .populate({ path: "cards", match: { isDelete: false } })
             .exec((err, user) => {
                 if (err) {
                     reject(err);

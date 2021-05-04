@@ -16,7 +16,7 @@ saveReveiws = (reveiw) => {
 
                     await newReveiw.save()
                     reveiws.push(newReveiw);
-        
+
                 })).then(() => {
                     resolve(reveiws)
                 })
@@ -28,24 +28,55 @@ saveReveiws = (reveiw) => {
     });
 }
 
+// updateReveiw = (reveiws) => {
+//     return new Promise(async (resolve, reject) => {
+//         console.log("inside update reveiw !")
+//         let newReveiws=[];
+//         let newReveiw;
+//         try {
+//             await Promise.all(
+//                 reveiws.map(async (reveiw) => {
+//                     if (reveiw._id !== null) {
+//                         newReveiw=await Reveiw.findByIdAndUpdate(
+//                             reveiw._id,
+//                             reveiw,
+//                             { new: true }
+//                             ,
+//                             (err, newReveiw)=>{
+//                                 newReveiws.push(newReveiw);
+//                             }
+//                         )
+//                     }
+//                 })).then(() => {
+//                     // console.log("newReveiw",newReveiw)
+//                     // newReveiws.push(newReveiw)
+//                 }).then(() => {
+//                     resolve(newReveiws)
+//                 })
+//         } catch (error) {
+//             console.log("reveiw errore: -", error)
+//             reject(error);
+//         }
+//     });
+// }
+
 updateReveiw = (reveiw) => {
     return new Promise(async (resolve, reject) => {
         console.log("inside update reveiw !")
         try {
             Promise.all(
                 reveiw.map(async (reveiwIndex) => {
-                    Gallery.findByIdAndUpdate(
-                        reveiwIndex._id,
-                        reveiwIndex,
-                        { new: true }),
-                        (err, n_reveiw) => {
-                            if (err) {
-                                console.log(err);
-                                reject(err);
-                            }
-                            resolve(n_reveiw);
-                        }
-                }))
+                    if (reveiwIndex._id !== null) {
+                        Reveiw.findByIdAndUpdate(
+                            reveiwIndex._id,
+                            reveiwIndex,
+                            { new: true })
+                    }
+                })).then(() => {
+
+                }).then(() => {
+                    resolve("update")
+                })
         } catch (error) {
             console.log("reveiw errore: -", error)
             reject(error);
