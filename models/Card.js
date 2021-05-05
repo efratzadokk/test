@@ -349,7 +349,7 @@ const cardSchema = mongoose.Schema({
 
 cardSchema.pre('save', function(next){
     const card=this
-    card.cardName=card.cardName.replace(/\s/g, "");    
+    card.cardName=card.cardName.replace(/[/\s.]/g, '')   
     next()
 })
 
