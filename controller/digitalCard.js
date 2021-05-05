@@ -86,7 +86,7 @@ updateDigitalCard = async (req, res) => {
                 console.log(err);
                 res.send(err);
             }
-            res.status(200).json(currentCard);
+            res.status(200).json(card);
         }
     );
 };
