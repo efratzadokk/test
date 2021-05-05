@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const leadSchema = mongoose.Schema({
+    idCard: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Card'
+    },
     title:{ type: String },
     contect:{ type: String },
     color: { type: String },
