@@ -4,7 +4,7 @@ const Lead = require('../models/Leads');
 updateLead = (lead) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (lead._id !== null) {
+            if (lead._id) {
                 Lead.findByIdAndUpdate(
                     lead._id,
                     lead,

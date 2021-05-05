@@ -17,11 +17,17 @@ createDigitalCard = async (req, res) => {
     console.log("///", req.body);
     try {
         let card = await new Card(req.body)
-        let statistic = await new Statistic(req.body.statistic)
-        let lead = await new Lead(req.body.lead)
+
         card.user = await User.findOne({ "username": req.params.userName })
+
+        let statistic = await new Statistic(req.body.statistic)
         card.statistic = statistic;
+        statistic.save();
+
+        let lead = await new Lead(req.body.lead)
         card.lead = lead;
+        lead.save()
+
         card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
         card.galleryList = await GalleryController.saveGallerys(req.body.galleryList);
         card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
@@ -66,11 +72,10 @@ updateDigitalCard = async (req, res) => {
 
     let card = req.body;
 
-    //await SocialMediaController.updateSocialMedia(req.body.socialMedia)
-    //await GalleryController.updateGallery(req.body.galleryList)
-    card.reviewsList=await ReveiwieController.updateReveiw(req.body.reviewsList)
-
-    await LeadController.updateLead(req.body.lead)
+    card.socialMedia= await SocialMediaController.updateSocialMedia(card.socialMedia)
+    card.galleryList=await GalleryController.updateGallery(card.galleryList)
+    card.reviewsList=await ReveiwieController.updateReveiw(card.reviewsList)
+    card.lead=await LeadController.updateLead(card.lead)
 
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
@@ -262,21 +267,12 @@ getAllCards = (userName) => {
         User.findOne({ username: userName })
             .populate({
                 path: "cards",
-                populate: [{
-                    path: 'user'
-                },
-                {
-                    path: 'socialMedia',
-                },
-                {
-                    path: 'galleryList'
-                },
-                {
-                    path: 'reviewsList'
-                },
-                {
-                    path: 'lead'
-                }
+                populate: [
+                    {path: 'user'},
+                    {path: 'socialMedia'},
+                    {path: 'galleryList'},
+                    {path: 'reviewsList'},
+                    {path: 'lead'}
                 ],
                 match: { isDelete: false }
             })
