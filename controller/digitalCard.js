@@ -65,11 +65,13 @@ newActivIP = (req) => {
 updateDigitalCard = async (req, res) => {
 
     let card = req.body;
+
     //await SocialMediaController.updateSocialMedia(req.body.socialMedia)
     //await GalleryController.updateGallery(req.body.galleryList)
-    //card.reviewsList=await ReveiwieController.updateReveiw(req.body.reviewsList)
-    await StatisticController.updateStatistic(req.body.statistic)
+    card.reviewsList=await ReveiwieController.updateReveiw(req.body.reviewsList)
+
     await LeadController.updateLead(req.body.lead)
+
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -102,24 +104,28 @@ copyCard = async (req, res) => {
     const userName = req.params.userName;
 
     try {
+
+        //copy card
         let card = await new Card()
         let newCard = await new Card(cardToCopy)
-        let statistic = await new Statistic()
-        let newStatistic = await new Statistic(cardToCopy.statistic)
+        newCard._id = card._id
+
+        //create new statistic
+        let newStatistic = await new Statistic()
+        newCard.statistic = newStatistic;
+        await newStatistic.save();
+
+        //copy lead
         let lead = await new Lead()
         let newLead = await new Lead(cardToCopy.lead)
-
-        newCard._id = card._id
-        newCard.statistic = newStatistic;
-        newStatistic._id = statistic._id
         newLead._id = lead._id
         newCard.lead = newLead;
+        await newLead.save();
+
+
         newCard.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
         newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
         newCard.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
-
-        await newStatistic.save();
-        await newLead.save();
 
         newCard.save(async (err, cardAfterSave) => {
             console.log("card-----", cardAfterSave);
