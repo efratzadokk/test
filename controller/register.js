@@ -20,7 +20,7 @@ const cheakPremission =  async (req, res) => {
     request(options, async(error, response, body) => {
         console.log("response.statusCode", response.statusCode)
         if (error || response.statusCode != 200) {
-            return res.status(401).json({ des: redirectUrl, routes: urlRoute, apiFlag: apiFlag, status: 401 })
+            return res.send(error);
         }
         else {
 

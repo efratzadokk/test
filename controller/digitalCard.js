@@ -72,10 +72,10 @@ updateDigitalCard = async (req, res) => {
 
     let card = req.body;
 
-    card.socialMedia= await SocialMediaController.updateSocialMedia(card.socialMedia)
-    card.galleryList=await GalleryController.updateGallery(card.galleryList)
-    card.reviewsList=await ReveiwieController.updateReveiw(card.reviewsList)
-    card.lead=await LeadController.updateLead(card.lead)
+    card.socialMedia = await SocialMediaController.updateSocialMedia(card.socialMedia)
+    card.galleryList = await GalleryController.updateGallery(card.galleryList)
+    card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
+    card.lead = await LeadController.updateLead(card.lead)
 
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
@@ -155,13 +155,16 @@ copyCard = async (req, res) => {
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
     let id = req.body.id;
-
-    let card = await Card.findOne({ cardName: cardName, isDelete: false })
-    if (card && card._id != id) {
-        console.log("+++++")
-        return res.send(false)
+    try {
+        let card = await Card.findOne({ cardName: cardName, isDelete: false })
+        if (card && card._id != id) {
+           return res.send(false)
+        }
+        res.send(true);
+    } catch (err) {
+        res.send(err);
     }
-    res.send(true);
+
 }
 
 editCardName = async (req, res) => {
@@ -268,11 +271,11 @@ getAllCards = (userName) => {
             .populate({
                 path: "cards",
                 populate: [
-                    {path: 'user'},
-                    {path: 'socialMedia'},
-                    {path: 'galleryList'},
-                    {path: 'reviewsList'},
-                    {path: 'lead'}
+                    { path: 'user' },
+                    { path: 'socialMedia' },
+                    { path: 'galleryList' },
+                    { path: 'reviewsList' },
+                    { path: 'lead' }
                 ],
                 match: { isDelete: false }
             })
