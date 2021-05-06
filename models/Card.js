@@ -114,6 +114,7 @@ const cardSchema = mongoose.Schema({
         ref: 'Stastistic'
     },
     vCardStyle: {
+        fontFamily: { type: String },
         favIcon: {
             title: { type: String },
             src: { type: String },

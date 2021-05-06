@@ -46,7 +46,7 @@ updateGallery = (gallery) => {
                         )
                     }
                     else{
-                        newImage=new Reveiw(image)
+                        newImage=new Gallery(image)
                         newImage.save((err,newI)=>{
                             
                             if(err) reject(err);
