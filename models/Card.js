@@ -15,7 +15,7 @@ const cardSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    cardName: { type: String },
+    cardName: { type : String , unique : true, required : true},
     fullName: {
         title: { type: String },
         show: { type: Boolean }
@@ -347,5 +347,10 @@ const cardSchema = mongoose.Schema({
 });
 
 
+cardSchema.pre('save', function(next){
+    const card=this
+    card.cardName=card.cardName.replace(/[/\s.]/g, '')   
+    next()
+})
 
 module.exports = mongoose.model("Card", cardSchema);

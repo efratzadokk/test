@@ -17,11 +17,17 @@ createDigitalCard = async (req, res) => {
     console.log("///", req.body);
     try {
         let card = await new Card(req.body)
-        let statistic = await new Statistic(req.body.statistic)
-        let lead = await new Lead(req.body.lead)
+
         card.user = await User.findOne({ "username": req.params.userName })
+
+        let statistic = await new Statistic(req.body.statistic)
         card.statistic = statistic;
+        statistic.save();
+
+        let lead = await new Lead(req.body.lead)
         card.lead = lead;
+        lead.save()
+
         card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
         card.galleryList = await GalleryController.saveGallerys(req.body.galleryList);
         card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
@@ -65,11 +71,12 @@ newActivIP = (req) => {
 updateDigitalCard = async (req, res) => {
 
     let card = req.body;
-    //await SocialMediaController.updateSocialMedia(req.body.socialMedia)
-    //await GalleryController.updateGallery(req.body.galleryList)
-    //card.reviewsList=await ReveiwieController.updateReveiw(req.body.reviewsList)
-    await StatisticController.updateStatistic(req.body.statistic)
-    await LeadController.updateLead(req.body.lead)
+
+    card.socialMedia= await SocialMediaController.updateSocialMedia(card.socialMedia)
+    card.galleryList=await GalleryController.updateGallery(card.galleryList)
+    card.reviewsList=await ReveiwieController.updateReveiw(card.reviewsList)
+    card.lead=await LeadController.updateLead(card.lead)
+
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -79,7 +86,7 @@ updateDigitalCard = async (req, res) => {
                 console.log(err);
                 res.send(err);
             }
-            res.status(200).json(currentCard);
+            res.status(200).json(card);
         }
     );
 };
@@ -102,24 +109,28 @@ copyCard = async (req, res) => {
     const userName = req.params.userName;
 
     try {
+
+        //copy card
         let card = await new Card()
         let newCard = await new Card(cardToCopy)
-        let statistic = await new Statistic()
-        let newStatistic = await new Statistic(cardToCopy.statistic)
+        newCard._id = card._id
+
+        //create new statistic
+        let newStatistic = await new Statistic()
+        newCard.statistic = newStatistic;
+        await newStatistic.save();
+
+        //copy lead
         let lead = await new Lead()
         let newLead = await new Lead(cardToCopy.lead)
-
-        newCard._id = card._id
-        newCard.statistic = newStatistic;
-        newStatistic._id = statistic._id
         newLead._id = lead._id
         newCard.lead = newLead;
+        await newLead.save();
+
+
         newCard.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
         newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
         newCard.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
-
-        await newStatistic.save();
-        await newLead.save();
 
         newCard.save(async (err, cardAfterSave) => {
             console.log("card-----", cardAfterSave);
@@ -256,21 +267,12 @@ getAllCards = (userName) => {
         User.findOne({ username: userName })
             .populate({
                 path: "cards",
-                populate: [{
-                    path: 'user'
-                },
-                {
-                    path: 'socialMedia',
-                },
-                {
-                    path: 'galleryList'
-                },
-                {
-                    path: 'reviewsList'
-                },
-                {
-                    path: 'lead'
-                }
+                populate: [
+                    {path: 'user'},
+                    {path: 'socialMedia'},
+                    {path: 'galleryList'},
+                    {path: 'reviewsList'},
+                    {path: 'lead'}
                 ],
                 match: { isDelete: false }
             })
