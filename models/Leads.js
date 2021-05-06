@@ -7,6 +7,6 @@ const leadSchema = mongoose.Schema({
     textAlign:{ type: String },
     src:{ type: String },
     srcName:{ type: String },
-    logo:{ type: String } 
+    logoTitle:{ type: String } 
 })
 module.exports = mongoose.model('Leads', leadSchema)
