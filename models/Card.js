@@ -15,7 +15,7 @@ const cardSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    cardName: { type : String , unique : true, required : true},
+    cardName: { type : String , required : true},
     fullName: {
         title: { type: String },
         show: { type: Boolean }
