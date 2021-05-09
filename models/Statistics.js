@@ -5,6 +5,7 @@ const statisticSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card'
     },
+    activeViewer:{type: Number},
     viewsCnt: { type: Number },
     socialMediaCnt: { type: Number },
     callMeCnt: { type: Number },
