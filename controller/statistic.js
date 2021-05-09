@@ -32,7 +32,7 @@ setCntSocialMediaAndCall = async(req, res) => {
     statistic.socialMediaCnt=req.body.cntSocial
     statistic.callMeCnt=req.body.cntCallMe
     if( statistic.activeViewer>0){
-         statistic.activeViewer -= 1;
+         statistic.activeViewer-= 1;
     }
    
     await statistic.save()
