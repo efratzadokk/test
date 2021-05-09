@@ -4,15 +4,10 @@ const router = express.Router();
 const DigitalCardController = require('../../controller/digitalCard.js')
 const RegisterController = require('../../controller/register.js')
 const UserController = require('../../controller/User.js')
-const FilesController = require('../../controller/Files.js')
 const ReviewController = require('../../controller/Reveiwies.js');
 const StatisticController = require('../../controller/statistic');
 //permission
 router.get('/:userName/isPermission',RegisterController.cheakPremission);
-
-// file
-router.post('/:userName/uploadFile', FilesController.upload);
-router.post("/:userName/:uId/removeMultipleFiles", FilesController.removeMultipleFiles)
 
 //reveiw
 router.post("/:userName/:reveiwId/deleteReveiws", ReviewController.deleteReveiw);

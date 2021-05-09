@@ -29,19 +29,34 @@ saveGallerys = (gallery) => {
 updateGallery = (gallery) => {
     return new Promise(async (resolve, reject) => {
         console.log("inside update gallery !")
+        let newgallery=[];
+        let newImage;
         try {
-            Promise.all(
-                gallery.map(async (galleryIndex) => {
-                    if (galleryIndex._id !== null) {
-                        Gallery.findByIdAndUpdate(
-                            galleryIndex._id,
-                            galleryIndex,
-                            { new: true })
+            await Promise.all(
+                gallery.map(async (image) => {
+                    if (image._id) {
+                        newImage=await Gallery.findByIdAndUpdate(
+                            image._id,
+                            image,
+                            { new: true },
+                            (err, newImage)=>{
+                                if(err) reject(err);
+                                newgallery.push(newImage._doc);
+                            }
+                        )
+                    }
+                    else{
+                        newImage=new Gallery(image)
+                        newImage.save((err,newI)=>{
+                            
+                            if(err) reject(err);
+                            newgallery.push(newI._doc);
+                        })
                     }
                 })).then(() => {
-
+                    console.log("newImage",newImage)
                 }).then(() => {
-                    resolve("update")
+                    resolve(newgallery)
                 })
         } catch (error) {
             console.log("gallery errore: -", error)

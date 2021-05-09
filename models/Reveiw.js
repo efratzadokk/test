@@ -15,6 +15,8 @@ const reveiwSchema = mongoose.Schema({
     showProfile: {type: Boolean },
     showProfessoin: {type: Boolean },
     isDeleted: {type: Boolean },
+    textAlign: { type: String },
+
 })
 
 module.exports = mongoose.model('Reveiw', reveiwSchema)

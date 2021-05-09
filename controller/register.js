@@ -4,10 +4,13 @@ const request = require('request');
 
 const cheakPremission =  async (req, res) => {
     let currentUser = await User.findOne({ username: req.params.userName })
+    console.log("username----------------",req.params.userName);
+
     if (!currentUser) {
         currentUser = new User(); 
     }
     const jwt = req.cookies.devJwt ? req.cookies.devJwt : req.headers['authorization'] ? req.headers['authorization'] : null
+    console.log("jwt----------------",jwt)
     const cookie = request.cookie(`jwt=${jwt}`)
     const options = {
         method: "GET",
@@ -17,7 +20,7 @@ const cheakPremission =  async (req, res) => {
     request(options, async(error, response, body) => {
         console.log("response.statusCode", response.statusCode)
         if (error || response.statusCode != 200) {
-            return res.status(401).json({ des: redirectUrl, routes: urlRoute, apiFlag: apiFlag, status: 401 })
+            return res.send(error);
         }
         else {
 

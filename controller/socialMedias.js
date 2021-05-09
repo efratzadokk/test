@@ -26,31 +26,70 @@ saveSocialMedias = (socialMedia) => {
     });
 }
 
-updateSocialMedia = (socialMedia) => {
+updateSocialMedia = (socialMediaList) => {
     return new Promise(async (resolve, reject) => {
-        console.log("inside update SocialMedia !")
+        console.log("inside update social Media !")
+        let newSocialMediaList=[];
+        let newSocialMedia;
         try {
-            Promise.all(
-                socialMedia.map(async (socialIndex) => {
-                    if(socialIndex._id!=null){
-                         SocialMedia.findByIdAndUpdate(
-                        socialIndex._id,
-                        socialIndex,
-                        { new: true })
+            await Promise.all(
+                socialMediaList.map(async (socialMedia) => {
+                    if (socialMedia._id) {
+                        newSocialMedia=await SocialMedia.findByIdAndUpdate(
+                            socialMedia._id,
+                            socialMedia,
+                            { new: true },
+                            (err, newSocialMedia)=>{
+                                if(err) reject(err);
+                                newSocialMediaList.push(newSocialMedia._doc);
+                            }
+                        )
                     }
-                   
+                    else{
+                        newSocialMedia=new SocialMedia(socialMedia)
+                        newSocialMedia.save((err,newSM)=>{
+                            
+                            if(err) reject(err);
+                            newSocialMediaList.push(newSM._doc);
+                        })
+                    }
                 })).then(() => {
-                    
-                }).then(()=>{
-                    console.log("------------------");
-                    resolve("update")
+                    console.log("newSocialMedia",newSocialMedia)
+                }).then(() => {
+                    resolve(newSocialMediaList)
                 })
         } catch (error) {
-            console.log("socialMedia errore: -", error)
+            console.log("SocialMedia errore: -", error)
             reject(error);
         }
     });
 }
+
+// updateSocialMedia = (socialMedia) => {
+//     return new Promise(async (resolve, reject) => {
+//         console.log("inside update SocialMedia !")
+//         try {
+//             Promise.all(
+//                 socialMedia.map(async (socialIndex) => {
+//                     if(socialIndex._id!=null){
+//                          SocialMedia.findByIdAndUpdate(
+//                         socialIndex._id,
+//                         socialIndex,
+//                         { new: true })
+//                     }
+                   
+//                 })).then(() => {
+                    
+//                 }).then(()=>{
+//                     console.log("------------------");
+//                     resolve("update")
+//                 })
+//         } catch (error) {
+//             console.log("socialMedia errore: -", error)
+//             reject(error);
+//         }
+//     });
+// }
 module.exports = {
     saveSocialMedias,
     updateSocialMedia

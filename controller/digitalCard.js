@@ -19,19 +19,17 @@ const { AsyncLocalStorage } = require('async_hooks');
 
 
 createDigitalCard = async (req, res) => {
-
-    console.log("///", req.body);
     try {
         let card = await new Card(req.body)
         let statistic = await new Statistic(req.body.statistic)
         statistic.idCard = card._id
         await statistic.save()
-        console.log(statistic);
         let lead = await new Lead(req.body.lead)
         lead.idCard = card._id
         await lead.save()
 
         card.user = await User.findOne({ "username": req.params.userName })
+
         card.statistic = statistic;
         card.lead = lead;
         card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
@@ -62,11 +60,12 @@ createDigitalCard = async (req, res) => {
 updateDigitalCard = async (req, res) => {
 
     let card = req.body;
-    //await SocialMediaController.updateSocialMedia(req.body.socialMedia)
-    //await GalleryController.updateGallery(req.body.galleryList)
-    //card.reviewsList=await ReveiwieController.updateReveiw(req.body.reviewsList)
-    await StatisticController.updateStatistic(req.body.statistic)
-    await LeadController.updateLead(req.body.lead)
+
+    card.socialMedia = await SocialMediaController.updateSocialMedia(card.socialMedia)
+    card.galleryList = await GalleryController.updateGallery(card.galleryList)
+    card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
+    card.lead = await LeadController.updateLead(card.lead)
+
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -76,7 +75,7 @@ updateDigitalCard = async (req, res) => {
                 console.log(err);
                 res.send(err);
             }
-            res.status(200).json(currentCard);
+            res.status(200).json(card);
         }
     );
 };
@@ -99,24 +98,28 @@ copyCard = async (req, res) => {
     const userName = req.params.userName;
 
     try {
+
+        //copy card
         let card = await new Card()
         let newCard = await new Card(cardToCopy)
-        let statistic = await new Statistic()
-        let newStatistic = await new Statistic(cardToCopy.statistic)
+        newCard._id = card._id
+
+        //create new statistic
+        let newStatistic = await new Statistic()
+        newCard.statistic = newStatistic;
+        await newStatistic.save();
+
+        //copy lead
         let lead = await new Lead()
         let newLead = await new Lead(cardToCopy.lead)
-
-        newCard._id = card._id
-        newCard.statistic = newStatistic;
-        newStatistic._id = statistic._id
         newLead._id = lead._id
         newCard.lead = newLead;
+        await newLead.save();
+
+
         newCard.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
         newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
         newCard.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
-
-        await newStatistic.save();
-        await newLead.save();
 
         newCard.save(async (err, cardAfterSave) => {
             console.log("card-----", cardAfterSave);
@@ -141,13 +144,16 @@ copyCard = async (req, res) => {
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
     let id = req.body.id;
-
-    let card = await Card.findOne({ cardName: cardName, isDelete: false })
-    if (card && card._id != id) {
-        console.log("+++++")
-        return res.send(false)
+    try {
+        let card = await Card.findOne({ cardName: cardName, isDelete: false })
+        if (card && card._id != id) {
+            return res.send(false)
+        }
+        res.send(true);
+    } catch (err) {
+        res.send(err);
     }
-    res.send(true);
+
 }
 
 editCardName = async (req, res) => {
@@ -253,24 +259,13 @@ getAllCards = (userName) => {
         User.findOne({ username: userName })
             .populate({
                 path: "cards",
-                populate: [{
-                    path: 'user'
-                },
-                {
-                    path: 'socialMedia',
-                },
-                {
-                    path: 'galleryList'
-                },
-                {
-                    path: 'reviewsList'
-                },
-                {
-                    path: 'lead'
-                },
-                {
-                    path: 'statistic'
-                }
+                populate: [
+                    { path: 'user' },
+                    { path: 'socialMedia' },
+                    { path: 'galleryList' },
+                    { path: 'reviewsList' },
+                    { path: 'lead' },
+                    { path: 'statistic' }
                 ],
                 match: { isDelete: false }
             })
@@ -296,7 +291,7 @@ newActivIP = async (req) => {
     let device = deviceDetector.parse(userAgent).device.type;
     let card = await Card.findOne({ cardName: cardName })
     let statistic = await Statistic.findOne({ idCard: card._id })
-    statistic.viewsCnt+=1;
+    statistic.viewsCnt += 1;
     let country = await statistic.actives.country.find(item => item.name == geo.country)
     if (country) {
         country.sum++;

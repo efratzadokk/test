@@ -15,7 +15,7 @@ const cardSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    cardName: { type: String },
+    cardName: { type : String , required : true},
     fullName: {
         title: { type: String },
         show: { type: Boolean }
@@ -114,6 +114,7 @@ const cardSchema = mongoose.Schema({
         ref: 'Stastistic'
     },
     vCardStyle: {
+        fontFamily: { type: String },
         favIcon: {
             title: { type: String },
             src: { type: String },
@@ -329,8 +330,7 @@ const cardSchema = mongoose.Schema({
         autoPlay: { type: Number },
         margin: { type: Number },
         rowHeight: { type: Number },
-        maxRows: { type: Number },
-        design: { type: String }
+        maxRows: { type: Number }
     },
     reviewsList: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -347,5 +347,10 @@ const cardSchema = mongoose.Schema({
 });
 
 
+cardSchema.pre('save', function(next){
+    const card=this
+    card.cardName=card.cardName.replace(/[/\s.]/g, '')   
+    next()
+})
 
 module.exports = mongoose.model("Card", cardSchema);
