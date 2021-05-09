@@ -9,7 +9,6 @@ const statisticSchema = mongoose.Schema({
     socialMediaCnt: { type: Number },
     callMeCnt: { type: Number },
     emailCnt: { type: Number },
-
     actives:
     {
         country: [{

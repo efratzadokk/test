@@ -6,7 +6,7 @@ const RegisterController = require('../../controller/register.js')
 const UserController = require('../../controller/User.js')
 const FilesController = require('../../controller/Files.js')
 const ReviewController = require('../../controller/Reveiwies.js');
-
+const StatisticController = require('../../controller/statistic');
 //permission
 router.get('/:userName/isPermission',RegisterController.cheakPremission);
 
@@ -17,21 +17,24 @@ router.post("/:userName/:uId/removeMultipleFiles", FilesController.removeMultipl
 //reveiw
 router.post("/:userName/:reveiwId/deleteReveiws", ReviewController.deleteReveiw);
 
+//statisticsetCntSocialMediaAndCall
+router.post("/:userName/setCntSocialMediaAndCall/:cardId", StatisticController.setCntSocialMediaAndCall);
+
+
 //card
 router.post("/:userName/checkUniqueCardName", DigitalCardController.checkUniqueCardName);
 router.post("/:userName/editCardName", DigitalCardController.editCardName);
 router.post("/:userName/updateUserIndexCardName", UserController.updateUserIndexCardName);
-router.put("/:userName/addContactOptions/:cardId", DigitalCardController.addContactOptions);
 
 router.get("/:userName/deleteCard/:cardId", DigitalCardController.deleteCard);
 
-router.get('/:userName/getUser/user', UserController.getUidByUserName);
-
 router.post("/:userName/updateCard/:cardId", DigitalCardController.updateDigitalCard);
 
-router.get('/:userName', DigitalCardController.getDigitalCard);
 router.post('/:userName/saveNewCard', DigitalCardController.createDigitalCard);
 router.get('/:userName/getCardsIndex', DigitalCardController.getCardsIndex);
+
+router.post('/:userName/copyCard', DigitalCardController.copyCard);
+
 
 
 router.get('/:userName/getAllCards',(req,res)=>{
@@ -43,7 +46,8 @@ router.get('/:userName/getAllCards',(req,res)=>{
     .catch(err=>{
         res.send(err)
     })
-})
+});
+
 
 module.exports = router;
 

@@ -27,7 +27,14 @@ updateStatistic = (statistic) => {
         }
     });
 }
-
+setCntSocialMediaAndCall = async(req, res) => {
+    let statistic = await Statistic.findOne({ idCard:req.params.cardId })
+    statistic.socialMediaCnt=req.body.cntSocial
+    statistic.callMeCnt=req.body.cntCallMe
+    await statistic.save()
+    res.send('the count is update')
+}
 module.exports = {
-    updateStatistic
+    updateStatistic,
+    setCntSocialMediaAndCall
 }

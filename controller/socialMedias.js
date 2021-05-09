@@ -8,7 +8,10 @@ saveSocialMedias = (socialMedia) => {
         try {
             Promise.all(
                 socialMedia.map(async (social) => {
+                    //for copy card
+                    let temp = new SocialMedia();
                     let newSocial = new SocialMedia(social);
+                    newSocial._id=temp._id
                     await newSocial.save();
                     await socialMedias.push(newSocial);
 

@@ -9,7 +9,6 @@ const GalleryController = require('./Gallery.js');
 const SocialMediaController = require('./socialMedias');
 const LeadController = require('./lead')
 const StatisticController = require('./statistic')
-const nodemailer = require('nodemailer');
 const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
 const os = require('os');
@@ -17,47 +16,17 @@ const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
 const { AsyncLocalStorage } = require('async_hooks');
 
-getDigitalCard = async (req, res) => {
-    console.log("userName--------------", req.params.userName);
-
-    let currentUser = await User.findOne({ "username": req.params.userName });
-    User.findOne({ "_id": currentUser._id })
-        .populate({
-            path: 'cards',
-            populate: [{
-                path: 'socialMedias'
-            }, {
-                path: 'gallery',
-            }, {
-                path: 'reveiw'
-            },
-            {
-                path: 'video'
-            },
-            {
-                path: 'iframe'
-            }
-            ],
-            match: { isDelete: false }
-        })
-        .exec((err, user) => {
-            if (err) { res.status(500).send(err) }
-            res.status(200).send(user.cards);
-        })
-}
-
-
-
 
 
 createDigitalCard = async (req, res) => {
+
     console.log("///", req.body);
     try {
         let card = await new Card(req.body)
         let statistic = await new Statistic(req.body.statistic)
         statistic.idCard = card._id
         await statistic.save()
-
+        console.log(statistic);
         let lead = await new Lead(req.body.lead)
         lead.idCard = card._id
         await lead.save()
@@ -89,12 +58,13 @@ createDigitalCard = async (req, res) => {
     }
 }
 
+
 updateDigitalCard = async (req, res) => {
 
     let card = req.body;
-    await SocialMediaController.updateSocialMedia(req.body.socialMedia)
-    await GalleryController.updateGallery(req.body.galleryList)
-    await ReveiwieController.updateReveiw(req.body.reviewsList)
+    //await SocialMediaController.updateSocialMedia(req.body.socialMedia)
+    //await GalleryController.updateGallery(req.body.galleryList)
+    //card.reviewsList=await ReveiwieController.updateReveiw(req.body.reviewsList)
     await StatisticController.updateStatistic(req.body.statistic)
     await LeadController.updateLead(req.body.lead)
     Card.findByIdAndUpdate(
@@ -112,9 +82,7 @@ updateDigitalCard = async (req, res) => {
 };
 
 deleteCard = async (req, res) => {
-
     try {
-
         let currentCard = await Card.findOne({ _id: req.params.cardId });
         console.log({ _id: req.params.cardId });
         currentCard.isDelete = true;
@@ -125,96 +93,71 @@ deleteCard = async (req, res) => {
     }
 }
 
+copyCard = async (req, res) => {
 
-getUidByUserName = async (req, res) => {
-    const userName = req.params.userName
-    const user = await User.findOne({ username: userName })
-    console.log("user email", user.email);
-    let query = { _id: req.params.cardId, "viewers.date": generateDate(new Date()) };
-    let inc = { $inc: { 'viewers.$.amount': 1 } };
-    let currentCard = await Card.findOne(query);
-    let success;
-    console.log('currentCard', currentCard._id);
-    if (currentCard) { success = await Card.updateOne(query, inc); }
-    else {
-        let newDay = { date: generateDate(new Date()), amount: 1 }
-        console.log("newDay", newDay);
-        success = await Card.findOneAndUpdate({ _id: req.params.cardId }, { $push: { viewers: newDay } }, { new: true, upsert: true })
-    }
-    console.log(success);
-    if (user)
-        res.json({ "uid": user.uid })
-};
+    const cardToCopy = req.body;
+    const userName = req.params.userName;
 
-
-addContactOptions = async (req, res) => {
     try {
-        let { name } = req.body;
-        let query = { _id: req.params.cardId, "contactOptions.date": generateDate(new Date()) };
-        let update;
-        console.log(query);
-        let card = await Card.findOne(query)
-        console.log("---card---", card);
-        let summaryToday;
-        if (card) {
-            summaryToday = JSON.parse(card.contactOptions[card.contactOptions.length - 1].sumContactOptions)
-            if (summaryToday[name]) {
-                summaryToday[name]++;
+        let card = await new Card()
+        let newCard = await new Card(cardToCopy)
+        let statistic = await new Statistic()
+        let newStatistic = await new Statistic(cardToCopy.statistic)
+        let lead = await new Lead()
+        let newLead = await new Lead(cardToCopy.lead)
 
-            } else {
-                summaryToday[name] = 1;
-            }
-            console.log('summaryToday', summaryToday);
-            update = { $set: { 'contactOptions.$.sumContactOptions': JSON.stringify(summaryToday) } };
-            success = await Card.updateOne(query, update, { new: true });
-        }
-        else {
-            newDay = { date: generateDate(new Date()), sumContactOptions: JSON.stringify({ [name]: 1 }) }
-            await Card.findOneAndUpdate({ _id: req.params.cardId }, { $push: { contactOptions: newDay } })
-        }
-        res.status(200).send("update successfully")
-    } catch (error) {
-        res.status(500).send(error)
+        newCard._id = card._id
+        newCard.statistic = newStatistic;
+        newStatistic._id = statistic._id
+        newLead._id = lead._id
+        newCard.lead = newLead;
+        newCard.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
+        newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
+        newCard.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
+
+        await newStatistic.save();
+        await newLead.save();
+
+        newCard.save(async (err, cardAfterSave) => {
+            console.log("card-----", cardAfterSave);
+            if (err)
+                return res.send(err)
+            await User.findOneAndUpdate(
+                { "username": userName },
+                { $push: { cards: cardAfterSave._id } },
+                { new: true }
+            )
+            return res.status(200).json(cardAfterSave)
+        })
     }
+    catch (error) {
+        console.log("error", error)
+        res.send(error)
+    }
+}
 
-}
-generateDate = (date) => {
-    return ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear()
-}
 
 //by card name only
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
     let id = req.body.id;
 
-    let card = await Card.findOne({ "cardName.title": cardName, isDelete: false })
-
-    console.log("id", id);
-
-
+    let card = await Card.findOne({ cardName: cardName, isDelete: false })
     if (card && card._id != id) {
         console.log("+++++")
         return res.send(false)
     }
     res.send(true);
-
 }
-
 
 editCardName = async (req, res) => {
 
     let cardId = req.body.cardId;
     let cardName = req.body.cardName;
-
-    console.log("req.body.cardname", cardName);
-    console.log("req.body.cardId", cardId);
-
     const filter = { _id: cardId };
     const update = { cardName: cardName };
-
     let doc = await Card.findOneAndUpdate(filter, update);
-
-    res.send();
+    res.send(doc);
 
 }
 
@@ -229,13 +172,13 @@ getCardsIndex = (req, res) => {
 }
 
 
-sumEmailSend = async (username) => {
+sumEmailSend = async (cardName) => {
     return new Promise(async (resolve, reject) => {
-        const card = await Card.find({ cardName: username })
-        const statisticEmail = await Statistic.findOneAndUpdate({ idCard: card._id },
-            { $inc: { 'emailCnt': 1 } },
-            { new: true })
-        if (statisticEmail)
+        const card = await Card.findOne({ cardName: cardName })
+        let statistic = await Statistic.findOne({ idCard: card._id })
+        statistic.emailCnt++;
+        await statistic.save()
+        if (statistic)
             resolve("access denied");
         reject('access denied');
     });
@@ -272,7 +215,8 @@ sendMessageByCard = async (req, res) => {
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
-    await sumEmailSend(username)
+    await sumEmailSend(req.params.cardName)
+
     const email = {
         from: `${username}@mails.codes`,
         to: mailTo,//emailTo
@@ -304,18 +248,38 @@ sendMessageByCard = async (req, res) => {
 }
 
 getAllCards = (userName) => {
-
     return new Promise((resolve, reject) => {
         console.log("username", userName)
         User.findOne({ username: userName })
-            .populate({ path: "cards", match: { isDelete: false } })
+            .populate({
+                path: "cards",
+                populate: [{
+                    path: 'user'
+                },
+                {
+                    path: 'socialMedia',
+                },
+                {
+                    path: 'galleryList'
+                },
+                {
+                    path: 'reviewsList'
+                },
+                {
+                    path: 'lead'
+                },
+                {
+                    path: 'statistic'
+                }
+                ],
+                match: { isDelete: false }
+            })
             .exec((err, user) => {
                 if (err) {
                     reject(err);
                 }
                 resolve(user.cards)
             })
-
     });
 }
 newActivIP = async (req) => {
@@ -330,10 +294,9 @@ newActivIP = async (req) => {
     let browserName = parser1.setUA(ua).getBrowser().name;
     let operationType = os.type()
     let device = deviceDetector.parse(userAgent).device.type;
-    let card = await Card.findOne({ "cardName.title": cardName })
-
+    let card = await Card.findOne({ cardName: cardName })
     let statistic = await Statistic.findOne({ idCard: card._id })
-    // statistic.viewsCnt++;   
+    statistic.viewsCnt+=1;
     let country = await statistic.actives.country.find(item => item.name == geo.country)
     if (country) {
         country.sum++;
@@ -367,12 +330,12 @@ newActivIP = async (req) => {
         let obj = { name: device, sum: 1, dates: new Date() }
         statistic.actives.dvices.push(obj)
     }
-    return new Promise(async(resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
 
         if (!statistic.actives) reject("not active");
-        let savedStatistic= await statistic.save()
+        let savedStatistic = await statistic.save()
         console.log(savedStatistic);
-        resolve(savedStatistic);
+        resolve(savedStatistic.country);
 
     });
 }
@@ -381,19 +344,15 @@ getCardByName = async (req) => {
     await newActivIP(req)
 
     return new Promise((resolve, reject) => {
-        Card.findOne({ "cardName.title": cardName, isDelete: false })
-            .populate({ path: "user" })
+        Card.findOne({
+            cardName: cardName,
+            isDelete: false
+        }).populate({ path: "user" })
             .populate({ path: "socialMedia" })
             .populate({ path: 'galleryList' })
             .populate({ path: 'reviewsList' })
             .populate({ path: 'lead' })
-            .populate({
-                path: 'statistic',
-                // match: {
-                //     $inc: { 'viewsCnt': 1 },
-
-                // }
-            })
+            .populate({ path: 'statistic', })
             .exec((err, card) => {
                 if (err) {
                     reject(err);
@@ -408,16 +367,14 @@ getCardByName = async (req) => {
 module.exports = {
     createDigitalCard,
     updateDigitalCard,
-    getDigitalCard,
     deleteCard,
-    getUidByUserName,
     sendMessageByCard,
     checkUniqueCardName,
-    addContactOptions,
     editCardName,
     getCardsIndex,
     getCardByName,
-    getAllCards
+    getAllCards,
+    copyCard
 }
 
 
