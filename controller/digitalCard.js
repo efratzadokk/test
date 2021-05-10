@@ -2,36 +2,43 @@ const User = require('../models/User.js');
 const path = require('path');
 const request = require('request');
 const Card = require('../models/Card.js');
-const Statistic = require('../models/Statistics.js');
 const Lead = require('../models/Leads.js');
+const Statistic = require('../models/Statistics');
 const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
 const SocialMediaController = require('./socialMedias');
 const LeadController = require('./lead')
 const StatisticController = require('./statistic')
 const requestIp = require('request-ip');
+const geoip = require('geoip-lite');
+const os = require('os');
+const UAParser = require('ua-parser-js');
+const DeviceDetector = require("device-detector-js");
+const { AsyncLocalStorage } = require('async_hooks');
 
 
 
 createDigitalCard = async (req, res) => {
-    console.log("///", req.body);
     try {
         let card = await new Card(req.body)
+        let statistic = await new Statistic(req.body.statistic)
+        statistic.idCard = card._id
+        await statistic.save()
+        let lead = await new Lead(req.body.lead)
+        lead.idCard = card._id
+        await lead.save()
 
         card.user = await User.findOne({ "username": req.params.userName })
 
-        // let statistic = await new Statistic(req.body.statistic)
-        // card.statistic = statistic;
-        // statistic.save();
-
-        let lead = await new Lead(req.body.lead)
+        card.statistic = statistic;
         card.lead = lead;
-        lead.save()
-
         card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
         card.galleryList = await GalleryController.saveGallerys(req.body.galleryList);
         card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
 
+        card.socialMedia.idCard = card._id
+        card.galleryList.idCard = card._id
+        card.reviewsList.idCard = card._id
         card.save(async (err, cardAfterSave) => {
             if (err)
                 return res.send(err)
@@ -48,25 +55,7 @@ createDigitalCard = async (req, res) => {
         res.send(error)
     }
 }
-newActivIP = (req) => {
-    return new Promise((resolve, reject) => {
-        const clientIp = requestIp.getClientIp(req);
-        let geo = geoip.lookup(clientIp);
-        let parser1 = new UAParser();
-        let ua = req.headers['user-agent'];
-        let browserName = parser1.setUA(ua).getBrowser().name;
-        let deviceType = os.type()
-        const active = {
-            country: geo.country,
-            ip: clientIp,
-            deviceType: deviceType,
-            browser: browserName,
-            languageBrowser: req.headers["accept-language"]
-        }
-        if (!active) reject("not active");
-        resolve(active);
-    });
-}
+
 
 updateDigitalCard = async (req, res) => {
 
@@ -158,7 +147,7 @@ checkUniqueCardName = async (req, res) => {
     try {
         let card = await Card.findOne({ cardName: cardName, isDelete: false })
         if (card && card._id != id) {
-           return res.send(false)
+            return res.send(false)
         }
         res.send(true);
     } catch (err) {
@@ -189,13 +178,13 @@ getCardsIndex = (req, res) => {
 }
 
 
-sumEmailSend = async (username) => {
+sumEmailSend = async (cardName) => {
     return new Promise(async (resolve, reject) => {
-        const card = await Card.find({ cardName: username })
-        const statisticEmail = await Statistic.findOneAndUpdate({ idCard: card._id },
-            { $inc: { 'emailCnt': 1 } },
-            { new: true })
-        if (statisticEmail)
+        const card = await Card.findOne({ cardName: cardName })
+        let statistic = await Statistic.findOne({ idCard: card._id })
+        statistic.emailCnt++;
+        await statistic.save()
+        if (statistic)
             resolve("access denied");
         reject('access denied');
     });
@@ -232,7 +221,8 @@ sendMessageByCard = async (req, res) => {
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
-    await sumEmailSend(username)
+    await sumEmailSend(req.params.cardName)
+
     const email = {
         from: `${username}@mails.codes`,
         to: mailTo,//emailTo
@@ -264,7 +254,6 @@ sendMessageByCard = async (req, res) => {
 }
 
 getAllCards = (userName) => {
-
     return new Promise((resolve, reject) => {
         console.log("username", userName)
         User.findOne({ username: userName })
@@ -275,7 +264,8 @@ getAllCards = (userName) => {
                     { path: 'socialMedia' },
                     { path: 'galleryList' },
                     { path: 'reviewsList' },
-                    { path: 'lead' }
+                    { path: 'lead' },
+                    { path: 'statistic' }
                 ],
                 match: { isDelete: false }
             })
@@ -287,11 +277,67 @@ getAllCards = (userName) => {
             })
     });
 }
-
-getCardByName = async (req) => {
-
+newActivIP = async (req) => {
     const { cardName } = req.params;
-    // const newActive = await newActivIP(req)
+    // const clientIp = requestIp.getClientIp(req);
+    const clientIp = "207.97.227.239";
+    let geo = geoip.lookup(clientIp);
+    let parser1 = new UAParser();
+    let ua = req.headers['user-agent'];
+    let deviceDetector = new DeviceDetector();
+    let userAgent = ua
+    let browserName = parser1.setUA(ua).getBrowser().name;
+    let operationType = os.type()
+    let device = deviceDetector.parse(userAgent).device.type;
+    let card = await Card.findOne({ cardName: cardName })
+    let statistic = await Statistic.findOne({ idCard: card._id })
+    statistic.viewsCnt += 1;
+    statistic.activeViewer += 1;
+    let country = await statistic.actives.country.find(item => item.name == geo.country)
+    if (country) {
+        country.sum++;
+        country.dates.push(new Date())
+    } else {
+        let obj = { name: geo.country, sum: 1, dates: new Date() }
+        statistic.actives.country.push(obj)
+    }
+
+    let browser = await statistic.actives.browser.find(item => item.name == browserName)
+    if (browser) {
+        browser.sum++;
+        browser.dates.push(new Date())
+    } else {
+        let obj = { name: browserName, sum: 1, dates: new Date() }
+        statistic.actives.browser.push(obj)
+    }
+    let operation = await statistic.actives.operationType.find(item => item.name == operationType)
+    if (operation) {
+        operation.sum++;
+        operation.dates.push(new Date())
+    } else {
+        let obj = { name: operationType, sum: 1, dates: new Date() }
+        statistic.actives.operationType.push(obj)
+    }
+    let dvices = await statistic.actives.dvices.find(item => item.name == device)
+    if (dvices) {
+        dvices.sum++;
+        dvices.dates.push(new Date())
+    } else {
+        let obj = { name: device, sum: 1, dates: new Date() }
+        statistic.actives.dvices.push(obj)
+    }
+    return new Promise(async (resolve, reject) => {
+
+        if (!statistic.actives) reject("not active");
+        let savedStatistic = await statistic.save()
+        console.log(savedStatistic);
+        resolve(savedStatistic.country);
+
+    });
+}
+getCardByName = async (req) => {
+    const { cardName } = req.params;
+    await newActivIP(req)
 
     return new Promise((resolve, reject) => {
         Card.findOne({
@@ -302,19 +348,12 @@ getCardByName = async (req) => {
             .populate({ path: 'galleryList' })
             .populate({ path: 'reviewsList' })
             .populate({ path: 'lead' })
-            // .populate({
-            //     path: 'statistic',
-            //     match: {
-            //         $inc: { 'viewsCnt': 1 },
-            //         $push: { actives: newActive }
-            //     }
-            // })
+            .populate({ path: 'statistic', })
             .exec((err, card) => {
                 if (err) {
                     reject(err);
                 }
                 console.log("card-------------------", card)
-
                 resolve(card)
 
             })

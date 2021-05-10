@@ -5,12 +5,16 @@ const DigitalCardController = require('../../controller/digitalCard.js')
 const RegisterController = require('../../controller/register.js')
 const UserController = require('../../controller/User.js')
 const ReviewController = require('../../controller/Reveiwies.js');
-
+const StatisticController = require('../../controller/statistic');
 //permission
 router.get('/:userName/isPermission',RegisterController.cheakPremission);
 
 //reveiw
 router.post("/:userName/:reveiwId/deleteReveiws", ReviewController.deleteReveiw);
+
+//statisticsetCntSocialMediaAndCall
+router.post("/:userName/setCntSocialMediaAndCall/:cardId", StatisticController.setCntSocialMediaAndCall);
+
 
 //card
 router.post("/:userName/checkUniqueCardName", DigitalCardController.checkUniqueCardName);

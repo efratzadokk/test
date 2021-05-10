@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const socialMediaSchema = mongoose.Schema({
+    idCard: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Card'
+    },
     name: { type: String },
     title: { type: String },
     url: { type: String },
