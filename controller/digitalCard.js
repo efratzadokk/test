@@ -20,9 +20,9 @@ createDigitalCard = async (req, res) => {
 
         card.user = await User.findOne({ "username": req.params.userName })
 
-        let statistic = await new Statistic(req.body.statistic)
-        card.statistic = statistic;
-        statistic.save();
+        // let statistic = await new Statistic(req.body.statistic)
+        // card.statistic = statistic;
+        // statistic.save();
 
         let lead = await new Lead(req.body.lead)
         card.lead = lead;
