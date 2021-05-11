@@ -280,8 +280,10 @@ getAllCards = (userName) => {
 newActivIP = async (req) => {
     const { cardName } = req.params;
     // const clientIp = requestIp.getClientIp(req);
-    const clientIp = "207.97.227.239";
+    const clientIp = "80.179.155.145";
+   
     let geo = geoip.lookup(clientIp);
+    console.log('------',geo); 
     let parser1 = new UAParser();
     let ua = req.headers['user-agent'];
     let deviceDetector = new DeviceDetector();
