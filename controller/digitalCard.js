@@ -344,12 +344,12 @@ getCardByName = async (req) => {
             cardName: cardName,
             isDelete: false
         }).populate({ path: "user" })
-            .populate({ path: "socialMedia" })
-            .populate({ path: 'galleryList' })
-            .populate({ path: 'reviewsList' })
-            .populate({ path: 'lead' })
-            .populate({ path: 'statistic', })
-            .exec((err, card) => {
+          .populate({ path: "socialMedia" })
+          .populate({ path: 'galleryList' })
+          .populate({ path: 'reviewsList' })
+          .populate({ path: 'lead' })
+          .populate({ path: 'statistic', })
+          .exec((err, card) => {
                 if (err) {
                     reject(err);
                 }
