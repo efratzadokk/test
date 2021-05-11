@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
 const gallerySchema = mongoose.Schema({
-  
+    idCard: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Card'
+    },
     src:{ type: String },
     srcName: { type: String },
     thumbnail: { type: String },

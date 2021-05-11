@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const reveiwSchema = mongoose.Schema({
+    idCard: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Card'
+    },
     src: { type: String },
     srcName: { type: String },
     recomandName: { type: String },
