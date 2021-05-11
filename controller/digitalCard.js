@@ -289,8 +289,8 @@ newActivIP = async (req) => {
     let browserName = parser1.setUA(ua).getBrowser().name;
     let operationType = os.type()
     let device = deviceDetector.parse(userAgent).device.type;
-    let card = await Card.findOne({ cardName: cardName })
-    let statistic = await Statistic.findOne({ idCard: card._id })
+    let card = await Card.findOne({ cardName: cardName,isDelete: false })
+    let statistic = await Statistic.findOne({ idCard: card._id})
     statistic.viewsCnt += 1;
     statistic.activeViewer += 1;
     let country = await statistic.actives.country.find(item => item.name == geo.country)
