@@ -85,7 +85,6 @@ deleteCard = async (req, res) => {
         let currentCard = await Card.findOne({ _id: req.params.cardId });
         console.log({ _id: req.params.cardId });
         currentCard.isDelete = true;
-        //currentCard
         let result = await currentCard.save();
         res.send(result);
     } catch (error) {

@@ -12,7 +12,7 @@ const leadSchema = mongoose.Schema({
     src:{ type: String },
     srcName:{ type: String },
     logoTitle:{ type: String },
-    isDeleted:{ type: Boolean}
+    isDelete:{ type: Boolean}
 
 })
 module.exports = mongoose.model('Leads', leadSchema)

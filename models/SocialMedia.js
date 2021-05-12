@@ -13,7 +13,7 @@ const socialMediaSchema = mongoose.Schema({
     message: { type: String },
     numClick: { type: Number },
     showConfigurator:{ type: Boolean },
-    isDeleted:{ type: Boolean}
+    isDelete:{ type: Boolean}
 
 })
 

@@ -21,7 +21,7 @@ router.post("/:userName/checkUniqueCardName", DigitalCardController.checkUniqueC
 router.post("/:userName/editCardName", DigitalCardController.editCardName);
 router.post("/:userName/updateUserIndexCardName", UserController.updateUserIndexCardName);
 
-router.get("/:userName/deleteCard/:cardId", DigitalCardController.deleteCard);
+router.post("/:userName/deleteCard/:cardId", DigitalCardController.deleteCard);
 
 router.post("/:userName/updateCard/:cardId", DigitalCardController.updateDigitalCard);
 
