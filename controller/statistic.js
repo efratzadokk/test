@@ -1,7 +1,7 @@
 const Statistic = require('../models/Statistics');
 getStatistic = async (req, res) => {
     try {
-        let statistic = await Statistic.findOne({ idCard: req.params.cardId })
+        let statistic = await Statistic.findOne({cardName: req.params.cardName })
         res.status(200).json(statistic)
     }
     catch (err) {

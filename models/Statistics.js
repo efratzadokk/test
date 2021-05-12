@@ -1,11 +1,9 @@
 const mongoose = require('mongoose')
 
 const statisticSchema = mongoose.Schema({
-    idCard: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Card'
-    },
-    activeViewer:{type: Number},
+    cardName:  { type: String },
+    dateCreated: {type: Date},
+    activeViewer: { type: Number },
     viewsCnt: { type: Number },
     socialMediaCnt: { type: Number },
     callMeCnt: { type: Number },

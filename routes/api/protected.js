@@ -14,7 +14,7 @@ router.post("/:userName/:reveiwId/deleteReveiws", ReviewController.deleteReveiw)
 
 //statisticsetCntSocialMediaAndCall
 router.post("/:userName/setCntSocialMediaAndCall/:cardId", StatisticController.setCntSocialMediaAndCall);
-router.get("/:userName/getStatistic/:cardId", StatisticController.getStatistic);
+router.get("/:userName/getStatistic/:cardName", StatisticController.getStatistic);
 
 
 //card
