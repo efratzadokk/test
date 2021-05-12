@@ -303,7 +303,7 @@ const cardSchema = mongoose.Schema({
                 color:{ type: String },
             }
         },
-        video: {
+        videoStyle: {
             position: {
                 x: { type: Number },
                 y: { type: Number }
