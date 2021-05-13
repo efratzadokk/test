@@ -8,7 +8,7 @@ const reveiwSchema = mongoose.Schema({
     src: { type: String },
     srcName: { type: String },
     recomandName: { type: String },
-    professoin: { type: String },
+    profession: { type: String },
     reviewContect: { type: String },
     textColor: { type: String },
     backgroundColor: { type: String },
