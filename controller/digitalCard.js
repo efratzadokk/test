@@ -107,6 +107,7 @@ copyCard = async (req, res) => {
         //create new statistic
         let newStatistic = await new Statistic()
         newCard.statistic = newStatistic;
+        newStatistic.idCard=card;
         await newStatistic.save();
 
         //copy lead
