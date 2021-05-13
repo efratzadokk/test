@@ -5,10 +5,6 @@ const User = require('../models/User');
 
 const checkPermission = async (req, res, next) => {
     const host = req.get('host');
-    // const isLocal = (req.query.isLocal == 'true');
-    // console.log("newIsLocal", isLocal);
-    // if (isLocal)
-    //     return next();
     console.log("in checkPermission", req.originalUrl.split("/"));
     let userName = req.originalUrl.split("/")[1];
     let apiFlag = false
@@ -37,7 +33,7 @@ const checkPermission = async (req, res, next) => {
             console.log("response.statusCode", response.statusCode)
             console.log("body", typeof (body), body)
             if (error || response.statusCode != 200) {
-                return res.send(error)
+                return res.send(response.statusCode||error)
             }
             else {
                console.log("userName", userName)

@@ -191,9 +191,9 @@ sumEmailSend = async (cardName) => {
 }
 
 createContactLeaderBox = async (data) => {
-    const { body, mailTo, username } = data;
+    const { body, mailTo } = data;
     const email = {
-        source: "KnowMe",
+        source: "Know me",
         subject: "Form Knowme🙂",
         from: "knowme@noreply.leader.codes",
         to: mailTo,
@@ -201,9 +201,11 @@ createContactLeaderBox = async (data) => {
         files: null
     }
     const options = {
-        url: `https://api.dev.leader.codes/${username}/createSystemWave`,
+        url: `https://api.dev.leader.codes/${'rivkaf'}/createSystemWave`,
         method: 'POST',
-        headers: { Authorization: "secretKEY@2021" },
+        headers: {
+            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJtVjhWM2V2c2NQUFJGcDZNNkZ4eWlIQ1JrdkczIiwiZW1haWwiOiJyaXZrYWZvZ2VsbWFuQGdtYWlsLmNvbSIsImlhdCI6MTYyMDczMjgyNH0.v1j1_lIcenKPHNvHXaOlfBhYNH3YU12nAB71nQ_Vrd4"
+        },
         json: email,
     };
     return new Promise((resolve, reject) => {
@@ -289,8 +291,8 @@ newActivIP = async (req) => {
     let browserName = parser1.setUA(ua).getBrowser().name;
     let operationType = os.type()
     let device = deviceDetector.parse(userAgent).device.type;
-    let card = await Card.findOne({ cardName: cardName })
-    let statistic = await Statistic.findOne({ idCard: card._id })
+    let card = await Card.findOne({ cardName: cardName,isDelete: false })
+    let statistic = await Statistic.findOne({ idCard: card._id})
     statistic.viewsCnt += 1;
     statistic.activeViewer += 1;
     let country = await statistic.actives.country.find(item => item.name == geo.country)
@@ -344,12 +346,12 @@ getCardByName = async (req) => {
             cardName: cardName,
             isDelete: false
         }).populate({ path: "user" })
-            .populate({ path: "socialMedia" })
-            .populate({ path: 'galleryList' })
-            .populate({ path: 'reviewsList' })
-            .populate({ path: 'lead' })
-            .populate({ path: 'statistic', })
-            .exec((err, card) => {
+          .populate({ path: "socialMedia" })
+          .populate({ path: 'galleryList' })
+          .populate({ path: 'reviewsList' })
+          .populate({ path: 'lead' })
+          .populate({ path: 'statistic', })
+          .exec((err, card) => {
                 if (err) {
                     reject(err);
                 }
