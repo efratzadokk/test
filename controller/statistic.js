@@ -1,7 +1,8 @@
 const Statistic = require('../models/Statistics');
 getStatistic = async (req, res) => {
     try {
-        let statistic = await Statistic.findOne({cardName: req.params.cardName })
+        let statistic = await Statistic.findOne({ cardName: req.params.cardName })
+        console.log(statistic);
         res.status(200).json(statistic)
     }
     catch (err) {
@@ -36,12 +37,19 @@ updateStatistic = (statistic) => {
     });
 }
 setCntSocialMediaAndCall = async (req, res) => {
-    let statistic = await Statistic.findOne({ idCard: req.params.cardId })
-    statistic.socialMediaCnt = req.body.cntSocial
-    statistic.callMeCnt = req.body.cntCallMe
-    statistic.activeViewer--;
-    await statistic.save()
-    res.send('the count is update')
+    try {
+        debugger;
+        let statistic = await Statistic.findOne({ cardName: req.params.cardName })
+        statistic.socialMediaCnt = req.body.cntSocial
+        statistic.callMeCnt = req.body.cntCallMe
+        statistic.activeViewer -= 1;
+        await statistic.save()
+        res.send('the count is update')
+    } catch (error) {
+        res.status(400)
+        console.log(error.message);
+    }
+
 }
 module.exports = {
     updateStatistic,

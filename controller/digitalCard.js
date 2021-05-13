@@ -22,6 +22,7 @@ createDigitalCard = async (req, res) => {
         let card = await new Card(req.body)
         let statistic = await new Statistic(req.body.statistic)
         statistic.cardName = card.cardName
+        statistic.idCard = card._id
         await statistic.save()
         let lead = await new Lead(req.body.lead)
         lead.idCard = card._id
@@ -275,7 +276,6 @@ getAllCards = (userName) => {
 }
 newActivIP = async (req) => {
     const { cardName } = req.params;
-
     return new Promise(async (resolve, reject) => {
         try {
             // const clientIp = requestIp.getClientIp(req);
@@ -290,11 +290,12 @@ newActivIP = async (req) => {
             let device = deviceDetector.parse(userAgent).device.type;
             let card = await Card.findOne({ cardName: cardName })
             let statistic = await Statistic.findOne({ idCard: card._id })
-            if( statistic.viewsCnt ==0){
-                statistic.dateCreated=new Date() 
+            if (statistic.viewsCnt == 0) {
+                statistic.dateCreated = new Date()
             }
             statistic.viewsCnt += 1;
             statistic.activeViewer += 1;
+            statistic.allDatesViews.push(new Date())
             let country = await statistic.actives.country.find(item => item.name == geo.country)
             if (country) {
                 country.sum++;

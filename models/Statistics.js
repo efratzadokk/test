@@ -1,13 +1,20 @@
 const mongoose = require('mongoose')
 
 const statisticSchema = mongoose.Schema({
-    cardName:  { type: String },
-    dateCreated: {type: Date},
+    idCard: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Card'
+    },
+    cardName: { type: String },
     activeViewer: { type: Number },
     viewsCnt: { type: Number },
+    allDatesViews:{type: Array},
     socialMediaCnt: { type: Number },
+    allDateSocialMedia:{type: Array},
     callMeCnt: { type: Number },
+    allDatesCallMe:{type: Array},
     emailCnt: { type: Number },
+    allDatesEmail:{type: Array},
     actives:
     {
         country: [{
