@@ -14,7 +14,7 @@ const reveiwSchema = mongoose.Schema({
     backgroundColor:{ type: String },
     showProfile: {type: Boolean },
     showProfessoin: {type: Boolean },
-    isDeleted: {type: Boolean },
+    isDelete: {type: Boolean },
     textAlign: { type: String },
 
 })
