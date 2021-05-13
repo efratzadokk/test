@@ -107,6 +107,7 @@ copyCard = async (req, res) => {
         //create new statistic
         let newStatistic = await new Statistic()
         newCard.statistic = newStatistic;
+        newStatistic.idCard = card;
         await newStatistic.save();
 
         //copy lead
@@ -190,9 +191,9 @@ sumEmailSend = async (cardName) => {
 }
 
 createContactLeaderBox = async (data) => {
-    const { body, mailTo, username } = data;
+    const { body, mailTo } = data;
     const email = {
-        source: "KnowMe",
+        source: "Know me",
         subject: "Form Knowme🙂",
         from: "knowme@noreply.leader.codes",
         to: mailTo,
@@ -200,9 +201,11 @@ createContactLeaderBox = async (data) => {
         files: null
     }
     const options = {
-        url: `https://api.dev.leader.codes/${username}/createSystemWave`,
+        url: `https://api.dev.leader.codes/${'rivkaf'}/createSystemWave`,
         method: 'POST',
-        headers: { Authorization: "secretKEY@2021" },
+        headers: {
+            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJtVjhWM2V2c2NQUFJGcDZNNkZ4eWlIQ1JrdkczIiwiZW1haWwiOiJyaXZrYWZvZ2VsbWFuQGdtYWlsLmNvbSIsImlhdCI6MTYyMDczMjgyNH0.v1j1_lIcenKPHNvHXaOlfBhYNH3YU12nAB71nQ_Vrd4"
+        },
         json: email,
     };
     return new Promise((resolve, reject) => {
@@ -220,7 +223,8 @@ sendMessageByCard = async (req, res) => {
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
-    await sumEmailSend(req.params.cardName)
+    await createContactLeaderBox(req.body);
+    // await sumEmailSend(req.params.cardName)
 
     const email = {
         from: `${username}@mails.codes`,
@@ -288,8 +292,12 @@ newActivIP = async (req) => {
     let browserName = parser1.setUA(ua).getBrowser().name;
     let operationType = os.type()
     let device = deviceDetector.parse(userAgent).device.type;
-    let card = await Card.findOne({ cardName: cardName, isDelete: false })
-    let statistic = await Statistic.findOne({ idCard: card._id })
+    let card = await Card.findOne({
+        cardName: cardName,
+        isDelete: false
+    })
+        .populate({ path: "statistic" })
+    let statistic = card.statistic
     statistic.viewsCnt += 1;
     statistic.activeViewer += 1;
     let country = await statistic.actives.country.find(item => item.name == geo.country)

@@ -5,31 +5,32 @@ const statisticSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card'
     },
-    activeViewer:{type: Number},
-    viewsCnt: { type: Number },
-    socialMediaCnt: { type: Number },
-    callMeCnt: { type: Number },
-    emailCnt: { type: Number },
+    isDelete:{ type: Boolean},
+    activeViewer:{type: Number, default: 0},
+    viewsCnt: { type: Number, default: 0 },
+    socialMediaCnt: { type: Number, default: 0 },
+    callMeCnt: { type: Number, default: 0 },
+    emailCnt: { type: Number, default: 0 },
     actives:
     {
         country: [{
             name: { type: String },
-            sum: { type: Number },
+            sum: { type: Number, default: 0 },
             dates: [{ type: Date }]
         }],
         operationType: [{
             name: { type: String },
-            sum: { type: Number },
+            sum: { type: Number, default: 0 },
             dates: [{ type: Date }]
         }],
         browser: [{
             name: { type: String },
-            sum: { type: Number },
+            sum: { type: Number, default: 0 },
             dates: [{ type: Date }]
         }],
         dvices: [{
             name: { type: String },
-            sum: { type: Number },
+            sum: { type: Number, default: 0 },
             dates: [{ type: Date }]
         }]
     }

@@ -11,7 +11,8 @@ const gallerySchema = mongoose.Schema({
     thumbnailWidth: { type: Number },
     thumbnailHeight: { type: Number },
     caption:{ type: String },
-    isDeleted:{ type: Boolean}
+    description:{ type: String },
+    isDelete:{ type: Boolean}
 })
 
 module.exports = mongoose.model('Gallery', gallerySchema)
