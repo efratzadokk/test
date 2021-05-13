@@ -191,9 +191,9 @@ sumEmailSend = async (cardName) => {
 }
 
 createContactLeaderBox = async (data) => {
-    const { body, mailTo, username } = data;
+    const { body, mailTo } = data;
     const email = {
-        source: "KnowMe",
+        source: "Know me",
         subject: "Form Knowme🙂",
         from: "knowme@noreply.leader.codes",
         to: mailTo,
@@ -201,9 +201,11 @@ createContactLeaderBox = async (data) => {
         files: null
     }
     const options = {
-        url: `https://api.dev.leader.codes/${username}/createSystemWave`,
+        url: `https://api.dev.leader.codes/${'rivkaf'}/createSystemWave`,
         method: 'POST',
-        headers: { Authorization: "secretKEY@2021" },
+        headers: {
+            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJtVjhWM2V2c2NQUFJGcDZNNkZ4eWlIQ1JrdkczIiwiZW1haWwiOiJyaXZrYWZvZ2VsbWFuQGdtYWlsLmNvbSIsImlhdCI6MTYyMDczMjgyNH0.v1j1_lIcenKPHNvHXaOlfBhYNH3YU12nAB71nQ_Vrd4"
+        },
         json: email,
     };
     return new Promise((resolve, reject) => {
@@ -221,7 +223,8 @@ sendMessageByCard = async (req, res) => {
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
-    await sumEmailSend(req.params.cardName)
+    await createContactLeaderBox(req.body);
+    // await sumEmailSend(req.params.cardName)
 
     const email = {
         from: `${username}@mails.codes`,
