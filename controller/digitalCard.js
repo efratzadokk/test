@@ -221,7 +221,7 @@ sendMessageByCard = async (req, res) => {
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
-    await sumEmailSend(req.params.cardName)
+     await sumEmailSend(req.params.cardName)
 
     const email = {
         from: `${username}@mails.codes`,
