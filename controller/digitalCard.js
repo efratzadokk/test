@@ -107,7 +107,7 @@ copyCard = async (req, res) => {
         //create new statistic
         let newStatistic = await new Statistic()
         newCard.statistic = newStatistic;
-        newStatistic.idCard=card;
+        newStatistic.idCard = card;
         await newStatistic.save();
 
         //copy lead
@@ -140,7 +140,6 @@ copyCard = async (req, res) => {
     }
 }
 
-
 //by card name only
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
@@ -150,11 +149,11 @@ checkUniqueCardName = async (req, res) => {
         if (card && card._id != id) {
             return res.send(false)
         }
+
         res.send(true);
     } catch (err) {
         res.send(err);
     }
-
 }
 
 editCardName = async (req, res) => {
@@ -297,7 +296,7 @@ newActivIP = async (req) => {
         cardName: cardName,
         isDelete: false
     })
-    .populate({ path: "statistic"})
+        .populate({ path: "statistic" })
     let statistic = card.statistic
     statistic.viewsCnt += 1;
     statistic.activeViewer += 1;
@@ -352,12 +351,12 @@ getCardByName = async (req) => {
             cardName: cardName,
             isDelete: false
         }).populate({ path: "user" })
-          .populate({ path: "socialMedia" })
-          .populate({ path: 'galleryList' })
-          .populate({ path: 'reviewsList' })
-          .populate({ path: 'lead' })
-          .populate({ path: 'statistic', })
-          .exec((err, card) => {
+            .populate({ path: "socialMedia" })
+            .populate({ path: 'galleryList' })
+            .populate({ path: 'reviewsList' })
+            .populate({ path: 'lead' })
+            .populate({ path: 'statistic', })
+            .exec((err, card) => {
                 if (err) {
                     reject(err);
                 }
