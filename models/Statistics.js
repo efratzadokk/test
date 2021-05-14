@@ -6,7 +6,8 @@ const statisticSchema = mongoose.Schema({
         ref: 'Card'
     },
     cardName: { type: String },
-    activeViewer: { type: Number },
+    isDelete:{ type: Boolean},
+    activeViewer:{type: Number},
     viewsCnt: { type: Number },
     allDatesViews:{type: Array},
     socialMediaCnt: { type: Number },
