@@ -14,7 +14,7 @@ const geoip = require('geoip-lite');
 const os = require('os');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
-
+const objActive = { name: '', sum: 0, dates: '' }
 
 
 createDigitalCard = async (req, res) => {
@@ -104,6 +104,7 @@ copyCard = async (req, res) => {
         //create new statistic
         let newStatistic = await new Statistic()
         newCard.statistic = newStatistic;
+        newStatistic.idCard = card;
         await newStatistic.save();
 
         //copy lead
@@ -136,7 +137,6 @@ copyCard = async (req, res) => {
     }
 }
 
-
 //by card name only
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
@@ -146,11 +146,11 @@ checkUniqueCardName = async (req, res) => {
         if (card && card._id != id) {
             return res.send(false)
         }
+
         res.send(true);
     } catch (err) {
         res.send(err);
     }
-
 }
 
 editCardName = async (req, res) => {
@@ -176,7 +176,7 @@ getCardsIndex = (req, res) => {
 
 sumEmailSend = async (cardName) => {
     return new Promise(async (resolve, reject) => {
-        const card = await Card.findOne({ cardName: cardName, isDelete: false})
+        const card = await Card.findOne({ cardName: cardName, isDelete: false })
         let statistic = await Statistic.findOne({ idCard: card._id })
         statistic.emailCnt++;
         await statistic.save()
@@ -220,7 +220,7 @@ sendMessageByCard = async (req, res) => {
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
     await createContactLeaderBox(req.body);
-     await sumEmailSend(req.params.cardName)
+    await sumEmailSend(req.params.cardName)
 
     const email = {
         from: `${username}@mails.codes`,
@@ -276,6 +276,22 @@ getAllCards = (userName) => {
             })
     });
 }
+activData = (statisticActiv, value) => {
+    return new Promise(async (resolve, reject) => {
+        let active = await statisticActiv.find(item => item.name == value)
+        if (active) {
+            active.sum++;
+            active.dates.push(new Date())
+        } else {
+            // let obj =new objActive(value,1, new Date()) 
+            let obj = { name: value , sum: 1, dates: new Date() }
+            statisticActiv.push(obj)
+        }
+        if (!value)
+            reject("not active");
+        resolve(active);
+    })
+}
 newActivIP = async (req) => {
     const { cardName } = req.params;
     return new Promise(async (resolve, reject) => {
@@ -298,48 +314,19 @@ newActivIP = async (req) => {
             statistic.viewsCnt += 1;
             statistic.activeViewer += 1;
             statistic.allDatesViews.push(new Date())
-            let country = await statistic.actives.country.find(item => item.name == geo.country)
-            if (country) {
-                country.sum++;
-                country.dates.push(new Date())
-            } else {
-                let obj = { name: geo.country, sum: 1, dates: new Date() }
-                statistic.actives.country.push(obj)
-            }
+            await activData(statistic.actives.country, geo.country)
+            await activData(statistic.actives.browser, browserName)
+            await activData(statistic.actives.operationType, operationType)
+            await activData(statistic.actives.dvices, device)
 
-            let browser = await statistic.actives.browser.find(item => item.name == browserName)
-            if (browser) {
-                browser.sum++;
-                browser.dates.push(new Date())
-            } else {
-                let obj = { name: browserName, sum: 1, dates: new Date() }
-                statistic.actives.browser.push(obj)
-            }
-            let operation = await statistic.actives.operationType.find(item => item.name == operationType)
-            if (operation) {
-                operation.sum++;
-                operation.dates.push(new Date())
-            } else {
-                let obj = { name: operationType, sum: 1, dates: new Date() }
-                statistic.actives.operationType.push(obj)
-            }
-            let dvices = await statistic.actives.dvices.find(item => item.name == device)
-            if (dvices) {
-                dvices.sum++;
-                dvices.dates.push(new Date())
-            } else {
-                let obj = { name: device, sum: 1, dates: new Date() }
-                statistic.actives.dvices.push(obj)
-            } if (!statistic.actives)
-             reject("not active");
+            if (!statistic.actives)
+                reject("not active");
             let savedStatistic = await statistic.save()
-            console.log(savedStatistic);
-            resolve(savedStatistic.country);
+            resolve(savedStatistic);
         }
         catch (err) {
             console.log(err.message);
         }
-
     });
 }
 getCardByName = async (req) => {
@@ -356,14 +343,13 @@ getCardByName = async (req) => {
             .populate({ path: 'reviewsList' })
             .populate({ path: 'lead' })
             .populate({ path: 'statistic', })
-            .exec((err, card) => {
+            .exec(async (err, card) => {
                 if (err) {
                     reject(err);
                 }
+                // await newActivIP(card.statistic)
                 console.log("card-------------------", card)
-                
                 resolve(card)
-
             })
     });
 }
