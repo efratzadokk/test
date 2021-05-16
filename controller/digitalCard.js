@@ -362,7 +362,6 @@ getCardByName = async (req) => {
                 }
                 console.log("card-------------------", card)
                 resolve(card)
-
             })
     });
 }
