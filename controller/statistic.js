@@ -6,6 +6,7 @@ getStatistic = async (req, res) => {
         res.status(200).json(statistic)
     }
     catch (err) {
+        
         console.log(err.message);
     }
 }
