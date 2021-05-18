@@ -296,7 +296,7 @@ newActivIP = async (req) => {
         cardName: cardName,
         isDelete: false
     })
-        .populate({ path: "statistic" })
+        .populate({ path: "statistic"})
     let statistic = card.statistic
     statistic.viewsCnt += 1;
     statistic.activeViewer += 1;
