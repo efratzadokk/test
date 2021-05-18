@@ -14,22 +14,20 @@ const geoip = require('geoip-lite');
 const os = require('os');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
-const { AsyncLocalStorage } = require('async_hooks');
-
+const objActive = { name: '', sum: 0, dates: '' }
 
 
 createDigitalCard = async (req, res) => {
     try {
         let card = await new Card(req.body)
         let statistic = await new Statistic(req.body.statistic)
+        statistic.cardName = card.cardName
         statistic.idCard = card._id
         await statistic.save()
         let lead = await new Lead(req.body.lead)
         lead.idCard = card._id
         await lead.save()
-
         card.user = await User.findOne({ "username": req.params.userName })
-
         card.statistic = statistic;
         card.lead = lead;
         card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
@@ -98,7 +96,6 @@ copyCard = async (req, res) => {
     const userName = req.params.userName;
 
     try {
-
         //copy card
         let card = await new Card()
         let newCard = await new Card(cardToCopy)
@@ -107,6 +104,7 @@ copyCard = async (req, res) => {
         //create new statistic
         let newStatistic = await new Statistic()
         newCard.statistic = newStatistic;
+        newStatistic.idCard = card;
         await newStatistic.save();
 
         //copy lead
@@ -139,7 +137,6 @@ copyCard = async (req, res) => {
     }
 }
 
-
 //by card name only
 checkUniqueCardName = async (req, res) => {
     let cardName = req.body.cardname;
@@ -149,11 +146,11 @@ checkUniqueCardName = async (req, res) => {
         if (card && card._id != id) {
             return res.send(false)
         }
+
         res.send(true);
     } catch (err) {
         res.send(err);
     }
-
 }
 
 editCardName = async (req, res) => {
@@ -177,10 +174,9 @@ getCardsIndex = (req, res) => {
     })
 }
 
-
 sumEmailSend = async (cardName) => {
     return new Promise(async (resolve, reject) => {
-        const card = await Card.findOne({ cardName: cardName })
+        const card = await Card.findOne({ cardName: cardName, isDelete: false })
         let statistic = await Statistic.findOne({ idCard: card._id })
         statistic.emailCnt++;
         await statistic.save()
@@ -223,8 +219,8 @@ sendMessageByCard = async (req, res) => {
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
-    //  await sumEmailSend(req.params.cardName)
-
+    await createContactLeaderBox(req.body);
+    // await sumEmailSend(req.params.cardName)
     const email = {
         from: `${username}@mails.codes`,
         to: mailTo,//emailTo
@@ -279,62 +275,57 @@ getAllCards = (userName) => {
             })
     });
 }
+activData = (statisticActiv, value) => {
+    return new Promise(async (resolve, reject) => {
+        let active = await statisticActiv.find(item => item.name == value)
+        if (active) {
+            active.sum++;
+            active.dates.push(new Date())
+        } else {
+            // let obj =new objActive(value,1, new Date()) 
+            let obj = { name: value , sum: 1, dates: new Date() }
+            statisticActiv.push(obj)
+        }
+        if (!value)
+            reject("not active");
+        resolve(active);
+    })
+}
 newActivIP = async (req) => {
     const { cardName } = req.params;
-    // const clientIp = requestIp.getClientIp(req);
-    const clientIp = "207.97.227.239";
-    let geo = geoip.lookup(clientIp);
-    let parser1 = new UAParser();
-    let ua = req.headers['user-agent'];
-    let deviceDetector = new DeviceDetector();
-    let userAgent = ua
-    let browserName = parser1.setUA(ua).getBrowser().name;
-    let operationType = os.type()
-    let device = deviceDetector.parse(userAgent).device.type;
-    let card = await Card.findOne({ cardName: cardName,isDelete: false })
-    let statistic = await Statistic.findOne({ idCard: card._id})
-    statistic.viewsCnt += 1;
-    statistic.activeViewer += 1;
-    let country = await statistic.actives.country.find(item => item.name == geo.country)
-    if (country) {
-        country.sum++;
-        country.dates.push(new Date())
-    } else {
-        let obj = { name: geo.country, sum: 1, dates: new Date() }
-        statistic.actives.country.push(obj)
-    }
-
-    let browser = await statistic.actives.browser.find(item => item.name == browserName)
-    if (browser) {
-        browser.sum++;
-        browser.dates.push(new Date())
-    } else {
-        let obj = { name: browserName, sum: 1, dates: new Date() }
-        statistic.actives.browser.push(obj)
-    }
-    let operation = await statistic.actives.operationType.find(item => item.name == operationType)
-    if (operation) {
-        operation.sum++;
-        operation.dates.push(new Date())
-    } else {
-        let obj = { name: operationType, sum: 1, dates: new Date() }
-        statistic.actives.operationType.push(obj)
-    }
-    let dvices = await statistic.actives.dvices.find(item => item.name == device)
-    if (dvices) {
-        dvices.sum++;
-        dvices.dates.push(new Date())
-    } else {
-        let obj = { name: device, sum: 1, dates: new Date() }
-        statistic.actives.dvices.push(obj)
-    }
     return new Promise(async (resolve, reject) => {
+        try {
+            // const clientIp = requestIp.getClientIp(req);
+            const clientIp = "217.61.20.213";
+            let geo = geoip.lookup(clientIp);
+            let parser1 = new UAParser();
+            let ua = req.headers['user-agent'];
+            let deviceDetector = new DeviceDetector();
+            let userAgent = ua
+            let browserName = parser1.setUA(ua).getBrowser().name;
+            let operationType = os.type()
+            let device = deviceDetector.parse(userAgent).device.type;
+            let card = await Card.findOne({ cardName: cardName,isDelete: false })
+            let statistic = await Statistic.findOne({ idCard: card._id })
+            if (statistic.viewsCnt == 0) {
+                statistic.dateCreated = new Date()
+            }
+            statistic.viewsCnt += 1;
+            statistic.activeViewer += 1;
+            statistic.allDatesViews.push(new Date())
+            await activData(statistic.actives.country, geo.country)
+            await activData(statistic.actives.browser, browserName)
+            await activData(statistic.actives.operationType, operationType)
+            await activData(statistic.actives.dvices, device)
 
-        if (!statistic.actives) reject("not active");
-        let savedStatistic = await statistic.save()
-        console.log(savedStatistic);
-        resolve(savedStatistic.country);
-
+            if (!statistic.actives)
+                reject("not active");
+            let savedStatistic = await statistic.save()
+            resolve(savedStatistic);
+        }
+        catch (err) {
+            console.log(err.message);
+        }
     });
 }
 getCardByName = async (req) => {
@@ -346,18 +337,18 @@ getCardByName = async (req) => {
             cardName: cardName,
             isDelete: false
         }).populate({ path: "user" })
-          .populate({ path: "socialMedia" })
-          .populate({ path: 'galleryList' })
-          .populate({ path: 'reviewsList' })
-          .populate({ path: 'lead' })
-          .populate({ path: 'statistic', })
-          .exec((err, card) => {
+            .populate({ path: "socialMedia" })
+            .populate({ path: 'galleryList' })
+            .populate({ path: 'reviewsList' })
+            .populate({ path: 'lead' })
+            .populate({ path: 'statistic', })
+            .exec(async (err, card) => {
                 if (err) {
                     reject(err);
                 }
+                // await newActivIP(card.statistic)
                 console.log("card-------------------", card)
                 resolve(card)
-
             })
     });
 }

@@ -13,7 +13,7 @@ router.get('/:userName/isPermission',RegisterController.cheakPremission);
 router.post("/:userName/:reveiwId/deleteReveiws", ReviewController.deleteReveiw);
 
 //statisticsetCntSocialMediaAndCall
-router.post("/:userName/setCntSocialMediaAndCall/:cardId", StatisticController.setCntSocialMediaAndCall);
+router.get("/:userName/getStatistic/:cardName", StatisticController.getStatistic);
 
 
 //card
