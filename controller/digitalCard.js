@@ -306,7 +306,7 @@ newActivIP = async (req) => {
             let browserName = parser1.setUA(ua).getBrowser().name;
             let operationType = os.type()
             let device = deviceDetector.parse(userAgent).device.type;
-            let card = await Card.findOne({ cardName: cardName })
+            let card = await Card.findOne({ cardName: cardName,isDelete: false })
             let statistic = await Statistic.findOne({ idCard: card._id })
             if (statistic.viewsCnt == 0) {
                 statistic.dateCreated = new Date()
