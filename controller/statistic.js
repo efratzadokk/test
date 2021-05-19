@@ -42,7 +42,9 @@ setCntSocialMediaAndCall = async (req, res) => {
         let statistic = await Statistic.findOne({ cardName: req.params.cardName,isDelete:false})
         statistic.socialMediaCnt = req.body.cntSocial
         statistic.callMeCnt = req.body.cntCallMe
-        statistic.activeViewer -= 1;
+        if(  statistic.activeViewer >0){
+             statistic.activeViewer -= 1;
+        }
         await statistic.save()
         res.send('the count is update')
     } catch (error) {

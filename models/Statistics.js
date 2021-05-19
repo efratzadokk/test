@@ -5,6 +5,7 @@ const statisticSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card'
     },
+    dateCreated:{type: Date },
     cardName: { type: String },
     isDelete:{ type: Boolean},
     allDatesViews:{type: Array},
