@@ -9,6 +9,8 @@ const gallerySchema = mongoose.Schema({
     srcName: { type: String },
     caption:{ type: String },
     description:{ type: String },
+    width:{ type:Number},
+    height:{ type:Number},
     isDelete:{ type: Boolean}
 })
 
