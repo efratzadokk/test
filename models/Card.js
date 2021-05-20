@@ -10,6 +10,7 @@ const cardSchema = mongoose.Schema({
         default: new Date()
     },
     valid:[{type: String}],
+    lastTenColor:[{type: String}],
     isDelete:{ type: Boolean },
     user: {
         type: mongoose.Schema.Types.ObjectId,
