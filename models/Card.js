@@ -9,13 +9,14 @@ const cardSchema = mongoose.Schema({
         type: Date,
         default: new Date()
     },
-    valid:[{type: String}],
-    isDelete:{ type: Boolean },
+    valid: [{ type: String }],
+    isDelete: { type: Boolean },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    cardName: { type : String , required : true},
+    cardName: { type: String, required: true },
+    lastTenColor:[{type: String }],
     fullName: {
         title: { type: String },
         show: { type: Boolean }
