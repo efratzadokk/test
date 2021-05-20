@@ -14,8 +14,6 @@ const geoip = require('geoip-lite');
 const os = require('os');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
-const objActive = { name: '', sum: 0, dates: '' }
-
 
 createDigitalCard = async (req, res) => {
     try {
@@ -59,7 +57,8 @@ updateDigitalCard = async (req, res) => {
 
     let card = req.body;
 
-    card.socialMedia = await SocialMediaController.updateSocialMedia(card.socialMedia)
+    card.socialMedia = await
+     SocialMediaController.updateSocialMedia(card.socialMedia)
     card.galleryList = await GalleryController.updateGallery(card.galleryList)
     card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
     card.lead = await LeadController.updateLead(card.lead)
@@ -283,7 +282,6 @@ activData = (statisticActiv, value) => {
             active.sum++;
             active.dates.push(new Date())
         } else {
-            // let obj =new objActive(value,1, new Date()) 
             let obj = { name: value , sum: 1, dates: new Date() }
             statisticActiv.push(obj)
         }
@@ -366,5 +364,6 @@ module.exports = {
     getAllCards,
     copyCard
 }
+
 
 
