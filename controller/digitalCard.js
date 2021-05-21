@@ -219,8 +219,7 @@ sendMessageByCard = async (req, res) => {
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
     await createContactLeaderBox(req.body);
-    await sumEmailSend(req.params.cardName)
-
+    // await sumEmailSend(req.params.cardName)
     const email = {
         from: `${username}@mails.codes`,
         to: mailTo,//emailTo
