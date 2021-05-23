@@ -58,7 +58,7 @@ updateDigitalCard = async (req, res) => {
     let card = req.body;
 
     card.socialMedia = await
-     SocialMediaController.updateSocialMedia(card.socialMedia)
+        SocialMediaController.updateSocialMedia(card.socialMedia)
     card.galleryList = await GalleryController.updateGallery(card.galleryList)
     card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
     card.lead = await LeadController.updateLead(card.lead)
@@ -281,7 +281,7 @@ activData = (statisticActiv, value) => {
             active.sum++;
             active.dates.push(new Date())
         } else {
-            let obj = { name: value , sum: 1, dates: new Date() }
+            let obj = { name: value, sum: 1, dates: new Date() }
             statisticActiv.push(obj)
         }
         if (!value)
@@ -296,7 +296,7 @@ newActivIP = async (req) => {
             // const clientIp = requestIp.getClientIp(req);
             const clientIp = "84.95.241.10";
             let geo = geoip.lookup(clientIp);
-            let country =geo.country=='IL'?'IS':geo.country
+            let country = geo.country == 'IL' ? 'IS' : geo.country
             let parser1 = new UAParser();
             let ua = req.headers['user-agent'];
             let deviceDetector = new DeviceDetector();
@@ -304,26 +304,31 @@ newActivIP = async (req) => {
             let browserName = parser1.setUA(ua).getBrowser().name;
             let operationType = os.type()
             let device = deviceDetector.parse(userAgent).device.type;
-            let card = await Card.findOne({ cardName: cardName,isDelete: false })
-            let statistic = await Statistic.findOne({ idCard: card._id })
-            if (statistic.viewsCnt == 0) {
-                statistic.dateCreated = new Date()
+            let card = await Card.findOne({ cardName: cardName, isDelete: false })
+            if (card) {
+                let statistic = await Statistic.findOne({ idCard: card._id })
+                if (statistic.viewsCnt == 0) {
+                    statistic.dateCreated = new Date()
+                }
+                statistic.viewsCnt += 1;
+                statistic.activeViewer += 1;
+                statistic.allDatesViews.push(new Date())
+                await activData(statistic.actives.country, country)
+                await activData(statistic.actives.browser, browserName)
+                await activData(statistic.actives.operationType, operationType)
+                await activData(statistic.actives.dvices, device)
+                if (!statistic.actives)
+                    reject("not active");
+                let savedStatistic = await statistic.save()
+                resolve(savedStatistic);
             }
-            statistic.viewsCnt += 1;
-            statistic.activeViewer += 1;
-            statistic.allDatesViews.push(new Date())
-            await activData(statistic.actives.country, country)
-            await activData(statistic.actives.browser, browserName)
-            await activData(statistic.actives.operationType, operationType)
-            await activData(statistic.actives.dvices, device)
-            if (!statistic.actives)
-                reject("not active");
-            let savedStatistic = await statistic.save()
-            resolve(savedStatistic);
+            else
+                resolve(null);
         }
         catch (err) {
             console.log(err.message);
         }
+
     });
 }
 getCardByName = async (req) => {
