@@ -303,7 +303,6 @@ newActivIP = async (req) => {
             let userAgent = ua
             let browserName = parser1.setUA(ua).getBrowser().name;
             let operationType = os.type()
-            console.log("=================",operationType);
             let device = deviceDetector.parse(userAgent).device.type;
             let card = await Card.findOne({ cardName: cardName,isDelete: false })
             let statistic = await Statistic.findOne({ idCard: card._id })
