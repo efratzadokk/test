@@ -50,7 +50,6 @@ setCntSocialMediaAndCall = async (req, res) => {
     } catch (error) {
         res.send(error.message);
     }
-
 }
 module.exports = {
     updateStatistic,
