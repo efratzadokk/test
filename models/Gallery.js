@@ -7,8 +7,8 @@ const gallerySchema = mongoose.Schema({
     },
     src:{ type: String },
     srcName: { type: String },
-    alt:{ type: String },
-    description:{ type: String },
+    caption:{ type: String },
+    alt:{ type: String },//description
     width:{ type:Number},
     height:{ type:Number},
     isDelete:{ type: Boolean}
