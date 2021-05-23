@@ -315,7 +315,6 @@ newActivIP = async (req) => {
             await activData(statistic.actives.browser, browserName)
             await activData(statistic.actives.operationType, operationType)
             await activData(statistic.actives.dvices, device)
-
             if (!statistic.actives)
                 reject("not active");
             let savedStatistic = await statistic.save()
