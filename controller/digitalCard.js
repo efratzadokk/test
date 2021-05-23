@@ -294,14 +294,16 @@ newActivIP = async (req) => {
     return new Promise(async (resolve, reject) => {
         try {
             // const clientIp = requestIp.getClientIp(req);
-            const clientIp = "217.61.20.213";
+            const clientIp = "84.95.241.10";
             let geo = geoip.lookup(clientIp);
+            let country =geo.country=='IL'?'IS':geo.country
             let parser1 = new UAParser();
             let ua = req.headers['user-agent'];
             let deviceDetector = new DeviceDetector();
             let userAgent = ua
             let browserName = parser1.setUA(ua).getBrowser().name;
             let operationType = os.type()
+            console.log("=================",operationType);
             let device = deviceDetector.parse(userAgent).device.type;
             let card = await Card.findOne({ cardName: cardName,isDelete: false })
             let statistic = await Statistic.findOne({ idCard: card._id })
@@ -311,7 +313,7 @@ newActivIP = async (req) => {
             statistic.viewsCnt += 1;
             statistic.activeViewer += 1;
             statistic.allDatesViews.push(new Date())
-            await activData(statistic.actives.country, geo.country)
+            await activData(statistic.actives.country, country)
             await activData(statistic.actives.browser, browserName)
             await activData(statistic.actives.operationType, operationType)
             await activData(statistic.actives.dvices, device)
@@ -345,7 +347,6 @@ getCardByName = async (req) => {
                     reject(err);
                 }
                 // await newActivIP(card.statistic)
-                console.log("card-------------------", card)
                 resolve(card)
             })
     });
