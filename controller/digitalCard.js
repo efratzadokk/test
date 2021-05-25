@@ -8,10 +8,8 @@ const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
 const SocialMediaController = require('./socialMedias');
 const LeadController = require('./lead')
-const StatisticController = require('./statistic')
 const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
-const os = require('os');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
 
@@ -152,7 +150,6 @@ checkUniqueCardName = async (req, res) => {
 }
 
 editCardName = async (req, res) => {
-
     let cardId = req.body.cardId;
     let cardName = req.body.cardName;
     const filter = { _id: cardId };
@@ -294,18 +291,15 @@ newActivIP = async (req) => {
         try {
             // const clientIp = requestIp.getClientIp(req);
             const clientIp = "84.95.241.10";
-            // var ip = req.headers['x-forwarded-for'] ||
-            //     req.socket.remoteAddress ||
-            //     null;
             let geo = geoip.lookup(clientIp);
             let country = geo.country == 'IL' ? 'IS' : geo.country
             let parser1 = new UAParser();
-            let ua = req.headers['user-agent'];
+            let userAgent = req.headers['user-agent'];
             let deviceDetector = new DeviceDetector();
-            let userAgent = ua
-            let browserName = parser1.setUA(ua).getBrowser().name;
-            let operationType = os.type()
+            let browserName = parser1.setUA(userAgent).getBrowser().name;
+            let operationType = parser1.setUA(userAgent).getOS().name;
             let device = deviceDetector.parse(userAgent).device.type;
+          
             let card = await Card.findOne({ cardName: cardName, isDelete: false })
             if (card) {
                 let statistic = await Statistic.findOne({ idCard: card._id })
