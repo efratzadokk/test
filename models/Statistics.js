@@ -5,7 +5,12 @@ const statisticSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card'
     },
+    cardName: { type: String },
     isDelete:{ type: Boolean},
+    allDatesViews:{type: Array},
+    allDateSocialMedia:{type: Array},
+    allDatesCallMe:{type: Array},
+    allDatesEmail:{type: Array},
     activeViewer:{type: Number, default: 0},
     viewsCnt: { type: Number, default: 0 },
     socialMediaCnt: { type: Number, default: 0 },

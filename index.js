@@ -4,13 +4,10 @@ const dotenv = require('dotenv');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const fileUpload = require("express-fileupload");
-const path = require('path');
-const request = require('request');
+
 const app = express();
 
 dotenv.config();
-
-
 
 const jwt = require("jsonwebtoken");
 const cookieParser = require('cookie-parser');
