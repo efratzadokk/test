@@ -10,7 +10,6 @@ const SocialMediaController = require('./socialMedias');
 const LeadController = require('./lead')
 const StatisticController = require('./statistic')
 const requestIp = require('request-ip');
-const ip = require("ip");
 const geoip = require('geoip-lite');
 const os = require('os');
 const UAParser = require('ua-parser-js');
@@ -295,7 +294,9 @@ newActivIP = async (req) => {
         try {
             // const clientIp = requestIp.getClientIp(req);
             const clientIp = "84.95.241.10";
-            console.log("----",ip.address());
+            // var ip = req.headers['x-forwarded-for'] ||
+            //     req.socket.remoteAddress ||
+            //     null;
             let geo = geoip.lookup(clientIp);
             let country = geo.country == 'IL' ? 'IS' : geo.country
             let parser1 = new UAParser();
@@ -304,29 +305,32 @@ newActivIP = async (req) => {
             let userAgent = ua
             let browserName = parser1.setUA(ua).getBrowser().name;
             let operationType = os.type()
-            console.log("=================", operationType);
             let device = deviceDetector.parse(userAgent).device.type;
             let card = await Card.findOne({ cardName: cardName, isDelete: false })
-            let statistic = await Statistic.findOne({ idCard: card._id })
-            if (statistic.viewsCnt == 0) {
-                statistic.dateCreated = new Date()
+            if (card) {
+                let statistic = await Statistic.findOne({ idCard: card._id })
+                if (statistic.viewsCnt == 0) {
+                    statistic.dateCreated = new Date()
+                }
+                statistic.viewsCnt += 1;
+                statistic.activeViewer += 1;
+                statistic.allDatesViews.push(new Date())
+                await activData(statistic.actives.country, country)
+                await activData(statistic.actives.browser, browserName)
+                await activData(statistic.actives.operationType, operationType)
+                await activData(statistic.actives.dvices, device)
+                if (!statistic.actives)
+                    reject("not active");
+                let savedStatistic = await statistic.save()
+                resolve(savedStatistic);
             }
-            statistic.viewsCnt += 1;
-            statistic.activeViewer += 1;
-            statistic.allDatesViews.push(new Date())
-            await activData(statistic.actives.country, country)
-            await activData(statistic.actives.browser, browserName)
-            await activData(statistic.actives.operationType, operationType)
-            await activData(statistic.actives.dvices, device)
-
-            if (!statistic.actives)
-                reject("not active");
-            let savedStatistic = await statistic.save()
-            resolve(savedStatistic);
+            else
+                resolve(null);
         }
         catch (err) {
             console.log(err.message);
         }
+
     });
 }
 getCardByName = async (req) => {
