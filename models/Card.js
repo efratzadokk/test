@@ -83,27 +83,31 @@ const cardSchema = mongoose.Schema({
     emailForm: {
         title: {
             title: { type: String },
-            show: { type: Boolean },
+            show: { type: Boolean }
         },
         button: {
             title: { type: String },
-            show: { type: Boolean },
+            show: { type: Boolean }
         },
         name:{
             title: { type: String },
-            show: { type: Boolean }
+            show: { type: Boolean },
+            require: { type: Boolean }
         },
         email:{
             title: { type: String },
-            show: { type: Boolean }
+            show: { type: Boolean },
+            require: { type: Boolean }
         },
         mobile: {
             title: { type: String },
-            show: { type: Boolean }
+            show: { type: Boolean },
+            require: { type: Boolean }
         },
         message: {
             title: { type: String },
-            show: { type: Boolean }
+            show: { type: Boolean },
+            require: { type: Boolean }
         },
     },
     socialMedia: [{
