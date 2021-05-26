@@ -13,7 +13,7 @@ router.get('/getCategories/categories/allCategories/cards', CategoriesController
 router.post('/sendMessageByCard/:cardName', digitalCardController.sendMessageByCard);
 
 //statistic
-router.post("/setCntSocialMediaAndCall/:cardName", StatisticController.setCntSocialMediaAndCall);
+router.post("/setCntSocialMediaAndCall/:idStatistic", StatisticController.setCntSocialMediaAndCall);
 
 router.get('/getCardByName/:cardName',(req,res)=>{
 

@@ -52,15 +52,14 @@ createDigitalCard = async (req, res) => {
 
 
 updateDigitalCard = async (req, res) => {
-
     let card = req.body;
-
     card.socialMedia = await
         SocialMediaController.updateSocialMedia(card.socialMedia)
     card.galleryList = await GalleryController.updateGallery(card.galleryList)
     card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
     card.lead = await LeadController.updateLead(card.lead)
-
+    let statistic = await Statistic.findByIdAndUpdate(card.statistic, { isDelete: true }, { new: true });
+    console.log('-------', statistic);
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -78,7 +77,6 @@ updateDigitalCard = async (req, res) => {
 deleteCard = async (req, res) => {
     try {
         let currentCard = await Card.findOne({ _id: req.params.cardId });
-        console.log({ _id: req.params.cardId });
         currentCard.isDelete = true;
         let result = await currentCard.save();
         res.send(result);
@@ -86,9 +84,7 @@ deleteCard = async (req, res) => {
         res.send(error)
     }
 }
-
 copyCard = async (req, res) => {
-
     const cardToCopy = req.body;
     const userName = req.params.userName;
 
@@ -291,6 +287,9 @@ newActivIP = async (req) => {
         try {
             // const clientIp = requestIp.getClientIp(req);
             const clientIp = "84.95.241.10";
+            // const clientIp1 = req.headers['x-forwarded-for'] ||
+            //     req.socket.remoteAddress ||
+            //     null;
             let geo = geoip.lookup(clientIp);
             let country = geo.country == 'IL' ? 'IS' : geo.country
             let parser1 = new UAParser();
@@ -299,10 +298,9 @@ newActivIP = async (req) => {
             let browserName = parser1.setUA(userAgent).getBrowser().name;
             let operationType = parser1.setUA(userAgent).getOS().name;
             let device = deviceDetector.parse(userAgent).device.type;
-          
             let card = await Card.findOne({ cardName: cardName, isDelete: false })
             if (card) {
-                let statistic = await Statistic.findOne({ idCard: card._id })
+                let statistic = await Statistic.findById(card.statistic)
                 if (statistic.viewsCnt == 0) {
                     statistic.dateCreated = new Date()
                 }
