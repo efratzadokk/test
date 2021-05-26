@@ -336,7 +336,8 @@ const cardSchema = mongoose.Schema({
         margin: { type: Number },
         rowHeight: { type: Number },
         maxRows: { type: Number },
-        lightbox: { type: Boolean },
+        lightboxGrid: { type: Boolean },
+        lightboxSlide: { type: Boolean },
         direction:{ type: String },
     },
     reviewsList: [{
