@@ -333,6 +333,7 @@ const cardSchema = mongoose.Schema({
         color: { type: String },
         fade: { type: Boolean },
         autoPlay: { type: Number },
+        dots:{ type: Boolean },
         margin: { type: Number },
         rowHeight: { type: Number },
         maxRows: { type: Number },
