@@ -4,7 +4,12 @@ const dotenv = require('dotenv');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const fileUpload = require("express-fileupload");
-
+const io = require('socket.io')(3001, {
+    cors: {
+        origin: 'https://localhost:3000',
+        method: ['POST', 'GET']
+    }
+})
 const app = express();
 
 dotenv.config();
@@ -53,6 +58,16 @@ app.all("/*", function (req, res, next) {
 
 
 console.log("is new!!!");
+let activeViewer = 0
+io.on('connection', socket => {
+    socket.on("send-changes", () => {
+        socket.broadcast.emit("recive-changes", activeViewer++);
+    });
+    socket.on('disconnect', () => {
+        socket.broadcast.emit("recive-changes", activeViewer--);
+    });
+});
+
 app.listen(process
     .env.PORT, (err) => {
         console.log("server is up!!!!!");

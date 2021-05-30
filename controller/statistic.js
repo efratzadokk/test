@@ -39,6 +39,7 @@ updateStatistic = (statistic) => {
 }
 setCntSocialMediaAndCall = async (req, res) => {
     try {
+        console.log("+++++++++++", statistic.activeViewer);
         let statistic = await Statistic.findOne({ _id: req.params.idStatistic,isDelete:false})
         statistic.socialMediaCnt = req.body.cntSocial
         statistic.callMeCnt = req.body.cntCallMe
