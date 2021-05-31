@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const fileUpload = require("express-fileupload");
-const io = require('socket.io')(3001, {
+const io = require('socket.io')(5001, {
     cors: {
         origin: 'https://localhost:3000',
         method: ['POST', 'GET']
@@ -58,14 +58,32 @@ app.all("/*", function (req, res, next) {
 
 
 console.log("is new!!!");
-let activeViewer = 0
+// let activeViewer = 0
+var numClients = {};
 io.on('connection', socket => {
-    socket.on("send-changes", () => {
-        socket.broadcast.emit("recive-changes", activeViewer++);
-    });
-    socket.on('disconnect', () => {
-        socket.broadcast.emit("recive-changes", activeViewer--);
-    });
+    socket.on("byCardName", (cardName) => {
+        socket.on("add-user", () => {
+            socket.join(cardName);
+            if (numClients[cardName] == undefined) {
+                numClients[cardName] = 1;
+                console.log("!!!!!!!!!", cardName, numClients[cardName]);
+
+            } else {
+                numClients[cardName]++;
+                console.log("!!!!!!!!!", cardName, numClients[cardName]);
+            }
+            socket.broadcast.emit("recive-changes", numClients[cardName])
+
+        });
+        socket.on('disconnect', () => {
+            socket.broadcast.emit("recive-changes", --numClients[cardName]);
+        });
+    })
+    socket.on("cardName-changes", (cardName) => {
+        socket.broadcast.emit("recive-changes", numClients[cardName])
+    })
+
+
 });
 
 app.listen(process
