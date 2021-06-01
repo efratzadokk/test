@@ -1,0 +1,22 @@
+.itemInAllFunnels{
+    background-color: rgb(158, 156, 156);
+    height: 100px;
+}
+.cardItemInAllFunnels{
+    border-color: transparent;
+}
+.cardItemInAllFunnels .card-footer{
+    border-radius:0 0 11px 11px;
+    background-color: #FBFBFD;
+    border-color: transparent;
+}
+.cardItemInAllFunnels  .card-body {
+    border-radius: 11px 11px 0 0;
+    max-height: 150px;
+    background-size: 100% 100%;
+    background-size: cover;
+}
+.cardItemInAllFunnels  .element {
+    background-color: #EFF0F2;
+    border-color: transparent;
+}
