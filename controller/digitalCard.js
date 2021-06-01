@@ -8,10 +8,8 @@ const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
 const SocialMediaController = require('./socialMedias');
 const LeadController = require('./lead')
-const StatisticController = require('./statistic')
 const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
-const os = require('os');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
 
@@ -54,15 +52,14 @@ createDigitalCard = async (req, res) => {
 
 
 updateDigitalCard = async (req, res) => {
-
     let card = req.body;
-
     card.socialMedia = await
         SocialMediaController.updateSocialMedia(card.socialMedia)
     card.galleryList = await GalleryController.updateGallery(card.galleryList)
     card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
     card.lead = await LeadController.updateLead(card.lead)
-
+    let statistic = await Statistic.findByIdAndUpdate(card.statistic, { isDelete: true }, { new: true });
+    console.log('-------', statistic);
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -80,7 +77,6 @@ updateDigitalCard = async (req, res) => {
 deleteCard = async (req, res) => {
     try {
         let currentCard = await Card.findOne({ _id: req.params.cardId });
-        console.log({ _id: req.params.cardId });
         currentCard.isDelete = true;
         let result = await currentCard.save();
         res.send(result);
@@ -88,9 +84,7 @@ deleteCard = async (req, res) => {
         res.send(error)
     }
 }
-
 copyCard = async (req, res) => {
-
     const cardToCopy = req.body;
     const userName = req.params.userName;
 
@@ -112,7 +106,6 @@ copyCard = async (req, res) => {
         newLead._id = lead._id
         newCard.lead = newLead;
         await newLead.save();
-
 
         newCard.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
         newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
@@ -153,7 +146,6 @@ checkUniqueCardName = async (req, res) => {
 }
 
 editCardName = async (req, res) => {
-
     let cardId = req.body.cardId;
     let cardName = req.body.cardName;
     const filter = { _id: cardId };
@@ -219,7 +211,7 @@ sendMessageByCard = async (req, res) => {
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
     await createContactLeaderBox(req.body);
-    // await sumEmailSend(req.params.cardName)
+    await sumEmailSend(req.params.cardName)
     const email = {
         from: `${username}@mails.codes`,
         to: mailTo,//emailTo
@@ -295,18 +287,20 @@ newActivIP = async (req) => {
         try {
             // const clientIp = requestIp.getClientIp(req);
             const clientIp = "84.95.241.10";
+            // const clientIp1 = req.headers['x-forwarded-for'] ||
+            //     req.socket.remoteAddress ||
+            //     null;
             let geo = geoip.lookup(clientIp);
             let country = geo.country == 'IL' ? 'IS' : geo.country
             let parser1 = new UAParser();
-            let ua = req.headers['user-agent'];
+            let userAgent = req.headers['user-agent'];
             let deviceDetector = new DeviceDetector();
-            let userAgent = ua
-            let browserName = parser1.setUA(ua).getBrowser().name;
-            let operationType = os.type()
+            let browserName = parser1.setUA(userAgent).getBrowser().name;
+            let operationType = parser1.setUA(userAgent).getOS().name;
             let device = deviceDetector.parse(userAgent).device.type;
             let card = await Card.findOne({ cardName: cardName, isDelete: false })
             if (card) {
-                let statistic = await Statistic.findOne({ idCard: card._id })
+                let statistic = await Statistic.findById(card.statistic)
                 if (statistic.viewsCnt == 0) {
                     statistic.dateCreated = new Date()
                 }

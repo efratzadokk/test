@@ -39,7 +39,7 @@ updateStatistic = (statistic) => {
 }
 setCntSocialMediaAndCall = async (req, res) => {
     try {
-        let statistic = await Statistic.findOne({ cardName: req.params.cardName,isDelete:false})
+        let statistic = await Statistic.findOne({ _id: req.params.idStatistic,isDelete:false})
         statistic.socialMediaCnt = req.body.cntSocial
         statistic.callMeCnt = req.body.cntCallMe
         if(  statistic.activeViewer >0){
@@ -50,7 +50,6 @@ setCntSocialMediaAndCall = async (req, res) => {
     } catch (error) {
         res.send(error.message);
     }
-
 }
 module.exports = {
     updateStatistic,
