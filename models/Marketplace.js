@@ -15,6 +15,7 @@ const marketplaceSchema = mongoose.Schema({
         ref: 'User'
     },
     marketName: { type: String, required: true },
+    uuid: { type: String },
     tilte: {
         title: { type: String },
         show: { type: Boolean }
