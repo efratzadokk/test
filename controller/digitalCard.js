@@ -305,7 +305,6 @@ newActivIP = async (req) => {
                     statistic.dateCreated = new Date()
                 }
                 statistic.viewsCnt += 1;
-                statistic.activeViewer += 1;
                 statistic.allDatesViews.push(new Date())
                 await activData(statistic.actives.country, country)
                 await activData(statistic.actives.browser, browserName)

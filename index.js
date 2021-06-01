@@ -58,30 +58,33 @@ app.all("/*", function (req, res, next) {
 
 
 console.log("is new!!!");
-// let activeViewer = 0
-var numClients = {};
+let countByCardName = {};
 io.on('connection', socket => {
-    socket.on("byCardName", (cardName) => {
-        socket.on("add-user", () => {
-            socket.join(cardName);
-            if (numClients[cardName] == undefined) {
-                numClients[cardName] = 1;
-                console.log("!!!!!!!!!", cardName, numClients[cardName]);
-
+    socket.on("createRooms", (cardName) => {
+        socket.join(cardName);
+        console.log("rooms", io.sockets.adapter.rooms);
+        socket.on("add-cardName", (cardName) => {
+            if (countByCardName[cardName] == undefined || countByCardName[cardName] === -1) {
+                countByCardName[cardName] = 1;
+                console.log("0", cardName, countByCardName[cardName]);
             } else {
-                numClients[cardName]++;
-                console.log("!!!!!!!!!", cardName, numClients[cardName]);
+                countByCardName[cardName]++;
+                console.log("1", cardName, countByCardName[cardName]);
             }
-            socket.broadcast.emit("recive-changes", numClients[cardName])
 
-        });
-        socket.on('disconnect', () => {
-            socket.broadcast.emit("recive-changes", --numClients[cardName]);
+            socket.to(cardName).emit("recive-changes", countByCardName[cardName])
+            console.log("2", cardName, countByCardName[cardName]);
+        })
+        socket.to(cardName).emit("recive-changes", countByCardName[cardName])
+        console.log("2", cardName, countByCardName[cardName]);
+
+        socket.on('disconnect', (view) => {
+            if (view)
+                --countByCardName[cardName]
+            socket.to(cardName).emit("recive-changes",countByCardName[cardName])
         });
     })
-    socket.on("cardName-changes", (cardName) => {
-        socket.broadcast.emit("recive-changes", numClients[cardName])
-    })
+
 
 
 });
