@@ -14,8 +14,6 @@ const geoip = require('geoip-lite');
 const os = require('os');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
-const objActive = { name: '', sum: 0, dates: '' }
-
 
 createDigitalCard = async (req, res) => {
     try {
@@ -59,7 +57,8 @@ updateDigitalCard = async (req, res) => {
 
     let card = req.body;
 
-    card.socialMedia = await SocialMediaController.updateSocialMedia(card.socialMedia)
+    card.socialMedia = await
+        SocialMediaController.updateSocialMedia(card.socialMedia)
     card.galleryList = await GalleryController.updateGallery(card.galleryList)
     card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
     card.lead = await LeadController.updateLead(card.lead)
@@ -220,8 +219,7 @@ sendMessageByCard = async (req, res) => {
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
     await createContactLeaderBox(req.body);
-    await sumEmailSend(req.params.cardName)
-
+    // await sumEmailSend(req.params.cardName)
     const email = {
         from: `${username}@mails.codes`,
         to: mailTo,//emailTo
@@ -283,7 +281,6 @@ activData = (statisticActiv, value) => {
             active.sum++;
             active.dates.push(new Date())
         } else {
-            // let obj =new objActive(value,1, new Date()) 
             let obj = { name: value, sum: 1, dates: new Date() }
             statisticActiv.push(obj)
         }
@@ -297,8 +294,9 @@ newActivIP = async (req) => {
     return new Promise(async (resolve, reject) => {
         try {
             // const clientIp = requestIp.getClientIp(req);
-            const clientIp = "217.61.20.213";
+            const clientIp = "84.95.241.10";
             let geo = geoip.lookup(clientIp);
+            let country = geo.country == 'IL' ? 'IS' : geo.country
             let parser1 = new UAParser();
             let ua = req.headers['user-agent'];
             let deviceDetector = new DeviceDetector();
@@ -307,26 +305,30 @@ newActivIP = async (req) => {
             let operationType = os.type()
             let device = deviceDetector.parse(userAgent).device.type;
             let card = await Card.findOne({ cardName: cardName, isDelete: false })
-            let statistic = await Statistic.findOne({ idCard: card._id })
-            if (statistic.viewsCnt == 0) {
-                statistic.dateCreated = new Date()
+            if (card) {
+                let statistic = await Statistic.findOne({ idCard: card._id })
+                if (statistic.viewsCnt == 0) {
+                    statistic.dateCreated = new Date()
+                }
+                statistic.viewsCnt += 1;
+                statistic.activeViewer += 1;
+                statistic.allDatesViews.push(new Date())
+                await activData(statistic.actives.country, country)
+                await activData(statistic.actives.browser, browserName)
+                await activData(statistic.actives.operationType, operationType)
+                await activData(statistic.actives.dvices, device)
+                if (!statistic.actives)
+                    reject("not active");
+                let savedStatistic = await statistic.save()
+                resolve(savedStatistic);
             }
-            statistic.viewsCnt += 1;
-            statistic.activeViewer += 1;
-            statistic.allDatesViews.push(new Date())
-            await activData(statistic.actives.country, geo.country)
-            await activData(statistic.actives.browser, browserName)
-            await activData(statistic.actives.operationType, operationType)
-            await activData(statistic.actives.dvices, device)
-
-            if (!statistic.actives)
-                reject("not active");
-            let savedStatistic = await statistic.save()
-            resolve(savedStatistic);
+            else
+                resolve(null);
         }
         catch (err) {
             console.log(err.message);
         }
+
     });
 }
 getCardByName = async (req) => {
@@ -348,7 +350,6 @@ getCardByName = async (req) => {
                     reject(err);
                 }
                 // await newActivIP(card.statistic)
-                console.log("card-------------------", card)
                 resolve(card)
             })
     });
@@ -366,5 +367,6 @@ module.exports = {
     getAllCards,
     copyCard
 }
+
 
 

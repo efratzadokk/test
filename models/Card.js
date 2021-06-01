@@ -9,13 +9,14 @@ const cardSchema = mongoose.Schema({
         type: Date,
         default: new Date()
     },
-    valid:[{type: String}],
-    isDelete:{ type: Boolean },
+    valid: [{ type: String }],
+    isDelete: { type: Boolean },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    cardName: { type : String , required : true},
+    cardName: { type: String, required: true },
+    lastTenColor:[{type: String }],
     fullName: {
         title: { type: String },
         show: { type: Boolean }
@@ -82,27 +83,31 @@ const cardSchema = mongoose.Schema({
     emailForm: {
         title: {
             title: { type: String },
-            show: { type: Boolean },
+            show: { type: Boolean }
         },
         button: {
             title: { type: String },
-            show: { type: Boolean },
+            show: { type: Boolean }
         },
         name:{
             title: { type: String },
-            show: { type: Boolean }
+            show: { type: Boolean },
+            require: { type: Boolean }
         },
         email:{
             title: { type: String },
-            show: { type: Boolean }
+            show: { type: Boolean },
+            require: { type: Boolean }
         },
         mobile: {
             title: { type: String },
-            show: { type: Boolean }
+            show: { type: Boolean },
+            require: { type: Boolean }
         },
         message: {
             title: { type: String },
-            show: { type: Boolean }
+            show: { type: Boolean },
+            require: { type: Boolean }
         },
     },
     socialMedia: [{
@@ -330,7 +335,9 @@ const cardSchema = mongoose.Schema({
         autoPlay: { type: Number },
         margin: { type: Number },
         rowHeight: { type: Number },
-        maxRows: { type: Number }
+        maxRows: { type: Number },
+        lightbox: { type: Boolean },
+        direction:{ type: String },
     },
     reviewsList: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -7,11 +7,10 @@ const gallerySchema = mongoose.Schema({
     },
     src:{ type: String },
     srcName: { type: String },
-    thumbnail: { type: String },
-    thumbnailWidth: { type: Number },
-    thumbnailHeight: { type: Number },
     caption:{ type: String },
-    description:{ type: String },
+    alt:{ type: String },//description
+    width:{ type:Number},
+    height:{ type:Number},
     isDelete:{ type: Boolean}
 })
 
