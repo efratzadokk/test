@@ -1,0 +1,12 @@
+.divEditButtons{
+    z-index: 4;
+    width: 20px;
+    background-color: transparent;
+    opacity: 1;
+    position: absolute;
+  
+}
+.divEditButtons .material-icons{
+      color:#626262;
+    font-size: 1rem;
+}

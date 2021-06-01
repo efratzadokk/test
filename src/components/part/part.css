@@ -1,0 +1,13 @@
+.border_part{
+    border:1px black dashed;
+    
+}
+.border_part_2{
+    border:1px black solid;
+    
+}
+
+.part{
+    height:100%;
+
+}

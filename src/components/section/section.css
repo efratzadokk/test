@@ -1,0 +1,20 @@
+.edit_buttons_section{
+    position: absolute;
+    z-index: 1001;
+    cursor: pointer;
+    left:-1px;
+    color: rgb(137, 140, 143);
+    opacity:0;
+
+    
+}
+
+.sectionToEdit:hover >.edit_buttons_section{
+    opacity: 1;
+}
+.sectionToEdit:hover{
+    border: 1.5px #007bff dashed;
+  }
+  .sectionToEdit{
+    border: 1.5px transparent dashed;
+  }

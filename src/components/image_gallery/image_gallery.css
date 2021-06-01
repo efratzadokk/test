@@ -1,0 +1,42 @@
+
+/* @import '~react-image-gallery/styles/css/image-gallery.css'; */
+/* .image-gallery-slide{
+    width: 100% !important;
+    height: auto !important
+} */
+/* .image-gallery-slide{
+    width: 100% ;
+    height: auto 
+} */
+.image-gallery {
+    width: 100% !important;
+    height: auto !important
+}
+.image-gallery img{
+    width: 100% !important;
+    height: 100% !important
+}
+/* .image-gallery-svg{
+    
+    height: 50% !important
+} */
+
+.image-gallery-right-nav{
+    height: 50px !important
+    
+}
+.image-gallery-left-nav{
+    height: 50px !important
+    
+}
+/* .image-gallery-icon{ */
+    /* height: 50% !important */
+/* } */
+/* #image_gallery{
+    width: 100% !important;
+    height: 100% !important
+}
+#gallery{
+    width: 100% !important;
+    height: 100% !important
+} */

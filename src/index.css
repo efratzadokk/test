@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.m-auto{
+  margin: 1
+  1px !important;
+}
+#wrap_center{
+
+  margin-left:3% ;
+  height: calc(100vh - 60px);
+
+}
+#body{
+  background-color: #E8EAEC;
+  font-size: 0.8rem !important;
+  overflow: hidden;
+}
+.center_width_on_open_con{
+  width: 81%;
+}
+.center_width_on_close_con{
+  width: 97%;
+}
+.pointer{
+  cursor: pointer;
+}
+.move{
+  cursor: move;
+}
+
+      /* for desktop */
+      .whatsapp_float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 40px;
+        background-color:  rgb(27, 215, 65);
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 3px #999;
+        z-index: 100;
+    }
+
+    .whatsapp-icon {
+        margin-top: 16px;
+    }
+
+    /* for mobile */
+    @media screen and (max-width: 767px) {
+        .whatsapp-icon {
+            margin-top: 10px;
+        }
+
+        .whatsapp_float {
+            width: 40px;
+            height: 40px;
+            bottom: 20px;
+            right: 10px;
+            font-size: 22px;
+        }
+    }

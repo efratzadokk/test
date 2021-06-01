@@ -1,0 +1,49 @@
+/* #menu{
+    height:100%;
+    
+} */
+#new_button{
+    height: 5%;
+    background-color: white;
+    border: 1px solid #A66DFF;
+    border-radius: 8px;
+    color: #A66DFF;
+    font-size: small;
+
+}
+#sections_select{
+    height: 26%;
+    background-color: white;
+    border-radius: 12px;
+}
+#elements_select{
+    height: 62%;
+    background-color: white;
+    border-radius: 12px;
+    overflow-y: auto;
+}
+.grid_imgs{
+    height: 50px;
+    background-size:cover ;
+    background-size: 100% 100%;
+}
+label[for=show_grid_checkbox]{
+    font-size: 0.5rem;
+    color: #9297A7;
+}
+#grid1{
+    background-image: url('../../assets/grid1X1.png');
+
+}
+#grid2{
+    background-image: url('../../assets/grid1X2.png');
+
+}
+#grid3{
+    background-image: url('../../assets/grid1X3.png');
+
+}
+#grid4{
+    background-image: url('../../assets/grid1X4.png');
+
+}
