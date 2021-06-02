@@ -70,6 +70,8 @@ function Menu(props) {
             </div>
             <div id="elements_select" className="my-2 p-2 pl-4">
                 <strong>Widget</strong>
+                <Widget name="Gallery" icon="code"></Widget>
+
                 <Widget name="Title"  tagWidget="h1" icon="title"></Widget>
                 <Widget name="Text" tagWidget="p" icon="notes"></Widget>
                 <Widget name="Image" icon="crop_original"></Widget>
@@ -78,9 +80,9 @@ function Menu(props) {
                 <Widget name="Html" icon="code"></Widget>
                 <Widget name="Button" icon="code"></Widget>
                 <Widget name="Spacer" icon="icon"></Widget>
-
-
-                <Widget name="Gallery" icon="code"></Widget>
+                <Widget name="Form" icon="description"></Widget>
+                <Widget name="Icon" icon="code"></Widget>
+{/* <Widget name="Spacer" ></Widget> */}
 
 
                 {/* <div className="d-flex" onClick={() => props.addElement('text')} >

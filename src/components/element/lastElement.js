@@ -1,11 +1,5 @@
 
-import SelectIcon from '../SelectIcon/SelectIcon';
-import Spacer from '../spacer/spacer';
-import Form from '../Form/Form';
-import Gallery from '../image_gallery/imageGallery';
-
 import React, { useEffect, useState, useRef } from 'react';
-import Grid from '@material-ui/core/Grid';
 
 import { connect } from 'react-redux';
 import './element.css'
@@ -16,20 +10,18 @@ import EelementEditButtons from '../elementsEditButtons/elementEditButtons'
 import ReactQuill, { Quill, Mixin, Toolbar } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
-import EditText from '../editText/editText';
 import ImageUploader from '../image/image';
 import $ from "jquery";
 import VideoUploader from '../video/video';
-// import { useDrag } from 'react-dnd'
-// import { ItemTypes } from '../../ItemTypes'
 // import Parser from 'html-react-parser';
-// import PanoramaIcon from '@material-ui/icons/Panorama';
-// import Icon from '@material-ui/core/Icon';
+
+
 
 function Element(props) {
-    const { elementInEditing, removeElement, currentKey, element, editMode, section, part, id, setCollapseOpen, jsonPage,saveInLocalStorage } = props
+    const { newElementTypeAndValue , removeElement, currentKey, element, editMode, section, part, id, setCollapseOpen, jsonPage,saveInLocalStorage } = props
     const [name, setName] = useState()
-    
+    //console.log(newElementTypeAndValue)
+    //console.log(elementInEditing)
     // let id='qq'
     // const ref = React.createRef();
 
@@ -99,13 +91,24 @@ function Element(props) {
         // movingElement(id)
         // addElement1(props.name, valueWidget[props.name])
       }
+
+     //=------------------------------------------------------
+    //   var quill = new Quill('#editor', {
+    //     modules: {
+    //       toolbar: '#toolbar'
+    //     },
+    //     theme: 'snow'
+    //   });
+      
+//--------------------------------------------------------
+
     const Quill = ReactQuill.Quill
     var Font = Quill.import('formats/font');
     Font.whitelist = ['Ubuntu', 'Raleway', 'Roboto'];
     Quill.register(Font, true);
     const ref = useRef(null);
 
-
+//---------------------------------------
     const [, drop] = useDrop({
         accept: ItemTypes.EL,
         hover(item, monitor) {
@@ -161,11 +164,22 @@ function Element(props) {
 
 
     const setValue = (newValue) => {
-        // debugger
-        console.log(this);
+         debugger
+        // console.log(newValue.target)
+        // console.log(newValue);
+        // console.log(newValue.target.value)
+
+      //  onEnterElement()
+ 
+
+      console.log(newValue)
+    //   console.log(Parser(newValue))
+    //   console.log(Parser(newValue).props.children)
         console.log(currentKey);
         console.log(id)
+       // props.setValueElement(Parser(newValue).props.children)
         props.setValueElement(newValue)
+
     }
     function onInputText(e) {
         e.currentTarget
@@ -176,93 +190,38 @@ function Element(props) {
         elementInEditing(id)
     }
     function onEnterElement() {
-        debugger
-        setCollapseOpen('element',id)
+      //  debugger
+        // console.log(e)
+        // console.log(e.target.value)
+        console.log(id)
+        //setCollapseOpen('element',id)
+       // setCollapseOpen(id)
+       setCollapseOpen( 'element',id)
+
         elementInEditing(id)
     }
-    switch (element.type) {
-        case "Title":
-            return (
-                <>
-                    {/* <div dangerouslySetInnerHTML={{__html:element.value}}/>
-                  {   Parser(element.value)} */}
-                    <div className="pointer">
-                        {/* {editMode && <EelementEditButtons id={element.id}></EelementEditButtons>} */}
-                        <div className={editMode && "hoverToEdit pointer"}>
-                            {editMode && <div className='edit_buttons_element'>
-                                <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
-                                    delete
-                </span>
-                                {/* <span class="material-icons" style={{ zIndex: 4 ,fontSize: '1.2rem'}} onClick={() => setCollapseOpen('section')} >
-                    create
-                    </span> */}
-                            </div>}
-    
+
+    // const hlps=(val)=>{
+    //     debugger 
+    //     console.log(val)
+    //     setValueElement(val)
+    //     // addElement1(e,val)
         
-                            <textarea id="widgEditor" className="montitre pointe " type="text" 
+
+    //   }
+
+    console.log(element)
+  //  console.log(element.color)
     
-                                   onFocus={() => onEnterElement()}
-                                   //quil-------------------------
-                                //    readOnly={!editMode}
-                                //    bounds={$("#textarea")[0]}
-                                //    theme="bubble"
-                                //    modules={{
-    
-                                //     toolbar: [
-                                //         [{ 'header': [1, 2, 3, false] }, { 'size': [] }],
-                                //         ['bold', 'italic', 'underline', 'strike', 'blockquote', { 'color': [] }, { 'background': [] }, { 'font': [] }],
-                                //         [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }, { 'align': [] }],
-                                //         ['link'],
-                                //         ['clean']
-                                //     ]
-                                //     /* ... other modules */
-                                //    }}
-                                  //-----------------------------
-                                    value={element.value}
-                                    onChange={(e)=>setValue(e.target.value)}
-                                    placeholder='add here your title'
-                                    style={{
-                                    textAlign: element.textAlign,
-                                    
-                                    maxHeight: "none",
-                                    minHeight: "none",
-                                    border: 'none',
-                                    width: "100%",
-                                // backgroundColor: item.backgroundColor,
-                            
-                               // marginTop: "0px",
-                                    outline: "none",
-                                    height: "10vh",
-                                    fontSize:element.fontSize,
-                                    fontWeight: 'bold',
-                                    color: element.color,
-                                    // marginTop:'20px',
-                                    fontFamily:element.fontFamily,
-                                    verticalAlign: 'middle',
-                                    // fontWeight: item.fontWeight,
-                                    // display: 'flex',
-                                    // justifyContent: 'center',
-                                    // position: 'relative',
-                                    //  top: '50%'
-                                    padding: '15px 0'
-                                
-                         
-                    }}
-               
-                ></textarea >
-               
-                                
-                                
-                                </div>
-                                </div>
-                
-    
-                </>
-            )
-            case "Paragraph":
-                return(
-                <>
-               
+    //console.log(elementInEditing)
+    switch (element.type)
+     {
+        
+        case "Title": 
+        return (
+            <>
+                {/* <div dangerouslySetInnerHTML={{__html:element.value}}/>
+              {   Parser(element.value)} */}
                 <div className="pointer">
                     {/* {editMode && <EelementEditButtons id={element.id}></EelementEditButtons>} */}
                     <div className={editMode && "hoverToEdit pointer"}>
@@ -274,91 +233,124 @@ function Element(props) {
                 create
                 </span> */}
                         </div>}
-    
-                        {/* <h1>jkhgk</h1> */}
-                        
-                           
-                          {/* <textarea onChange={e=>hlps(element.type, e.target.value)} > {newElementTypeAndValue.value}</textarea>  */}
-                        
-                        <textarea  className="montitre" type="text" multiline
-                        onFocus={() => onEnterElement()}
-                        value={element.value}
-    
-                        onChange={(e) => { debugger; setValue(e.target.value) }}
-                        //value={}
-                        placeholder='enter your paragraph'
-                        style={{
-                            maxHeight: "none",
-                            minHeight: "none",
-                            border: 'none',
-                            width: "100%",
-                            height: "10vh",
-                            textAlign: element.textAlign,
-                            color: element.color,
-                            fontSize:element.fontSize,
-                            fontFamily:element.fontFamily,
-    
-    
-    
-    
-                }}
-            ></textarea>
-                                
-                              
-                            
-                            
-                            </div></div>
-            </>
-    
-    
-    
-                )
-        case "Text":
-            return (
-                <Grid style={{ color: 'black', fontSize: "16px", padding: "10px" }}  >
 
-                
-                    {/* <div dangerouslySetInnerHTML={{__html:element.value}}/>
-                  {   Parser(element.value)} */}
-                    <div className="pointer">
-                        {/* {editMode && <EelementEditButtons id={element.id}></EelementEditButtons>} */}
-                        <div className={editMode && "hoverToEdit pointer"}>
-                            {editMode && <div className='edit_buttons_element'>
-                                <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
-                                    delete
-                </span>
-                                {/* <span class="material-icons" style={{ zIndex: 4 ,fontSize: '1.2rem'}} onClick={() => setCollapseOpen('section')} >
-                    create
-                    </span> */}
-                            </div>}
-                            <ReactQuill className='col-12 text-center pointe '
-                                onFocus={() => onEnterElement()}
-                                readOnly={!editMode}
-                                style={{ zIndex: 10 }}
+    
+                        <textarea id="widgEditor" className="montitre pointe " type="text" 
+
+                               onFocus={() => onEnterElement()}
+                               //quil-------------------------
+                            //    readOnly={!editMode}
+                            //    bounds={$("#textarea")[0]}
+                            //    theme="bubble"
+                            //    modules={{
+
+                            //     toolbar: [
+                            //         [{ 'header': [1, 2, 3, false] }, { 'size': [] }],
+                            //         ['bold', 'italic', 'underline', 'strike', 'blockquote', { 'color': [] }, { 'background': [] }, { 'font': [] }],
+                            //         [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }, { 'align': [] }],
+                            //         ['link'],
+                            //         ['clean']
+                            //     ]
+                            //     /* ... other modules */
+                            //    }}
+                              //-----------------------------
                                 value={element.value}
-                                bounds={$("#editor")[0]}
+                                onChange={(e)=>setValue(e.target.value)}
+                                placeholder='add here your title'
+                                style={{
+                                textAlign: element.textAlign,
+                                
+                                maxHeight: "none",
+                                minHeight: "none",
+                                border: 'none',
+                                width: "100%",
+                            // backgroundColor: item.backgroundColor,
+                        
+                           // marginTop: "0px",
+                                outline: "none",
+                                height: "10vh",
+                                fontSize:element.fontSize,
+                                fontWeight: 'bold',
+                                color: element.color,
+                                // marginTop:'20px',
+                                fontFamily:element.fontFamily,
+                                verticalAlign: 'middle',
+                                // fontWeight: item.fontWeight,
+                                // display: 'flex',
+                                // justifyContent: 'center',
+                                // position: 'relative',
+                                //  top: '50%'
+                                padding: '15px 0'
+                            
+                     
+                }}
+           
+            ></textarea >
+           
+                            
+                            
+                            </div>
+                            </div>
+            
 
-                                onChange={setValue}
-                                theme="bubble"
-                                modules={{
+            </>
+        )
+        case "Paragraph":
+            return(
+            <>
+           
+            <div className="pointer">
+                {/* {editMode && <EelementEditButtons id={element.id}></EelementEditButtons>} */}
+                <div className={editMode && "hoverToEdit pointer"}>
+                    {editMode && <div className='edit_buttons_element'>
+                        <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
+                            delete
+        </span>
+                        {/* <span class="material-icons" style={{ zIndex: 4 ,fontSize: '1.2rem'}} onClick={() => setCollapseOpen('section')} >
+            create
+            </span> */}
+                    </div>}
 
-                                    toolbar: [
-                                        [{ 'header': [1, 2, 3, false] }, { 'size': [] }],
-                                        ['bold', 'italic', 'underline', 'strike', 'blockquote', { 'color': [] }, { 'background': [] }, { 'font': [] }],
-                                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }, { 'align': [] }],
-                                        ['link'],
-                                        ['clean']
-                                    ]
-                                    /* ... other modules */
-                                }} />
-                             {/* <EditText element={element}  onDrag={e => drag1(e)} draggable="true"  ></EditText> */}
+                    {/* <h1>jkhgk</h1> */}
+                    
+                       
+                      {/* <textarea onChange={e=>hlps(element.type, e.target.value)} > {newElementTypeAndValue.value}</textarea>  */}
+                    
+                    <textarea  className="montitre" type="text" multiline
+                    onFocus={() => onEnterElement()}
+                    value={element.value}
 
-                                </div></div>
-                        </Grid>
+                    onChange={(e) => { debugger; setValue(e.target.value) }}
+                    //value={}
+                    placeholder='enter your paragraph'
+                    style={{
+                        maxHeight: "none",
+                        minHeight: "none",
+                        border: 'none',
+                        width: "100%",
+                        height: "10vh",
+                        textAlign: element.textAlign,
+                        color: element.color,
+                        fontSize:element.fontSize,
+                        fontFamily:element.fontFamily,
+
+
+
+
+            }}
+        ></textarea>
+                            
+                          
+                        
+                        
+                        </div></div>
+        </>
+
+
 
             )
         case "Image":
-
+            debugger
             return (
                 <><div className={editMode && "hoverToEdit pointer"}>
                     {editMode && <div className='edit_buttons_element'>
@@ -389,35 +381,6 @@ function Element(props) {
                 </div>
                 </>
             )
-            // return (
-            //     <><div className={editMode && "hoverToEdit pointer"}>
-            //         {editMode && <div className='edit_buttons_element'>
-            //             <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }}  onClick={() => removeElement(id)}>
-            //                 delete
-            //     </span>
-            //             {/* <span class="material-icons" style={{ zIndex: 4 ,fontSize: '1.2rem'}} onClick={() => 
-                        
-            //             ('section')} >
-            //         create
-            //         </span> */}
-            //         </div>}
-            //         <div className={element.value ? "d-flex flex-column align-items-center justify-content-center m-2  y" : 'd-flex flex-column align-items-center justify-content-center m-2 y divEmptyElement'}
-            //             // onFocus={() => setCollapseOpen('element')}
-            //             onClick={() => onEnterElement()}>
-            //             {/* {element.value && <div onClick={() => onEnterElement()}
-            //                 className="d-flex flex-column align-items-center divEmptyElement justify-content-center m-2">
-            //                 <span class="material-icons-outlined" style={{ fontSize: '5rem' }} >
-            //                     panorama
-            //                  </span>
-            //                 <p className="m-0 text-center">Drag & Drop files here or click to upload</p>
-            //             </div>
-            //             } */}
-            //             <ImageUploader element={element}  onDrag={e => drag1(e)} draggable="true"  ></ImageUploader>
-            //         </div>
-            //         {/* <img style={{ width: '30%' }} src={element.value}></img> */}
-            //     </div>
-            //     </>
-            // )
         case 'Video':
             return (
             <><div className={editMode && "hoverToEdit pointer"}>
@@ -480,44 +443,26 @@ function Element(props) {
             //         </div>
             //     </>
             // )
-        // case 'Form':
-        //     return (
-        //         <>
-        //             <div className={editMode && "hoverToEdit pointer"}>
-        //                 {editMode && <div className='edit_buttons_element'>
-        //                     <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
-        //                         delete
-        //         </span>
-        //                     {/* <span class="material-icons" style={{ zIndex: 4 ,fontSize: '1.2rem'}} onClick={() => setCollapseOpen('section')} >
-        //             create
-        //             </span> */}
-        //                 </div>}
-        //                 {element.value ?<>???????????</> //<iframe onClick={() => onEnterElement()} width="100%" height="315" src={element.value} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        //                  :
-        //                     <div onClick={() => onEnterElement()} className="d-flex flex-column align-items-center justify-content-center m-2 divEmptyElement"
-        //                     > <span class="material-icons" style={{ fontSize: '5rem' }}>
-        //                             description
-        //                 </span>
-        //                         <p className="m-0 text-center">Add Url Form</p>
-        //                     </div>}
-        //             </div>
-        //         </>
-        //     )
-
-
-        case "Gallery":
+        case 'Form':
             return (
                 <>
                     <div className={editMode && "hoverToEdit pointer"}>
                         {editMode && <div className='edit_buttons_element'>
                             <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
                                 delete
-                    </span>
+                </span>
+                            {/* <span class="material-icons" style={{ zIndex: 4 ,fontSize: '1.2rem'}} onClick={() => setCollapseOpen('section')} >
+                    create
+                    </span> */}
                         </div>}
-                        <div className={element.value ? "d-flex flex-column align-items-center justify-content-center m-2  y" : 'd-flex flex-column align-items-center justify-content-center m-2 y divEmptyElement'}
-                            onClick={() => onEnterElement()}>                            
-                            <Gallery id="gallery" element={element}></Gallery>
-                        </div>
+                        {element.value ?<>???????????</> //<iframe onClick={() => onEnterElement()} width="100%" height="315" src={element.value} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                         :
+                            <div onClick={() => onEnterElement()} className="d-flex flex-column align-items-center justify-content-center m-2 divEmptyElement"
+                            > <span class="material-icons" style={{ fontSize: '5rem' }}>
+                                    description
+                        </span>
+                                <p className="m-0 text-center">Add Url Form</p>
+                            </div>}
                     </div>
                 </>
             )
@@ -577,72 +522,6 @@ function Element(props) {
                         </div>
                     </div> </>
             )
-            case 'Form':
-                return (
-                    <>
-                    <Form></Form>
-                        <div className={editMode && "hoverToEdit pointer"}>
-                            {editMode && <div className='edit_buttons_element'>
-                                <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
-                                    delete
-                    </span>
-                                 <span class="material-icons" style={{ zIndex: 4 ,fontSize: '1.2rem'}} onClick={() => setCollapseOpen('section')} >
-                        create
-                        </span> 
-                             </div>} 
-                            {element.value ?<>???????????</> //<iframe onClick={() => onEnterElement()} width="100%" height="315" src={element.value} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                             :
-                                <div onClick={() => onEnterElement()} className="d-flex flex-column align-items-center justify-content-center m-2 divEmptyElement"
-                                > <span class="material-icons" style={{ fontSize: '5rem' }}>
-                                        description
-                            </span>
-                                    <p className="m-0 text-center">Add Url Form</p>
-                                </div>} 
-                         </div> 
-                    </>
-                )
-           
-               
-    
-            case 'Icon':
-    
-            
-                      return (
-                        <>
-                            <div className={editMode && "hoverToEdit pointer"}>
-                                {editMode && <div className='edit_buttons_element'>
-                                    <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
-                                        delete
-                        </span>
-                            
-                                </div>}
-                                <div  className={element.value ? "d-flex flex-column align-items-center justify-content-center m-2  y" : 'd-flex flex-column align-items-center justify-content-center m-2 y divEmptyElement'}
-                                  onClick={() => onEnterElement()} >
-                
-                    <SelectIcon element={element} onDrag={e => drag1(e)} draggable="true"/>
-                                </div>
-                            </div></>
-                    );
-    
-                    case 'Spacer':
-    
-            
-                        return (
-                          <>
-                              <div className={editMode && "hoverToEdit pointer"}>
-                                  {editMode && <div className='edit_buttons_element'>
-                                      <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
-                                          delete
-                          </span>
-                              
-                                  </div>}
-                                  <div  className={element.value ? "d-flex flex-column align-items-center justify-content-center m-2  y" : 'd-flex flex-column align-items-center justify-content-center m-2 y divEmptyElement'}
-                                    onClick={() => onEnterElement()} >
-                  
-                      <Spacer element={element} onDrag={e => drag1(e)} draggable="true"/>
-                                  </div>
-                              </div></>
-                      );
         default:
             break;
     }
@@ -652,6 +531,8 @@ export default connect(
         return {
             editMode: state.funnel.editMode,
             jsonPage: state.funnel.jsonPage,
+          //  newElementTypeAndValue:state.funnel.newElementTypeAndValue,
+            // elementInEditing:state.funnel.elementInEditing
         }
     }
     ,
@@ -666,8 +547,13 @@ export default connect(
             moveElementInPart: function (dragIndex, hoverIndex) { dispatch(moveElementInPart({ dragIndex: dragIndex, hoverIndex: hoverIndex })) },
             removeElement: function (id) { dispatch(removeElement({ id: id })) },
             elementInEditing: function (id) { dispatch(elementInEditing({ id: id })) },
-            setCollapseOpen: function (collapse,id) { dispatch(setCollapseOpen({collapse:collapse,id:id})) }
+           // setCollapseOpen: function (collapse) { dispatch(setCollapseOpen(collapse)) },
+            // addElement1: function (newElement, value) {
+            // dispatch(addElement1({ type: newElement, value: value }))
+            setCollapseOpen:function (collapse,id){dispatch(setCollapseOpen({collapse: collapse,id:id})) }
+
+
+           // }
         }
     }
 )(Element)
-

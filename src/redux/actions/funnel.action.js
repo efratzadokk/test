@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-
+export const SET_VALUE_ME='[funnel] SET_VALUE_ME '
 export const SET_IS_OPEN_CON='[funnel] SET_IS_OPEN_CON'
 export const SET_THUMBTACK ='[funnel] SET_THUMBTACK'
 export const ADD_SECTION ='[funnel] ADD_SECTION'
@@ -33,6 +33,14 @@ export function setFlagthumbtack(newFlag) {
     return {
         type: '[funnel] SET_THUMBTACK',
         payload: newFlag
+    }
+}
+
+export function setValueMe(val){
+    return{
+        type: SET_VALUE_ME,
+        payload:val
+
     }
 }
 export function addSection(newSection,id) {
