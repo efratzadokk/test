@@ -64,9 +64,8 @@ checkPermission = async (req, res, next) => {
     }
 };
 
-
 module.exports = {
     getUidByUserName,
     updateUserIndexCardName,
-    checkPermission,
+    checkPermission
 }

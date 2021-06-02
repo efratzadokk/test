@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const fileUpload = require("express-fileupload");
+
+
 const io = require('socket.io')(5001, {
     cors: {
         origin: 'https://localhost:3000',
@@ -20,6 +22,8 @@ const routeProtectedApi = require('./routes/api/protected');
 const routePublicApi = require('./routes/api/public');
 const routeToViews = require('./routes/view/views');
 const auth = require('./controller/auth');
+const Card = require('./models/Card')
+const User = require('./models/User')
 
 
 app.use(cors());
@@ -62,7 +66,6 @@ let countByCardName = {};
 io.on('connection', socket => {
     socket.on("createRooms", (cardName) => {
         socket.join(cardName);
-        console.log("rooms", io.sockets.adapter.rooms);
         socket.on("add-cardName", (cardName) => {
             if (countByCardName[cardName] == undefined || countByCardName[cardName] === -1) {
                 countByCardName[cardName] = 1;
@@ -81,11 +84,30 @@ io.on('connection', socket => {
         socket.on('disconnect', (view) => {
             if (view)
                 --countByCardName[cardName]
-            socket.to(cardName).emit("recive-changes",countByCardName[cardName])
+            socket.to(cardName).emit("recive-changes", countByCardName[cardName])
         });
+
     })
-
-
+    let userId
+    socket.on("userActive", async (value, view) => {
+        if (view) {
+            userId = await Card.find({ cardName: value, isDelete: false })
+            userId = userId[0].user.toString();
+        }
+        else {
+            userId = value.toString()
+        }
+        socket.join(userId);
+        console.log(io.sockets.adapter.rooms);
+        socket.on('disconnect', () => {
+            if (!view) {
+                socket.to(userId).emit("active-changes", false)
+            }
+        });
+        if (!view) {
+            socket.to(userId).emit("active-changes", true);
+        }
+    })
 
 });
 
