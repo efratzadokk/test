@@ -205,8 +205,8 @@ createContactLeaderBox = async (data) => {
     });
 }
 
-sendMessageByCard = async (req, res) => {
-    const { body, mailTo, username } = req.body;
+sendMessageByCard = async (mailTo,body,username,req) => {
+
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
@@ -237,11 +237,32 @@ sendMessageByCard = async (req, res) => {
             resolve(true);
 
         });
-        res.send(true);
     });
 
 }
+sendMessageByCardMultiEmails = (req, res) =>{
+    const { listMail, body,username } = req.body;
+    console.log("listMail___________", listMail);
+    return new Promise(async (resolve, reject) => {
+    console.log("inside listMail !")
+    try {
+        Promise.all(
+            listMail.map(async (mail) => {
+                console.log("mail"+mail)
+           let splitMail=mail.split('@');
+           let aa=splitMail[0];
+                sendMessageByCard(mail,body,aa,req)
+            })).then(() => {
+                resolve(true)
+            })
 
+    } catch (error) {
+        console.log("reveiw errore: -", error)
+        reject(error);
+    }
+});
+
+}
 getAllCards = (userName) => {
     return new Promise((resolve, reject) => {
         console.log("username", userName)
@@ -355,6 +376,7 @@ module.exports = {
     deleteCard,
     sendMessageByCard,
     checkUniqueCardName,
+    sendMessageByCardMultiEmails,
     editCardName,
     getCardsIndex,
     getCardByName,

@@ -11,6 +11,8 @@ router.get('/getCategories/categories/allCategories/cards', CategoriesController
 
 // mail
 router.post('/sendMessageByCard/:cardName', digitalCardController.sendMessageByCard);
+ router.post('/sendMessageByCardMultiEmails/:cardName', digitalCardController.sendMessageByCardMultiEmails);
+
 
 //statistic
 router.post("/setCntSocialMediaAndCall/:idStatistic", StatisticController.setCntSocialMediaAndCall);
