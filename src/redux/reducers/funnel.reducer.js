@@ -1,6 +1,6 @@
 
 
-import { SET_IS_OPEN_CON, SET_THUMBTACK, SET_COLLAPSE_OPEN, ADD_SECTION_IN_IFRAME, SET_JSON_PAGE, SET_STYLE_PAGE, CHANE_LOADING, SET_OPACITY_PAGE, REMOVE_SECTION, SET_STYLE_IMAGE, ADD_SECTION, SET_BORDER_PARTS, CHANGE_EDIT_MODE, ADD_ELEMENT,ADD_ELEMENT1, SET_VALUE_ELEMENT, MOVE_ELEMENT_IN_PART, REMOVE_ELEMENT, ELEMENT_IN_EDITING } from '../actions/funnel.action'
+import { SET_VALUE_ME,SET_IS_OPEN_CON, SET_THUMBTACK, SET_COLLAPSE_OPEN, ADD_SECTION_IN_IFRAME, SET_JSON_PAGE, SET_STYLE_PAGE, CHANE_LOADING, SET_OPACITY_PAGE, REMOVE_SECTION, SET_STYLE_IMAGE, ADD_SECTION, SET_BORDER_PARTS, CHANGE_EDIT_MODE, ADD_ELEMENT,ADD_ELEMENT1, SET_VALUE_ELEMENT, MOVE_ELEMENT_IN_PART, REMOVE_ELEMENT, ELEMENT_IN_EDITING } from '../actions/funnel.action'
 import produce from 'immer'
 // import { act } from 'react-dom/test-utils'
 import { act } from 'react-dom/test-utils'
@@ -29,6 +29,30 @@ const initialState = {
     allFunnels: [],
     idFunnel: '',
     urlFunnel:'',
+    // newVal: [
+    //     { index:0 ,type: 'logo', border: false, path: '',  backgroundColor: "", borderRadius: "", width: "", height: "", alignItem: "center" },
+    //     { index:1  ,type: 'title', border: false,  text: "Welcome enter your title!", color: "black",  textAlign: "center", fontSize: "25px", fontFamily:'Arial, Helvetica, sans-serif' },
+    //     { index:2 , type: 'button', border: false, text: "START ACTIVE",  color: "white", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1", alignItem: "-webkit-center" },
+    //     {index:3 ,  type: 'image', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
+    //     { index:4 ,type: 'paragraph',
+    //       text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
+    //         border: false,  color: "black", textAlign: "center", fontSize: "16", fontFamily:'Arial, Helvetica, sans-serif'
+    //     },
+    //   ],
+
+
+    newVal: [
+        { index:0 ,type: 'logo', border: false, path: '',  backgroundColor: "", borderRadius: "", width: "", height: "", alignItem: "center" },
+        { index:1  ,type: 'title', border: false,  text: "Welcome enter your title!", color: "black",  textAlign: "center", fontSize: "25px", fontFamily:'Arial, Helvetica, sans-serif' },
+        { index:2 , type: 'button', border: false, text: "START ACTIVE",  color: "white", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1", alignItem: "-webkit-center" },
+        {index:3 ,  type: 'image', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
+        { index:4 ,type: 'paragraph',text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
+            border: false,  color: "black", textAlign: "center", fontSize: "16", fontFamily:'Arial, Helvetica, sans-serif'
+        },
+        {index:5 ,  type: 'video', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
+        {index:6 ,  type: 'gallery', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
+
+      ],
     jsonPage: {
         num_elements: 4,
         num_sections: 1,
@@ -194,31 +218,319 @@ export default produce((state = initialState, action) => {
             // return { ...state, borderPart: action.payload }
             return state;
         }
+
+        // case SET_VALUE_ME: {
+        //     // if()
+        //   //  debugger
+        //     console.log(action.payload.value)
+        //     console.log(action.payload.type)
+        //     console.log (state.elementInEditing.color)
+        //     // if(action.payload.type='image')
+        //     // {
+
+        //     ///c pas..
+        //    //     state.elementInEditing.color = action.payload.value
+        //     // }
+            
+        //     //console.log(state.elementInEditing)
+
+        //     state.jsonPage.arrSections.map((item, a) => {
+        //         item.arrParts.map((item, b) => {
+        //             item.arrElements.map((item, c) => {
+        //                 debugger
+        //                 if (item.id == state.elementInEditing.id) {
+        //                     if(action.payload.type=='color')
+        //                         item.color = action.payload.value
+        //                     else if(action.payload.type=='fontSize')
+        //                         item.fontSize= action.payload.value+'px'
+        //                     else if (action.payload.type=='textAlign')
+        //                         item.textAlign=action.payload.value
+        //                     else if(action.payload.type=='fontFamily')
+        //                         item.fontFamily=action.payload.value
+        //                      else if(action.payload.type=='image')
+        //                      item.value=action.payload.value
+        //                      else if (action.payload.type=='alignItem')
+        //                      item.alignItem=action.payload.value
+
+        //                 }
+        //             })
+        //         })
+        //     })
+        //     return state
+        // }
+
+
+        case SET_VALUE_ME: {
+            // if()
+          //  debugger
+            console.log(action.payload.value)
+            console.log(action.payload.type)
+            console.log (state.elementInEditing.color)
+            // if(action.payload.type='image')
+            // {
+
+            ///c pas..
+           //     state.elementInEditing.color = action.payload.value
+            // }
+            
+            //console.log(state.elementInEditing)
+
+            state.jsonPage.arrSections.map((item, a) => {
+                item.arrParts.map((item, b) => {
+                    item.arrElements.map((item, c) => {
+                        debugger
+                        if (item.id == state.elementInEditing.id) {
+                            if(action.payload.type=='color')
+                                item.color = action.payload.value
+                            else if(action.payload.type=='fontSize')
+                                item.fontSize= action.payload.value+'px'
+                            else if (action.payload.type=='textAlign')
+                                item.textAlign=action.payload.value
+                            else if(action.payload.type=='fontFamily')
+                                item.fontFamily=action.payload.value
+                             else if(action.payload.type=='image' ||action.payload.type=='video' )
+                             item.value=action.payload.value
+                             else if (action.payload.type=='alignItem')
+                             item.alignItem=action.payload.value
+
+                        }
+                    })
+                })
+            })
+            return state
+        }
         case ADD_ELEMENT: {
+            
             debugger
-            const newElement = { type: action.payload.type, value: action.payload.value, settings: {}, id: action.payload.id }
-            state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
-            state.elementInEditing = newElement;
-            state.collapseIsOpen = "element"
-            state.jsonPage.num_elements++
+          // console.log(action.payload.text)
+           console.log(action.payload.value)
+           console.log(action.payload.type)
 
-            // state.editinigElement = true
+         let newElement
+         if(action.payload.type=='Title' ||action.payload.type== 'Paragraph')
 
-            return state
-        }
-        case ADD_ELEMENT1: {
-            // debugger
-            const newElement = { type: action.payload.type, value: action.payload.value }
-            // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
-            // state.elementInEditing = newElement;
-            // state.collapseIsOpen = "element"
-            // state.jsonPage.num_elements++
-            state.newElementTypeAndValue=newElement
+          { debugger
+        // console.log('he enter a itle or paragraph')
+              console.log(action.payload.value)
+              console.log(action.payload.id)
+                newElement = { type: action.payload.type, value: action.payload.value.value, color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign ,fontFamily:action.payload.value.fontFamily ,settings: {}, id: action.payload.id}
+           //    newElement={ type: action.payload.type, value: action.payload.value}
+          }
+          else if(action.payload.type=='Image' || action.payload.type== 'Video'|| action.payload.type=='Gallery')
+          {
+           newElement = { type: action.payload.type, value: action.payload.value.value, alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor, settings: {}, id: action.payload.id}
+  
+          }
+          // console.log(newElement)
 
-            // state.editinigElement = true
 
-            return state
-        }
+          //avant
+         //  const newElement = { type: action.payload.type, value: action.payload.value, settings: {}, id: action.payload.id }
+       
+       
+       
+       
+           //  const newElement={type: action.payload.type, value: action.payload.value}
+           console.log(newElement)
+           state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+           state.elementInEditing = newElement;
+           state.collapseIsOpen = "element"
+           state.jsonPage.num_elements++
+
+           // state.editinigElement = true
+
+           return state
+       }
+       case ADD_ELEMENT1: {
+            debugger
+        
+           //avant
+         // const newElement = { type: action.payload.type, value: action.payload.value}
+         
+         
+//apres
+       let newElement
+       console.log(action.payload.type)
+       if(action.payload.type=='Title' ||action.payload.type== 'Paragraph')
+       {
+        // console.log('he enter a itle or addelement1')
+
+        newElement = { type: action.payload.type, value: action.payload.value.text ,color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign,fontFamily:action.payload.value.fontFamily}
+  //  newElement={ type: action.payload.type, value: action.payload.value.text}
+
+       }
+       else if(action.payload.type=='Image' || action.payload.type== 'Video' ||  action.payload.type=='Gallery')
+       { 
+        newElement = { type: action.payload.type, value: action.payload.value.path ,alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor}
+
+       }
+
+
+          // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+           // state.elementInEditing = newElement;
+           // state.collapseIsOpen = "element"
+           // state.jsonPage.num_elements++
+
+         state.newElementTypeAndValue=newElement
+
+           // state.editinigElement = true
+
+           return state
+       }
+
+//         case ADD_ELEMENT: {
+//             debugger
+
+     
+
+//             // state.editinigElement = true
+//          let newElement
+//          if(action.payload.type=='Title' ||action.payload.type== 'Paragraph'){
+
+// //         // console.log('he enter a itle or paragraph')
+// //               console.log(action.payload.value)
+// //               console.log(action.payload.id)
+//                 newElement = { type: action.payload.type, value: action.payload.value.value, color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign ,fontFamily:action.payload.value.fontFamily ,settings: {}, id: action.payload.id}
+// //            //    newElement={ type: action.payload.type, value: action.payload.value}
+//          } else if(action.payload.type=='Image')
+//           {
+//            newElement = { type: action.payload.type, value: action.payload.value.value, alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor, settings: {}, id: action.payload.id}
+  
+//           }
+// //           // console.log(newElement)
+
+
+// //           //avant
+// //          //  const newElement = { type: action.payload.type, value: action.payload.value, settings: {}, id: action.payload.id }
+       
+// // const newElement = { type: action.payload.type, value: action.payload.value, settings: {}, id: action.payload.id }
+// state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+// state.elementInEditing = newElement;
+// state.collapseIsOpen = "element"
+// state.jsonPage.num_elements++
+// //            //  const newElement={type: action.payload.type, value: action.payload.value}
+// //            console.log(newElement)
+      
+
+
+// //            // state.editinigElement = true
+
+//             return state
+//         }
+//         case ADD_ELEMENT1: {
+//             // debugger
+//             // const newElement = { type: action.payload.type, value: action.payload.value }
+//             // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+//             // state.elementInEditing = newElement;
+//             // state.collapseIsOpen = "element"
+//             // state.jsonPage.num_elements++
+           
+
+//             // state.editinigElement = true
+
+//             let newElement
+//                    console.log(action.payload.type)
+//                    if(action.payload.type=='Title' ||action.payload.type== 'Paragraph')
+//                    {
+//                     // console.log('he enter a itle or addelement1')
+            
+//                     newElement = { type: action.payload.type, value: action.payload.value.text ,color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign,fontFamily:action.payload.value.fontFamily}
+//               //  newElement={ type: action.payload.type, value: action.payload.value.text}
+            
+//                    }
+//                    else if(action.payload.type=='Image')
+//                    { 
+//                     newElement = { type: action.payload.type, value: action.payload.value.path ,alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor}
+            
+//                    }
+          
+//                    state.newElementTypeAndValue=newElement
+
+//             return state
+//         }
+
+
+//         case ADD_ELEMENT: {
+            
+//             debugger
+//           // console.log(action.payload.text)
+//            console.log(action.payload.value)
+//            console.log(action.payload.type)
+
+//          let newElement
+//          if(action.payload.type=='Title' ||action.payload.type== 'Paragraph')
+
+//           { debugger
+//         // console.log('he enter a itle or paragraph')
+//               console.log(action.payload.value)
+//               console.log(action.payload.id)
+//                 newElement = { type: action.payload.type, value: action.payload.value.value, color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign ,fontFamily:action.payload.value.fontFamily ,settings: {}, id: action.payload.id}
+//            //    newElement={ type: action.payload.type, value: action.payload.value}
+//           }
+//           else if(action.payload.type=='Image')
+//           {
+//            newElement = { type: action.payload.type, value: action.payload.value.value, alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor, settings: {}, id: action.payload.id}
+  
+//           }
+//           // console.log(newElement)
+
+
+//           //avant
+//          //  const newElement = { type: action.payload.type, value: action.payload.value, settings: {}, id: action.payload.id }
+       
+       
+       
+       
+//            //  const newElement={type: action.payload.type, value: action.payload.value}
+//            console.log(newElement)
+//            state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+//            state.elementInEditing = newElement;
+//            state.collapseIsOpen = "element"
+//            state.jsonPage.num_elements++
+
+//            // state.editinigElement = true
+
+//            return state
+//        }
+//        case ADD_ELEMENT1: {
+//             debugger
+        
+//            //avant
+//          // const newElement = { type: action.payload.type, value: action.payload.value}
+         
+         
+// //apres
+//        let newElement
+//        console.log(action.payload.type)
+//        if(action.payload.type=='Title' ||action.payload.type== 'Paragraph')
+//        {
+//         // console.log('he enter a itle or addelement1')
+
+//         newElement = { type: action.payload.type, value: action.payload.value.text ,color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign,fontFamily:action.payload.value.fontFamily}
+//   //  newElement={ type: action.payload.type, value: action.payload.value.text}
+
+//        }
+//        else if(action.payload.type=='Image')
+//        { 
+//         newElement = { type: action.payload.type, value: action.payload.value.path ,alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor}
+
+//        }
+
+
+//           // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+//            // state.elementInEditing = newElement;
+//            // state.collapseIsOpen = "element"
+//            // state.jsonPage.num_elements++
+
+//          state.newElementTypeAndValue=newElement
+
+//            // state.editinigElement = true
+
+//            return state
+//        }
+
+
+
         case SET_VALUE_ELEMENT: {
             // if()
             state.elementInEditing.value = action.payload.value
@@ -272,22 +584,51 @@ export default produce((state = initialState, action) => {
             state.jsonPage.arrSections.splice(action.payload, 1)
             return state
 
+        // case SET_COLLAPSE_OPEN:
+        //     // debugger
+        //     state.collapseIsOpen = action.obj.collapse
+        //     console.log(action.obj.collapse)
+        //     if (action.obj.collapse === "element") {
+        //         state.jsonPage.arrSections.map((item, a) => {
+        //             item.arrParts.map((item, b) => {
+        //                 item.arrElements.map((item, c) => {
+        //                     if (item.id == action.obj.id) {
+        //                         state.elementInEditing = item
+        //                     }
+        //                 })
+        //             })
+        //         })
+        //     }
+        //     if (action.obj.collapse === "section") {
+
+        //         state.jsonPage.arrSections.map((item, a) => {
+        //             if (item.id == action.obj.id) {
+        //                 state.sectionInEditing = item
+        //             }
+        //         })
+        //     }
+        //     return state
+
         case SET_COLLAPSE_OPEN:
-            // debugger
+           // debugger
             state.collapseIsOpen = action.obj.collapse
-            console.log(action.obj.collapse)
-            if (action.obj.collapse === "element") {
+          console.log(action.obj.collapse)
+          console.log(action.obj.id)
+      //    console.log(ac)
+            if (action.obj.collapse == "element") 
+            {
                 state.jsonPage.arrSections.map((item, a) => {
                     item.arrParts.map((item, b) => {
                         item.arrElements.map((item, c) => {
-                            if (item.id == action.obj.id) {
+                            if (item.id == action.obj.id) 
+                            {
                                 state.elementInEditing = item
                             }
                         })
                     })
                 })
-            }
-            if (action.obj.collapse === "section") {
+         }
+            if (action.obj == "section") {
 
                 state.jsonPage.arrSections.map((item, a) => {
                     if (item.id == action.obj.id) {
@@ -295,6 +636,7 @@ export default produce((state = initialState, action) => {
                     }
                 })
             }
+
             return state
         case REMOVE_ELEMENT:
             state.jsonPage.arrSections.map((item, a) => {
@@ -311,6 +653,11 @@ export default produce((state = initialState, action) => {
                 })
             })
             return state
+
+
+        
+
+
         case '[funnel] SAVE_IN_LOCAL_STORAGE':
             console.log(state.jsonPage)
             localStorage.setItem("json", JSON.stringify(state.jsonPage));

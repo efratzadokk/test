@@ -55,6 +55,11 @@ function App(props) {
                 <ListPapers></ListPapers>
               </div>
             </Route>
+            <Route path='/admin/:userName/:funnel/listPapers'>
+              <div>
+                <ListPapers></ListPapers>
+              </div>
+            </Route>
               {/* </div> */}
             {/* </Route> */}
             {/* <ProtectedRoute path='/admin/:userName/:funnel' user={TokenToString} component={WrapAll}>
