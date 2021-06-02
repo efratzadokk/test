@@ -34,10 +34,12 @@ const marketplaceSchema = mongoose.Schema({
         alignment: { type: String },
         cover: {
             src: { type: String },
+            srcName:{ type: String },
             height: { type: String } 
         },
         logo: {
             src: { type: String },
+            srcName:{ type: String },
             borderColor: { type: String }
         }
     }
