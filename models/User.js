@@ -11,6 +11,10 @@ const userSchema = mongoose.Schema({
     cards: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card'
+    }],
+    marketplaces: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Marketplace'
     }]
 })
 
