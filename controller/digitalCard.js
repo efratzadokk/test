@@ -355,6 +355,7 @@ getCardByName = async (req) => {
         reject('not userId');
     });
 }
+
 module.exports = {
     createDigitalCard,
     updateDigitalCard,
@@ -366,7 +367,7 @@ module.exports = {
     getCardByName,
     getAllCards,
     copyCard,
-    userIdByCardName
+    userIdByCardName,
 }
 
 

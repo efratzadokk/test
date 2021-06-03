@@ -95,17 +95,26 @@ io.on('connection', socket => {
             userId = userId[0].user.toString();
         }
         else {
-            userId = value.toString()
+            userId = value
         }
-        socket.join(userId);
+        socket.join(userId.toString());
         console.log(io.sockets.adapter.rooms);
-        socket.on('disconnect', () => {
+        socket.on('disconnect', async () => {
             if (!view) {
-                socket.to(userId).emit("active-changes", false)
+                // let user = await User.findById(userId)
+                // user.active--;
+                // user.save()
+                // socket.to(userId.toString()).emit("active-changes", user.active)
+                socket.to(userId.toString()).emit("active-changes", 0)
+
             }
         });
         if (!view) {
-            socket.to(userId).emit("active-changes", true);
+            // let user = await User.findById(userId)
+            // user.active++;
+            // user.save()
+            // socket.to(userId).emit("active-changes", user.active);
+            socket.to(userId).emit("active-changes", 1);
         }
     })
 
