@@ -205,7 +205,7 @@ createContactLeaderBox = async (data) => {
     });
 }
 
-sendMessageByCard = async (mailTo,body,username,req) => {
+sendMessageByCard = async (mailTo,body,username,req,res) => {
 
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
@@ -237,11 +237,12 @@ sendMessageByCard = async (mailTo,body,username,req) => {
             resolve(true);
 
         });
+       
     });
 
 }
 sendMessageByCardMultiEmails = (req, res) =>{
-    const { listMail, body,username } = req.body;
+    const { listMail, body} = req.body;
     console.log("listMail___________", listMail);
     return new Promise(async (resolve, reject) => {
     console.log("inside listMail !")
@@ -249,9 +250,9 @@ sendMessageByCardMultiEmails = (req, res) =>{
         Promise.all(
             listMail.map(async (mail) => {
                 console.log("mail"+mail)
-           let splitMail=mail.split('@');
-           let aa=splitMail[0];
-                sendMessageByCard(mail,body,aa,req)
+           let splitMailUser=mail.split('@');
+           let userName=splitMailUser[0];
+                sendMessageByCard(mail,body,userName,req)
             })).then(() => {
                 resolve(true)
             })
@@ -260,6 +261,7 @@ sendMessageByCardMultiEmails = (req, res) =>{
         console.log("reveiw errore: -", error)
         reject(error);
     }
+    res.send(true);
 });
 
 }
