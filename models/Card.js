@@ -18,6 +18,7 @@ const cardSchema = mongoose.Schema({
     },
     cardName: { type: String, required: true },
     lastTenColor:[{type: String }],
+    marketMember:{ type: Boolean },
     fullName: {
         title: { type: String },
         show: { type: Boolean }
