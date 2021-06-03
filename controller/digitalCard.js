@@ -59,7 +59,6 @@ updateDigitalCard = async (req, res) => {
     card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
     card.lead = await LeadController.updateLead(card.lead)
     let statistic = await Statistic.findByIdAndUpdate(card.statistic, { isDelete: true }, { new: true });
-    console.log('-------', statistic);
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -305,7 +304,6 @@ newActivIP = async (req) => {
                     statistic.dateCreated = new Date()
                 }
                 statistic.viewsCnt += 1;
-                statistic.activeViewer += 1;
                 statistic.allDatesViews.push(new Date())
                 await activData(statistic.actives.country, country)
                 await activData(statistic.actives.browser, browserName)
@@ -328,7 +326,6 @@ newActivIP = async (req) => {
 getCardByName = async (req) => {
     const { cardName } = req.params;
     await newActivIP(req)
-
     return new Promise((resolve, reject) => {
         Card.findOne({
             cardName: cardName,
@@ -348,6 +345,16 @@ getCardByName = async (req) => {
             })
     });
 }
+ 
+ userIdByCardName = async (cardName) => {
+    return new Promise(async (resolve, reject) => {
+        const userId = await Card.find({ cardName: cardName }).user.userId
+            console.log(userId);
+        if (userId)
+            resolve(userId);
+        reject('not userId');
+    });
+}
 
 module.exports = {
     createDigitalCard,
@@ -359,7 +366,8 @@ module.exports = {
     getCardsIndex,
     getCardByName,
     getAllCards,
-    copyCard
+    copyCard,
+    userIdByCardName,
 }
 
 
