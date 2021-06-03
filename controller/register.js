@@ -8,7 +8,8 @@ const cheakPremission = async (req, res) => {
 
     if (!currentUser) {
         currentUser = new User();
-        console.log("bbbbbbbb",currentUser);
+        console.log("", currentUser);
+        console.log("----currentUser--", currentUser);
     }
     const jwt = req.cookies.devJwt ? req.cookies.devJwt : req.headers['authorization'] ? req.headers['authorization'] : null
     console.log("jwt----------------", jwt)
@@ -24,17 +25,14 @@ const cheakPremission = async (req, res) => {
             return res.send(response.statusCode);
         }
         else {
-
             console.log("userName", req.params.userName)
             currentUser.username = req.params.userName;
             currentUser.email = JSON.parse(body).user.email;
             currentUser.imgProfile = JSON.parse(body).user.imgProfile;
             currentUser.uid = JSON.parse(body).user.uid;
-            currentUser.active = JSON.parse(body).user.active;
             if (JSON.parse(body).user.displayName !== undefined) {
                 currentUser.displayName = JSON.parse(body).user.displayName;
             }
-            console.log("aaaaaaaaa",currentUser);
             await currentUser.save();
             return res.status(200).json({ user: currentUser });
         }

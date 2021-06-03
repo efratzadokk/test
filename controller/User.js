@@ -56,7 +56,6 @@ checkPermission = async (req, res, next) => {
                 console.log("error: ", error);
                 res.redirect("https://leader.codes/login?des=files.leader.codes");
             } else {
-
                 console.log("is authorize!!!!!");
                 return next();
             }
