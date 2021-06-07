@@ -235,6 +235,7 @@ const cardSchema = mongoose.Schema({
         buttons: {
             width:{ type: String},
             top: { type: String },
+            width:{ type: String },
             callMe: {
                 background: { type: String },
                 border: { type: String },
