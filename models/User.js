@@ -4,10 +4,11 @@ const userSchema = mongoose.Schema({
     uid: { type: String, require: true },
     username: { type: String },
     imgProfile: { type: String },
-    displayName:{ type: String },
+    displayName: { type: String },
     isPaying: { type: Boolean, default: false },
     premium: { type: Boolean },
     suspend: { type: Boolean },
+    active: {type: Number,default: 0},
     cards: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Card'
@@ -15,12 +16,12 @@ const userSchema = mongoose.Schema({
     marketplaces: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Marketplace'
-    }]
+    }],
 })
 
-userSchema.pre('save', function(next){
-    const user=this
-    user.username=user.username.replace(/\s/g, "");    
+userSchema.pre('save', function (next) {
+    const user = this
+    user.username = user.username.replace(/\s/g, "");
     next()
 })
 

@@ -10,6 +10,7 @@ const cardSchema = mongoose.Schema({
         default: new Date()
     },
     valid: [{ type: String }],
+    listMail:[{ type: String }],
     isDelete: { type: Boolean },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -17,6 +18,7 @@ const cardSchema = mongoose.Schema({
     },
     cardName: { type: String, required: true },
     lastTenColor:[{type: String }],
+    marketMember:{ type: Boolean },
     fullName: {
         title: { type: String },
         show: { type: Boolean }
@@ -232,6 +234,7 @@ const cardSchema = mongoose.Schema({
         },
         buttons: {
             top: { type: String },
+            width:{ type: String },
             callMe: {
                 background: { type: String },
                 border: { type: String },

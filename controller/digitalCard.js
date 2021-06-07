@@ -59,7 +59,6 @@ updateDigitalCard = async (req, res) => {
     card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
     card.lead = await LeadController.updateLead(card.lead)
     let statistic = await Statistic.findByIdAndUpdate(card.statistic, { isDelete: true }, { new: true });
-    console.log('-------', statistic);
     Card.findByIdAndUpdate(
         { _id: req.params.cardId },
         card,
@@ -205,8 +204,8 @@ createContactLeaderBox = async (data) => {
     });
 }
 
-sendMessageByCard = async (req, res) => {
-    const { body, mailTo, username } = req.body;
+sendMessageByCard = async (mailTo,body,username,req,res) => {
+
     console.log("body__________", body);
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
@@ -237,11 +236,34 @@ sendMessageByCard = async (req, res) => {
             resolve(true);
 
         });
-        res.send(true);
+       
     });
 
 }
+sendMessageByCardMultiEmails = (req, res) =>{
+    const { listMail, body} = req.body;
+    console.log("listMail___________", listMail);
+    return new Promise(async (resolve, reject) => {
+    console.log("inside listMail !")
+    try {
+        Promise.all(
+            listMail.map(async (mail) => {
+                console.log("mail"+mail)
+           let splitMailUser=mail.split('@');
+           let userName=splitMailUser[0];
+                sendMessageByCard(mail,body,userName,req)
+            })).then(() => {
+                resolve(true)
+            })
 
+    } catch (error) {
+        console.log("reveiw errore: -", error)
+        reject(error);
+    }
+    res.send(true);
+});
+
+}
 getAllCards = (userName) => {
     return new Promise((resolve, reject) => {
         console.log("username", userName)
@@ -305,7 +327,6 @@ newActivIP = async (req) => {
                     statistic.dateCreated = new Date()
                 }
                 statistic.viewsCnt += 1;
-                statistic.activeViewer += 1;
                 statistic.allDatesViews.push(new Date())
                 await activData(statistic.actives.country, country)
                 await activData(statistic.actives.browser, browserName)
@@ -328,7 +349,6 @@ newActivIP = async (req) => {
 getCardByName = async (req) => {
     const { cardName } = req.params;
     await newActivIP(req)
-
     return new Promise((resolve, reject) => {
         Card.findOne({
             cardName: cardName,
@@ -348,6 +368,16 @@ getCardByName = async (req) => {
             })
     });
 }
+ 
+ userIdByCardName = async (cardName) => {
+    return new Promise(async (resolve, reject) => {
+        const userId = await Card.find({ cardName: cardName }).user.userId
+            console.log(userId);
+        if (userId)
+            resolve(userId);
+        reject('not userId');
+    });
+}
 
 module.exports = {
     createDigitalCard,
@@ -355,11 +385,13 @@ module.exports = {
     deleteCard,
     sendMessageByCard,
     checkUniqueCardName,
+    sendMessageByCardMultiEmails,
     editCardName,
     getCardsIndex,
     getCardByName,
     getAllCards,
-    copyCard
+    copyCard,
+    userIdByCardName,
 }
 
 

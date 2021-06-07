@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const fileUpload = require("express-fileupload");
+const socket =require('./controller/socket')
+
 
 const app = express();
 
@@ -15,7 +17,6 @@ const routeProtectedApi = require('./routes/api/protected');
 const routePublicApi = require('./routes/api/public');
 const routeToViews = require('./routes/view/views');
 const auth = require('./controller/auth');
-
 
 app.use(cors());
 app.use(cookieParser())
@@ -37,6 +38,7 @@ mongoose.connect(process
 
 app.use("/api/admin", auth.checkPermission, routeProtectedApi);
 app.use("/api/public", routePublicApi);
+
 app.use("/", routeToViews);
 
 app.all("/*", function (req, res, next) {
@@ -53,6 +55,7 @@ app.all("/*", function (req, res, next) {
 
 
 console.log("is new!!!");
+
 app.listen(process
     .env.PORT, (err) => {
         console.log("server is up!!!!!");
