@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import {ImageGallery} from 'react-image-gallery';
+import ImageGallery  from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import $ from "jquery";
 import { addElement } from '../../redux/actions/funnel.action'
@@ -22,6 +22,7 @@ const images = [
 ];
 
 function Gallery(props) {
+
     const { addElement } = props
     const chooseImg = (e) => {
         debugger
@@ -41,12 +42,19 @@ function Gallery(props) {
     }
     return (
         <>
-            {/* <div id="gallery"> */}
-                <ImageGallery id="gallery" items={images}/>
+              <ImageGallery id="gallery" items={images}/> 
             {/* </div> */}
+
             <button onClick={() => clickToChoose()}>choose images</button>
             <input id='chooseImg' type="file" onChange={(e) => chooseImg(e.target.files[0])} style={{ display: 'none' }}></input>
-        </>)
+        
+
+        
+
+         {/* <h1>hello</h1> */}
+        
+        </>
+        )
 }
 
 export default connect(
@@ -60,11 +68,11 @@ export default connect(
         return {
             // changeMessage: () => { dispatch({ type: '[funnel] CHANGE_MESSAGE' }) },
 
-            addElement: function (newGallery, value, section, part, numElement) {
-                dispatch(addElement({
-                    type: newGallery, value: value, section: section, part: part, id: numElement
-                }))
-            },
+            // addElement: function (newGallery, value, section, part, numElement) {
+            //     dispatch(addElement({
+            //         type: newGallery, value: value, section: section, part: part, id: numElement
+            //     }))
+            // },
         }
     },
 )(Gallery)

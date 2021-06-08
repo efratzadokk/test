@@ -67,6 +67,7 @@ import Image from '../../assets/Image.svg'
 import Opacity from '../../assets/opacity.svg'
 import Grid  from '@material-ui/core/Grid';
 // import PanoramaIcon from '@material-ui/icons/Panorama';
+import $ from "jquery";
 
 //import { IoMdImage } from "react-icons/io";
 
@@ -74,6 +75,8 @@ import Grid  from '@material-ui/core/Grid';
 import { Col, Row, Container } from "react-bootstrap";
 function EditImg(props) {
     const {styleImage,element,ImgOnEdit,setValueElement,setStyleImage,elementInEditing}=props
+    const [file, setFile] = useState(false);
+    const [image, setImage] = useState();
 
     console.log(ImgOnEdit)
  //   console.log(element)
@@ -89,7 +92,106 @@ function EditImg(props) {
     const  setOpacityImage=(value)=>{
         setStyleImage('opacity',value)
     }
-
+    const chooseImg = (e) => {
+        debugger
+        if(e.target.files[0])
+        {
+        const files = Array.from(e.target.files)
+        console.log("files:", files)
+        handleFiles(files)
+        }
+    }
+    const handleFiles = async (files) => {
+        debugger
+        console.log(files[0])
+        if (validateFile(files[0])) {
+            setFile(!file)
+            let url = URL.createObjectURL(files[0]);
+           // console.log(url)
+            local_image(url)
+            const myFile = new FormData()
+            myFile.append("file", files[0])
+            console.log(myFile.get('file'))
+            console.log(image)
+            console.log(files)
+   
+            // $.ajax({
+            //     type: "POST",
+            //     url: `/api/uploadFile/${user.userId}/${user.userName}`,
+            //     headers: {
+            //         Authorization: 'view'
+            //     },
+            //     data: myFile,
+            //     processData: false,
+            //     contentType: false,
+            //     success: await function (data) {
+            //         console.log(data);
+            //         // data.data ?
+            //             console.log(data)
+            //             server_image(data)
+            //         //     : alert('error')
+            //         // return data.data.url
+            //         // resolve(data.data.url)
+            //     },
+            //     error: await function (err) {
+            //         alert(err);
+            //         // return false
+            //         // resolve(false)
+            //     },
+            // });
+        };
+    }
+    const  local_image=(url)=>{
+        debugger
+      setStyleImage('width', '100%')
+      setStyleImage('height', '100%')
+      setStyleImage('opacity', '0.99')
+      setImage(url)
+    //  console.log(image)
+      console.log(url)
+      props.setValueMe(url,'image')
+      //  console.log(element)
+      //  console.log(element.id)
+       props.elementInEditing(element.id)
+      // console.log(element)
+  
+  
+  
+    }
+    const validateFile = (file) => {
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/x-icon'];
+        if (validTypes.indexOf(file.type) === -1) {
+            return false;
+        }
+        console.log("yes")
+        return true;
+    }
+    
+    const dragOver = (e) => {
+        e.preventDefault();
+    }
+    const dragEnter = (e) => {
+        e.preventDefault();
+    }
+    
+    const dragLeave = (e) => {
+        e.preventDefault();
+    }
+    const fileDrop = (e) => {
+        debugger
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        console.log(e);
+        if (files.length) {
+            handleFiles(files)
+        }
+    }
+    const changeImgOnClick = (e) => {
+        
+        console.log(e)
+       // console.log(e.target.value);
+        $(`#inputFileImg${element.id}`).trigger('click')
+    }
    const  twoCalls = e => {
         setWidthImage(e.target.value)
         setHeightImage(e.target.value)
@@ -130,12 +232,42 @@ function EditImg(props) {
   <Row>Image </Row>
   <hr/>
   <Row>
-  {ImgOnEdit.value ?  <img style={{ width: "10vw", height: "10vh", margin: "0 15%" }} src={ImgOnEdit.value}  alt="Image"></img>
-  : 
+  {ImgOnEdit.value ?
   <>
+   {/* <input type="file" id={'inputFileImg'+element.id} className="d-none" onChange={(e) => chooseImg(e)}></input> */}
+    <img style={{ width: "10vw", height: "10vh", margin: "0 15%" }} src={ImgOnEdit.value}  alt="Image"></img>
+  </>: 
+  <>
+   <input type="file"  className="d-none" onChange={(e) => chooseImg(e)}></input>
       <span class="material-icons-outlined" style={{ fontSize: '5rem', marginLeft: 'auto', marginRight: 'auto'}} >
           panorama
 </span>
+<div className="content" onDoubleClick={() => changeImgOnClick()}>
+                <div className="container p-0">
+                    <div className="drop-container col-12 p-0" onDragOver={dragOver}
+                        onDragEnter={dragEnter}
+                        onDragLeave={dragLeave}
+                        onDrop={fileDrop}
+                        // onDrag={e => drag1(e)}
+                        draggable="true" 
+                        //  ondragstart="drag(event)" 
+                    >
+                        <div className="align-items-center d-flex drop-message flex-column">
+
+                            <div className="upload-icon"> </div>
+                            {/* {element.value ? <img src={element.value} style={element.settings} alt="picture" /> 
+                            : image ? <img src={image} style={element.settings}  alt="pic"  /> :
+                                <>
+                                    <span class="material-icons-outlined" style={{ fontSize: '5rem' }} >
+                                        panorama
+                             </span>
+                                    <p className="m-0 text-center">Drag & Drop files here or click to upload</p>
+                                </>
+                            } */}
+                        </div>
+                    </div>
+                </div>
+            </div>
       {/* <p className="m-0 text-center">Drag & Drop files here or click to upload</p> */}
   </>
 }

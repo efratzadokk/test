@@ -6,6 +6,7 @@ import Section from '../section/section'
 import { chageEditMode, setJsonPage, setOrderSection, addSection, setNamePage, setStylePage, setStyleSection, setFlagBorderParts } from '../../redux/actions/funnel.action'
 import $ from "jquery";
 import 'jquery-ui-bundle';
+// import { backgroundImage } from 'html2canvas/dist/types/css/property-descriptors/background-image';
 
 function Stage(props) {
     const { jsonPage, edit, chageEditMode, setJsonPage, addSection, editMode, iframe, setOrderSection, setFlagBorderParts, loading, numSections, urlPage, nameUser, nameFunnel, saveInLocalStorage, setStylePage, setStyleSection, setNamePage } = props;
@@ -74,9 +75,10 @@ function Stage(props) {
         <>
             {loading ? <Loading></Loading> :
                 <div id="stage" className={editMode ? "col-md-9 d-flex p-0 m-auto " : "col-md-12 d-flex p-0 "}
-                   style={{border:0,width:"70%",height:"70%"}}
+                   style={{border:0,width:"100%",height:"100%"}}
                 >
-                    <div id="landingPage_edit" className={editMode ? "m-auto border_page " : "col-md-12 "} style={jsonPage.settings.style}>
+                    <div id="landingPage_edit" className={editMode ? "m-auto border_page " : "col-md-12 "} style={{backgroundImage:"blob:http://localhost:3000/8c11b757-3bf4-49ca-90bb-44f1dd1348d1"}}>
+                    {/* jsonPage.settings.style */}
                         <div id='sortable'></div>
                         {jsonPage.arrSections.length == 0 && < div className=" d-flex justify-content-center ">
                             {/* <img className="image" src="https://www.photo-art.co.il/wp-content/uploads/2015/07/BY1A5781.jpg" style={{resizeMode:'contain'}} /> */}

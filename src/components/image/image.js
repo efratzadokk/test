@@ -287,14 +287,14 @@ function ImageUploader(props) {
     const server_image = (val) => {
         setValueElement(val)
         setStyleImage('width', '100%')
-        setStyleImage('height', '400px')
+        setStyleImage('height', '100%')
         setStyleImage('opacity', '0.99')
     }
   const  local_image=(url)=>{
       debugger
     setStyleImage('width', '100%')
-    setStyleImage('height', '400px')
-    setStyleImage('opacity', '0.5')
+    setStyleImage('height', '100%')
+    setStyleImage('opacity', '0.99')
     setImage(url)
   //  console.log(image)
     console.log(url)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { setStylePage, setOpacityPage, setNamePage } from '../../redux/actions/funnel.action'
-
+import { setValueMe,setStylePage, setOpacityPage, setNamePage } from '../../redux/actions/funnel.action'
+import './editPage.css'
 import $ from "jquery";
 
 
@@ -14,9 +14,10 @@ function EditPage(props) {
     // useEffect(()=>{
     //     setStylePage('backgroundColor',stylePage.backgroundColor.replace(/[\d\.]+\)$/g, opacity));
     // },[opacity])
-    useEffect(() => {
-        SetBgColor(RGBAToHexA(stylePage.backgroundColor))
-    }, [stylePage])
+    //////////
+    // useEffect(() => {
+    //     SetBgColor(RGBAToHexA(stylePage.backgroundColor))
+    // }, [stylePage])
 
     const setColor = (value) => {
         var hex = value.replace('#', '');
@@ -40,26 +41,36 @@ function EditPage(props) {
         $('#inputFileImage').trigger('click')
     }
 
+    // const chooseImg = (e) => {
+    //     debugger
+
+    //     // if (event !== undefined) {
+    //         // setSelectedLogoFileImage(event)
+    //         // setChannelLogoLoaded(true);
+    //         let reader = new FileReader();
+    //         var url = URL.createObjectURL(e)
+
+    //         reader.onloadend = () => {
+    //             debugger
+    //             setStylePage('backgroundImage',`url(${url})`) //img
+    //             // setChannelLogoPreviewUrlImage(url) //PreviewUrlImage
+    //         }
+    //     // }
+        
+    //     // console.log(e.target.files)
+    //     // const files = Array.from(e.target.files)
+    //     // console.log("files:", files)
+    //     // handleFiles(files)
+    // }
+
     const chooseImg = (e) => {
         debugger
-
-        // if (event !== undefined) {
-            // setSelectedLogoFileImage(event)
-            // setChannelLogoLoaded(true);
-            let reader = new FileReader();
-            var url = URL.createObjectURL(e)
-
-            reader.onloadend = () => {
-                debugger
-                setStylePage('backgroundImage',`url(${url})`) //img
-                // setChannelLogoPreviewUrlImage(url) //PreviewUrlImage
-            }
-        // }
-        
-        // console.log(e.target.files)
-        // const files = Array.from(e.target.files)
-        // console.log("files:", files)
-        // handleFiles(files)
+        if(e.target.files[0])
+        {
+        const files = Array.from(e.target.files)
+        console.log("files:", files)
+        handleFiles(files)
+        }
     }
 
     const validateFile = (file) => {
@@ -86,7 +97,11 @@ function EditPage(props) {
             //  await props.uploadImage(myFile).then((url) => {
             //     console.log(url);
             // })
-            setStylePage("backgroundImage",myFile.get('file'))
+            ////////// ככה שומרים את הקובץ ולא את ה URL 
+            // setStylePage("backgroundImage",myFile.get('file'))
+            let url = URL.createObjectURL(files[0]);
+            setStylePage("backgroundImage",url)
+
 
             debugger
             // $.ajax({
@@ -187,12 +202,12 @@ function EditPage(props) {
                     </div>
 
                     <label for="">Page Background Color</label>
-                    <input type="color" className="form-control input" defaultValue={stylePage.backgroundColor} id="" data-toggle="tooltip" data-placement="bottom" placeholder="" onChange={(e) => setColor(e.target.value)} />
+                    <input type="color" className="form-control input"  defaultValue={stylePage.backgroundColor} id="" data-toggle="tooltip" data-placement="bottom" placeholder="" onChange={(e) => setColor(e.target.value)} />
                     <label for="">Page Background Opacity</label>
                     <input type="range" className="slider" defaultValue={stylePage.backgroundColor.replace(/^.*,(.+)\)/, '$1')} id="" data-toggle="tooltip" data-placement="bottom" placeholder="" onChange={(e) => setOpacity(e.target.value)} min="0" max="0.99" step="0.0001" />
 
                     <label for="">Page Background Image</label>
-                    <input type="file" id="inputFileImage" className="form-control " style={{ display: 'none' }} onChange={(e) => chooseImg(e.target.files[0])} />
+                    <input type="file" id="inputFileImage" className="form-control " style={{ display: 'none' }} onChange={(e) => chooseImg(e)} />
                     <div onClick={() => changeImgOnClick()} className="col-md-10" style={image ? { height: '60px', backgroundColor: 'red', backgroundSize: '100% 100%', backgroundImage: `url(${image})` } : { height: '60px', backgroundColor: 'red' }}></div>
                 </div>
             </div>
@@ -207,13 +222,15 @@ export default connect(
             // iframe:state.funnel.iframe
 
 
+
         }
     },
     (dispatch) => {
         return {
             setStylePage: (property, newValue) => { dispatch(setStylePage({ property: property, value: newValue })) },
             setOpacityPage: (newValue) => { dispatch(setOpacityPage(newValue)) },
-            setNamePage: (newName) => { dispatch(setNamePage(newName)) }
+            setNamePage: (newName) => { dispatch(setNamePage(newName)) },
+            setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
         }
     }
 )(EditPage)
