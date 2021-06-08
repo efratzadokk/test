@@ -22,7 +22,7 @@ function Sidebar_left(props){
         <Widget name="Video" img={Video} ></Widget>
         {/* <Widget name="Spacer" img={Spacer} ></Widget> */}
         {/* <Widget name="Icon" img={Icon} ></Widget> */}
-        {/* <Widget name="Gallery" img={Icon} ></Widget> */}
+        <Widget name="Gallery" img={Icon} ></Widget>
         
         
         

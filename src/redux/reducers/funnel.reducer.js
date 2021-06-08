@@ -58,7 +58,9 @@ const initialState = {
         num_sections: 1,
         image_funnel: '',
         settings: {
-            style: { color: '', backgroundColor: 'rgba(255,255,255,0.99)', opacity: '0.99',backgroundImage:'' }
+            // 'rgba(255,255,255,0.99)'
+            // 'rgba(255,255,255,0.99)'
+            style: { color: '', backgroundColor:'rgba(99,44,222,0.99)' , opacity: '0.99',backgroundImage:"blob:http://localhost:3000/8c11b757-3bf4-49ca-90bb-44f1dd1348d1" }
             , opacity: '0.99'
         },
         arrSections: [
@@ -73,7 +75,7 @@ const initialState = {
                         id:1,
                         settings:{},
                         type:"Title",
-                        value: "<h1 class=\"ql-align-center\">Welcome to A customer makes contact!</h1>"
+                        value: "Welcome to A customer makes contact!"
                     },{
                         id:2,
                         settings:{},
@@ -538,7 +540,7 @@ export default produce((state = initialState, action) => {
                 item.arrParts.map((item, b) => {
                     item.arrElements.map((item, c) => {
                         if (item.id == state.elementInEditing.id) {
-                            
+                            debugger
                             item.value = action.payload.value
                         }
                     })
