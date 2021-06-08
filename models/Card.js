@@ -10,15 +10,15 @@ const cardSchema = mongoose.Schema({
         default: new Date()
     },
     valid: [{ type: String }],
-    listMail:[{ type: String }],
+    listMail: [{ type: String }],
     isDelete: { type: Boolean },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     cardName: { type: String, required: true },
-    lastTenColor:[{type: String }],
-    marketMember:{ type: Boolean },
+    lastTenColor: [{ type: String }],
+    marketMember: { type: Boolean },
     fullName: {
         title: { type: String },
         show: { type: Boolean }
@@ -34,7 +34,7 @@ const cardSchema = mongoose.Schema({
             iconShow: { type: Boolean },
             titleShow: { type: Boolean },
             textAlign: { type: Boolean },
-            reverse:  { type: Boolean },
+            reverse: { type: Boolean },
         },
         contact: {
             title: { type: String },
@@ -42,7 +42,7 @@ const cardSchema = mongoose.Schema({
             iconShow: { type: Boolean },
             titleShow: { type: Boolean },
             textAlign: { type: Boolean },
-            reverse:  { type: Boolean },
+            reverse: { type: Boolean },
         }
     },
     socialMediaSpace: {
@@ -91,12 +91,12 @@ const cardSchema = mongoose.Schema({
             title: { type: String },
             show: { type: Boolean }
         },
-        name:{
+        name: {
             title: { type: String },
             show: { type: Boolean },
             require: { type: Boolean }
         },
-        email:{
+        email: {
             title: { type: String },
             show: { type: Boolean },
             require: { type: Boolean }
@@ -234,7 +234,7 @@ const cardSchema = mongoose.Schema({
         },
         buttons: {
             top: { type: String },
-            width:{ type: String },
+            width: { type: String },
             callMe: {
                 background: { type: String },
                 border: { type: String },
@@ -245,6 +245,7 @@ const cardSchema = mongoose.Schema({
             contact: {
                 background: { type: String },
                 border: { type: String },
+                borderColor: { type: String },
                 borderRadius: { type: String },
                 color: { type: String },
                 reverse: { type: Boolean }
@@ -305,10 +306,10 @@ const cardSchema = mongoose.Schema({
                 textAlign: { type: String },
                 background: { type: String },
             },
-            input:{
-                background:{ type: String },
-                textAlign:{ type: String },
-                color:{ type: String },
+            input: {
+                background: { type: String },
+                textAlign: { type: String },
+                color: { type: String },
             }
         },
         videoStyle: {
@@ -336,13 +337,13 @@ const cardSchema = mongoose.Schema({
         color: { type: String },
         fade: { type: Boolean },
         autoPlay: { type: Number },
-        dots:{ type: Boolean },
+        dots: { type: Boolean },
         margin: { type: Number },
         rowHeight: { type: Number },
         maxRows: { type: Number },
         lightboxGrid: { type: Boolean },
         lightboxSlide: { type: Boolean },
-        direction:{ type: String },
+        direction: { type: String },
     },
     reviewsList: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -359,9 +360,9 @@ const cardSchema = mongoose.Schema({
 });
 
 
-cardSchema.pre('save', function(next){
-    const card=this
-    card.cardName=card.cardName.replace(/[/\s.]/g, '')   
+cardSchema.pre('save', function (next) {
+    const card = this
+    card.cardName = card.cardName.replace(/[/\s.]/g, '')
     next()
 })
 
