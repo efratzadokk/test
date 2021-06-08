@@ -246,6 +246,7 @@ const cardSchema = mongoose.Schema({
             contact: {
                 background: { type: String },
                 border: { type: String },
+                borderColor: { type: String },
                 borderRadius: { type: String },
                 color: { type: String },
                 reverse: { type: Boolean }
