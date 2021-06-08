@@ -45,9 +45,9 @@ const cardSchema = mongoose.Schema({
             reverse: { type: Boolean },
         }
     },
-    socialMediaSpace: {
-        column: { type: Number }
-    },
+    // socialMediaSpace: {
+    //     column: { type: Number }
+    // },
     sectionExpandeds: {
         type: Array
     },
@@ -252,6 +252,7 @@ const cardSchema = mongoose.Schema({
             }
         },
         socialMediaSpace: {
+            column: { type: Number },
             mobile: {
                 flexWrap: { type: String },
                 top: { type: String }
