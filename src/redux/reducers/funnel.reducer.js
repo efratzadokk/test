@@ -41,119 +41,139 @@ const initialState = {
     //   ],
 
 
+    // newVal: [
+    //     { index:0 ,type: 'logo', border: false, path: '',  backgroundColor: "", borderRadius: "", width: "", height: "", alignItem: "center" },
+    //     { index:1  ,type: 'title', border: false,  text: "Welcome enter your title!", color: "black",  textAlign: "center", fontSize: "25px", fontFamily:'Arial, Helvetica, sans-serif' },
+    //     { index:2 , type: 'button', border: false, text: "START ACTIVE",  color: "white", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1", alignItem: "-webkit-center" },
+    //     {index:3 ,  type: 'image', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
+    //     { index:4 ,type: 'paragraph',text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
+    //         border: false,  color: "black", textAlign: "center", fontSize: "16", fontFamily:'Arial, Helvetica, sans-serif'
+    //     },
+    //     {index:5 ,  type: 'video', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
+    //     {index:6 ,  type: 'gallery', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
+
+    //   ],
+
     newVal: [
-        { index:0 ,type: 'logo', border: false, path: '',  backgroundColor: "", borderRadius: "", width: "", height: "", alignItem: "center" },
-        { index:1  ,type: 'title', border: false,  text: "Welcome enter your title!", color: "black",  textAlign: "center", fontSize: "25px", fontFamily:'Arial, Helvetica, sans-serif' },
-        { index:2 , type: 'button', border: false, text: "START ACTIVE",  color: "white", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1", alignItem: "-webkit-center" },
-        {index:3 ,  type: 'image', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
+        { index:0 ,type: 'logo', border: false, path: '',  backgroundColor: "", borderRadius: "", width: "", height: "", alignItem: "center"},
+        { index:1  ,type: 'title', border: false,  text: "Welcome enter your title!" , backgroundColor: "transparent",color: "black",  textAlign: "center", fontSize: "25", fontFamily:'Arial, Helvetica, sans-serif' },
+        { index:2 , type: 'button',fontSize: "25", text: "Button ",  color: "black", backgroundColor: "grey", textAlign: "center", fontFamily:'Arial, Helvetica, sans-serif',borderRadius:'0',width:'100' },
+        
+        { index:3 ,  type: 'image', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", textAlign: "center" , opacity:'0.6'},
         { index:4 ,type: 'paragraph',text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
-            border: false,  color: "black", textAlign: "center", fontSize: "16", fontFamily:'Arial, Helvetica, sans-serif'
+            border: false,  color: "black", textAlign: "center", fontSize: "16", fontFamily:'Arial, Helvetica, sans-serif' , backgroundColor: "transparent"
         },
-        {index:5 ,  type: 'video', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
-        {index:6 ,  type: 'gallery', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center" , opacity:'0.6'},
+        {index:5 ,  type: 'video', border: false, path: '',  backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center" , opacity:'0.6'},
+        {index:6 ,  type: 'gallery', border: false, path: '',  backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center" , opacity:'0.6'},
+        { index:7 , type: 'spacer', border: false,  color: "#D3D3D3",  borderRadius: "2", width: "20", height: "5"},
+        { index:8 , type: 'icon', border: false,  opacity: '1',fontSize:'20', color: "black", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1"},
+        { index:9  ,type: 'form', border: false,  text: "Welcome enter your title!", color: "black",  textAlign: "center", fontSize: "25px", fontFamily:'Arial, Helvetica, sans-serif' },
+        { index:10 , type: 'html', border: false, text: "",  color: "white", backgroundColor: "#0AB0FE", textAlign: "center", fontFamily: "Arial, Helvetica, sans-serif", width: "20", height: "1"},
+        { index:11 , type: 'sharing', border: false, text: "START ACTIVE",  color: "white", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1"},
 
       ],
-    jsonPage: {
-        num_elements: 4,
-        num_sections: 1,
-        image_funnel: '',
-        settings: {
-            // 'rgba(255,255,255,0.99)'
-            // 'rgba(255,255,255,0.99)'
-            style: { color: '', backgroundColor:'rgba(99,44,222,0.99)' , opacity: '0.99',backgroundImage:"blob:http://localhost:3000/8c11b757-3bf4-49ca-90bb-44f1dd1348d1" }
-            , opacity: '0.99'
-        },
-        arrSections: [
-            {
-                arrParts:[{
-                    arrElements:[{
-                        id:0,
-                        settings:{},
-                        type:"Image",
-                        value: ""
-                    },{
-                        id:1,
-                        settings:{},
-                        type:"Title",
-                        value: "Welcome to A customer makes contact!"
-                    },{
-                        id:2,
-                        settings:{},
-                        type:"Text",
-                        value: "<p class='ql-align-center'> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetu sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.,</p>"
+
+    // jsonPage: {
+    //     num_elements: 4,
+    //     num_sections: 1,
+    //     image_funnel: '',
+    //     settings: {
+    //         // 'rgba(255,255,255,0.99)'
+    //         // 'rgba(255,255,255,0.99)'
+    //         style: { color: '', backgroundColor:'rgba(99,44,222,0.99)' , opacity: '0.99',backgroundImage:"blob:http://localhost:3000/8c11b757-3bf4-49ca-90bb-44f1dd1348d1" }
+    //         , opacity: '0.99'
+    //     },
+    //     arrSections: [
+    //         {
+    //             arrParts:[{
+    //                 arrElements:[{
+    //                     id:0,
+    //                     settings:{},
+    //                     type:"Image",
+    //                     value: ""
+    //                 },{
+    //                     id:1,
+    //                     settings:{},
+    //                     type:"Title",
+    //                     value: "Welcome to A customer makes contact!"
+    //                 },{
+    //                     id:2,
+    //                     settings:{},
+    //                     type:"Text",
+    //                     value: "<p class='ql-align-center'> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetu sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.,</p>"
                          
-                    },{
-                        id:3,
-                        settings:{},
-                        type:"Button",
-                        value: "<h1 class=\"ql-align-center\">start creating</h1>"
-                    }
+    //                 },{
+    //                     id:3,
+    //                     settings:{},
+    //                     type:"Button",
+    //                     value: "<h1 class=\"ql-align-center\">start creating</h1>"
+    //                 }
 
-                    ],settings:{style:{}}
-                }],
-                id:4,
-                settings:{
-                    style:{
-                        backgroundColor:""
-                    }
-                }
-            }
-            // image_funnel:"",
+    //                 ],settings:{style:{}}
+    //             }],
+    //             id:4,
+    //             settings:{
+    //                 style:{
+    //                     backgroundColor:""
+    //                 }
+    //             }
+    //         }
+    //         // image_funnel:"",
 
-            // {
-            //     settings: { backgroundColor: 'blue' },
-            //     arrParts: [
-            //         {
-            //             settings: { backgroundColor: 'white' },
-            //             arrElements: [
-            //                 {
-            //                     settings: { type: 'text' }
-            //                 },
-            //                 {
-            //                     settings: { type: 'title' }
-            //                 }
-            //             ]
-            //         },
-            //         {
-            //             settings: { backgroundColor: 'red' },
-            //             arrElements: [
-            //                 {
-            //                     settings: { type: 'text' }
-            //                 },
-            //                 {
-            //                     settings: { type: 'title' }
-            //                 }
-            //             ]
-            //         },
-            //         {
-            //             settings: { bgColor: 'gray' },
-            //             arrElements: [
-            //                 {
-            //                     settings: { type: 'text' }
-            //                 },
-            //                 {
-            //                     settings: { type: 'title' }
-            //                 }
-            //             ]
-            //         }]
-            // },
-            // {
-            //     settings: { bgColor: 'black' },
-            //     arrParts: [
-            //         {
-            //             settings: { bgColor: 'green' },
-            //             arrElements: [
-            //                 {
-            //                     settings: { type: 'text' }
-            //                 },
-            //                 {
-            //                     settings: { type: 'title' }
-            //                 }
-            //             ]
-            //         }]
-            // }
-        ]
-    }
+    //         // {
+    //         //     settings: { backgroundColor: 'blue' },
+    //         //     arrParts: [
+    //         //         {
+    //         //             settings: { backgroundColor: 'white' },
+    //         //             arrElements: [
+    //         //                 {
+    //         //                     settings: { type: 'text' }
+    //         //                 },
+    //         //                 {
+    //         //                     settings: { type: 'title' }
+    //         //                 }
+    //         //             ]
+    //         //         },
+    //         //         {
+    //         //             settings: { backgroundColor: 'red' },
+    //         //             arrElements: [
+    //         //                 {
+    //         //                     settings: { type: 'text' }
+    //         //                 },
+    //         //                 {
+    //         //                     settings: { type: 'title' }
+    //         //                 }
+    //         //             ]
+    //         //         },
+    //         //         {
+    //         //             settings: { bgColor: 'gray' },
+    //         //             arrElements: [
+    //         //                 {
+    //         //                     settings: { type: 'text' }
+    //         //                 },
+    //         //                 {
+    //         //                     settings: { type: 'title' }
+    //         //                 }
+    //         //             ]
+    //         //         }]
+    //         // },
+    //         // {
+    //         //     settings: { bgColor: 'black' },
+    //         //     arrParts: [
+    //         //         {
+    //         //             settings: { bgColor: 'green' },
+    //         //             arrElements: [
+    //         //                 {
+    //         //                     settings: { type: 'text' }
+    //         //                 },
+    //         //                 {
+    //         //                     settings: { type: 'title' }
+    //         //                 }
+    //         //             ]
+    //         //         }]
+    //         // }
+    //     ]
+    // }
     // jsonPage: {
     //     settings: {},
     //     arrSections: [{
@@ -165,6 +185,23 @@ const initialState = {
     //     }]
 
     // }
+
+    jsonPage: {
+        num_elements: 0,
+        num_sections: 0,
+        image_funnel: '',
+        settings: {
+            style: { color: '', backgroundColor: 'rgba(255,255,255,0.99)', opacity: '0.99' }
+            , opacity: '0.99'
+        },
+        arrSections: [
+     
+        ]
+
+
+
+
+    }
 
 
 }
@@ -183,6 +220,10 @@ const initialState = {
 //         })
 //     })
 // }
+
+
+
+
 export default produce((state = initialState, action) => {
     switch (action.type) {
         // case '[funnel] SET_ID_FUNNEL':
@@ -261,46 +302,6 @@ export default produce((state = initialState, action) => {
         //     return state
         // }
 
-
-        case SET_VALUE_ME: {
-            // if()
-          //  debugger
-            console.log(action.payload.value)
-            console.log(action.payload.type)
-            console.log (state.elementInEditing.color)
-            // if(action.payload.type='image')
-            // {
-
-            ///c pas..
-           //     state.elementInEditing.color = action.payload.value
-            // }
-            
-            //console.log(state.elementInEditing)
-
-            state.jsonPage.arrSections.map((item, a) => {
-                item.arrParts.map((item, b) => {
-                    item.arrElements.map((item, c) => {
-                        debugger
-                        if (item.id == state.elementInEditing.id) {
-                            if(action.payload.type=='color')
-                                item.color = action.payload.value
-                            else if(action.payload.type=='fontSize')
-                                item.fontSize= action.payload.value+'px'
-                            else if (action.payload.type=='textAlign')
-                                item.textAlign=action.payload.value
-                            else if(action.payload.type=='fontFamily')
-                                item.fontFamily=action.payload.value
-                             else if(action.payload.type=='image' ||action.payload.type=='video' )
-                             item.value=action.payload.value
-                             else if (action.payload.type=='alignItem')
-                             item.alignItem=action.payload.value
-
-                        }
-                    })
-                })
-            })
-            return state
-        }
         case ADD_ELEMENT: {
             
             debugger
@@ -311,19 +312,35 @@ export default produce((state = initialState, action) => {
          let newElement
          if(action.payload.type=='Title' ||action.payload.type== 'Paragraph')
 
-          { debugger
-        // console.log('he enter a itle or paragraph')
-              console.log(action.payload.value)
-              console.log(action.payload.id)
-                newElement = { type: action.payload.type, value: action.payload.value.value, color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign ,fontFamily:action.payload.value.fontFamily ,settings: {}, id: action.payload.id}
-           //    newElement={ type: action.payload.type, value: action.payload.value}
+          { 
+        
+                newElement = { type: action.payload.type, value: action.payload.value.value, color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign ,fontFamily:action.payload.value.fontFamily,backgroundColor:action.payload.value.backgroundColor,borderRadius:action.payload.value.borderRadius ,settings: {}, id: action.payload.id}
           }
-          else if(action.payload.type=='Image' || action.payload.type== 'Video'|| action.payload.type=='Gallery')
+           else if (action.payload.type=='Button')
+           {
+               newElement = { type: action.payload.type, value: action.payload.value.value, color:action.payload.value.color,fontSize:action.payload.value.fontSize, borderRadius:action.payload.value.borderRadius,textAlign:action.payload.value.textAlign ,fontFamily:action.payload.value.fontFamily,backgroundColor:action.payload.value.backgroundColor,borderRadius:action.payload.value.borderRadius ,width:action.payload.value.width ,settings: {}, id: action.payload.id}
+               
+           }
+           else if(action.payload.type=='Spacer')
+           {
+               newElement = { type: action.payload.type,  color:action.payload.value.color,height:action.payload.value.height,settings: {}, id: action.payload.id}
+
+           }
+
+          else if(action.payload.type=='Image' || action.payload.type== 'Video'|| action.payload.type== 'Gallery')
           {
-           newElement = { type: action.payload.type, value: action.payload.value.value, alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor, settings: {}, id: action.payload.id}
+           newElement = { type: action.payload.type, value: action.payload.value.value, textAlign: action.payload.value.textAlign,backgroundColor:action.payload.value.backgroundColor, settings: {}, id: action.payload.id}
   
           }
           // console.log(newElement)
+          else if( action.payload.type== 'Icon' || action.payload.type== 'Form'|| action.payload.type== 'Sharing' )
+          {
+              newElement={type: action.payload.type, value:action.payload.type,color:action.payload.value.color ,opacity:action.payload.value.opacity, textAlign:action.payload.value.textAlign, fontSize: action.payload.value.fontSize,settings: {}, id: action.payload.id}
+          }
+          else if( action.payload.type== 'Html' )
+          {
+              newElement={type: action.payload.type, value:action.payload.value.value,color:action.payload.value.color ,fontFamily:action.payload.value.fontFamily, textAlign:action.payload.value.textAlign, fontSize: action.payload.value.fontSize,settings: {}, id: action.payload.id}
+          }
 
 
           //avant
@@ -353,20 +370,36 @@ export default produce((state = initialState, action) => {
 //apres
        let newElement
        console.log(action.payload.type)
-       if(action.payload.type=='Title' ||action.payload.type== 'Paragraph')
+       if(action.payload.type=='Title' ||action.payload.type== 'Paragraph' )
        {
         // console.log('he enter a itle or addelement1')
 
-        newElement = { type: action.payload.type, value: action.payload.value.text ,color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign,fontFamily:action.payload.value.fontFamily}
+        newElement = { type: action.payload.type, value: action.payload.value.text ,color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign,fontFamily:action.payload.value.fontFamily,backgroundColor:action.payload.value.backgroundColor,borderRadius:action.payload.value.borderRadius}
   //  newElement={ type: action.payload.type, value: action.payload.value.text}
 
        }
-       else if(action.payload.type=='Image' || action.payload.type== 'Video' ||  action.payload.type=='Gallery')
+       else if(action.payload.type=='Image' || action.payload.type== 'Video' ||  action.payload.type== 'Gallery')
        { 
-        newElement = { type: action.payload.type, value: action.payload.value.path ,alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor}
+        newElement = { type: action.payload.type, value: action.payload.value.path ,textAlign: action.payload.value.textAlign,backgroundColor:action.payload.value.backgroundColor}
 
        }
+       else if( action.payload.type== 'Icon' || action.payload.type== 'Form' || action.payload.type== 'Sharing')
+       {
+           newElement={type: action.payload.type, value:action.payload.type,color:action.payload.value.color ,opacity:action.payload.value.opacity, textAlign:action.payload.value.textAlign,fontSize:action.payload.value.fontSize}
+       }
+       else if(action.payload.type=='Button'){
+           newElement = { type: action.payload.type, value: action.payload.value.text, color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.borderRadius,textAlign:action.payload.value.textAlign ,fontFamily:action.payload.value.fontFamily,backgroundColor:action.payload.value.backgroundColor,borderRadius:action.payload.value.borderRadius ,width:action.payload.value.width}
 
+       }
+       else if(action.payload.type=='Spacer')
+       {
+           newElement = { type: action.payload.type,  color:action.payload.value.color,height:action.payload.value.height}
+
+       }
+       else if( action.payload.type== 'Html' )
+       {
+           newElement={type: action.payload.type, value:action.payload.value.text,color:action.payload.value.color ,fontFamily:action.payload.value.fontFamily, textAlign:action.payload.value.textAlign, fontSize: action.payload.value.fontSize,settings: {}, id: action.payload.id}
+       }
 
           // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
            // state.elementInEditing = newElement;
@@ -379,6 +412,192 @@ export default produce((state = initialState, action) => {
 
            return state
        }
+       case SET_VALUE_ELEMENT: {
+           // if()
+           debugger
+           console.log(action.payload.value)
+           state.elementInEditing.value = action.payload.value
+           state.jsonPage.arrSections.map((item, a) => {
+               item.arrParts.map((item, b) => {
+                   item.arrElements.map((item, c) => {
+                       if (item.id == state.elementInEditing.id) {
+                           item.value = action.payload.value
+                       }
+                   })
+               })
+           })
+           return state
+       }
+
+       case SET_VALUE_ME: {
+           // if()
+         //  debugger
+           console.log(action.payload.value)
+           console.log(action.payload.type)
+          // console.log (state.elementInEditing.color)
+           // if(action.payload.type='image')
+           // {
+
+           ///c pas..
+          //     state.elementInEditing.color = action.payload.value
+           // }
+           
+           //console.log(state.elementInEditing)
+
+           state.jsonPage.arrSections.map((item, a) => {
+               item.arrParts.map((item, b) => {
+                   item.arrElements.map((item, c) => {
+                       debugger
+                       if (item.id == state.elementInEditing.id) {
+                           if(action.payload.type=='color')
+                               item.color = action.payload.value
+                           else if(action.payload.type=='fontSize')
+                               item.fontSize= action.payload.value
+                           else if (action.payload.type=='textAlign')
+                               item.textAlign=action.payload.value
+                           else if(action.payload.type=='fontFamily')
+                               item.fontFamily=action.payload.value
+                            else if(action.payload.type=='image' ||action.payload.type=='video' )
+                            item.value=action.payload.value
+                            else if (action.payload.type=='textAlign')
+                            item.textAlign=action.payload.value
+                            else if (action.payload.type=='backgroundColor')
+                            item.backgroundColor=action.payload.value
+                            else if (action.payload.type=='borderRadius')
+                            item.borderRadius=action.payload.value
+                            else if (action.payload.type=='width')
+                            item.width=action.payload.value
+                            else if (action.payload.type=='height')
+                            item.height=action.payload.value
+                            else if (action.payload.type=='opacity')
+                            item.opacity=action.payload.value
+
+
+
+
+                       }
+                   })
+               })
+           })
+           return state
+       }
+        // case SET_VALUE_ME: {
+        //     // if()
+        //   //  debugger
+        //     console.log(action.payload.value)
+        //     console.log(action.payload.type)
+        //     console.log (state.elementInEditing.color)
+        //     // if(action.payload.type='image')
+        //     // {
+
+        //     ///c pas..
+        //    //     state.elementInEditing.color = action.payload.value
+        //     // }
+            
+        //     //console.log(state.elementInEditing)
+
+        //     state.jsonPage.arrSections.map((item, a) => {
+        //         item.arrParts.map((item, b) => {
+        //             item.arrElements.map((item, c) => {
+        //                 debugger
+        //                 if (item.id == state.elementInEditing.id) {
+        //                     if(action.payload.type=='color')
+        //                         item.color = action.payload.value
+        //                     else if(action.payload.type=='fontSize')
+        //                         item.fontSize= action.payload.value+'px'
+        //                     else if (action.payload.type=='textAlign')
+        //                         item.textAlign=action.payload.value
+        //                     else if(action.payload.type=='fontFamily')
+        //                         item.fontFamily=action.payload.value
+        //                      else if(action.payload.type=='image' ||action.payload.type=='video' )
+        //                      item.value=action.payload.value
+        //                      else if (action.payload.type=='alignItem')
+        //                      item.alignItem=action.payload.value
+
+        //                 }
+        //             })
+        //         })
+        //     })
+        //     return state
+        // }
+//         case ADD_ELEMENT: {
+            
+//             debugger
+//           // console.log(action.payload.text)
+//            console.log(action.payload.value)
+//            console.log(action.payload.type)
+
+//          let newElement
+//          if(action.payload.type=='Title' ||action.payload.type== 'Paragraph')
+
+//           { debugger
+//         // console.log('he enter a itle or paragraph')
+//               console.log(action.payload.value)
+//               console.log(action.payload.id)
+//                 newElement = { type: action.payload.type, value: action.payload.value.value, color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign ,fontFamily:action.payload.value.fontFamily ,settings: {}, id: action.payload.id}
+//            //    newElement={ type: action.payload.type, value: action.payload.value}
+//           }
+//           else if(action.payload.type=='Image' || action.payload.type== 'Video'|| action.payload.type=='Gallery')
+//           {
+//            newElement = { type: action.payload.type, value: action.payload.value.value, alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor, settings: {}, id: action.payload.id}
+  
+//           }
+//           // console.log(newElement)
+
+
+//           //avant
+//          //  const newElement = { type: action.payload.type, value: action.payload.value, settings: {}, id: action.payload.id }
+       
+       
+       
+       
+//            //  const newElement={type: action.payload.type, value: action.payload.value}
+//            console.log(newElement)
+//            state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+//            state.elementInEditing = newElement;
+//            state.collapseIsOpen = "element"
+//            state.jsonPage.num_elements++
+
+//            // state.editinigElement = true
+
+//            return state
+//        }
+//        case ADD_ELEMENT1: {
+//             debugger
+        
+//            //avant
+//          // const newElement = { type: action.payload.type, value: action.payload.value}
+         
+         
+// //apres
+//        let newElement
+//        console.log(action.payload.type)
+//        if(action.payload.type=='Title' ||action.payload.type== 'Paragraph')
+//        {
+//         // console.log('he enter a itle or addelement1')
+
+//         newElement = { type: action.payload.type, value: action.payload.value.text ,color:action.payload.value.color,fontSize:action.payload.value.fontSize, border:action.payload.value.border,textAlign:action.payload.value.textAlign,fontFamily:action.payload.value.fontFamily}
+//   //  newElement={ type: action.payload.type, value: action.payload.value.text}
+
+//        }
+//        else if(action.payload.type=='Image' || action.payload.type== 'Video' ||  action.payload.type=='Gallery')
+//        { 
+//         newElement = { type: action.payload.type, value: action.payload.value.path ,alignItem: action.payload.value.alignItem,backgroundColor:action.payload.value.backgroundColor}
+
+//        }
+
+
+//           // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+//            // state.elementInEditing = newElement;
+//            // state.collapseIsOpen = "element"
+//            // state.jsonPage.num_elements++
+
+//          state.newElementTypeAndValue=newElement
+
+//            // state.editinigElement = true
+
+//            return state
+//        }
 
 //         case ADD_ELEMENT: {
 //             debugger

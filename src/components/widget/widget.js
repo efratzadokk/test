@@ -357,9 +357,15 @@ function Widget(props) {
                 <>
                 <div ref={drag} className="align-self-center pl-1 move" onDrag={e => drag1(e)} draggable="true" ondragstart="drag(event)" >
 
-                    <div  style={{ textAlign: 'center', alignItems: 'center' }}>
+                    {/* <div  style={{ textAlign: 'center', alignItems: 'center' }}>
                         <img src={props.img} alt={props.name} ></img>
                         <div>{props.name}</div>
+                        <hr />
+                    </div> */}
+
+                        <div >
+                        <img  style={{height:'25px' , alignItems: 'center' , width:'30px' }} src={props.img} alt={props.name} ></img>
+                        <div style={{height:'10px', width:'30px' }}>{props.name}</div>
                         <hr />
                     </div>
                 </div>
