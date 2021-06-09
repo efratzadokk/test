@@ -235,7 +235,6 @@ const cardSchema = mongoose.Schema({
         buttons: {
             width: { type: String },
             top: { type: String },
-            width: { type: String },
             callMe: {
                 background: { type: String },
                 border: { type: String },
@@ -279,22 +278,26 @@ const cardSchema = mongoose.Schema({
             about: {
                 color: { type: String },
                 font: { type: String },
-                textAlign: { type: String }
+                textAlign: { type: String },
+                colorDextop: { type: String }
             },
             gallery: {
                 color: { type: String },
                 font: { type: String },
-                textAlign: { type: String }
+                textAlign: { type: String },
+                colorDextop: { type: String }
             },
             video: {
                 color: { type: String },
                 font: { type: String },
-                textAlign: { type: String }
+                textAlign: { type: String },
+                colorDextop: { type: String }
             },
             reviews: {
                 color: { type: String },
                 font: { type: String },
-                textAlign: { type: String }
+                textAlign: { type: String },
+                colorDextop: { type: String }
             },
         },
         buttomEditColor:{ type: String },

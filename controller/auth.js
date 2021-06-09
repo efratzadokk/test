@@ -26,7 +26,7 @@ const checkPermission = async (req, res, next) => {
         console.log(req.cookies.devJwt, cookie)
         const options = {
             method: "GET",
-            url: `https://accounts.codes/isPermission/${userName}`   ,
+            url: `${process.env.BASE_LOGIN_URL}/isPermission/${userName}`   ,
             headers: { Cookie: cookie }
         };
         request(options, (error, response, body) => {
