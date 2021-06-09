@@ -45,9 +45,6 @@ const cardSchema = mongoose.Schema({
             reverse: { type: Boolean },
         }
     },
-    // socialMediaSpace: {
-    //     column: { type: Number }
-    // },
     sectionExpandeds: {
         type: Array
     },
