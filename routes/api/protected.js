@@ -6,6 +6,7 @@ const RegisterController = require('../../controller/register.js')
 const UserController = require('../../controller/User.js')
 const ReviewController = require('../../controller/Reveiwies.js');
 const StatisticController = require('../../controller/statistic');
+const marketplaceController =require('../../controller/marketplace');
 //permission
 router.get('/:userName/isPermission',RegisterController.cheakPremission);
 
@@ -18,6 +19,7 @@ router.get("/:userName/getStatistic/:cardName", StatisticController.getStatistic
 
 //card
 router.post("/:userName/checkUniqueCardName", DigitalCardController.checkUniqueCardName);
+router.post("/:userName/checkUniqueMarketName", marketplaceController.checkUniqueMarketName);
 router.post("/:userName/editCardName", DigitalCardController.editCardName);
 router.post("/:userName/updateUserIndexCardName", UserController.updateUserIndexCardName);
 

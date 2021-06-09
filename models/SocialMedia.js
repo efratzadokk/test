@@ -12,8 +12,8 @@ const socialMediaSchema = mongoose.Schema({
     show: { type: Boolean },
     message: { type: String },
     numClick: { type: Number },
-    showConfigurator:{ type: Boolean },
-    isDelete:{ type: Boolean}
+    showConfigurator: { type: Boolean },
+    isDelete: { type: Boolean }
 
 })
 
