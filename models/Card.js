@@ -246,11 +246,13 @@ const cardSchema = mongoose.Schema({
                 background: { type: String },
                 border: { type: String },
                 borderRadius: { type: String },
+                borderColor: { type: String },
                 color: { type: String },
                 reverse: { type: Boolean }
             }
         },
         socialMediaSpace: {
+            width:{ type: String },
             mobile: {
                 flexWrap: { type: String },
                 top: { type: String }
@@ -274,24 +276,29 @@ const cardSchema = mongoose.Schema({
             about: {
                 color: { type: String },
                 font: { type: String },
-                textAlign: { type: String }
+                textAlign: { type: String },
+                colorDextop: { type: String }
             },
             gallery: {
                 color: { type: String },
                 font: { type: String },
-                textAlign: { type: String }
+                textAlign: { type: String },
+                colorDextop: { type: String }
             },
             video: {
                 color: { type: String },
                 font: { type: String },
-                textAlign: { type: String }
+                textAlign: { type: String },
+                colorDextop: { type: String }
             },
             reviews: {
                 color: { type: String },
                 font: { type: String },
-                textAlign: { type: String }
+                textAlign: { type: String },
+                colorDextop: { type: String }
             },
         },
+        buttomEditColor:{ type: String },
         emailForm: {
             background: { type: String },
             title: {
