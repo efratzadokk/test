@@ -16,7 +16,7 @@ const cheakPremission = async (req, res) => {
     const cookie = request.cookie(`jwt=${jwt}`)
     const options = {
         method: "GET",
-        url: `https://accounts.codes/api/${req.params.userName}`,
+        url: `${process.env.BASE_LOGIN_URL}/api/${req.params.userName}`,
         headers: { Cookie: cookie }
     };
     request(options, async (error, response, body) => {
