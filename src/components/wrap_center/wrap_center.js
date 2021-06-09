@@ -24,9 +24,9 @@ width: ${props => (props.flagCon ? '79%' : '95%')};
                 {/* <Ex></Ex> */}
             <div className="row" >
                 <Switch>
-                    <Route path='/admin/:userName/:funnel/all'>
+                    {/* <Route path='/admin/:userName/:funnel/all'>
                         <AllFunnels></AllFunnels>
-                    </Route>
+                    </Route> */}
                     <Route path='/:userName/:funnel'>
                         <Menu ></Menu>
                         {/* <Emulator> */}
