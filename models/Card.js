@@ -235,7 +235,6 @@ const cardSchema = mongoose.Schema({
         buttons: {
             width: { type: String },
             top: { type: String },
-            width: { type: String },
             callMe: {
                 background: { type: String },
                 border: { type: String },
@@ -248,12 +247,12 @@ const cardSchema = mongoose.Schema({
                 border: { type: String },
                 borderColor: { type: String },
                 borderRadius: { type: String },
-                borderColor: { type: String },
                 color: { type: String },
                 reverse: { type: Boolean }
             }
         },
         socialMediaSpace: {
+            isArrow:{ type: Boolean },
             width:{ type: String },
             mobile: {
                 flexWrap: { type: String },
