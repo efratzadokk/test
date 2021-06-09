@@ -233,6 +233,7 @@ const cardSchema = mongoose.Schema({
             }
         },
         buttons: {
+            width: { type: String },
             top: { type: String },
             width: { type: String },
             callMe: {
@@ -254,6 +255,7 @@ const cardSchema = mongoose.Schema({
         socialMediaSpace: {
             isArrow: { type: Boolean },
             column: { type: Number },
+            width:{ type: String },
             mobile: {
                 flexWrap: { type: String },
                 top: { type: String }
@@ -295,6 +297,7 @@ const cardSchema = mongoose.Schema({
                 textAlign: { type: String }
             },
         },
+        buttomEditColor:{ type: String },
         emailForm: {
             background: { type: String },
             title: {
