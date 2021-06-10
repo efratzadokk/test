@@ -205,7 +205,8 @@ const cardSchema = mongoose.Schema({
             height: {
                 width: { type: String },
                 height: { type: String }
-            }
+            },
+            heightView: { type: String }
         },
         fullName: {
             direction: { type: String },
@@ -251,7 +252,7 @@ const cardSchema = mongoose.Schema({
         socialMediaSpace: {
             isArrow: { type: Boolean },
             column: { type: Number },
-            width:{ type: String },
+            width: { type: String },
             mobile: {
                 flexWrap: { type: String },
                 top: { type: String }
@@ -297,7 +298,7 @@ const cardSchema = mongoose.Schema({
                 colorDextop: { type: String }
             },
         },
-        buttomEditColor:{ type: String },
+        buttomEditColor: { type: String },
         emailForm: {
             background: { type: String },
             title: {
