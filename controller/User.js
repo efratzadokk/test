@@ -1,40 +1,30 @@
 const User = require('../models/User.js');
-const service = require('../service/User.services')
-
-// getUidByUserName = async (req, res) => {
-//     console.log("inside!!!!!!!!!!!!!!!!!")
-//     const userName = req.params.userName
-//     const user = await User.findOne({ username: userName })
-//     if (user)
-//         res.json({ "user": user })
-//     else
-//         res.json("undifined")
-
-// };
 
 getUidByUserName = async (req, res) => {
+    console.log("inside!!!!!!!!!!!!!!!!!")
     const userName = req.params.userName
-    const user = await service.getUidByUserName(userName)
-    res.json({ "user": user })
+    const user = await User.findOne({ username: userName })
+    if (user)
+        res.json({ "user": user })
+    else
+        res.json("undifined")
+
 };
 
-// updateUserIndexCardName = async (req, res) => {
-//     console.log("index card name!!!!!!!!!!!!!!!!!")
-//     const userName = req.params.userName
-//     const user = await User.findOne({ username: userName })
-//     if (user) {
-//         user.cardIndexName=req.body.indexCardName
-//         let result = await user.save();
-//         res.send(result);
-//     }
-//     else
-//         res.json("undifined")
-// };
+
 updateUserIndexCardName = async (req, res) => {
+    console.log("index card name!!!!!!!!!!!!!!!!!")
     const userName = req.params.userName
-    const user = await service.updateUserIndexCardName(userName,req.body.indexCardName)
-    res.send(user);
+    const user = await User.findOne({ username: userName })
+    if (user) {
+        user.cardIndexName=req.body.indexCardName
+        let result = await user.save();
+        res.send(result);
+    }
+    else
+        res.json("undifined")
 };
+
 
 
 checkPermission = async (req, res, next) => {
