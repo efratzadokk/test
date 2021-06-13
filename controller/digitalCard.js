@@ -6,7 +6,7 @@ const Lead = require('../models/Leads.js');
 const Statistic = require('../models/Statistics');
 const ReveiwieController = require('./Reveiwies.js');
 const GalleryController = require('./Gallery.js');
-const SocialMediaController = require('./socialMedias');
+const SocialMediaService = require('../service/socialMedias.service');
 const LeadController = require('./lead')
 const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
@@ -26,7 +26,7 @@ createDigitalCard = async (req, res) => {
         card.user = await User.findOne({ "username": req.params.userName })
         card.statistic = statistic;
         card.lead = lead;
-        card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
+        card.socialMedia = await SocialMediaService.saveSocialMedias(req.body.socialMedia);
         card.galleryList = await GalleryController.saveGallerys(req.body.galleryList);
         card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
 
@@ -54,7 +54,7 @@ createDigitalCard = async (req, res) => {
 updateDigitalCard = async (req, res) => {
     let card = req.body;
     card.socialMedia = await
-    SocialMediaController.updateSocialMedia(card.socialMedia)
+    SocialMediaService.updateSocialMedia(card.socialMedia)
     card.galleryList = await GalleryController.updateGallery(card.galleryList)
     card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
     card.lead = await LeadController.updateLead(card.lead)
@@ -106,7 +106,7 @@ copyCard = async (req, res) => {
         newCard.lead = newLead;
         await newLead.save();
 
-        newCard.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
+        newCard.socialMedia = await SocialMediaService.saveSocialMedias(cardToCopy.socialMedia);
         newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
         newCard.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
 
