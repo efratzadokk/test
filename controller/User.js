@@ -1,5 +1,5 @@
 const User = require('../models/User.js');
-const service = require('../service/user.services')
+const service = require('../service/user.service')
 
 // getUidByUserName = async (req, res) => {
 //     console.log("inside!!!!!!!!!!!!!!!!!")
@@ -13,11 +13,15 @@ const service = require('../service/user.services')
 // };
 
 getUidByUserName = async (req, res) => {
-    const userName = req.params.userName
-    const user = await service.getUidByUserName(userName)
-    res.json({ "user": user })
+    try {
+        const userName = req.params.userName
+        const user = await service.getUidByUserName(userName)
+        res.json({ "user": user })
+    }
+    catch (err) {
+        res.send(err.message)
+    }
 };
-
 // updateUserIndexCardName = async (req, res) => {
 //     console.log("index card name!!!!!!!!!!!!!!!!!")
 //     const userName = req.params.userName
@@ -31,9 +35,14 @@ getUidByUserName = async (req, res) => {
 //         res.json("undifined")
 // };
 updateUserIndexCardName = async (req, res) => {
-    const userName = req.params.userName
-    const user = await service.updateUserIndexCardName(userName,req.body.indexCardName)
-    res.send(user);
+    try {
+        const userName = req.params.userName
+        const user = await service.updateUserIndexCardName(userName, req.body.indexCardName)
+        res.send(user);
+    }
+    catch (err) {
+        res.send(err.message)
+    }
 };
 
 

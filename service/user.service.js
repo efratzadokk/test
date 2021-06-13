@@ -1,10 +1,10 @@
 
-const User = require('../repository/user.reposition');
+const repository = require('../repository/user.reposition');
 
 getUidByUserName = (userName) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await User.findObject(User, { username: userName })
+            const user = await repository.findObject(User, { username: userName })
             resolve(user);
         }
         catch (err) {
@@ -16,9 +16,9 @@ getUidByUserName = (userName) => {
 updateUserIndexCardName = (userName,indexCardName) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await User.findObject(User, { username: userName })
+            const user = await repository.findObject(User, { username: userName })
             user.cardIndexName = indexCardName
-            let result = await User.save(user);
+            let result = await repository.save(user);
             resolve(result);
         }
         catch (err) {
