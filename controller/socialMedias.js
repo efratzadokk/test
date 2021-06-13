@@ -18,7 +18,6 @@ saveSocialMedias = (socialMedia) => {
                 })).then(() => {
                     resolve(socialMedias)
                 })
-
         } catch (error) {
             console.log("reveiw errore: -", error)
             reject(error);
