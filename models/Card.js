@@ -136,6 +136,8 @@ const cardSchema = mongoose.Schema({
             video: { type: Boolean },
             borderColor: { type: String },
             borderWidth: { type: String },
+            hoverBackgroundCover:{ type: Boolean },
+
             mobile: {
                 src: { type: String },
                 srcName: { type: String }
