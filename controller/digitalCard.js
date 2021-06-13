@@ -173,27 +173,48 @@ copyCard = async (req, res) => {
 
 //by card name only
 checkUniqueCardName = async (req, res) => {
-    let cardName = req.body.cardname;
-    let id = req.body.id;
     try {
-        let card = await Card.findOne({ cardName: cardName, isDelete: false })
-        if (card && card._id != id) {
-            return res.send(false)
-        }
-
-        res.send(true);
-    } catch (err) {
-        res.send(err);
+        let cardBody=(req.body)
+        let isCardExist= await service.checkUniqueCardName(cardBody)
+        return res.json(isCardExist)
     }
+    catch(err)
+    {
+           res.send(error)
+    }
+    // let cardName = req.body.cardname;
+    // let id = req.body.id;
+    // try {
+    //     let card = await Card.findOne({ cardName: cardName, isDelete: false })
+    //     if (card && card._id != id) {
+    //         return res.send(false)
+    //     }
+
+    //     res.send(true);
+    // } catch (err) {
+    //     res.send(err);
+    // }
 }
 
+
 editCardName = async (req, res) => {
-    let cardId = req.body.cardId;
-    let cardName = req.body.cardName;
-    const filter = { _id: cardId };
-    const update = { cardName: cardName };
-    let doc = await Card.findOneAndUpdate(filter, update);
-    res.send(doc);
+
+    try {
+        let cardBody=(req.body)
+        let isCardExist= await service.editCardName(cardBody)
+        return res.json(isCardExist)
+    }
+    catch(err)
+    {
+           res.send(error)
+    }
+
+    // let cardId = req.body.cardId;
+    // let cardName = req.body.cardName;
+    // const filter = { _id: cardId };
+    // const update = { cardName: cardName };
+    // let doc = await Card.findOneAndUpdate(filter, update);
+    // res.send(doc);
 
 }
 

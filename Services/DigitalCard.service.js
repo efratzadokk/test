@@ -2,6 +2,7 @@ const repository= require('../repository/DigitalCard.repository')
 const Card = require('../models/Card.js');
 const Lead = require('../models/Leads.js');
 const Statistic = require('../models/Statistics');
+const { resolve } = require('path');
 // const { updateDigitalCard } = require('../controller/digitalCard');
 
 let createDigitalCard =  (cardData) => {
@@ -86,7 +87,7 @@ let deleteCard=(cardData)=>{
 }
 
 let copyCard=(cardData,username)=>{
-    return new Promise((resolve,reject)=>{ 
+    return new Promise(async(resolve,reject)=>{ 
     const cardToCopy = cardData;
     const userName = username;
     try {     
@@ -118,4 +119,42 @@ let copyCard=(cardData,username)=>{
     }
 })
 }
-module.exports={createDigitalCard,updateDigitalCard,deleteCard,copyCard}
+
+let checkUniqueCardName=(cardData)=>{
+    return new Promise(async (resolve, reject)=>{
+        let cardName = cardData.cardname;
+        let id = cardData.id;
+        try {
+            let card = await repository.findObject(Card,{cardName: cardName, isDelete: false})
+            if (card && card._id != id) {
+               resolve (false)
+            }
+    
+            resolve(true);
+        } catch (err) {
+            reject(err);
+        }
+
+    })
+
+}
+
+let editCardName=(cardData)=>{
+    return new Promise(async(resolve, reject)=>{
+        try{
+        let cardId = cardData.cardId;
+        let cardName = cardData.cardName;
+        const filter = { _id: cardId };
+        const update = { cardName: cardName };
+       let doc=await repository.findObjectAndUpdate(Card, [filter,update])
+       resolve(doc);
+        }
+        catch(err)
+       { 
+           reject(err)
+        }
+    })
+}
+
+
+module.exports={createDigitalCard,updateDigitalCard,deleteCard,copyCard,checkUniqueCardName,editCardName}
