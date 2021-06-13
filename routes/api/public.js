@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const digitalCardController = require('../../controller/digitalCard.js')
-const CategoriesController = require('../../controller/Categories.js')
+const CategoriesController = require('../../controller/categories.js')
 const StatisticController = require('../../controller/statistic')
 
 

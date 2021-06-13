@@ -1,12 +1,12 @@
 const Statistic = require('../models/Statistics');
 getStatistic = async (req, res) => {
     try {
-        let statistic = await Statistic.findOne({ cardName: req.params.cardName ,isDelete:false})
+        let statistic = await Statistic.findOne({ cardName: req.params.cardName, isDelete: false })
         console.log(statistic);
         res.status(200).json(statistic)
     }
     catch (err) {
-        
+
         console.log(err.message);
     }
 }
@@ -39,8 +39,7 @@ updateStatistic = (statistic) => {
 }
 setCntSocialMediaAndCall = async (req, res) => {
     try {
-        console.log("+++++++++++", statistic.activeViewer);
-        let statistic = await Statistic.findOne({ _id: req.params.idStatistic,isDelete:false})
+        let statistic = await Statistic.findOne({ _id: req.params.idStatistic, isDelete: false })
         statistic.socialMediaCnt = req.body.cntSocial
         statistic.callMeCnt = req.body.cntCallMe
         await statistic.save()
