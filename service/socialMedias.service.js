@@ -32,9 +32,7 @@ saveSocialMedias = (socialMedia) => {
             Promise.all(
                 socialMedia.map(async (social) => {
                     //for copy card
-                    let temp = new SocialMedia();
                     let newSocial = new SocialMedia(social);
-                    newSocial._id=temp._id
                     await repository.save(newSocial);
                     await socialMedias.push(newSocial);
 
@@ -49,45 +47,76 @@ saveSocialMedias = (socialMedia) => {
 }
 
 
+// updateSocialMedia = (socialMediaList) => {
+//     return new Promise(async (resolve, reject) => {
+//         console.log("inside update social Media !")
+//         let newSocialMediaList=[];
+//         let newSocialMedia;
+//         try {
+//             await Promise.all(
+//                 socialMediaList.map(async (socialMedia) => {
+//                     if (socialMedia._id) {
+//                         newSocialMedia=await SocialMedia.findByIdAndUpdate(
+//                             socialMedia._id,
+//                             socialMedia,
+//                             { new: true },
+//                             (err, newSocialMedia)=>{
+//                                 if(err) reject(err);
+//                                 newSocialMediaList.push(newSocialMedia._doc);
+//                             }
+//                         )
+//                     }
+//                     else{
+//                         newSocialMedia=new SocialMedia(socialMedia)
+//                         newSocialMedia.save((err,newSM)=>{
+
+//                             if(err) reject(err);
+//                             newSocialMediaList.push(newSM._doc);
+//                         })
+//                     }
+//                 })).then(() => {
+//                     console.log("newSocialMedia",newSocialMedia)
+//                 }).then(() => {
+//                     resolve(newSocialMediaList)
+//                 })
+//         } catch (error) {
+//             console.log("SocialMedia errore: -", error)
+//             reject(error);
+//         }
+//     });
+// }
 updateSocialMedia = (socialMediaList) => {
     return new Promise(async (resolve, reject) => {
-        console.log("inside update social Media !")
-        let newSocialMediaList=[];
+        let newSocialMediaList = [];
         let newSocialMedia;
         try {
             await Promise.all(
                 socialMediaList.map(async (socialMedia) => {
                     if (socialMedia._id) {
-                        newSocialMedia=await SocialMedia.findByIdAndUpdate(
+                        newSocialMedia = await repository.findObjectByIdAndUpdate(
                             socialMedia._id,
                             socialMedia,
-                            { new: true },
-                            (err, newSocialMedia)=>{
-                                if(err) reject(err);
-                                newSocialMediaList.push(newSocialMedia._doc);
-                            }
                         )
+                        newSocialMediaList.push(newSocialMedia._doc);
                     }
-                    else{
-                        newSocialMedia=new SocialMedia(socialMedia)
-                        newSocialMedia.save((err,newSM)=>{
-                            
-                            if(err) reject(err);
+                    else {
+                        newSocialMedia = new SocialMedia(socialMedia)
+                        newSocialMedia.save((err, newSM) => {
+
+                            if (err) reject(err);
                             newSocialMediaList.push(newSM._doc);
                         })
                     }
                 })).then(() => {
-                    console.log("newSocialMedia",newSocialMedia)
+                    console.log("newSocialMedia", newSocialMedia)
                 }).then(() => {
                     resolve(newSocialMediaList)
                 })
         } catch (error) {
-            console.log("SocialMedia errore: -", error)
-            reject(error);
+            reject(error.message);
         }
     });
 }
-
 module.exports = {
     saveSocialMedias,
     updateSocialMedia
