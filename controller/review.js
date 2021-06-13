@@ -1,4 +1,4 @@
-const Reveiw = require('../models/Reveiw.js');
+const Reveiw = require('../models/reveiw.js');
 
 
 saveReveiws = (reveiw) => {

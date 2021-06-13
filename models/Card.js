@@ -363,6 +363,10 @@ const cardSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Leads'
     },
+    marketplaces: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Marketplace'
+    }],
 });
 
 

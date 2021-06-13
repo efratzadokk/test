@@ -4,8 +4,8 @@ const io = require('socket.io')(5001, {
         method: ['POST', 'GET']
     }
 })
-const Card = require('../models/Card')
-const User = require('../models/User')
+const Card = require('../models/card')
+const User = require('../models/user')
 
 let countByCardName = {};
 io.on('connection', socket => {
