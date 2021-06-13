@@ -119,9 +119,28 @@ updateMarketplace = async (username, marketplace) => {
     });
 }
 
+getAllMarkets = (userName) => {
+
+    return new Promise((resolve, reject) => {
+        console.log("username", userName)
+        User.findOne({ username: userName })
+            .populate({
+                path: "marketplaces",
+                populate: [ { path: 'cards', match: { isDelete: false }}],
+                match: { isDelete: false }
+            })
+            .exec((err, user) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(user.marketplaces)
+            })
+    });
+}
 
 module.exports = {
     checkUniqueMarketName,
     saveMarketplace,
-    updateMarketplace
+    updateMarketplace,
+    getAllMarkets
 }

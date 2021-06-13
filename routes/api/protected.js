@@ -65,6 +65,17 @@ router.post("/:userName/updateMarketplace",(req,res)=>{
     })
 });
 
+router.get('/:userName/getAllMarkets',(req,res)=>{
+
+    marketplaceController.getAllMarkets(req.params.userName).
+    then(data=>{
+        res.send(data);
+    })
+    .catch(err=>{
+        res.send(err)
+    })
+});
+
 
 module.exports = router;
 
