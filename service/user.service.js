@@ -18,7 +18,7 @@ updateUserIndexCardName = (userName,indexCardName) => {
         try {
             const user = await repository.findObject(User, { username: userName })
             user.cardIndexName = indexCardName
-            let result = await repository.save(user);
+            let result = await repository.saveObject(user);
             resolve(result);
         }
         catch (err) {

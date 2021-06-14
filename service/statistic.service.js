@@ -44,7 +44,7 @@ setCntSocialMediaAndCall = (id, body) => {
             let statistic = await repository.findObject(Statistic, { _id: id, isDelete: false })
             statistic.socialMediaCnt = body.cntSocial
             statistic.callMeCnt = body.cntCallMe
-            await repository.save(statistic)
+            await repository.saveObject(statistic)
             resolve(statistic);
         }
         catch (err) {

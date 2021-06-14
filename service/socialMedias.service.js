@@ -33,7 +33,7 @@ saveSocialMedias = (socialMedia) => {
                 socialMedia.map(async (social) => {
                     //for copy card
                     let newSocial = new SocialMedia(social);
-                    await repository.save(newSocial);
+                    await repository.saveObject(newSocial);
                     await socialMedias.push(newSocial);
 
                 })).then(() => {
@@ -45,7 +45,6 @@ saveSocialMedias = (socialMedia) => {
         }
     });
 }
-
 
 // updateSocialMedia = (socialMediaList) => {
 //     return new Promise(async (resolve, reject) => {
@@ -93,26 +92,23 @@ updateSocialMedia = (socialMediaList) => {
             await Promise.all(
                 socialMediaList.map(async (socialMedia) => {
                     if (socialMedia._id) {
-                        newSocialMedia = await repository.findObjectByIdAndUpdate(
+                        newSocialMedia = await repository.findObjectByIdAndUpdate(SocialMedia,
                             socialMedia._id,
-                            socialMedia,
-                        )
+                            [socialMedia, { new: true }])
                         newSocialMediaList.push(newSocialMedia._doc);
                     }
                     else {
                         newSocialMedia = new SocialMedia(socialMedia)
-                        newSocialMedia.save((err, newSM) => {
-
-                            if (err) reject(err);
-                            newSocialMediaList.push(newSM._doc);
-                        })
+                        await repository.saveObject(newSocialMedia)
+                        newSocialMediaList.push(newSM._doc);
                     }
                 })).then(() => {
                     console.log("newSocialMedia", newSocialMedia)
                 }).then(() => {
                     resolve(newSocialMediaList)
                 })
-        } catch (error) {
+        }
+        catch (error) {
             reject(error.message);
         }
     });

@@ -4,7 +4,7 @@ const router = express.Router();
 const DigitalCardController = require('../../controller/digitalCard.js')
 const RegisterController = require('../../controller/register.js')
 const UserController = require('../../controller/user.js')
-const ReviewController = require('../../controller/Reveiwies.js');
+const ReviewController = require('../../controller/reveiwies.js');
 const StatisticController = require('../../controller/statistic');
 const marketplaceController =require('../../controller/marketplace');
 //permission

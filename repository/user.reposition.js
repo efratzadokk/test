@@ -3,7 +3,6 @@ const { models } = require("mongoose");
 
 saveObject = (obj) => {
     return new Promise(async (resolve, reject) => {
-
         try {
             const savedObj = await obj.save()
             resolve(savedObj);
@@ -56,8 +55,19 @@ findObjectByIdAndUpdate = (model, id, optionsArr) => {
         }
     })
 }
+findObjectByIdAndDelete = (model, id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const doc = await model.findByIdAndDelete(id)
+            resolve(doc)
+        }
+        catch (err) {
+            reject(err)
+        }
+    })
+}
 
 
 
 
-module.exports = { saveObject, findObject, findObjectAndUpdate, findObjectByIdAndUpdate }
+module.exports = { saveObject, findObject, findObjectAndUpdate, findObjectByIdAndUpdate,findObjectByIdAndDelete }

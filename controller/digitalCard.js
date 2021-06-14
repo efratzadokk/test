@@ -4,7 +4,7 @@ const request = require('request');
 const Card = require('../models/Card.js');
 const Lead = require('../models/Leads.js');
 const Statistic = require('../models/Statistics');
-const ReveiwieController = require('./Reveiwies.js');
+const ReveiwieService = require('../service/reveiwies.service');
 const GalleryController = require('./Gallery.js');
 const SocialMediaService = require('../service/socialMedias.service');
 const LeadController = require('./lead')
@@ -28,7 +28,7 @@ createDigitalCard = async (req, res) => {
         card.lead = lead;
         card.socialMedia = await SocialMediaService.saveSocialMedias(req.body.socialMedia);
         card.galleryList = await GalleryController.saveGallerys(req.body.galleryList);
-        card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
+        card.reviewsList = await ReveiwieService.saveReveiws(req.body.reviewsList);
 
         card.socialMedia.idCard = card._id
         card.galleryList.idCard = card._id
@@ -56,7 +56,7 @@ updateDigitalCard = async (req, res) => {
     card.socialMedia = await
     SocialMediaService.updateSocialMedia(card.socialMedia)
     card.galleryList = await GalleryController.updateGallery(card.galleryList)
-    card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
+    card.reviewsList = await ReveiwieService.updateReveiw(card.reviewsList)
     card.lead = await LeadController.updateLead(card.lead)
     let statistic = await Statistic.findByIdAndUpdate(card.statistic, { isDelete: true }, { new: true });
     Card.findByIdAndUpdate(
@@ -108,7 +108,7 @@ copyCard = async (req, res) => {
 
         newCard.socialMedia = await SocialMediaService.saveSocialMedias(cardToCopy.socialMedia);
         newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
-        newCard.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
+        newCard.reviewsList = await ReveiwieService.saveReveiws(cardToCopy.reviewsList);
 
         newCard.save(async (err, cardAfterSave) => {
             console.log("card-----", cardAfterSave);
