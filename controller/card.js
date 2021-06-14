@@ -4,7 +4,6 @@ const request = require('request');
 // const ReveiwieController = require('../service/reveiwies.service');
 // const GalleryController = require('./Gallery.js');
 // const SocialMediaController = require('./socialMedias');
-// const LeadController = require('./lead')
 const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
 const UAParser = require('ua-parser-js');
