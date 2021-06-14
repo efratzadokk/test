@@ -1,4 +1,4 @@
-const Gallery = require('../models/Gallery.js');
+const Gallery = require('../models/gallery.js');
 
 saveGallerys = (gallery) => {
     return new Promise(async (resolve, reject) => {
