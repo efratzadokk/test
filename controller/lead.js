@@ -1,4 +1,4 @@
-const Lead = require('../models/Leads');
+const Lead = require('../models/leads');
 
 
 updateLead = (lead) => {
