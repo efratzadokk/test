@@ -18,7 +18,7 @@ createDigitalCard = async (req, res) => {
     try {
         let cardBody=(req.body)
         let card= await service.createDigitalCard(cardBody)
-        return res.json(card)
+        return res.status(201).json(card)
     }
     catch(err)
     {
@@ -120,7 +120,7 @@ copyCard = async (req, res) => {
         let cardBody=(req.body)
         let userName=req.params.userName
         let card= await service.copyCard(cardBody,userName)
-        return res.json(card)
+        return res.status(201).json(card)
     }
     catch(err)
     {
