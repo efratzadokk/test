@@ -1,5 +1,5 @@
 const Reveiw = require('../models/Reveiw.js');
-const repository = require('../repository/user.reposition');
+const repository = require('../repository/repository');
 
 saveReveiws = (reveiw) => {
     return new Promise(async (resolve, reject) => {

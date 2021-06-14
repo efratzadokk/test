@@ -1,157 +1,217 @@
 const User = require('../models/User.js');
 const path = require('path');
 const request = require('request');
-const Card = require('../models/Card.js');
-const Lead = require('../models/Leads.js');
-const Statistic = require('../models/Statistics');
-const ReveiwieService = require('../service/reveiwies.service');
-const GalleryController = require('./Gallery.js');
-const SocialMediaService = require('../service/socialMedias.service');
-const LeadController = require('./lead')
+// const ReveiwieController = require('../service/reveiwies.service');
+// const GalleryController = require('./Gallery.js');
+// const SocialMediaController = require('./socialMedias');
+// const LeadController = require('./lead')
 const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
+const service=require('../service/digitalCard.service')
 
 createDigitalCard = async (req, res) => {
     try {
-        let card = await new Card(req.body)
-        let statistic = await new Statistic(req.body.statistic)
-        statistic.cardName = card.cardName
-        statistic.idCard = card._id
-        await statistic.save()
-        let lead = await new Lead(req.body.lead)
-        lead.idCard = card._id
-        await lead.save()
-        card.user = await User.findOne({ "username": req.params.userName })
-        card.statistic = statistic;
-        card.lead = lead;
-        card.socialMedia = await SocialMediaService.saveSocialMedias(req.body.socialMedia);
-        card.galleryList = await GalleryController.saveGallerys(req.body.galleryList);
-        card.reviewsList = await ReveiwieService.saveReveiws(req.body.reviewsList);
+        let cardBody=(req.body)
+        let card= await service.createDigitalCard(cardBody)
+        return res.json(card)
+    }
+    catch(err)
+    {
+           res.send(error)
+    }
 
-        card.socialMedia.idCard = card._id
-        card.galleryList.idCard = card._id
-        card.reviewsList.idCard = card._id
-        card.save(async (err, cardAfterSave) => {
-            if (err)
-                return res.send(err)
-            await User.findOneAndUpdate(
-                { "username": req.params.userName },
-                { $push: { cards: cardAfterSave._id } },
-                { new: true }
-            )
-            return res.status(200).json(cardAfterSave)
-        })
-    }
-    catch (error) {
-        console.log("error", error)
-        res.send(error)
-    }
+    //     let card = await new Card(req.body)
+    //     let statistic = await new Statistic(req.body.statistic)
+    //     statistic.cardName = card.cardName
+    //     statistic.idCard = card._id
+    //     await statistic.save()
+    //     let lead = await new Lead(req.body.lead)
+    //     lead.idCard = card._id
+    //     await lead.save()
+    //     card.user = await User.findOne({ "username": req.params.userName })
+    //     card.statistic = statistic;
+    //     card.lead = lead;
+    //     card.socialMedia = await SocialMediaController.saveSocialMedias(req.body.socialMedia);
+    //     card.galleryList = await GalleryController.saveGallerys(req.body.galleryList);
+    //     card.reviewsList = await ReveiwieController.saveReveiws(req.body.reviewsList);
+
+    //     card.socialMedia.idCard = card._id
+    //     card.galleryList.idCard = card._id
+    //     card.reviewsList.idCard = card._id
+    //     card.save(async (err, cardAfterSave) => {
+    //         if (err)
+    //             return res.send(err)
+    //         await User.findOneAndUpdate(
+    //             { "username": req.params.userName },
+    //             { $push: { cards: cardAfterSave._id } },
+    //             { new: true }
+    //         )
+    //         return res.status(200).json(cardAfterSave)
+    //     })
+    // }
+    // catch (error) {
+    //     console.log("error", error)
+    //     res.send(error)
+    // }
 }
 
 
 updateDigitalCard = async (req, res) => {
-    let card = req.body;
-    card.socialMedia = await
-    SocialMediaService.updateSocialMedia(card.socialMedia)
-    card.galleryList = await GalleryController.updateGallery(card.galleryList)
-    card.reviewsList = await ReveiwieService.updateReveiw(card.reviewsList)
-    card.lead = await LeadController.updateLead(card.lead)
-    let statistic = await Statistic.findByIdAndUpdate(card.statistic, { isDelete: true }, { new: true });
-    Card.findByIdAndUpdate(
-        { _id: req.params.cardId },
-        card,
-        { new: true },
-        (err, currentCard) => {
-            if (err) {
-                console.log(err);
-                res.send(err);
-            }
-            res.status(200).json(card);
-        }
-    );
+
+    try {
+        let cardBody=(req.body)
+        let card= await service.updateDigitalCard(cardBody)
+        return res.json(card)
+    }
+    catch(err)
+    {
+           res.send(error)
+    }
+
+    // let card = req.body;
+    // card.socialMedia = await
+    //     SocialMediaController.updateSocialMedia(card.socialMedia)
+    // card.galleryList = await GalleryController.updateGallery(card.galleryList)
+    // card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
+    // card.lead = await LeadController.updateLead(card.lead)
+    // let statistic = await Statistic.findByIdAndUpdate(card.statistic, { isDelete: true }, { new: true });
+    // Card.findByIdAndUpdate(
+    //     { _id: req.params.cardId },
+    //     card,
+    //     { new: true },
+    //     (err, currentCard) => {
+    //         if (err) {
+    //             console.log(err);
+    //             res.send(err);
+    //         }
+    //         res.status(200).json(card);
+    //     }
+    // );
 };
 
 deleteCard = async (req, res) => {
+
     try {
-        let currentCard = await Card.findOne({ _id: req.params.cardId });
-        currentCard.isDelete = true;
-        let result = await currentCard.save();
-        res.send(result);
-    } catch (error) {
-        res.send(error)
+        let cardBody=(req.body)
+        let card= await service.deleteCard(cardBody)
+        return res.json(card)
     }
+    catch(err)
+    {
+           res.send(error)
+    }
+
+    // try {
+    //     let currentCard = await Card.findOne({ _id: req.params.cardId });
+    //     currentCard.isDelete = true;
+    //     let result = await currentCard.save();
+    //     res.send(result);
+    // } catch (error) {
+    //     res.send(error)
+    // }
 }
 copyCard = async (req, res) => {
-    const cardToCopy = req.body;
-    const userName = req.params.userName;
-
     try {
-        //copy card
-        let card = await new Card()
-        let newCard = await new Card(cardToCopy)
-        newCard._id = card._id
-
-        //create new statistic
-        let newStatistic = await new Statistic()
-        newCard.statistic = newStatistic;
-        newStatistic.idCard = card;
-        await newStatistic.save();
-
-        //copy lead
-        let lead = await new Lead()
-        let newLead = await new Lead(cardToCopy.lead)
-        newLead._id = lead._id
-        newCard.lead = newLead;
-        await newLead.save();
-
-        newCard.socialMedia = await SocialMediaService.saveSocialMedias(cardToCopy.socialMedia);
-        newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
-        newCard.reviewsList = await ReveiwieService.saveReveiws(cardToCopy.reviewsList);
-
-        newCard.save(async (err, cardAfterSave) => {
-            console.log("card-----", cardAfterSave);
-            if (err)
-                return res.send(err)
-            await User.findOneAndUpdate(
-                { "username": userName },
-                { $push: { cards: cardAfterSave._id } },
-                { new: true }
-            )
-            return res.status(200).json(cardAfterSave)
-        })
+        let cardBody=(req.body)
+        let userName=req.params.userName
+        let card= await service.copyCard(cardBody,userName)
+        return res.json(card)
     }
-    catch (error) {
-        console.log("error", error)
-        res.send(error)
+    catch(err)
+    {
+           res.send(error)
     }
+
+    // const cardToCopy = req.body;
+    // const userName = req.params.userName;
+
+    // try {
+    //     //copy card
+    //     let card = await new Card()
+    //     let newCard = await new Card(cardToCopy)
+    //     newCard._id = card._id
+
+    //     //create new statistic
+    //     let newStatistic = await new Statistic()
+    //     newCard.statistic = newStatistic;
+    //     newStatistic.idCard = card;
+    //     await newStatistic.save();
+
+    //     //copy lead
+    //     let lead = await new Lead()
+    //     let newLead = await new Lead(cardToCopy.lead)
+    //     newLead._id = lead._id
+    //     newCard.lead = newLead;
+    //     await newLead.save();
+
+    //     newCard.socialMedia = await SocialMediaController.saveSocialMedias(cardToCopy.socialMedia);
+    //     newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList);
+    //     newCard.reviewsList = await ReveiwieController.saveReveiws(cardToCopy.reviewsList);
+
+    //     newCard.save(async (err, cardAfterSave) => {
+    //         console.log("card-----", cardAfterSave);
+    //         if (err)
+    //             return res.send(err)
+    //         await User.findOneAndUpdate(
+    //             { "username": userName },
+    //             { $push: { cards: cardAfterSave._id } },
+    //             { new: true }
+    //         )
+    //         return res.status(200).json(cardAfterSave)
+    //     })
+    // }
+    // catch (error) {
+    //     console.log("error", error)
+    //     res.send(error)
+    // }
 }
 
 //by card name only
 checkUniqueCardName = async (req, res) => {
-    let cardName = req.body.cardname;
-    let id = req.body.id;
     try {
-        let card = await Card.findOne({ cardName: cardName, isDelete: false })
-        if (card && card._id != id) {
-            return res.send(false)
-        }
-
-        res.send(true);
-    } catch (err) {
-        res.send(err);
+        let cardBody=(req.body)
+        let isCardExist= await service.checkUniqueCardName(cardBody)
+        return res.json(isCardExist)
     }
+    catch(err)
+    {
+           res.send(error)
+    }
+    // let cardName = req.body.cardname;
+    // let id = req.body.id;
+    // try {
+    //     let card = await Card.findOne({ cardName: cardName, isDelete: false })
+    //     if (card && card._id != id) {
+    //         return res.send(false)
+    //     }
+
+    //     res.send(true);
+    // } catch (err) {
+    //     res.send(err);
+    // }
 }
 
 
 editCardName = async (req, res) => {
-    let cardId = req.body.cardId;
-    let cardName = req.body.cardName;
-    const filter = { _id: cardId };
-    const update = { cardName: cardName };
-    let doc = await Card.findOneAndUpdate(filter, update);
-    res.send(doc);
+
+    try {
+        let cardBody=(req.body)
+        let isCardExist= await service.editCardName(cardBody)
+        return res.json(isCardExist)
+    }
+    catch(err)
+    {
+           res.send(error)
+    }
+
+    // let cardId = req.body.cardId;
+    // let cardName = req.body.cardName;
+    // const filter = { _id: cardId };
+    // const update = { cardName: cardName };
+    // let doc = await Card.findOneAndUpdate(filter, update);
+    // res.send(doc);
 
 }
 

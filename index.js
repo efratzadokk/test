@@ -6,7 +6,6 @@ const bodyParser = require('body-parser')
 const fileUpload = require("express-fileupload");
 const socket =require('./controller/socket')
 
-
 const app = express();
 
 dotenv.config();
