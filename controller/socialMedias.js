@@ -1,4 +1,4 @@
-const SocialMedia = require('../models/SocialMedia');
+const SocialMedia = require('../models/socialMedia');
 
 
 saveSocialMedias = (socialMedia) => {

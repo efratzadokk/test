@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+<<<<<<< HEAD
 const digitalCardController = require('../../controller/digitalCard.js')
+=======
+const digitalCardController = require('../../controller/card.js')
+>>>>>>> f78c99392c60bfa2f57a29b88c8f17f5ddffc56a
 const CategoriesController = require('../../controller/categories.js')
 const StatisticController = require('../../controller/statistic')
 
