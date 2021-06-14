@@ -138,9 +138,31 @@ getAllMarkets = (userName) => {
     });
 }
 
+getMarketByName = async (req) => {
+    const {marketName } = req.params;
+    //await newActivIP(req)
+    return new Promise((resolve, reject) => {
+
+        Marketplace.findOne({
+            marketName: marketName,
+            isDelete: false
+        })
+        .populate({ path: "user" })
+        .populate({ path: "cards" })
+        .exec(async (err, market) => {
+            if (err) {
+                reject(err);
+            }
+            // await newActivIP(card.statistic)
+            resolve(market)
+        })
+    });
+}
+
 module.exports = {
     checkUniqueMarketName,
     saveMarketplace,
     updateMarketplace,
-    getAllMarkets
+    getAllMarkets,
+    getMarketByName
 }
