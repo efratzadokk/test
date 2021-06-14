@@ -4,7 +4,7 @@ const router = express.Router();
 const DigitalCardController = require('../../controller/card.js')
 const RegisterController = require('../../controller/register.js')
 const UserController = require('../../controller/user.js')
-const ReviewController = require('../../controller/reveiwies.js');
+const ReviewController = require('../../controller/review.js');
 const StatisticController = require('../../controller/statistic');
 const marketplaceController = require('../../controller/marketplace');
 

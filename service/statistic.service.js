@@ -1,5 +1,5 @@
 const Statistic = require('../models/Statistics');
-const repository = require('../repository/user.reposition');
+const repository = require('../repository/repository');
 getStatistic = (cardName) => {
     return new Promise(async (resolve, reject) => {
         try {

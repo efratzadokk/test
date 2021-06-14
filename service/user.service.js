@@ -1,5 +1,5 @@
 
-const repository = require('../repository/user.reposition');
+const repository = require('../repository/repository');
 
 getUidByUserName = (userName) => {
     return new Promise(async (resolve, reject) => {

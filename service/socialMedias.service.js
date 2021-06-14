@@ -1,5 +1,5 @@
 const SocialMedia = require('../models/SocialMedia');
-const repository = require('../repository/user.reposition');
+const repository = require('../repository/repository');
 
 // saveSocialMedias = (socialMedia) => {
 //     return new Promise(async (resolve, reject) => {
