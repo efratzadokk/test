@@ -353,8 +353,23 @@ getCardByName = (reqData) => {
         reject(err)
          }
     })
- 
+}
 
+userIdByCardName = async(cardName) => {
+    return new Promise(async(resolve, reject) => {
+        try{
+        const user=await repository.findObject(Card,{ cardName: cardName })
+        const userId=user.user.userId
+        console.log(userId);
+        if (userId)
+            resolve(userId);
+        reject('not userId');
+        }
+        catch(err)
+        {
+            reject(err)
+        }
+    });
 }
 module.exports = {
     createDigitalCard,
@@ -369,5 +384,6 @@ module.exports = {
     sendMessageByCardMultiEmails,
     getAllCards,
     activeData,
-    newActiveIP
+    newActiveIP,
+    userIdByCardName
 }

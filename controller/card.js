@@ -283,14 +283,21 @@ getCardByName=async (req,res)=>{
     }
 }
 
-userIdByCardName = async(cardName) => {
-    return new Promise(async(resolve, reject) => {
-        const userId = await Card.find({ cardName: cardName }).user.userId
-        console.log(userId);
-        if (userId)
-            resolve(userId);
-        reject('not userId');
-    });
+userIdByCardName = async(req,res) => {
+    try {
+        let data=req
+        let card = await service.userIdByCardName(data)
+        return res.json(card)
+    } catch (err) {
+        res.send(err)
+    }
+    // return new Promise(async(resolve, reject) => {
+    //     const userId = await Card.find({ cardName: cardName }).user.userId
+    //     console.log(userId);
+    //     if (userId)
+    //         resolve(userId);
+    //     reject('not userId');
+    // });
 }
 
 module.exports = {
