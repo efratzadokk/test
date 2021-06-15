@@ -1,15 +1,6 @@
 const service=require('../services/DigitalCard.service')
-// const User = require('../models/User.js');
 const path = require('path');
 const request = require('request');
-// const Card = require('../models/Card.js');
-// const Lead = require('../models/Leads.js');
-// const Statistic = require('../models/Statistics');
-// const ReveiwieController = require('./review.js');
-// const GalleryController = require('./Gallery.js');
-// const SocialMediaController = require('./socialMedias');
-// const LeadController = require('./lead')
-// const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
@@ -18,12 +9,13 @@ const DeviceDetector = require("device-detector-js");
 createDigitalCard = async (req, res) => {
     try {
         let cardBody=(req.body)
-        let card= await service.createDigitalCard(cardBody)
+        let userName=req.params.userName
+        let card= await service.createDigitalCard(cardBody,userName)
         return res.status(201).json(card)
     }
     catch(err)
     {
-           res.send(error)
+           res.send(err)
     }
 
     //     let card = await new Card(req.body)
@@ -71,7 +63,7 @@ updateDigitalCard = async (req, res) => {
     }
     catch(err)
     {
-           res.send(error)
+           res.send(err)
     }
 
     // let card = req.body;
@@ -104,7 +96,7 @@ deleteCard = async (req, res) => {
     }
     catch(err)
     {
-           res.send(error)
+           res.send(err)
     }
 
     // try {
@@ -125,7 +117,7 @@ copyCard = async (req, res) => {
     }
     catch(err)
     {
-           res.send(error)
+           res.send(err)
     }
 
     // const cardToCopy = req.body;
@@ -181,7 +173,7 @@ checkUniqueCardName = async (req, res) => {
     }
     catch(err)
     {
-           res.send(error)
+           res.send(err)
     }
     // let cardName = req.body.cardname;
     // let id = req.body.id;
@@ -207,7 +199,7 @@ editCardName = async (req, res) => {
     }
     catch(err)
     {
-           res.send(error)
+           res.send(err)
     }
 
     // let cardId = req.body.cardId;
@@ -225,7 +217,7 @@ getCardsIndex = (req, res) => {
         }).
     catch(err)
     {
-           res.send(error)
+           res.send(err)
     }
     // Card.countDocuments({}, (err, count) => {
     //     if (err) {
@@ -236,17 +228,18 @@ getCardsIndex = (req, res) => {
     // })
 }
 
-sumEmailSend = async (cardName) => {
-    return new Promise(async (resolve, reject) => {
-        const card = await Card.findOne({ cardName: cardName, isDelete: false })
-        let statistic = await Statistic.findOne({ idCard: card._id })
-        statistic.emailCnt++;
-        await statistic.save()
-        if (statistic)
-            resolve("access denied");
-        reject('access denied');
-    });
-}
+// sumEmailSend = async (cardName) => {
+    
+    // return new Promise(async (resolve, reject) => {
+    //     const card = await Card.findOne({ cardName: cardName, isDelete: false })
+    //     let statistic = await Statistic.findOne({ idCard: card._id })
+    //     statistic.emailCnt++;
+    //     await statistic.save()
+    //     if (statistic)
+    //         resolve("access denied");
+    //     reject('access denied');
+    // });
+// }
 
 createContactLeaderBox = async (data) => {
     const { body, mailTo } = data;
@@ -282,7 +275,7 @@ sendMessageByCard = async (mailTo,body,username,req,res) => {
     console.log("mailTo__________", mailTo);
     console.log("username__________", username);
     await createContactLeaderBox(req.body);
-    await sumEmailSend(req.params.cardName)
+    await service.sumEmailSent(req.params.cardName)
     const email = {
         from: `${username}@mails.codes`,
         to: mailTo,//emailTo

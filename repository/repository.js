@@ -75,12 +75,12 @@ countDoc=(Model)=>{
 })
 }
 
-initObj=(model, data)=>
+initObj=(Model, data)=>
 {
     return new Promise(async(resolve, reject)=>{
         try{
-            console.log(model)
-       let obj=new model(data)
+            console.log(Model)
+       let obj=new Model(data)
        console.log(obj)
        resolve(obj)
         }
