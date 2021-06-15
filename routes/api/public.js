@@ -19,16 +19,7 @@ router.post('/sendMessageByCard/:cardName', digitalCardController.sendMessageByC
 //statistic
 router.post("/setCntSocialMediaAndCall/:idStatistic", StatisticController.setCntSocialMediaAndCall);
 
-router.get('/getCardByName/:cardName',(req,res)=>{
-
-    digitalCardController.getCardByName(req)
-    .then(data=>{
-        res.send(data);
-    })
-    .catch(err=>{
-        res.send(err)
-    })
-})
+router.get('/getCardByName/:cardName',digitalCardController.getCardByName)
 
 //get market
 router.get('/getMarketByName/:marketName',(req,res)=>{

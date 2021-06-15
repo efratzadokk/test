@@ -1,21 +1,16 @@
-const service=require('../services/DigitalCard.service')
-const path = require('path');
-const request = require('request');
-const geoip = require('geoip-lite');
-const UAParser = require('ua-parser-js');
-const DeviceDetector = require("device-detector-js");
+const service = require('../services/DigitalCard.service')
+
+const { resolve } = require('path');
 
 
-createDigitalCard = async (req, res) => {
+createDigitalCard = async(req, res) => {
     try {
-        let cardBody=(req.body)
-        let userName=req.params.userName
-        let card= await service.createDigitalCard(cardBody,userName)
+        let cardBody = (req.body)
+        let userName = req.params.userName
+        let card = await service.createDigitalCard(cardBody, userName)
         return res.status(201).json(card)
-    }
-    catch(err)
-    {
-           res.send(err)
+    } catch (err) {
+        res.send(err)
     }
 
     //     let card = await new Card(req.body)
@@ -54,16 +49,14 @@ createDigitalCard = async (req, res) => {
 }
 
 
-updateDigitalCard = async (req, res) => {
+updateDigitalCard = async(req, res) => {
 
     try {
-        let cardBody=(req.body)
-        let card= await service.updateDigitalCard(cardBody)
+        let cardBody = (req.body)
+        let card = await service.updateDigitalCard(cardBody)
         return res.json(card)
-    }
-    catch(err)
-    {
-           res.send(err)
+    } catch (err) {
+        res.send(err)
     }
 
     // let card = req.body;
@@ -87,16 +80,14 @@ updateDigitalCard = async (req, res) => {
     // );
 };
 
-deleteCard = async (req, res) => {
+deleteCard = async(req, res) => {
 
     try {
-        let cardBody=(req.body)
-        let card= await service.deleteCard(cardBody)
+        let cardBody = (req.body)
+        let card = await service.deleteCard(cardBody)
         return res.json(card)
-    }
-    catch(err)
-    {
-           res.send(err)
+    } catch (err) {
+        res.send(err)
     }
 
     // try {
@@ -108,16 +99,14 @@ deleteCard = async (req, res) => {
     //     res.send(error)
     // }
 }
-copyCard = async (req, res) => {
+copyCard = async(req, res) => {
     try {
-        let cardBody=(req.body)
-        let userName=req.params.userName
-        let card= await service.copyCard(cardBody,userName)
+        let cardBody = (req.body)
+        let userName = req.params.userName
+        let card = await service.copyCard(cardBody, userName)
         return res.status(201).json(card)
-    }
-    catch(err)
-    {
-           res.send(err)
+    } catch (err) {
+        res.send(err)
     }
 
     // const cardToCopy = req.body;
@@ -165,15 +154,13 @@ copyCard = async (req, res) => {
 }
 
 //by card name only
-checkUniqueCardName = async (req, res) => {
+checkUniqueCardName = async(req, res) => {
     try {
-        let cardBody=(req.body)
-        let isCardExist= await service.checkUniqueCardName(cardBody)
+        let cardBody = (req.body)
+        let isCardExist = await service.checkUniqueCardName(cardBody)
         return res.json(isCardExist)
-    }
-    catch(err)
-    {
-           res.send(err)
+    } catch (err) {
+        res.send(err)
     }
     // let cardName = req.body.cardname;
     // let id = req.body.id;
@@ -190,16 +177,14 @@ checkUniqueCardName = async (req, res) => {
 }
 
 
-editCardName = async (req, res) => {
+editCardName = async(req, res) => {
 
     try {
-        let cardBody=(req.body)
-        let isCardExist= await service.editCardName(cardBody)
+        let cardBody = (req.body)
+        let isCardExist = await service.editCardName(cardBody)
         return res.json(isCardExist)
-    }
-    catch(err)
-    {
-           res.send(err)
+    } catch (err) {
+        res.send(err)
     }
 
     // let cardId = req.body.cardId;
@@ -212,232 +197,96 @@ editCardName = async (req, res) => {
 }
 
 getCardsIndex = (req, res) => {
-        service.getCardsIndex().then((count)=>{
-            return res.send({ count: count })
-        }).
-    catch(err)
-    {
-           res.send(err)
-    }
-    // Card.countDocuments({}, (err, count) => {
-    //     if (err) {
-    //         res.status(500).send(err);
-    //     }
-    //     console.log("count", count)
-    //     res.status(200).send({ count: count });
-    // })
+    service.getCardsIndex().then((count) => {
+        return res.send({ count: count })
+    }).
+    catch(err) 
+        {
+            res.send(err)
+        }
+        // Card.countDocuments({}, (err, count) => {
+        //     if (err) {
+        //         res.status(500).send(err);
+        //     }
+        //     console.log("count", count)
+        //     res.status(200).send({ count: count });
+        // })
 }
 
 // sumEmailSend = async (cardName) => {
-    
-    // return new Promise(async (resolve, reject) => {
-    //     const card = await Card.findOne({ cardName: cardName, isDelete: false })
-    //     let statistic = await Statistic.findOne({ idCard: card._id })
-    //     statistic.emailCnt++;
-    //     await statistic.save()
-    //     if (statistic)
-    //         resolve("access denied");
-    //     reject('access denied');
-    // });
+
+// return new Promise(async (resolve, reject) => {
+//     const card = await Card.findOne({ cardName: cardName, isDelete: false })
+//     let statistic = await Statistic.findOne({ idCard: card._id })
+//     statistic.emailCnt++;
+//     await statistic.save()
+//     if (statistic)
+//         resolve("access denied");
+//     reject('access denied');
+// });
 // }
 
-createContactLeaderBox = async (data) => {
-    const { body, mailTo } = data;
-    const email = {
-        source: "Know me",
-        subject: "Form Knowme🙂",
-        from: "knowme@noreply.leader.codes",
-        to: mailTo,
-        body: body,
-        files: null
-    }
-    const options = {
-        url: `https://api.dev.leader.codes/${'rivkaf'}/createSystemWave`,
-        method: 'POST',
-        headers: {
-            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJtVjhWM2V2c2NQUFJGcDZNNkZ4eWlIQ1JrdkczIiwiZW1haWwiOiJyaXZrYWZvZ2VsbWFuQGdtYWlsLmNvbSIsImlhdCI6MTYyMDczMjgyNH0.v1j1_lIcenKPHNvHXaOlfBhYNH3YU12nAB71nQ_Vrd4"
-        },
-        json: email,
-    };
-    return new Promise((resolve, reject) => {
-        request(options, (error, res) => {
-            if (error) {
-                reject(error);
-            }
-            resolve(res);
-        });
-    });
-}
 
-sendMessageByCard = async (mailTo,body,username,req,res) => {
 
-    console.log("body__________", body);
-    console.log("mailTo__________", mailTo);
-    console.log("username__________", username);
-    await createContactLeaderBox(req.body);
-    await service.sumEmailSent(req.params.cardName)
-    const email = {
-        from: `${username}@mails.codes`,
-        to: mailTo,//emailTo
-        subject: "Knowme",
-        html: body
 
-    }
-    const options = {
-        url: 'https://mails.codes/mail/sendEmail',
-        method: 'POST',
-        headers: { Authorization: "secretKEY@2021" },
-        json: email,
-    };
-    return new Promise((resolve, reject) => {
-        request(options, (error, res, body) => {
-            if (error) {
-                console.error("error:" + error);
-                reject(error);
-            }
-
-            console.log(`statusCode: ${res.statusCode}`);
-            console.log(body);
-            resolve(true);
-
-        });
-       
-    });
-
-}
-sendMessageByCardMultiEmails = (req, res) =>{
-    const { listMail, body} = req.body;
-    console.log("listMail___________", listMail);
-    return new Promise(async (resolve, reject) => {
-    console.log("inside listMail !")
+sendMessageByCardMultiEmails = async(req, res) => {
     try {
-        Promise.all(
-            listMail.map(async (mail) => {
-                console.log("mail"+mail)
-           let splitMailUser=mail.split('@');
-           let userName=splitMailUser[0];
-                sendMessageByCard(mail,body,userName,req)
-            })).then(() => {
-                resolve(true)
-            })
-
-    } catch (error) {
-        console.log("reveiw errore: -", error)
-        reject(error);
+        let listMailData = req.body
+        let success = await service.sendMessageByCardMultiEmails(listMailData)
+        return res.json(success)
+    } catch (err) {
+        res.send(err)
     }
-    res.send(true);
-});
+
+    //     const { listMail, body} = req.body;
+    //     console.log("listMail___________", listMail);
+    //     return new Promise(async (resolve, reject) => {
+    //     console.log("inside listMail !")
+    //     try {
+    //         Promise.all(
+    //             listMail.map(async (mail) => {
+    //                 console.log("mail"+mail)
+    //            let splitMailUser=mail.split('@');
+    //            let userName=splitMailUser[0];
+    //                 service.sendMessageByCard(mail,body,userName,req)
+    //             })).then(() => {
+    //                 resolve(true)
+    //             })
+
+    //     } catch (error) {
+    //         console.log("reveiw errore: -", error)
+    //         reject(error);
+    //     }
+    //     res.send(true);
+    // });
 
 }
-getAllCards = (userName) => {
-    return new Promise((resolve, reject) => {
-        console.log("username", userName)
-        User.findOne({ username: userName })
-            .populate({
-                path: "cards",
-                populate: [
-                    { path: 'user' },
-                    { path: 'socialMedia' },
-                    { path: 'galleryList' },
-                    { path: 'reviewsList' },
-                    { path: 'lead' },
-                    { path: 'statistic' }
-                ],
-                match: { isDelete: false }
-            })
-            .exec((err, user) => {
-                if (err) {
-                    reject(err);
-                }
-                resolve(user.cards)
-            })
-    });
+getAllCards = async(req, res) => {
+    try {
+        let username = req.params.userName
+        let cards = await service.getAllCards(username)
+        return res.json(cards)
+    } catch (err) {
+        res.send(err)
+    }
 }
-activData = (statisticActiv, value) => {
-    return new Promise(async (resolve, reject) => {
-        let active = await statisticActiv.find(item => item.name == value)
-        if (active) {
-            active.sum++;
-            active.dates.push(new Date())
-        } else {
-            let obj = { name: value, sum: 1, dates: new Date() }
-            statisticActiv.push(obj)
-        }
-        if (!value)
-            reject("not active");
-        resolve(active);
-    })
-}
-newActivIP = async (req) => {
-    const { cardName } = req.params;
-    return new Promise(async (resolve, reject) => {
-        try {
-            // const clientIp = requestIp.getClientIp(req);
-            const clientIp = "84.95.241.10";
-            // const clientIp1 = req.headers['x-forwarded-for'] ||
-            //     req.socket.remoteAddress ||
-            //     null;
-            let geo = geoip.lookup(clientIp);
-            let country = geo.country == 'IL' ? 'IS' : geo.country
-            let parser1 = new UAParser();
-            let userAgent = req.headers['user-agent'];
-            let deviceDetector = new DeviceDetector();
-            let browserName = parser1.setUA(userAgent).getBrowser().name;
-            let operationType = parser1.setUA(userAgent).getOS().name;
-            let device = deviceDetector.parse(userAgent).device.type;
-            let card = await Card.findOne({ cardName: cardName, isDelete: false })
-            if (card) {
-                let statistic = await Statistic.findById(card.statistic)
-                if (statistic.viewsCnt == 0) {
-                    statistic.dateCreated = new Date()
-                }
-                statistic.viewsCnt += 1;
-                statistic.allDatesViews.push(new Date())
-                await activData(statistic.actives.country, country)
-                await activData(statistic.actives.browser, browserName)
-                await activData(statistic.actives.operationType, operationType)
-                await activData(statistic.actives.dvices, device)
-                if (!statistic.actives)
-                    reject("not active");
-                let savedStatistic = await statistic.save()
-                resolve(savedStatistic);
-            }
-            else
-                resolve(null);
-        }
-        catch (err) {
-            console.log(err.message);
-        }
 
-    });
+
+getCardByName=async (req,res)=>{
+
+    try {
+        let data=req
+        let card = await service.getCardByName(data)
+        return res.json(card)
+    } catch (err) {
+        res.send(err)
+    }
 }
-getCardByName = async (req) => {
-    const { cardName } = req.params;
-    await newActivIP(req)
-    return new Promise((resolve, reject) => {
-        Card.findOne({
-            cardName: cardName,
-            isDelete: false
-        }).populate({ path: "user" })
-            .populate({ path: "socialMedia" })
-            .populate({ path: 'galleryList' })
-            .populate({ path: 'reviewsList' })
-            .populate({ path: 'lead' })
-            .populate({ path: 'statistic', })
-            .exec(async (err, card) => {
-                if (err) {
-                    reject(err);
-                }
-                // await newActivIP(card.statistic)
-                resolve(card)
-            })
-    });
-}
- 
- userIdByCardName = async (cardName) => {
-    return new Promise(async (resolve, reject) => {
+
+userIdByCardName = async(cardName) => {
+    return new Promise(async(resolve, reject) => {
         const userId = await Card.find({ cardName: cardName }).user.userId
-            console.log(userId);
+        console.log(userId);
         if (userId)
             resolve(userId);
         reject('not userId');
@@ -458,6 +307,3 @@ module.exports = {
     copyCard,
     userIdByCardName,
 }
-
-
-

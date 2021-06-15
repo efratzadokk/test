@@ -28,16 +28,7 @@ router.post('/:userName/saveNewCard', DigitalCardController.createDigitalCard);
 router.get('/:userName/getCardsIndex', DigitalCardController.getCardsIndex);
 router.post('/:userName/copyCard', DigitalCardController.copyCard);
 
-router.get('/:userName/getAllCards', (req, res) => {
-
-    DigitalCardController.getAllCards(req.params.userName).
-        then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.send(err)
-        })
-});
+router.get('/:userName/getAllCards', DigitalCardController.getAllCards);
 
 //marketplace
 router.post("/:userName/checkUniqueMarketName", marketplaceController.checkUniqueMarketName);
