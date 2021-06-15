@@ -1,18 +1,19 @@
-const User = require('../models/User.js');
+const service=require('../Services/DigitalCard.service')
+// const User = require('../models/User.js');
 const path = require('path');
 const request = require('request');
-const Card = require('../models/Card.js');
-const Lead = require('../models/Leads.js');
-const Statistic = require('../models/Statistics');
-const ReveiwieController = require('./Reveiwies.js');
-const GalleryController = require('./Gallery.js');
-const SocialMediaController = require('./socialMedias');
-const LeadController = require('./lead')
-const requestIp = require('request-ip');
+// const Card = require('../models/Card.js');
+// const Lead = require('../models/Leads.js');
+// const Statistic = require('../models/Statistics');
+// const ReveiwieController = require('./review.js');
+// const GalleryController = require('./Gallery.js');
+// const SocialMediaController = require('./socialMedias');
+// const LeadController = require('./lead')
+// const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
-const service=require('../Services/DigitalCard.service')
+
 
 createDigitalCard = async (req, res) => {
     try {
@@ -219,13 +220,20 @@ editCardName = async (req, res) => {
 }
 
 getCardsIndex = (req, res) => {
-    Card.countDocuments({}, (err, count) => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        console.log("count", count)
-        res.status(200).send({ count: count });
-    })
+        service.getCardsIndex().then((count)=>{
+            return res.send({ count: count })
+        }).
+    catch(err)
+    {
+           res.send(error)
+    }
+    // Card.countDocuments({}, (err, count) => {
+    //     if (err) {
+    //         res.status(500).send(err);
+    //     }
+    //     console.log("count", count)
+    //     res.status(200).send({ count: count });
+    // })
 }
 
 sumEmailSend = async (cardName) => {

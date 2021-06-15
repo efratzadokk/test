@@ -1,14 +1,19 @@
-const repository= require('../repository/DigitalCard.repository')
-const Card = require('../models/Card.js');
-const Lead = require('../models/Leads.js');
+
 const Statistic = require('../models/Statistics');
+ const Lead = require('../models/Leads.js');
+ const mongoose = require("mongoose");
+ const Card = mongoose.model('Card')
+
 const { resolve } = require('path');
-// const { updateDigitalCard } = require('../controller/digitalCard');
+const repository= require('../repository/DigitalCard.repository')
+
 
 let createDigitalCard =  (cardData) => {
     return new Promise(async(resolve, reject)=>{
         try {
-            let card =  new Card(cardData)
+           let card =  new Card(cardData)
+        //    let card=await repository.initObj('Card',cardData)
+           console.log("create card!  ",card)
             let statistic =  new Statistic(cardData.statistic)
             statistic.cardName = card.cardName
             statistic.idCard = card._id
@@ -156,5 +161,17 @@ let editCardName=(cardData)=>{
     })
 }
 
+let getCardsIndex=()=>{
 
-module.exports={createDigitalCard,updateDigitalCard,deleteCard,copyCard,checkUniqueCardName,editCardName}
+    return new Promise(async(resolve, reject)=>{
+        try{
+           let count= await repository.countDoc(Card)
+            resolve(count)
+        }
+      catch(err)
+      {
+            reject(err)
+      }
+    })
+}
+module.exports={createDigitalCard,updateDigitalCard,deleteCard,copyCard,checkUniqueCardName,editCardName,getCardsIndex}

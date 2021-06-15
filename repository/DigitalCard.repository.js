@@ -1,6 +1,6 @@
 
 
-const { models } = require("mongoose");
+
 
 
 saveObject= (obj)=>
@@ -21,11 +21,11 @@ catch(err)
 }
 
 
-findObject=(model, filter)=>{
+findObject=(Model, filter)=>{
     return new Promise(async(resolve, reject)=>{
         try{
 
-           const doc= await model.find(filter)
+           const doc= await Model.find(filter)
            resolve (doc)
         }
         catch(err)
@@ -36,11 +36,11 @@ findObject=(model, filter)=>{
 }
 
 
-findObjectAndUpdate=(model, filterArr)=>{
+findObjectAndUpdate=(Model, filterArr)=>{
     return new Promise(async(resolve, reject)=>{
         try{
 
-           const doc= await model.findOneAndUpdate(...filterArr)
+           const doc= await Model.findOneAndUpdate(...filterArr)
            resolve (doc)
         }
         catch(err)
@@ -50,11 +50,11 @@ findObjectAndUpdate=(model, filterArr)=>{
     })
 }
 
-findObjectByIdAndUpdate=(model,id,optionsArr)=>{
+findObjectByIdAndUpdate=(Model,id,optionsArr)=>{
     return new Promise(async(resolve, reject)=>{
         try{
 
-           const doc= await model.findByIdAndUpdate(id, ...optionsArr)
+           const doc= await Model.findByIdAndUpdate(id, ...optionsArr)
            resolve (doc)
         }
         catch(err)
@@ -64,7 +64,33 @@ findObjectByIdAndUpdate=(model,id,optionsArr)=>{
     })
 }
 
+countDoc=(Model)=>{
+    return new Promise(async(resolve, reject)=>{
+        Model.countDocuments({}, (err, count) => {
+        if (err) {
+           reject(err)
+        }
+       resolve(count)
+    })
+})
+}
+
+initObj=(model, data)=>
+{
+    return new Promise(async(resolve, reject)=>{
+        try{
+            console.log(model)
+       let obj=new model(data)
+       console.log(obj)
+       resolve(obj)
+        }
+        catch(err)
+        {
+            reject(err)
+        }
+   })
+}
 
 
 
-module.exports ={saveObject,findObject,findObjectAndUpdate,findObjectByIdAndUpdate}
+module.exports ={saveObject,findObject,findObjectAndUpdate,findObjectByIdAndUpdate,countDoc,initObj}
