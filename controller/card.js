@@ -1,4 +1,4 @@
-const service=require('../Services/DigitalCard.service')
+const service=require('../services/DigitalCard.service')
 // const User = require('../models/User.js');
 const path = require('path');
 const request = require('request');

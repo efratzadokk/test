@@ -1,11 +1,12 @@
+
 const io = require('socket.io')(5001, {
     cors: {
         origin: 'https://localhost:3000',
         method: ['POST', 'GET']
     }
 })
-const Card = require('../models/card')
-const User = require('../models/user')
+const Card = require('../models/Card')
+const User = require('../models/User')
 
 let countByCardName = {};
 io.on('connection', socket => {

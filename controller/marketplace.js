@@ -1,6 +1,6 @@
 const Marketplace = require('../models/marketplace.js');
-const User = require('../models/user');
-const Card =require('../models/card');
+const User = require('../models/User');
+const Card =require('../models/Card');
 const { findOne } = require('../models/marketplace.js');
 
 

@@ -1,11 +1,10 @@
-
 const Statistic = require('../models/Statistics');
  const Lead = require('../models/Leads.js');
  const mongoose = require("mongoose");
  const Card = mongoose.model('Card')
 
 const { resolve } = require('path');
-const repository= require('../repository/DigitalCard.repository')
+const repository= require('../repository/repository')
 
 
 let createDigitalCard =  (cardData) => {

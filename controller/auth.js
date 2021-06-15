@@ -1,6 +1,6 @@
 const request = require('request');
 
-const User = require('../models/user');
+const User = require('../models/User');
 
 
 const checkPermission = async (req, res, next) => {

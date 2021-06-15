@@ -91,6 +91,15 @@ initObj=(model, data)=>
    })
 }
 
-
+findObjectByIdAndDelete = (Model, id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const doc = await Model.findByIdAndDelete(id)
+            resolve(doc)
+        }
+        catch (err) {
+        }
+    })
+}
 
 module.exports ={saveObject,findObject,findObjectAndUpdate,findObjectByIdAndUpdate,countDoc,initObj}

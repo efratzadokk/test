@@ -1,5 +1,4 @@
-const Lead = require('../models/leads');
-
+const Lead = require('../models/Leads');
 
 updateLead = (lead) => {
     return new Promise(async (resolve, reject) => {
