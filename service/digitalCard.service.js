@@ -4,7 +4,7 @@ const Lead = require('../models/Leads.js');
 const Statistic = require('../models/Statistics');
 const { resolve } = require('path');
 
- const ReveiwieService = require('../service/reveiwies.service');
+//  const ReveiwieService = require('../service/reveiwies.service');
 const GalleryService= require('./gallery.service');
 const SocialMediaService = require('./socialMedias.service');
 const LeadService = require('./lead.service');

@@ -1,17 +1,25 @@
-const User = require('../models/User.js');
+const service=require('../service/DigitalCard.service')
+// const User = require('../models/User.js');
 const path = require('path');
 const request = require('request');
-const requestIp = require('request-ip');
+// const Card = require('../models/Card.js');
+// const Lead = require('../models/Leads.js');
+// const Statistic = require('../models/Statistics');
+// const ReveiwieController = require('./review.js');
+// const GalleryController = require('./Gallery.js');
+// const SocialMediaController = require('./socialMedias');
+// const LeadController = require('./lead')
+// const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
-const service=require('../service/digitalCard.service')
+
 
 createDigitalCard = async (req, res) => {
     try {
         let cardBody=(req.body)
         let card= await service.createDigitalCard(cardBody)
-        return res.json(card)
+        return res.status(201).json(card)
     }
     catch(err)
     {
@@ -113,7 +121,7 @@ copyCard = async (req, res) => {
         let cardBody=(req.body)
         let userName=req.params.userName
         let card= await service.copyCard(cardBody,userName)
-        return res.json(card)
+        return res.status(201).json(card)
     }
     catch(err)
     {
@@ -212,13 +220,20 @@ editCardName = async (req, res) => {
 }
 
 getCardsIndex = (req, res) => {
-    Card.countDocuments({}, (err, count) => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        console.log("count", count)
-        res.status(200).send({ count: count });
-    })
+        service.getCardsIndex().then((count)=>{
+            return res.send({ count: count })
+        }).
+    catch(err)
+    {
+           res.send(error)
+    }
+    // Card.countDocuments({}, (err, count) => {
+    //     if (err) {
+    //         res.status(500).send(err);
+    //     }
+    //     console.log("count", count)
+    //     res.status(200).send({ count: count });
+    // })
 }
 
 sumEmailSend = async (cardName) => {

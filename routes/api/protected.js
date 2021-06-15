@@ -7,6 +7,7 @@ const UserController = require('../../controller/user.js')
 const ReviewController = require('../../controller/review.js');
 const StatisticController = require('../../controller/statistic');
 const marketplaceController = require('../../controller/marketplace');
+const marketplaceService = require('../../service/marketplace.service');
 
 //permission
 router.get('/:userName/isPermission', RegisterController.cheakPremission);
@@ -44,7 +45,7 @@ router.post("/:userName/checkUniqueMarketName", marketplaceController.checkUniqu
 
 router.post("/:userName/saveMarketplace", (req, res) => {
 
-    marketplaceController.saveMarketplace(req.params.userName, req.body).
+    marketplaceService.saveMarketplace(req.params.userName, req.body).
         then(data => {
             res.send(data);
         })
@@ -56,7 +57,7 @@ router.post("/:userName/saveMarketplace", (req, res) => {
 
 router.post("/:userName/updateMarketplace", (req, res) => {
 
-    marketplaceController.updateMarketplace(req.params.userName, req.body).
+    marketplaceService.updateMarketplace(req.params.userName, req.body).
         then(data => {
             res.send(data);
         })
@@ -67,7 +68,7 @@ router.post("/:userName/updateMarketplace", (req, res) => {
 
 router.get('/:userName/getAllMarkets', (req, res) => {
 
-    marketplaceController.getAllMarkets(req.params.userName).
+    marketplaceService.getAllMarkets(req.params.userName).
         then(data => {
             res.send(data);
         })
