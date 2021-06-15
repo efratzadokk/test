@@ -21,7 +21,7 @@ checkUniqueMarketName = async (req, res) => {
 }
 
 saveMarketplace = async (username, marketplace) => {
-   
+    
     return new Promise(async (resolve, reject) => {
 
         try {
