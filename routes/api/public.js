@@ -4,6 +4,8 @@ const router = express.Router();
 const digitalCardController = require('../../controller/card.js')
 const CategoriesController = require('../../controller/categories.js')
 const StatisticController = require('../../controller/statistic')
+const marketplaceService =require('../../service/marketplace.service');
+
 
 
 //categories
@@ -27,6 +29,9 @@ router.get('/getCardByName/:cardName',(req,res)=>{
         res.send(err)
     })
 })
+
+//get market
+router.get('/getMarketByName/:marketName', marketplaceService.getMarketByName)
 
 
 module.exports = router;
