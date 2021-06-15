@@ -104,9 +104,7 @@ updateMarketplace = async (username, marketplace) => {
                 marketplace,
                 { new: true },
                 async(err, updatedMarket) => {
-
                     if (err) console.log(err);
-
                     updatedMarket=await updatedMarket.populate('cards').execPopulate();
                     resolve(updatedMarket);
                 }

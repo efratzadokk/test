@@ -1,11 +1,13 @@
 const User = require('../models/User');
 const request = require('request');
-const service = require('../service/reveiwies.service')
+const repository = require('../repository/repository');
+
 
 
 const cheakPremission = async (req, res) => {
     let currentUser = await User.findOne({ username: req.params.userName })
-   
+    console.log("username----------------", req.params.userName);
+
     if (!currentUser) {
         currentUser = new User();
         console.log("", currentUser);

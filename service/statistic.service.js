@@ -16,25 +16,21 @@ updateStatistic = (statistic) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (statistic._id !== null) {
-                Statistic.findByIdAndUpdate(
+                let statisticUpdate = repository.findObjectByIdAndUpdate(Statistic,
                     statistic._id,
-                    statistic,
-                    { new: true },
-                    (err, n_statistic) => {
-                        if (err) {
-                            console.log(err);
-                            reject(err);
-                        }
-                        resolve(n_statistic);
-                    }
-                )
+                    [statistic, { new: true }])
+
+                if (statisticUpdate)
+                    resolve(statisticUpdate);
+                else {
+                    reject(err);
+                }
             }
             else {
                 reject('error');
             }
         } catch (error) {
-            console.log("statistic errore: -", error)
-            reject(error);
+            reject(error.message);
         }
     });
 }

@@ -1,9 +1,6 @@
 const User = require('../models/User.js');
 const path = require('path');
 const request = require('request');
-// const ReveiwieController = require('../service/reveiwies.service');
-// const GalleryController = require('./Gallery.js');
-// const SocialMediaController = require('./socialMedias');
 const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
 const UAParser = require('ua-parser-js');
