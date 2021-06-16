@@ -240,7 +240,8 @@ const cardSchema = mongoose.Schema({
                 border: { type: String },
                 borderRadius: { type: String },
                 color: { type: String },
-                reverse: { type: Boolean }
+                reverse: { type: Boolean },
+                boxShadow:{ type: String },
             },
             contact: {
                 background: { type: String },
@@ -248,7 +249,8 @@ const cardSchema = mongoose.Schema({
                 borderColor: { type: String },
                 borderRadius: { type: String },
                 color: { type: String },
-                reverse: { type: Boolean }
+                reverse: { type: Boolean },
+                boxShadow:{ type: String },
             }
         },
         socialMediaSpace: {
@@ -272,6 +274,7 @@ const cardSchema = mongoose.Schema({
             borderRadius: { type: String },
             background: { type: String },
             color: { type: String },
+            boxShadow: { type: String },
         },
         section: {
             top: { type: String },
