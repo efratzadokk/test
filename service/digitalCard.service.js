@@ -21,28 +21,33 @@ let createDigitalCard = (cardData,userName) => {
     return new Promise(async (resolve, reject) => {
         try {
             let card = new Card(cardData)
+           
             let statistic = new Statistic(cardData.statistic)
             statistic.cardName = card.cardName
             statistic.idCard = card._id
             await repository.saveObject(statistic)
             let lead = new Lead(cardData.lead)
             lead.idCard = card._id
-            await repository.saveObject(lead)
+      
             card.user = await repository.findObject(User, { "username": userName })
+            
             card.statistic = statistic;
             card.lead = lead;
 
-            card.socialMedia = await socialMediasService.saveSocialMedias(req.body.socialMedia); 
-            card.galleryList = await galleryService.saveGallerys(req.body.galleryList); 
-            card.reviewsList = await reviewService.saveReveiws(req.body.reviewsList); 
+            card.socialMedia = await socialMediasService.saveSocialMedias(cardData.socialMedia);
+            card.galleryList = await galleryService.saveGallerys(cardData.galleryList); 
+            card.reviewsList = await reviewService.saveReveiws(cardData.reviewsList); 
 
             card.socialMedia.idCard = card._id
             card.galleryList.idCard = card._id
             card.reviewsList.idCard = card._id
 
             repository.saveObject(card).then(async (savedObj) => {
-                let cardAfterSave = await repository.findObjectAndUpdate(User, [{ "username": req.params.userName }, { $push: { cards: savedObj._id } }, { new: true }])
+                let cardAfterSave = await repository.findObjectAndUpdate(User, [{ "username": userName }, { $push: { cards: savedObj._id } }, { new: true }])
                 resolve(savedObj);
+            }).catch((err)=>{
+                console.log(err)
+                reject(err)
             })
         }
 
@@ -54,37 +59,40 @@ let createDigitalCard = (cardData,userName) => {
 
 }
 
-let updateDigitalCard = (cardData) => {
+let updateDigitalCard = (cardData,cardId) => {
 
     return new Promise(async (resolve, reject) => {
         try {
 
-            let card = req.body;
+            let card = cardData;
             card.socialMedia = await socialMediasService.updateSocialMedia(card.socialMedia) 
             card.galleryList = await galleryService.updateGallery(card.galleryList) 
+            console.log("1",card.galleryList)
             card.reviewsList = await reviewService.updateReveiw(card.reviewsList) 
+            console.log("2",card.reviewsList)
             card.lead = await leadService.updateLead(card.lead) 
-
+            console.log("3",card.lead)
             let statistic = await repository.findObjectByIdAndUpdate(Statistic, card.statistic, [{ isDelete: true }, { new: true }])
 
-            repository.findObjectByIdAndUpdate(Card, { _id: req.params.cardId }, [{ new: true }]).then((currentCard) => {
+            repository.findObjectByIdAndUpdate(Card, { _id: cardId }, [{ new: true }]).then((currentCard) => {
                 resolve(card)
-            }).catch((err) => {
+            }).catch((err) => {            
                 reject(err)
             })
         }
         catch (err) {
+            console.log("err: ",err)
             reject(err)
         }
     })
 }
 
 
-let deleteCard = (cardData) => {
+let deleteCard = (cardId) => {
     return new Promise(async (resolve, reject) => {
         try {
 
-            let currentCard = await repository.findObject(Card, { _id: req.params.cardId })
+            let currentCard = await repository.findObject(Card, { _id: cardId })
             currentCard.isDelete = true;
 
             let result = await repository.saveObject(currentCard)

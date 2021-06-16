@@ -2,7 +2,6 @@
 
 saveObject = (obj) => {
     return new Promise(async(resolve, reject) => {
-
         try {
             const savedObj = await obj.save()
             resolve(savedObj);

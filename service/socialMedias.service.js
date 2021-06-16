@@ -104,11 +104,14 @@ updateSocialMedia = (socialMediaList) => {
                     }
                 })).then(() => {
                     console.log("newSocialMedia", newSocialMedia)
-                }).then(() => {
                     resolve(newSocialMediaList)
                 })
+                // .then(() => {
+                //     resolve(newSocialMediaList)
+                // })
         }
         catch (error) {
+            console.log(error)
             reject(error.message);
         }
     });

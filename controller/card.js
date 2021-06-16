@@ -10,7 +10,7 @@ createDigitalCard = async(req, res) => {
         let card = await service.createDigitalCard(cardBody, userName)
         return res.status(201).json(card)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 
     //     let card = await new Card(req.body)
@@ -53,10 +53,11 @@ updateDigitalCard = async(req, res) => {
 
     try {
         let cardBody = (req.body)
-        let card = await service.updateDigitalCard(cardBody)
+        let cardId=req.params.cardId
+        let card = await service.updateDigitalCard(cardBody,cardId)
         return res.json(card)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 
     // let card = req.body;
@@ -83,11 +84,11 @@ updateDigitalCard = async(req, res) => {
 deleteCard = async(req, res) => {
 
     try {
-        let cardBody = (req.body)
-        let card = await service.deleteCard(cardBody)
+        let cardId=req.params.cardId
+        let card = await service.deleteCard(cardId)
         return res.json(card)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 
     // try {
@@ -106,7 +107,7 @@ copyCard = async(req, res) => {
         let card = await service.copyCard(cardBody, userName)
         return res.status(201).json(card)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 
     // const cardToCopy = req.body;
@@ -160,7 +161,7 @@ checkUniqueCardName = async(req, res) => {
         let isCardExist = await service.checkUniqueCardName(cardBody)
         return res.json(isCardExist)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
     // let cardName = req.body.cardname;
     // let id = req.body.id;
@@ -184,7 +185,7 @@ editCardName = async(req, res) => {
         let isCardExist = await service.editCardName(cardBody)
         return res.json(isCardExist)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 
     // let cardId = req.body.cardId;
@@ -202,7 +203,7 @@ getCardsIndex = (req, res) => {
     }).
     catch(err) 
         {
-            res.send(err)
+            res.status(500).send(err)
         }
         // Card.countDocuments({}, (err, count) => {
         //     if (err) {
@@ -235,7 +236,7 @@ sendMessageByCardMultiEmails = async(req, res) => {
         let success = await service.sendMessageByCardMultiEmails(listMailData)
         return res.json(success)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 
     //     const { listMail, body} = req.body;
@@ -267,7 +268,7 @@ getAllCards = async(req, res) => {
         let cards = await service.getAllCards(username)
         return res.json(cards)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 }
 
@@ -279,7 +280,7 @@ getCardByName=async (req,res)=>{
         let card = await service.getCardByName(data)
         return res.json(card)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
 }
 
@@ -289,7 +290,7 @@ userIdByCardName = async(req,res) => {
         let card = await service.userIdByCardName(data)
         return res.json(card)
     } catch (err) {
-        res.send(err)
+        res.status(500).send(err)
     }
     // return new Promise(async(resolve, reject) => {
     //     const userId = await Card.find({ cardName: cardName }).user.userId
