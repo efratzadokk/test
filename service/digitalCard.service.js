@@ -67,11 +67,8 @@ let updateDigitalCard = (cardData,cardId) => {
             let card = cardData;
             card.socialMedia = await socialMediasService.updateSocialMedia(card.socialMedia) 
             card.galleryList = await galleryService.updateGallery(card.galleryList) 
-            console.log("1",card.galleryList)
             card.reviewsList = await reviewService.updateReveiw(card.reviewsList) 
-            console.log("2",card.reviewsList)
             card.lead = await leadService.updateLead(card.lead) 
-            console.log("3",card.lead)
             let statistic = await repository.findObjectByIdAndUpdate(Statistic, card.statistic, [{ isDelete: true }, { new: true }])
 
             repository.findObjectByIdAndUpdate(Card, { _id: cardId }, [{ new: true }]).then((currentCard) => {
