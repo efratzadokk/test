@@ -1,5 +1,5 @@
 // const User = require('../models/User.js');
-const service = require('../services/user.service')
+const service = require('../service/user.service')
 
 // getUidByUserName = async (req, res) => {
 //     console.log("inside!!!!!!!!!!!!!!!!!")

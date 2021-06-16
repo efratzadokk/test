@@ -1,5 +1,5 @@
 // const Statistic = require('../models/Statistics');
-const service = require('../services/statistic.service')
+const service = require('../service/statistic.service')
 // getStatistic = async (req, res) => {
 //     try {
 //         let statistic = await Statistic.findOne({ cardName: req.params.cardName ,isDelete:false})
