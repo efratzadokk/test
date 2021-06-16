@@ -1,4 +1,4 @@
-const service = require('../services/DigitalCard.service')
+const service = require('../service/DigitalCard.service')
 
 const { resolve } = require('path');
 

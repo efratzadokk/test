@@ -1,5 +1,5 @@
 const Reveiw = require('../models/Reveiw.js');
-const service = require('../services/review.service')
+const service = require('../service/review.service')
 
 // saveReveiws = (reveiw) => {
 //     return new Promise(async (resolve, reject) => {

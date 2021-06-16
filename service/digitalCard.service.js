@@ -3,17 +3,21 @@ const Lead = require('../models/Leads.js');
 const mongoose = require("mongoose");
 const Card = mongoose.model('Card')
 const User = require('../models/User.js');
-const { resolve } = require('path');
-const repository = require('../repository/repository')
-const socialMediasService = require('./socialMedias.service')
-const reviewService = require('./review.service')
-const path = require('path');
 
+const path = require('path');
 const geoip = require('geoip-lite');
 const UAParser = require('ua-parser-js');
 const DeviceDetector = require("device-detector-js");
+const { resolve } = require('path');
 
-let createDigitalCard = (cardData) => {
+const repository = require('../repository/repository')
+
+const socialMediasService = require('./socialMedias.service')
+const reviewService = require('./review.service')
+const galleryService=require('./gallery.service')
+const leadService=require('./lead.service')
+
+let createDigitalCard = (cardData,userName) => {
     return new Promise(async (resolve, reject) => {
         try {
             let card = new Card(cardData)
@@ -24,13 +28,13 @@ let createDigitalCard = (cardData) => {
             let lead = new Lead(cardData.lead)
             lead.idCard = card._id
             await repository.saveObject(lead)
-            card.user = await repository.findObject(User, { "username": req.params.userName })
+            card.user = await repository.findObject(User, { "username": userName })
             card.statistic = statistic;
             card.lead = lead;
 
-            card.socialMedia = await SocialMediaService.saveSocialMedias(req.body.socialMedia); //change the call to be executed from service 
-            card.galleryList = await GalleryService.saveGallerys(req.body.galleryList); //change the call to be executed from service 
-            card.reviewsList = await ReveiwieService.saveReveiws(req.body.reviewsList); //change the call to be executed from service 
+            card.socialMedia = await socialMediasService.saveSocialMedias(req.body.socialMedia); 
+            card.galleryList = await galleryService.saveGallerys(req.body.galleryList); 
+            card.reviewsList = await reviewService.saveReveiws(req.body.reviewsList); 
 
             card.socialMedia.idCard = card._id
             card.galleryList.idCard = card._id
@@ -56,10 +60,10 @@ let updateDigitalCard = (cardData) => {
         try {
 
             let card = req.body;
-            card.socialMedia = await SocialMediaService.updateSocialMedia(card.socialMedia) //change the call to be executed from service 
-            card.galleryList = await GalleryService.updateGallery(card.galleryList) //change the call to be executed from service 
-            card.reviewsList = await ReveiwieService.updateReveiw(card.reviewsList) //change the call to be executed from service 
-            card.lead = await LeadService.updateLead(card.lead) //change the call to be executed from service 
+            card.socialMedia = await socialMediasService.updateSocialMedia(card.socialMedia) 
+            card.galleryList = await galleryService.updateGallery(card.galleryList) 
+            card.reviewsList = await reviewService.updateReveiw(card.reviewsList) 
+            card.lead = await leadService.updateLead(card.lead) 
 
             let statistic = await repository.findObjectByIdAndUpdate(Statistic, card.statistic, [{ isDelete: true }, { new: true }])
 
@@ -110,9 +114,9 @@ let copyCard = (cardData, username) => {
             newLead._id = lead._id
             newCard.lead = newLead;
             await repository.saveObject(newLead)
-            newCard.socialMedia = await SocialMediaService.saveSocialMedias(cardToCopy.socialMedia); //change the call to be executed from service 
-            newCard.galleryList = await GalleryController.saveGallerys(cardToCopy.galleryList); //change the call to be executed from service 
-            newCard.reviewsList = await ReveiwieService.saveReveiws(cardToCopy.reviewsList); //change the call to be executed from service 
+            newCard.socialMedia = await socialMediasService.saveSocialMedias(cardToCopy.socialMedia); 
+            newCard.galleryList = await galleryService.saveGallerys(cardToCopy.galleryList);  
+            newCard.reviewsList = await reviewService.saveReveiws(cardToCopy.reviewsList); 
             repository.saveObject(newCard).then((cardAfterSave) => {
                 repository.findObjectAndUpdate(User, [{ "username": userName }, { $push: { cards: cardAfterSave._id } }, { new: true }])
                 resolve(cardAfterSave)
