@@ -15,7 +15,8 @@ const repository = require('../repository/repository')
 const socialMediasService = require('./socialMedias.service')
 const reviewService = require('./review.service')
 const galleryService=require('./gallery.service')
-const leadService=require('./lead.service')
+const leadService=require('./lead.service');
+const { connected } = require('process');
 
 let createDigitalCard = (cardData,userName) => {
     return new Promise(async (resolve, reject) => {
@@ -91,10 +92,10 @@ let deleteCard = (cardId) => {
 
             let currentCard = await repository.findObject(Card, { _id: cardId })
             currentCard.isDelete = true;
-
-            let result = await repository.saveObject(currentCard)
+            let result=await repository.saveObject(Card, currentCard)
             resolve(result);
         } catch (error) {
+            console.log(error)
             reject(error)
         }
     })

@@ -59,26 +59,6 @@ updateDigitalCard = async(req, res) => {
     } catch (err) {
         res.status(500).send(err)
     }
-
-    // let card = req.body;
-    // card.socialMedia = await
-    //     SocialMediaController.updateSocialMedia(card.socialMedia)
-    // card.galleryList = await GalleryController.updateGallery(card.galleryList)
-    // card.reviewsList = await ReveiwieController.updateReveiw(card.reviewsList)
-    // card.lead = await LeadController.updateLead(card.lead)
-    // let statistic = await Statistic.findByIdAndUpdate(card.statistic, { isDelete: true }, { new: true });
-    // Card.findByIdAndUpdate(
-    //     { _id: req.params.cardId },
-    //     card,
-    //     { new: true },
-    //     (err, currentCard) => {
-    //         if (err) {
-    //             console.log(err);
-    //             res.send(err);
-    //         }
-    //         res.status(200).json(card);
-    //     }
-    // );
 };
 
 deleteCard = async(req, res) => {

@@ -1,15 +1,13 @@
 
 
-saveObject = (obj) => {
+saveObject = (Model, data) => {
     return new Promise(async(resolve, reject) => {
-        try {
-            const savedObj = await obj.save()
-            resolve(savedObj);
-        } catch (err) {
-            reject(err);
-        }
-
-    })
+            // const savedDoc = await doc.save()
+            Model.create(data, function (err, savedDoc) {
+                if (err) return reject(err);
+                resolve(savedDoc);
+              });
+            })         
 
 }
 
