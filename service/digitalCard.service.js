@@ -1,13 +1,17 @@
-const repository = require('../repository/repository')
-const Card = require('../models/Card.js');
-const Lead = require('../models/Leads.js');
 const Statistic = require('../models/Statistics');
+const Lead = require('../models/Leads.js');
+const mongoose = require("mongoose");
+const Card = mongoose.model('Card')
+const User = require('../models/User.js');
 const { resolve } = require('path');
+const repository = require('../repository/repository')
+const socialMediasService = require('./socialMedias.service')
+const reviewService = require('./review.service')
+const path = require('path');
 
-//  const ReveiwieService = require('../service/reveiwies.service');
-const GalleryService= require('./gallery.service');
-const SocialMediaService = require('./socialMedias.service');
-const LeadService = require('./lead.service');
+const geoip = require('geoip-lite');
+const UAParser = require('ua-parser-js');
+const DeviceDetector = require("device-detector-js");
 
 let createDigitalCard = (cardData) => {
     return new Promise(async (resolve, reject) => {
