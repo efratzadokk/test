@@ -22,11 +22,12 @@ let createDigitalCard = (cardData,userName) => {
     return new Promise(async (resolve, reject) => {
         try {
             let card = new Card(cardData)
-           
-            let statistic = new Statistic(cardData.statistic)
+            let statistic=await repository.createObject(Statistic,cardData.statistic)       
             statistic.cardName = card.cardName
             statistic.idCard = card._id
             await repository.saveObject(statistic)
+            console.log(statistic)
+
             let lead = new Lead(cardData.lead)
             lead.idCard = card._id
       

@@ -1,6 +1,6 @@
 
 
-saveObject = (Model, data) => {
+createObject = (Model, data) => {
     return new Promise(async(resolve, reject) => {
             // const savedDoc = await doc.save()
             Model.create(data, function (err, savedDoc) {
@@ -10,7 +10,19 @@ saveObject = (Model, data) => {
             })         
 
 }
+saveObject = (doc) => {
+    return new Promise(async(resolve, reject) => {
+        try{
+             const savedDoc = await doc.save()
+             resolve (savedDoc)
+        }
+        catch(err)
+        {
+            reject(err)
+        }
+    })
 
+}
 
 findObject = (Model, filter) => {
     return new Promise(async(resolve, reject) => {
@@ -125,5 +137,6 @@ module.exports = {
     countDoc,
     initObj,
     findObjectById,
-    pushObject
+    pushObject,
+    createObject
 }
