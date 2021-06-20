@@ -103,7 +103,7 @@ const images = [
 
 function Gallery(props) {
 
-    const { addElement } = props
+    const { addElement,items } = props
     const chooseImg = (e) => {
         debugger
         let reader = new FileReader();
@@ -122,7 +122,7 @@ function Gallery(props) {
     }
     return (
         <>
-              <ImageGallery id="gallery" items={images}/> 
+              <ImageGallery id="gallery" items={items?items:[]}/> 
             {/* </div> */}
 
             <button onClick={() => clickToChoose()}>choose images</button>

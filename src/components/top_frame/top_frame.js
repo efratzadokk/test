@@ -21,6 +21,11 @@ console.log("lll")
 $("#button").css('background-color','blue')
 }
 let history=useHistory()
+
+const setAlertCopy = async () => {
+    await setCopy(true)
+    await setTimeout(function () { setCopy(false) }, 1000);
+  }
 const {url,path}=useRouteMatch()
 // const userName='sariHaizler';
 // const {userName}=props;
@@ -31,7 +36,38 @@ const [copy, setCopy] = useState(false);
                 <img src={logo} id="img_logo" class="m-auto"></img>
             </a>
 <Link to={`${url}/listPapers`}>list paper</Link>
+{userName &&
           <>
+            <div
+              className="m-auto"
+              style={{ color: props.themeColor, fontSize: '12px', zIndex: 3, marginLeft: "40px" }}>
+              <span style={{
+                color: 'black', 
+                border: "1px solid blue",
+                borderRight: "none",
+                borderRadius: "4px 0px 0px 4px",
+                padding: "3px 8px",
+              }}              >
+                https://funnel.leader.codes/{userName}/Home
+              </span> 
+              {/* <FaLink
+                style={{ margin: '2px' }}
+                onClick={() => window.open(`https://helpdesk.page/${compName}/Home`, "_blank")}
+                title='open link in new window'>
+              </FaLink> */}
+              
+                <CopyToClipboard text={`https://funnel.leader.codes/{userName}/Home`}
+                  onCopy={() => setAlertCopy()} ><span className="copyButton">
+                  <FaLink title='copy link to clipboard' style={{}}  ></FaLink></span>
+                </CopyToClipboard>
+            </div>
+            
+            {copy ?
+              <Alert severity="success" style={{ width: '200px', zIndex: '3', position: 'absolute', marginTop: '100px', marginLeft: 'calc(50% - 100px)' }}>copied to clipboard!</Alert>
+              : null}
+          </>
+        }
+          {/* <>
             <div
               className="m-auto"
               style={{ color:'black', fontSize: '17px', zIndex: 3, border: `2px solid black `, borderRadius: '4px', padding: '5px' }}>
@@ -51,7 +87,7 @@ const [copy, setCopy] = useState(false);
                 : null}
             </div>
           </>
-        {/* <button id="button" onClick={()=>{change()}} className="red">onClick</button> */}
+        <button id="button" onClick={()=>{change()}} className="red">onClick</button> */}
             <div className="mr-3">
                 <img src={thumbtack} id="thumbtack" className={props.thumbtack?"rotateThumbtack pointer":"pointer"} onClick={() => props.changeFlagThumbtack(!props.thumbtack)} />
                 <div id="menu2" className="material-icons align-middle pl-2 pointer btn btn-simple" onClick={!props.thumbtack && (() => props.changeFlagConfigurator(!props.flagCon))}>

@@ -18,3 +18,7 @@ opacity: 1;
 .ql-toolbar{
     z-index: 1100;
 }
+
+#opc{
+    opacity: 0.9;
+}

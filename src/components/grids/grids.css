@@ -1,0 +1,130 @@
+/* #menu{
+    height:100%;
+    
+} */
+#new_button{
+    height: 5%;
+    background-color: white;
+    border: 1px solid #A66DFF;
+    border-radius: 8px;
+    color: #A66DFF;
+    font-size: small;
+
+}
+#sections_select{
+    height: 26%;
+    background-color: white;
+    border-radius: 12px;
+    width:100% !important
+}
+#elements_select{
+    height: 62%;
+    background-color: white;
+    border-radius: 12px;
+    overflow-y: auto;
+}
+.grid_imgs{
+    height: 100%;
+    background-size:cover ;
+    background-size: 100% 100%;
+}
+label[for=show_grid_checkbox]{
+    font-size: 0.5rem;
+    color: #9297A7;
+    
+}
+#show_grid_checkbox{
+    margin-left: 0px;
+   
+}
+
+#monlabel{
+    margin-top: 0px ;
+}
+
+#grid1{
+    background-image: url('../../assets/grid1X1.png');
+   
+
+}
+/* #grid2{
+    background-image: url('../../assets/grid1X2.png');
+  
+    
+
+}
+#grid3{
+    background-image: url('../../assets/grid1X3.png');
+   
+
+
+}
+#grid4{
+    background-image: url('../../assets/grid1X4.png');
+ 
+} */
+
+#g1{
+    background-image: url('../../assets/grid7.svg'); 
+    background-size: 100% 100%;
+
+}
+
+
+#g2{
+    background-image: url('../../assets/grid5.svg'); 
+    background-size: 100% 100%;
+   
+}
+
+
+#g3{
+    background-image: url('../../assets/grid9.svg'); 
+    background-size: 100% 100%;
+   
+}
+#g4{
+    background-image: url('../../assets/grid6.svg'); 
+    background-size: 100% 100%;
+    
+
+}
+
+#g5{
+    background-image: url('../../assets/grid11.svg'); 
+    background-size: 100% 100%;
+    
+
+}
+
+#g6{
+    background-image: url('../../assets/grid3.svg'); 
+    background-size: 100% 100%;
+   
+
+}
+#g7{
+    background-image: url('../../assets/grid8.svg'); 
+    background-size: 100% 100%;
+   
+
+}
+#g8{
+    background-image: url('../../assets/grid10.svg'); 
+    background-size: 100% 100%;
+   
+}
+#g9{
+    background-image: url('../../assets/grid1.svg'); 
+    background-size: 100% 100%;
+   
+
+}
+#g10{
+    background-image: url('../../assets/grid2.svg'); 
+    /* background-size: 100% 100%; */
+    /* width:100% !important */
+    background-size: 100% 100%;
+
+
+}

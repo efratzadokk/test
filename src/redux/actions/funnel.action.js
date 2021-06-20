@@ -21,7 +21,9 @@ export const CREAT_FUNNEL='[funnel] CREAT_FUNNEL'
 export const GET_ALL_FUNNELS='[funnel] GET_ALL_FUNNELS'
 export const SET_STYLE_IMAGE='[funnel] SET_STYLE_IMAGE'
 export const CHANE_LOADING ='[funnel] CHANE_LOADING'
+export const SET_POS_ELEMENT='[funnel] SET_POS_ELEMENT'
 // export const ADD_SECTION_IN_IFRAME ='[funnel] ADD_SECTION_IN_IFRAME'
+export const SET_MON_INDEX ='[funnel] SET_MON_INDEX'
 
 export function setFlagToggleCon(newFlag) {
     return {
@@ -43,12 +45,13 @@ export function setValueMe(val){
 
     }
 }
-export function addSection(newSection,id) {
+export function addSection(newSection,id,s) {
     return {
         type: ADD_SECTION,
         payload: newSection,
-        id:id
-    }
+        id:id,
+        s:s
+        }
 }
 export function setFlagBorderParts(newFlag) {
     debugger
@@ -58,9 +61,26 @@ export function setFlagBorderParts(newFlag) {
     }
 }
 export function addElement(newElement) {
+    debugger
     return {
         type: ADD_ELEMENT,
         payload: newElement
+    }
+}
+
+export function setMonIndex(val){
+    debugger
+    return{
+        type: SET_MON_INDEX,
+        payload: val
+    }
+}
+export function setPosElement(value) {
+    debugger
+    console.log("action.payload: action:",value)
+    return {
+        type: SET_POS_ELEMENT,
+        payload: value
     }
 }
 export function addElement1(newElement) {

@@ -1,3 +1,61 @@
+/* /* .form-control{
+    background: none!important;
+    border: none!important;
+    box-shadow: none; 
+    resize: none;
+}
+.form-control:focus{
+    border: none!important;
+    outline: none;
+}
+.form-control:focus {
+
+    box-shadow: inset 0 -1px 0 #ddd!important;
+} */
+/* .montitre { */
+  /* text-align: center !important; */
+  /* text-align: start !important; */
+/* 
+  unicode-bidi: plaintext !important;
+}
+
+.ql-bubble .ql-tooltip {
+    z-index: 100;
+  }
+  .a{
+      color:red;
+  }
+  .quill{
+    z-index: inherit!important;
+  }
+  .divEmptyElement{
+    background-color: #e9e9e9
+  }
+  .edit_buttons_element{
+    position: absolute;
+    z-index: 1001;
+    cursor: pointer;
+    padding: 4px;
+    color: rgb(137, 140, 143);
+    opacity:0;
+
+    
+}
+.pointer{
+  cursor: pointer;
+}
+
+.hoverToEdit:hover >.edit_buttons_element{
+
+  opacity: 1;
+}
+.hoverToEdit:hover{
+  border: 1px #E8E7F2 dashed;
+}
+.hoverToEdit{
+  border: 1px transparent dashed;
+} */ 
+
 /* .form-control{
     background: none!important;
     border: none!important;
@@ -54,4 +112,9 @@
 }
 .hoverToEdit{
   border: 1px transparent dashed;
+}
+
+.eDZTlK {
+  border: none !important;
+ 
 }
