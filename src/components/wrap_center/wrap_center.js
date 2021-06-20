@@ -28,7 +28,7 @@ width: ${props => (props.flagCon ? '79%' : '95%')};
                         <AllFunnels></AllFunnels>
                     </Route> */}
                     <Route path='/:userName/:funnel'>
-                        <Menu ></Menu>
+                        {/* <Menu ></Menu> */}
                         {/* <Emulator> */}
                         <Stage edit={true}></Stage>
                         {/* </Emulator> */}

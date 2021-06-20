@@ -819,7 +819,7 @@ import Form from '../Form/Form'
 //import fontFamilies from '../editTitle/fontFamily';
 
 function Element(props) {
-    const { newElementTypeAndValue , removeElement, currentKey, element, editMode, section, part, id, setCollapseOpen, jsonPage,saveInLocalStorage } = props
+    const { newElementTypeAndValue ,images, removeElement, currentKey, element, editMode, section, part, id, setCollapseOpen, jsonPage,saveInLocalStorage } = props
     const [name, setName] = useState()
     //console.log(newElementTypeAndValue)
     //console.log(elementInEditing)
@@ -1023,7 +1023,7 @@ function Element(props) {
             <>
                 {/* <div dangerouslySetInnerHTML={{__html:element.value}}/>
               {   Parser(element.value)} */}
-                <div className="pointer">
+                <div className="pointer" id={element.id}>
                     {/* {editMode && <EelementEditButtons id={element.id}></EelementEditButtons>} */}
                     <div className={editMode && "hoverToEdit pointer"}>
                         {editMode && <div className='edit_buttons_element'>
@@ -1100,7 +1100,7 @@ function Element(props) {
             return(
             <>
            
-            <div className="pointer">
+            <div className="pointer" id={element.id}>
                 {/* {editMode && <EelementEditButtons id={element.id}></EelementEditButtons>} */}
                 <div className={editMode && "hoverToEdit pointer"}>
                     {editMode && <div className='edit_buttons_element'>
@@ -1111,10 +1111,6 @@ function Element(props) {
             create
             </span> */}
                     </div>}
-
-                    {/* <h1>jkhgk</h1> */}
-                    
-                       
                       {/* <textarea onChange={e=>hlps(element.type, e.target.value)} > {newElementTypeAndValue.value}</textarea>  */}
                     
                     <textarea  className="montitre" type="text" multiline
@@ -1153,7 +1149,9 @@ function Element(props) {
         case "Image":
             debugger
             return (
-                <><div className={editMode && "hoverToEdit pointer"}>
+
+                <>
+                <div id={element}><div className={editMode && "hoverToEdit pointer"} >
                     {editMode && <div className='edit_buttons_element'>
                         <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }}  onClick={() => removeElement(id)}>
                             delete
@@ -1179,14 +1177,15 @@ function Element(props) {
                         <ImageUploader element={element}  onDrag={e => drag1(e)} draggable="true"  ></ImageUploader>
                     </div>
                     {/* <img style={{ width: '30%' }} src={element.value}></img> */}
-                </div>
+                </div></div>
                 </>
             )
 
             case "Gallery":
                 debugger
                 return (
-                    <><div className={editMode && "hoverToEdit pointer"}>
+                    <>
+                    <div id={element.id}><div className={editMode && "hoverToEdit pointer"}>
                         {editMode && <div className='edit_buttons_element'>
                             <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }}  onClick={() => removeElement(id)}>
                                 delete
@@ -1209,53 +1208,53 @@ function Element(props) {
                                 <p className="m-0 text-center">Drag & Drop files here or click to upload</p>
                             </div>
                             } */}
-                            <Gallery element={element}  onDrag={e => drag1(e)} draggable="true"  ></Gallery>
+                            <Gallery element={element} items={images.images} onDrag={e => drag1(e)} draggable="true"  ></Gallery>
                         </div>
                         {/* <img style={{ width: '30%' }} src={element.value}></img> */}
-                    </div>
+                    </div></div>
                     </>
                 )
 
 
         case 'Video':
+           
             return (
-            <><div className={editMode && "hoverToEdit pointer"}>
-                    {editMode && <div className='edit_buttons_element'>
-                        <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
-                            delete
-                </span>
-                        {/* <span class="material-icons" style={{ zIndex: 4 ,fontSize: '1.2rem'}} onClick={() => setCollapseOpen('section')} >
-                    create
-                    </span> */}
-                    </div>}
-
-                    <div className={element.value ? "d-flex flex-column align-items-center justify-content-center m-2  y" : 'd-flex flex-column align-items-center justify-content-center m-2 y divEmptyElement'}
-                        // onFocus={() => setCollapseOpen('element')}
-                        onClick={() => onEnterElement()}>
-                        {/* {element.value && <div onClick={() => onEnterElement()}
-                            className="d-flex flex-column align-items-center divEmptyElement justify-content-center m-2">
-                            <span class="material-icons-outlined" style={{ fontSize: '5rem' }} >
-                                panorama
-                             </span>
-                            <p className="m-0 text-center">Drag & Drop files here or click to upload</p>
+                <><div className={editMode && "hoverToEdit pointer"}>
+                        {editMode && <div className='edit_buttons_element'>
+                            <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
+                                delete
+                    </span>
+                            {/* <span class="material-icons" style={{ zIndex: 4 ,fontSize: '1.2rem'}} onClick={() => setCollapseOpen('section')} >
+                        create
+                        </span> */}
+                        </div>}
+    
+                        <div className={element.value ? "d-flex flex-column align-items-center justify-content-center m-2  y" : 'd-flex flex-column align-items-center justify-content-center m-2 y divEmptyElement'}
+                            // onFocus={() => setCollapseOpen('element')}
+                            onClick={() => onEnterElement()}>
+                            {/* {element.value && <div onClick={() => onEnterElement()}
+                                className="d-flex flex-column align-items-center divEmptyElement justify-content-center m-2">
+                                <span class="material-icons-outlined" style={{ fontSize: '5rem' }} >
+                                    panorama
+                                 </span>
+                                <p className="m-0 text-center">Drag & Drop files here or click to upload</p>
+                            </div>
+                            } */}
+                            <VideoUploader element={element}/>
+    
+                            {/* </VideoUploader> */}
                         </div>
-                        } */}
-                        <VideoUploader element={element}/>
-
-                        {/* </VideoUploader> */}
+                        {/* <img style={{ width: '30%' }} src={element.value}></img> */}
                     </div>
-                    {/* <img style={{ width: '30%' }} src={element.value}></img> */}
-                </div>
-            </>
-        )
-
+                </>
+            ) 
 
         
         
         case 'Form':
             return (
                 <>
-                
+                <div id={element.id}>
                     <div className={editMode && "hoverToEdit pointer"}>
                         {editMode && <div className='edit_buttons_element'>
                             <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
@@ -1273,7 +1272,7 @@ function Element(props) {
                         </span>
                                 <p className="m-0 text-center">Add Url Form</p>
                             </div>} 
-                     </div> 
+                     </div> </div>
                 </>
             )
        
@@ -1281,6 +1280,7 @@ function Element(props) {
         case 'Html':
             return (
                 <>
+                <div id={element.id}>
                     <div className={editMode && "hoverToEdit pointer"}>
                         {editMode && <div className='edit_buttons_element'>
                             <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
@@ -1296,12 +1296,13 @@ function Element(props) {
                             /> 
                             :
                                 <p>ADD HTML CODE</p>}
-                        </div>
+                        </div></div>
                     </div></>
             )
         case 'Button':
             return (
                 <>
+                <div id={element.id}>
                     <div className={editMode && "hoverToEdit pointer"}>
                         {editMode && <div className='edit_buttons_element'>
                             <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
@@ -1329,7 +1330,7 @@ function Element(props) {
                                     {element.value} 
                                     
                                 </button></a>
-                        </div>
+                        </div></div>
                     </div> </>
             )
 
@@ -1338,6 +1339,7 @@ function Element(props) {
             
                 return (
                   <>
+                  <div id={element.id}>
                       <div className={editMode && "hoverToEdit pointer"}>
                           {editMode && <div className='edit_buttons_element'>
                               <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
@@ -1352,6 +1354,7 @@ function Element(props) {
 
                             </div>
                           {/* </div> */}
+                          </div>
                       </div></>
               );
 
@@ -1360,6 +1363,7 @@ function Element(props) {
       
                   return (
                     <>
+                    <div id={element.id}>
                         <div className={editMode && "hoverToEdit pointer "}  style={{marginTop:'0px' , marginBottom:'0px',height:'100%' }}  >
                             {editMode && <div className='edit_buttons_element'>
                                 <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
@@ -1379,7 +1383,7 @@ function Element(props) {
 
 {/* </Spacer> */}
                 {/* <Spacer element={element} onDrag={e => drag1(e)} draggable="true"/> */}
-                            </div>
+                            </div></div>
                         </div></>
                 );
 
@@ -1393,6 +1397,7 @@ export default connect(
         return {
             editMode: state.funnel.editMode,
             jsonPage: state.funnel.jsonPage,
+            images:state.funnel.elementInEditing
           //  newElementTypeAndValue:state.funnel.newElementTypeAndValue,
             // elementInEditing:state.funnel.elementInEditing
         }

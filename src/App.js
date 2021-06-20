@@ -16,12 +16,11 @@ import styled from 'styled-components';
 import WrapAll from './components/wrapAll/wrap_all'
 import MyGallery from './components/image_gallery/imageGallery'
 import ListPapers from './components/listPapers/listPapers';
-// import whatsapp from '../../assets/icons8-whatsapp.gif'
 
 
 function App(props) {
   const [flag, setFlag] = useState(true);
-
+  const [aaa, setaaa] = useState(true)
   const { flagCon,getAllFunnel, getFunnel, flagAllFunnels, editMode } = props
   const { getUid } = props
   useEffect(() => {
@@ -41,7 +40,9 @@ function App(props) {
   return (
 
     <div id="body" className="App">
-
+    {aaa?
+      <div className="asd" ></div>:null}
+          <div   onClick={()=>setaaa(false)}>
       <Router>
         <DndProvider backend={HTML5Backend}>
           <Switch>
@@ -71,7 +72,8 @@ function App(props) {
               <Configurator></Configurator>
               <Top_frame></Top_frame>
               <Sidebar_left></Sidebar_left>
-              <WrapCenter></WrapCenter>
+              {aaa?<div style={{width:"100vw",height:"100vh"}}></div>: 
+              <WrapCenter></WrapCenter>}
             {/* </ProtectedRoute> */}
             </Route>
 
@@ -85,42 +87,9 @@ function App(props) {
           </Switch>
         </DndProvider>
       </Router>
-      <a
-  href="https://wa.me/0556764672"
-  class="whatsapp_float"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <i class="fa fa-whatsapp whatsapp-icon"></i>
-</a>
-{/* <img src="assets\icons8-whatsapp (1).gif"></img>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.5 21.5">
-                                <defs></defs>
-                                <path className="a" d="M8,18.75A10.75,10.75,0,1,0,18.75,8,10.75,10.75,0,0,0,8,18.75Zm10.75,7.976V10.774a7.976,7.976,0,1,1,0,15.952Z" transform="translate(-8 -8)"></path>
-                            </svg> */}
-      {/* <Router>
-        <DndProvider backend={HTML5Backend}>
-          <Switch>
-            <Route path='/view'>
-              <div className={editMode && "pt-5"} style={{ minHeight: '100vh' }}>
-                <Stage edit={false}></Stage>
-              </div>
-            </Route>
-            <Route path='/'>
-              <Configurator></Configurator>
-              <Top_frame></Top_frame>
-              <Sidebar_left></Sidebar_left>
-              <div id="wrap_center" className={flagCon ? "center_width_on_open_con row" : "center_width_on_close_con row"} >
-                {!flagAllFunnels ?
-                  <><Menu></Menu>
-                    <Stage edit={true}></Stage></> :
-                  <AllFunnels></AllFunnels>}
-              </div>
-            </Route>
-          </Switch>
-        </DndProvider>
-      </Router> */}
-    </div>
+  
+
+    </div></div>
   );
 }
 
