@@ -129,6 +129,31 @@ getCardByName=(Model,filter)=>{  //todo: make this function generic
     });
 }
 
+getObjectWithPopulate=(Model, filter, pathArr)=>{
+//[user, socialMedia, galleryList, reviewsList, lead, statistic]
+const populateStr=""
+    pathArr.forEach(path => {
+        populateStr+=`.populate({path.${path}})`
+    });
+console.log(populateStr)
+    return new Promise((resolve, reject) => {
+        Model.findOne(filter).populate({ path: "user" })
+            .populate({ path: "socialMedia" })
+            .populate({ path: 'galleryList' })
+            .populate({ path: 'reviewsList' })
+            .populate({ path: 'lead' })
+            .populate({ path: 'statistic' })
+            .exec(async(err, card) => {
+                if (err) {
+                    reject(err);
+                }
+                // await newActivIP(card.statistic)
+                resolve(card)
+            })
+        // Model.findOne(filter).populateStr
+    });
+}
+
 module.exports = {
     saveObject,
     findObject,
