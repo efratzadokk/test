@@ -1,15 +1,6 @@
 
 
-createObject = (Model, data) => {
-    return new Promise(async(resolve, reject) => {
-            // const savedDoc = await doc.save()
-            Model.create(data, function (err, savedDoc) {
-                if (err) return reject(err);
-                resolve(savedDoc);
-              });
-            })         
 
-}
 saveObject = (doc) => {
     return new Promise(async(resolve, reject) => {
         try{
@@ -35,7 +26,16 @@ findObject = (Model, filter) => {
         }
     })
 }
+createObject = (Model, data) => {
+    return new Promise(async(resolve, reject) => {
+            // const savedDoc = await doc.save()
+            Model.create(data, function (err, savedDoc) {
+                if (err) return reject(err);
+                resolve(savedDoc);
+              });
+            })         
 
+}
 
 findObjectAndUpdate = (Model, filterArr) => {
     return new Promise(async(resolve, reject) => {
