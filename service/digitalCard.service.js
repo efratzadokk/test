@@ -269,27 +269,17 @@ let sendMessageByCardMultiEmails = (data) => {
 }
 
 getAllCards = (userName) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async(resolve, reject) => {
         console.log("username", userName)
-        User.findOne({ username: userName })
-            .populate({
-                path: "cards",
-                populate: [
-                    { path: 'user' },
-                    { path: 'socialMedia' },
-                    { path: 'galleryList' },
-                    { path: 'reviewsList' },
-                    { path: 'lead' },
-                    { path: 'statistic' }
-                ],
-                match: { isDelete: false }
-            })
-            .exec((err, user) => {
-                if (err) {
-                    reject(err);
-                }
-                resolve(user.cards)
-            })
+        try{
+            let cards=await repository.getAllCards(User,userName)
+            resolve (cards)
+        }
+        catch(err)
+        {
+            console.log(err)
+             reject(err)
+        }
     });
 }
 
@@ -298,10 +288,10 @@ let activeData = (statisticActiv, value) => {
         let active = await statisticActiv.find(item => item.name == value)
         if (active) {
             active.sum++;
-            active.dates.push(new Date())
+           await active.dates.push(new Date())
         } else {
             let obj = { name: value, sum: 1, dates: new Date() }
-            statisticActiv.push(obj)
+           await statisticActiv.push(obj)
         }
         if (!value)
             reject("not active");
@@ -324,16 +314,18 @@ let newActiveIP = async(reqData) => {
             let device = deviceDetector.parse(userAgent).device.type;
             let card = await repository.findObject(Card, { cardName: cardName, isDelete: false })
             if (card) {
-                let statistic = await repository.find(Statistic, card.statistic)
+                let statistic = await repository.findObjectById(Statistic, card.statistic._id)
+    
                 if (statistic.viewsCnt == 0) {
                     statistic.dateCreated = new Date()
                 }
                 statistic.viewsCnt += 1;
                 await repository.pushObject(statistic.allDatesViews, new Date())
-                await service.activeData(statistic.actives.country, country)
-                await service.activeData(statistic.actives.browser, browserName)
-                await service.activeData(statistic.actives.operationType, operationType)
-                await service.activeData(statistic.actives.dvices, device)
+                await activeData(statistic.actives.country, country)
+                await activeData(statistic.actives.browser, browserName)
+                await activeData(statistic.actives.operationType, operationType)
+                await activeData(statistic.actives.dvices, device)
+                console.log("after!!")
                 if (!statistic.actives)
                     reject("not active");
                 let savedStatistic=await repository.saveObject(statistic)
@@ -341,7 +333,7 @@ let newActiveIP = async(reqData) => {
             } else
                 resolve(null);
         } catch (err) {
-            console.log(err.message);
+            console.log(err);
         }
 
     });
@@ -352,13 +344,15 @@ getCardByName = (reqData) => {
         const { cardName } = reqData.params;
         const data = reqData
         try{
-       let statistic= await service.newActiveIP(data)
+       let statistic= await newActiveIP(data)
+       console.log(statistic)
        let card= await repository.getCardByName(Card,{cardName: cardName, isDelete: false })
        resolve(card)
         }
           catch(err)
          {
-        reject(err)
+             console.log(err)
+             reject(err)
          }
     })
 }
@@ -391,6 +385,7 @@ module.exports = {
     createContactLeaderBox,
     sendMessageByCardMultiEmails,
     getAllCards,
+    getCardByName,
     activeData,
     newActiveIP,
     userIdByCardName

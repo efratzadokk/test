@@ -18,8 +18,9 @@ saveObject = (doc) => {
 findObject = (Model, filter) => {
     return new Promise(async(resolve, reject) => {
         try {
-
-            const doc = await Model.find(filter)
+            console.log(Model,filter)
+            const doc = await Model.findOne(filter)
+            
             resolve(doc)
         } catch (err) {
             reject(err)
@@ -105,10 +106,37 @@ findObjectById = (Model, objectId) => {
 pushObject = (doc, val) => {
     return new Promise(async(resolve, reject) => {
         try {
-            const doc = await doc.push(val)
-            resolve(doc)
-        } catch (err) {}
+            console.log(doc)
+            const newDoc = await doc.push(val)
+            resolve(newDoc)
+        } catch (err)
+         {console.log(err)
+        reject(err)}
     })
+}
+getAllCards = (Model,userName) => {
+    return new Promise((resolve, reject) => {
+        console.log("username", userName)
+        Model.findOne({ username: userName })
+            .populate({
+                path: "cards",
+                populate: [
+                    { path: 'user' },
+                    { path: 'socialMedia' },
+                    { path: 'galleryList' },
+                    { path: 'reviewsList' },
+                    { path: 'lead' },
+                    { path: 'statistic' }
+                ],
+                match: { isDelete: false }
+            })
+            .exec((err, user) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(user.cards)
+            })
+    });
 }
 
 getCardByName=(Model,filter)=>{  //todo: make this function generic
@@ -135,23 +163,17 @@ const populateStr=""
     pathArr.forEach(path => {
         populateStr+=`.populate({path.${path}})`
     });
-console.log(populateStr)
-    return new Promise((resolve, reject) => {
-        Model.findOne(filter).populate({ path: "user" })
-            .populate({ path: "socialMedia" })
-            .populate({ path: 'galleryList' })
-            .populate({ path: 'reviewsList' })
-            .populate({ path: 'lead' })
-            .populate({ path: 'statistic' })
-            .exec(async(err, card) => {
-                if (err) {
-                    reject(err);
-                }
-                // await newActivIP(card.statistic)
-                resolve(card)
-            })
-        // Model.findOne(filter).populateStr
-    });
+    console.log(populateStr)
+    return new Promise((resolve, reject)=>{
+        try{
+           Model.findOne(filter).populateStr
+          }
+    catch(err){
+console.log(err)
+}
+})
+      
+    
 }
 
 module.exports = {
@@ -163,5 +185,7 @@ module.exports = {
     initObj,
     findObjectById,
     pushObject,
-    createObject
+    createObject,
+    getAllCards,
+    getCardByName
 }

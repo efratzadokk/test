@@ -1,4 +1,4 @@
-const service = require('../service/DigitalCard.service')
+const service = require('../service/digitalCard.service')
 
 const { resolve } = require('path');
 
@@ -260,6 +260,7 @@ getCardByName=async (req,res)=>{
         let card = await service.getCardByName(data)
         return res.json(card)
     } catch (err) {
+        console.log(err)
         res.status(500).send(err)
     }
 }
