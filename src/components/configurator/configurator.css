@@ -1,8 +1,7 @@
-:root {
+/* :root {
   --blue: #3a405e;
 }
 
-/* salomee  test*/
 #wrap-configurator {
   background-color: white;
   color: #ebeaea;
@@ -12,7 +11,7 @@
   transition-timing-function: linear;
   position: fixed;
   height: calc(100vh - 40px);
-  /* bottom: 0px; */
+ 
   right: 0px;
   padding: 0px;
   width: 16%;
@@ -44,15 +43,7 @@
   height: 6%;
   z-index: 3;
 }
-/* #head-configurator span,
-#head-configurator .a {
-  color: #bcbccb !important;
-  fill: #bcbccb;
-  font-size: 0.8rem;
-}
-#head-configurator svg {
-  height: 0.6rem;
-} */
+
 
 .button_collapse {
   color: #bdbec5;
@@ -128,8 +119,6 @@ input[type="range"]::-moz-range-thumb {
 .b1 {
   background-color: transparent;
   border: none;
-  /* transition-duration: 0.4s;
-  cursor: pointer; */
   font-weight: bold;
   background-color: #f0f0f0bd;
   color: grey;
@@ -141,13 +130,195 @@ input[type="range"]::-moz-range-thumb {
 .b1:hover {
   border-bottom: #4169e1 2px solid;
   color: #4169e1;
-  /* background-color: grey; */
 }
 
 .b2 {
   background: transparent no-repeat padding-box;
   border: none;
   color: #777777;
+  width: 80%;
+  height: 100%;
+}
+
+.b2:hover {
+  border-bottom: #4169e1 2px solid;
+  color: #4169e1;
+
+  width: 80%;
+  height: 100%;
+}
+
+#bl {
+  border-bottom: #4169e1 2px solid;
+  color: #4169e1;
+
+  background-color: #e6e6e6;
+}
+
+#gdm {
+  overflow: scroll;
+} */
+
+:root {
+  --blue: #3a405e;
+}
+#wrap-configurator {
+  border-radius: 60px 0px 0px 0px;
+  background-color: white;
+  color: #ebeaea;
+  display: inline-block;
+  padding-bottom: 78px;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;
+  position: fixed;
+  height: 93%;
+  bottom: 0px;
+  right: 0px;
+  padding: 0px;
+  width: 16%;
+  opacity: 1;
+  border-radius: 40px 0px 0px 0px;
+  z-index: 2;
+}
+#wrap-configurator label {
+  margin: 0;
+  margin-top: 22px;
+  color: white;
+  font-size: 0.9rem;
+}
+#wrap-configurator .form-control {
+  color: #a8aab3;
+  background-color: transparent;
+  border-color: #75798e;
+  border: none;
+  border-bottom: 1px solid;
+  border-radius: 0;
+  padding: 0;
+  font-size: 0.8rem;
+}
+#bottom_configurtor {
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 16%;
+  height: 5%;
+  z-index: 3;
+}
+#head-configurator span,
+#head-configurator .a {
+  color: #bcbccb !important;
+  fill: #bcbccb;
+  font-size: 0.8rem;
+}
+#head-configurator svg {
+  height: 0.6rem;
+}
+
+.button_collapse {
+  color: #bdbec5;
+  border-color: transparent;
+  background-color: transparent;
+}
+#accordion .card-header *:hover {
+  opacity: 0.6;
+}
+.button_collapse .btn-link:hover {
+  color: #b1b1b1;
+  text-decoration: none;
+}
+.button_collapse .btn-link {
+  color: #b1b1b1;
+  width: 100%;
+  font-size: 10px;
+  text-decoration: none;
+}
+.button_collapse .btn-link :active {
+  text-decoration: none;
+}
+.button_collapse .card-header {
+  border: 1px solid #b1b1b1;
+  border-radius: 0.5rem;
+}
+.arrow-collapse {
+  font-size: 1.4rem;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 1px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 1px solid #d3d3d3;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  border-radius: 20px;
+  width: 25px;
+  height: 25px;
+  background: rgb(200, 255, 0);
+  border: 6px solid rgb(0, 105, 44);
+  cursor: pointer;
+}
+#whatapp {
+  /* margin-right: 10%; */
+  height: 100%;
+  /* padding: 0px; */
+  margin: 0px;
+  width: 100%;
+  border: "none";
+  background-color: royalblue;
+  /* margin-left: 20px; */
+  font-size: 1vw;
+  /* overflow: scroll; */
+}
+.b1 {
+  background-color: transparent;
+  border: none;
+  /* transition-duration: 0.4s;
+  cursor: pointer; */
+  color: grey;
+  width: 80%;
+  height: 100%;
+}
+.b1:hover {
+  border-bottom: #4169e1 2px solid;
+  color: #4169e1;
+  /* background-color: grey; */
+  width: 80%;
+  height: 100%;
+}
+
+.b2 {
+  background-color: transparent;
+  border: none;
+  color: grey;
   width: 80%;
   height: 100%;
 }
@@ -166,5 +337,8 @@ input[type="range"]::-moz-range-thumb {
   /* background-color: grey; */
   /* width:100%;
   height: 100%; */
-  background-color: #e6e6e6;
+}
+
+#gdm {
+  overflow: scroll;
 }

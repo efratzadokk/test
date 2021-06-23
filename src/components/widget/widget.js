@@ -1,219 +1,11 @@
+
+
 // import React, { useEffect, useState } from 'react';
 // import { connect } from 'react-redux';
 // import './widget.css'
 // import { useDrag } from 'react-dnd'
 // import { ItemTypes } from '../../ItemTypes'
 // import { addElement, addElement1 } from '../../redux/actions/funnel.action'
-// import element from '../element/element';
-// import { setName } from '../../redux/actions/user.action';
-
-// function Widget(props) {
-//     const { numElement, changeMessage, addElement, addElement1,newVal } = props
-//     const [settings, setSettings] = useState({})
-//     const [indexSection, setIndexSection] = useState()
-//     const [indexPart, setIndexPart] = useState()
-//     const [changePosition, setChangePosition] = useState()
-//     const [name, setName] = useState()
-//     // const [valueWidget, setValueWidget] = useState({
-//     //     Title: '<h1 style="text-align:center">Title</h1>',
-//     //     Text: '<p style="text-align:center">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore\r\n magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd \r\ngubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetu \r\nsadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\",\r\n</p>',
-//     //     Image: '',
-//     //     // Video:'https://www.youtube.com/watch?v=Ke90Tje7VS0',
-//     //     Video: '',
-//     //     Forms: '<form >form1</form>',//action="/action_page.php" method="get"
-//     //     Html: '',
-//     //     Button: ''
-//     // })
-//     const [valueWidget, setValueWidget] = useState(
-//         newVal
-//         // Title: Title
-//         // Text: '<p style="text-align:center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. in fermentum risus felis non sapien. Pellentesque sed hendrerit eros. Vestibulum ac pulvinar diam, quis sodales arcu. Etiam nisl justo, consequat quis enim eget, ornare mollis erat.</p>',
-//         // Image: '',
-//         // // Video:'https://www.youtube.com/watch?v=Ke90Tje7VS0',
-//         // Video: '',
-//         // Forms: '<form >form1</form>',//action="/action_page.php" method="get"
-//         // Html: '',
-//         // Button: ''
-//     )
-
-
-//     const findMe=(myname)=>{
-//         debugger
-//         let obj = valueWidget.find(x => x.type === myname.toLowerCase());
-//        // console.log(obj)
-//         let index = valueWidget.indexOf(obj);
-//        // console.log(index)
-//       const tmp= valueWidget[index]
-//       console.log(tmp)
-//     }
-//     // {dropEffect: "move",
-//     //         indexPart: 0,
-//     //         indexSection: 0,
-//     //         name: "Drop"}
-//     const [{ isDragging }, drag] = useDrag({
-//         item: { name: props.name, type: ItemTypes.BOX },
-//         collect: (monitor) => ({
-//             isDragging: !!monitor.isDragging()
-//         }),
-//         end: async (item, monitor) => {
-//             //////////////
-//             const dropResult = monitor.getDropResult();
-//             if (item && dropResult) {
-//                 console.log(settings);
-//                 setName(item.name)
-//                 if (indexPart === dropResult.indexPart && indexSection === dropResult.indexSection)
-//                     props.addElement(name, valueWidget[item.name], indexSection, indexPart, numElement)
-//                 else {
-//                     setIndexPart(dropResult.indexPart)
-//                     setIndexSection(dropResult.indexSection)
-//                     setChangePosition(!changePosition)
-//                 }
-//             }
-//             ////////////////
-//         }
-//     })
-
-//     // useEffect(() => {
-//     //     // debugger
-//     //     // setSettings({tamar:"cohjkds"});
-//     //     // window.addEventListener("message", iframeFunctions, false);
-//     //     if (name) {
-
-//     //         props.addElement(name, valueWidget[name], indexSection, indexPart, numElement)
-
-//     //     }
-//     //     // console.log('dd', settings)
-//     // }, [changePosition])
-//     // const drag1 = (event) => {
-//     //     console.log("dragging!!!!")
-//     //     event.stopPropagation();
-//     //     event.preventDefault();
-//     //     // let x =1
-//     //     // x=JSON.stringify(event.target)
-//     //     // event.dataTransfer.setData("text", x);
-//     //     // event.originalEvent.dataTransfer.setData("foo",x)
-//     //     event.dataTransfer.dropEffect = 'move';
-//     //     addElement1(props.name, valueWidget[props.name])
-//     //   }
-//     // const click = (event) => {
-//     //     console.log("pp")
-//     //     event.stopPropagation();
-//     //     event.preventDefault();
-//     //     // Style the drag-and-drop as a "copy file" operation.
-//     //     event.dataTransfer.dropEffect = 'move';
-//     //     debugger
-//     //     addElement1(props.name, valueWidget[props.name])//params:{name:props.name,value:valueWidget[props.name]}
-//     //     //   props.iframe.contentWindow.postMessage( JSON.stringify({function:"add element" ,params:{name:props.name,value:valueWidget[props.name]}}), '*')
-//     // }
-
-
-//     useEffect(() => {
-//         debugger
-//        // setSettings({tamar:"cohjkds"});
-//        // window.addEventListener("message", iframeFunctions, false);
-//        if (name) {
-
-//            props.addElement(name, findMe(props.name), indexSection, indexPart, numElement)
-//           // props.addElement(props.name, valueWidget[props.name], indexSection, indexPart, numElement)
-
-//        }
-//        // console.log('dd', settings)
-//    }, [changePosition])
-
-
-//        const drag1 = (event) => {
-
-//            debugger
-//        console.log("dragging!!!!")
-//        event.stopPropagation();
-//        event.preventDefault();
-//        // let x =1
-//        // x=JSON.stringify(event.target)
-//        // event.dataTransfer.setData("text", x);
-//        // event.originalEvent.dataTransfer.setData("foo",x)
-//        event.dataTransfer.dropEffect = 'move';
-//        debugger
-//        addElement1(props.name, findMe(props.name))
-//     //   addElement1(props.name, valueWidget[props.name])
-
-//    }
-
-
-//     return (
-//         // <div ref={drag} className="d-flex pl-1 move" onDrag={e => drag1(e)} draggable="true" onDragStart="drag(event)" >
-//         //     <div className="newEelement col-1 d-flex justify-content-center p-1 px-3 my-3 " >
-//         //         <span class="material-icons">
-//         //             {props.icon}
-//         //         </span>
-//         //     </div>
-//         //     <div className="mt-3 ml-2 p">
-//         //         <p>{props.name}</p>
-//         //     </div>
-//         // </div>
-
-
-// <>
-        
-//         {!props.img ? <>
-//             <div ref={drag} className="d-flex pl-1 move" onDrag={e => drag1(e)} draggable="true" ondragstart="drag(event)" >
-//         <div className="newEelement col-1 d-flex justify-content-center p-1 px-3 my-3 " >
-//             <span class="material-icons">
-//                 {props.icon}
-//             </span>
-//         </div>
-
-//             <div className="mt-3 ml-2 p">
-//                 <p>{props.name}</p>
-//             </div> 
-//             </div>
-//             </> :
-//             <>
-//             <div ref={drag} className="align-self-center pl-1 move" onDrag={e => drag1(e)} draggable="true" ondragstart="drag(event)" >
-
-//                 <div  style={{ textAlign: 'center', alignItems: 'center' }}>
-//                     <img src={props.img} alt={props.name} ></img>
-//                     <div>{props.name}</div>
-//                     <hr />
-//                 </div>
-//             </div>
-//             </>}
-
-//     </>
-
-
-//     )
-// }
-// export default connect(
-//     (state) => {
-//         return {
-//             numElement: state.funnel.jsonPage.num_elements,
-//             newVal:state.funnel.newVal,
-//             // iframe: state.funnel.iframe
-//         }
-//     },
-//     (dispatch) => {
-//         return {
-//             changeMessage: () => { dispatch({ type: '[funnel] CHANGE_MESSAGE' }) },
-//             addElement: function (newElement, value, section, part, numElement) {
-//                 dispatch(addElement({
-//                     type: newElement, value: value, section: section, part: part, id: numElement
-//                 }))
-//             },
-//             addElement1: function (newElement, value) {
-//                 dispatch(addElement1({ type: newElement, value: value }))
-//             },
-//         }
-//     }
-// )(Widget)
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import { connect } from 'react-redux';
-// import './widget.css'
-// import { useDrag } from 'react-dnd'
-// import { ItemTypes } from '../../ItemTypes'
-// import { addElement, addElement1,setPosElement } from '../../redux/actions/funnel.action'
 // import element from '../element/element';
 // import { setName } from '../../redux/actions/user.action';
 // // import STitle from '../s_title/stitle'
@@ -224,7 +16,6 @@
 //     const [indexPart, setIndexPart] = useState()
 //     const [changePosition, setChangePosition] = useState()
 //     const [name, setName] = useState()
-//     const [posY,setPosY]=useState()
 
 //     const [valueWidget, setValueWidget] = useState(
         
@@ -252,7 +43,7 @@
 
 
 //     const findMe=(myname)=>{
-//         // debugger
+//         debugger
 //         let obj = valueWidget.find(x => x.type === myname.toLowerCase());
 //        // console.log(obj)
 //         let index = valueWidget.indexOf(obj);
@@ -282,33 +73,17 @@
 //             //////////////
 //             debugger
 //             const dropResult = monitor.getDropResult();
-//             const offset = monitor.getClientOffset();
-//             setPosElement(offset)
-//             const bounding = monitor.getBoundingClientRect
-//             console.log("offset: ",offset)
-//             console.log("bounding: ",bounding)
-//             console.log("offset 1 :",offset)
-//             setPosElement(offset)
-//             setPosY(offset.y);
 //             if (item && dropResult) {
-//                 console.log("offset: ",offset)
-//                 console.log("bounding: ",bounding)
-//                 setPosY(offset.y);
-// console.log(posY)
 //                 console.log(settings);
 //                 setName(item.name)
 //                 if (indexPart === dropResult.indexPart && indexSection === dropResult.indexSection)
 //                 { debugger
-//                     props.addElement(name, findMe(props.name), indexSection, indexPart, numElement,posY)
+//                     props.addElement(name, findMe(props.name), indexSection, indexPart, numElement)
 //                 }
 //                     else {
 //                     setIndexPart(dropResult.indexPart)
 //                     setIndexSection(dropResult.indexSection)
-//                     setPosY(offset.y);
-//                     console.log("offset 1 :",offset)
-//                     setPosElement(offset)
 //                     setChangePosition(!changePosition)
-
 //                 }
 //             }
 //             ////////////////
@@ -316,12 +91,12 @@
 //     })
 
 //     useEffect(() => {
-//         //  debugger
+//          debugger
 //         // setSettings({tamar:"cohjkds"});
 //         // window.addEventListener("message", iframeFunctions, false);
 //         if (name) {
 
-//             props.addElement(name, findMe(props.name), indexSection, indexPart, numElement,posY)
+//             props.addElement(name, findMe(props.name), indexSection, indexPart, numElement)
 //            // props.addElement(props.name, valueWidget[props.name], indexSection, indexPart, numElement)
 
 //         }
@@ -331,7 +106,7 @@
 
 //         const drag1 = (event) => {
 
-//             // debugger
+//             debugger
 //         console.log("dragging!!!!")
 //         event.stopPropagation();
 //         event.preventDefault();
@@ -340,21 +115,12 @@
 //         // event.dataTransfer.setData("text", x);
 //         // event.originalEvent.dataTransfer.setData("foo",x)
 //         event.dataTransfer.dropEffect = 'move';
-//         // debugger
+//         debugger
 //         addElement1(props.name, findMe(props.name))
 //      //   addElement1(props.name, valueWidget[props.name])
 
 //     }
-//     // const click = (event) => {
-//     //     console.log("pp")
-//     //     event.stopPropagation();
-//     //     event.preventDefault();
-//     //     // Style the drag-and-drop as a "copy file" operation.
-//     //     event.dataTransfer.dropEffect = 'move';
-//     //     debugger
-//     //     addElement1(props.name, valueWidget[props.name])//params:{name:props.name,value:valueWidget[props.name]}
-//     //     //   props.iframe.contentWindow.postMessage( JSON.stringify({function:"add element" ,params:{name:props.name,value:valueWidget[props.name]}}), '*')
-//     // }
+  
 //     return (
 //         <>
         
@@ -372,17 +138,18 @@
 //                 </div>
 //                 </> :
 //                 <>
-//                 <div ref={drag} className="align-self-center pl-1 move" onDrag={e => drag1(e)} draggable="true" ondragstart="drag(event)" >
+//                 <div ref={drag}   style={{marginBottom:'0px'}} onDrag={e => drag1(e)} draggable="true" ondragstart="drag(event)" >
 
-//                     {/* <div  style={{ textAlign: 'center', alignItems: 'center' }}>
-//                         <img src={props.img} alt={props.name} ></img>
-//                         <div>{props.name}</div>
-//                         <hr />
-//                     </div> */}
+                   
 
-//                         <div >
-//                         <img  style={{height:'25px' , alignItems: 'center' , width:'30px' }} src={props.img} alt={props.name} ></img>
-//                         <div style={{height:'10px', width:'30px' }}>{props.name}</div>
+//                         <div style={{textAlign:'center'}}>
+//                         <img 
+//                        // id={(props.name=='Html' || props.name=='Gallery' ||props.name=='Form')? "opc":""} 
+//                         style={{height:'25px' , alignItems: 'center' , width:'30px' }} src={props.img} alt={props.name} ></img>
+//                       <div style={{textAlign:'center'}}> <label 
+//                         //className='d-flex flex-column align-items-center justify-content-center ' 
+//                          style={{paddingBottom:'0px'}}>{props.name}</label>
+//                          </div> 
 //                         <hr />
 //                     </div>
 //                 </div>
@@ -405,18 +172,19 @@
 //     (dispatch) => {
 //         return {
 //             changeMessage: () => { dispatch({ type: '[funnel] CHANGE_MESSAGE' }) },
-//             addElement: function (newElement, value, section, part, numElement,posY) {
+//             addElement: function (newElement, value, section, part, numElement) {
 //                 dispatch(addElement({
-//                     type: newElement, value: value, section: section, part: part, id: numElement,posY:posY
+//                     type: newElement, value: value, section: section, part: part, id: numElement
 //                 }))
 //             },
 //             addElement1: function (newElement, value) {
 //                 dispatch(addElement1({ type: newElement, value: value }))
 //             },
-//             setPosElement: function ( value) {dispatch(setPosElement(value))},
 //         }
 //     }
 // )(Widget)
+
+
 
 
 import React, { useEffect, useState } from 'react';
@@ -424,10 +192,14 @@ import { connect } from 'react-redux';
 import './widget.css'
 import { useDrag } from 'react-dnd'
 import { ItemTypes } from '../../ItemTypes'
-import { addElement, addElement1 } from '../../redux/actions/funnel.action'
+import { addElement, addElement1,setMonIndex } from '../../redux/actions/funnel.action'
 import element from '../element/element';
 import { setName } from '../../redux/actions/user.action';
 // import STitle from '../s_title/stitle'
+import Grid  from '@material-ui/core/Grid';
+
+
+
 function Widget(props) {
     const { numElement, changeMessage, addElement, addElement1,newVal ,newElementTypeAndValue} = props
     const [settings, setSettings] = useState({})
@@ -449,16 +221,8 @@ function Widget(props) {
         // Button: ''
 
 
-         
-        
 
     )
-
-
-    // {dropEffect: "move",
-    //         indexPart: 0,
-    //         indexSection: 0,
-    //         name: "Drop"}
 
 
     const findMe=(myname)=>{
@@ -469,13 +233,6 @@ function Widget(props) {
        // console.log(index)
       const tmp= valueWidget[index]
       console.log(tmp)
-
-
-    //    if (tmp.type ==='title'||'paragraph')
-    //     return tmp.text
-    //    else
-    //    return tmp.type
-
 
 
     return tmp
@@ -525,25 +282,21 @@ function Widget(props) {
 
         const drag1 = (event) => {
 
-            debugger
         console.log("dragging!!!!")
         event.stopPropagation();
         event.preventDefault();
-        // let x =1
-        // x=JSON.stringify(event.target)
-        // event.dataTransfer.setData("text", x);
-        // event.originalEvent.dataTransfer.setData("foo",x)
+   
         event.dataTransfer.dropEffect = 'move';
         debugger
         addElement1(props.name, findMe(props.name))
-     //   addElement1(props.name, valueWidget[props.name])
-
+        props.setMonIndex(1)
+   
     }
   
     return (
         <>
         
-            {!props.img ? <>
+            {/* {!props.img ? <>
                 <div ref={drag} className="d-flex pl-1 move" onDrag={e => drag1(e)} draggable="true" ondragstart="drag(event)" >
             <div className="newEelement col-1 d-flex justify-content-center p-1 px-3 my-3 " >
                 <span class="material-icons">
@@ -555,24 +308,23 @@ function Widget(props) {
                     <p>{props.name}</p>
                 </div> 
                 </div>
-                </> :
+                </> : */}
                 <>
                 <div ref={drag}   style={{marginBottom:'0px'}} onDrag={e => drag1(e)} draggable="true" ondragstart="drag(event)" >
-
-                   
-
-                        <div style={{textAlign:'center'}}>
-                        <img 
+                        <div  style={{textAlign:'center',height:'9vh'} }>
+                        <img  id={(props.name=='Html' || props.name=='Gallery' ||props.name=='Form'||props.name=='Sharing')? "opc":""}
                        // id={(props.name=='Html' || props.name=='Gallery' ||props.name=='Form')? "opc":""} 
-                        style={{height:'25px' , alignItems: 'center' , width:'30px' }} src={props.img} alt={props.name} ></img>
+                        style={{height:'50%' , alignItems: 'center' , width:'50%' }} src={props.img} alt={props.name} ></img>
                       <div style={{textAlign:'center'}}> <label 
                         //className='d-flex flex-column align-items-center justify-content-center ' 
-                         style={{paddingBottom:'0px'}}>{props.name}</label>
+                         style={{paddingBottom:'0px',fontSize:'1vw'}}>{props.name}</label>
+                          <hr style={{margin:'0'}}/>
                          </div> 
-                        <hr />
+                       
                     </div>
                 </div>
-                </>}
+                </>
+                {/* } */}
 
         </>
     )
@@ -599,6 +351,8 @@ export default connect(
             addElement1: function (newElement, value) {
                 dispatch(addElement1({ type: newElement, value: value }))
             },
+            setMonIndex: (idx)=>{dispatch(setMonIndex(idx))},
+
         }
     }
 )(Widget)
