@@ -1,10 +1,7 @@
 
 
-import {SET_MON_INDEX, SET_VALUE_ME, SET_IS_OPEN_CON, SET_THUMBTACK, SET_COLLAPSE_OPEN, ADD_SECTION_IN_IFRAME, SET_JSON_PAGE, SET_STYLE_PAGE, CHANE_LOADING, SET_OPACITY_PAGE, REMOVE_SECTION, SET_STYLE_IMAGE, ADD_SECTION, SET_BORDER_PARTS, CHANGE_EDIT_MODE, ADD_ELEMENT, ADD_ELEMENT1, SET_VALUE_ELEMENT, MOVE_ELEMENT_IN_PART, REMOVE_ELEMENT, ELEMENT_IN_EDITING,SET_POS_ELEMENT } from '../actions/funnel.action'
+import {SET_MON_INDEX, SET_VALUE_ME, SET_IS_OPEN_CON, SET_THUMBTACK, SET_COLLAPSE_OPEN, SET_JSON_PAGE, SET_STYLE_PAGE, SET_OPACITY_PAGE, REMOVE_SECTION, ADD_SECTION, SET_BORDER_PARTS, CHANGE_EDIT_MODE, ADD_ELEMENT, ADD_ELEMENT1, SET_VALUE_ELEMENT, MOVE_ELEMENT_IN_PART, REMOVE_ELEMENT, ELEMENT_IN_EDITING } from '../actions/funnel.action'
 import produce from 'immer'
-// import { act } from 'react-dom/test-utils'
-import { act } from 'react-dom/test-utils'
-import img from '../../Sunflower-on-Blue-bkgd-2.jpg'
 
 const initialState = {
     urlPage: '',//'http://localhost:3000'
@@ -270,38 +267,27 @@ export default produce((state = initialState, action) => {
         case ADD_ELEMENT: {
             debugger
             let newElement
-            if (action.payload.type == 'Title' || action.payload.type == 'Paragraph') {
+            if (action.payload.type === 'Title' || action.payload.type === 'Paragraph') {
 
                 newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontSize: action.payload.value.fontSize, border: action.payload.value.border, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius, settings: {}, id: action.payload.id }
             }
-            else if (action.payload.type == 'Button') {
-                newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontSize: action.payload.value.fontSize, borderRadius: action.payload.value.borderRadius, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius, width: action.payload.value.width, settings: {}, id: action.payload.id }
+            else if (action.payload.type === 'Button') {
+                newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontSize: action.payload.value.fontSize, borderRadius: action.payload.value.borderRadius, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor,  width: action.payload.value.width, settings: {}, id: action.payload.id }
 
             }
-            else if (action.payload.type == 'Spacer') {
+            else if (action.payload.type === 'Spacer') {
                 newElement = { type: action.payload.type, color: action.payload.value.color, height: action.payload.value.height, settings: {}, id: action.payload.id }
 
             }
-            else if (action.payload.type == 'Image' || action.payload.type == 'Video' || action.payload.type == 'Gallery') {
+            else if (action.payload.type === 'Image' || action.payload.type=== 'Video' || action.payload.type === 'Gallery') {
                 // if (action.payload.type == 'Gallery')
                 //     action.payload.value = []
                 newElement = { type: action.payload.type, value: action.payload.value.value, images: action.payload.value.images, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border:action.payload.value.border , settings: {}, id: action.payload.id}
-                // if (action.payload.type == 'Gallery')
-                //     newElement.value = [{
-                //         original: 'https://picsum.photos/id/1018/1000/600/',
-                //         thumbnail: 'https://picsum.photos/id/1018/250/150/',
-                //     },
-                //     {
-                //         original: 'https://picsum.photos/id/1015/1000/600/',
-                //         thumbnail: 'https://picsum.photos/id/1015/250/150/',
-                //     }]
-
             }
-            // console.log(newElement)
-            else if (action.payload.type == 'Icon' || action.payload.type == 'Form' || action.payload.type == 'Sharing') {
+            else if (action.payload.type === 'Icon' || action.payload.type ==='Form' || action.payload.type === 'Sharing') {
                 newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
             }
-            else if (action.payload.type == 'Html') {
+            else if (action.payload.type === 'Html') {
                 newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontFamily: action.payload.value.fontFamily, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
             }
             console.log(newElement)
@@ -309,7 +295,7 @@ export default produce((state = initialState, action) => {
 // const afterId=''
 // const afterIndex=''
 // const func=(element1)=>element1.id==afterId
-if(state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements!=[]){
+if(state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements!==[]){
 
 const y=action.payload.posY
 // console.log("y newElement:",y)
@@ -330,46 +316,33 @@ const y=action.payload.posY
             return state
         }
         case ADD_ELEMENT1: {
-            // debugger
-
             //avant
             // const newElement = { type: action.payload.type, value: action.payload.value}
             //apres
             let newElement
             console.log(action.payload.type)
-            if (action.payload.type == 'Title' || action.payload.type == 'Paragraph') {
+            if (action.payload.type === 'Title' || action.payload.type === 'Paragraph') {
                 // console.log('he enter a itle or addelement1')
 
                 newElement = { type: action.payload.type, value: action.payload.value.text, color: action.payload.value.color, fontSize: action.payload.value.fontSize, border: action.payload.value.border, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius }
                 //  newElement={ type: action.payload.type, value: action.payload.value.text}
 
             }
-            else if (action.payload.type == 'Image' || action.payload.type == 'Video' || action.payload.type == 'Gallery') {
-                // if (action.payload.type == 'Gallery')
-                //     action.payload.value = []
+            else if (action.payload.type === 'Image' || action.payload.type === 'Video' || action.payload.type === 'Gallery') {
                 newElement = { type: action.payload.type, value: action.payload.value.path, images: action.payload.value.images, alignItem: action.payload.value.alignItem, backgroundColor: action.payload.value.backgroundColor }
-                // if (action.payload.type == 'Gallery')
-                //     newElement.value = [{
-                //         original: 'https://picsum.photos/id/1018/1000/600/',
-                //         thumbnail: 'https://picsum.photos/id/1018/250/150/',
-                //     },
-                //     {
-                //         original: 'https://picsum.photos/id/1015/1000/600/',
-                //         thumbnail: 'https://picsum.photos/id/1015/250/150/',
-                //     }]
             }
-            else if (action.payload.type == 'Icon' || action.payload.type == 'Form' || action.payload.type == 'Sharing') {
+            else if (action.payload.type === 'Icon' || action.payload.type === 'Form' || action.payload.type === 'Sharing') {
                 newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize }
             }
-            else if (action.payload.type == 'Button') {
+            else if (action.payload.type === 'Button') {
                 newElement = { type: action.payload.type, value: action.payload.value.text, color: action.payload.value.color, fontSize: action.payload.value.fontSize, border: action.payload.value.borderRadius, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius, width: action.payload.value.width }
 
             }
-            else if (action.payload.type == 'Spacer') {
+            else if (action.payload.type === 'Spacer') {
                 newElement = { type: action.payload.type, color: action.payload.value.color, height: action.payload.value.height }
 
             }
-            else if (action.payload.type == 'Html') {
+            else if (action.payload.type === 'Html') {
                 newElement = { type: action.payload.type, value: action.payload.value.text, color: action.payload.value.color, fontFamily: action.payload.value.fontFamily, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
             }
 
@@ -377,11 +350,8 @@ const y=action.payload.posY
             // state.elementInEditing = newElement;
             // state.collapseIsOpen = "element"
             // state.jsonPage.num_elements++
-
             state.newElementTypeAndValue = newElement
-
             // state.editinigElement = true
-
             return state
         }
         case SET_VALUE_ELEMENT: {
@@ -575,7 +545,7 @@ const y=action.payload.posY
             state.jsonPage.arrSections.map((item, a) => {
                 item.arrParts.map((item, b) => {
                     item.arrElements.map((item, c) => {
-                        if (item.id == state.elementInEditing.id) {
+                        if (item.id === state.elementInEditing.id) {
                             item.settings[action.payload.property] = action.payload.value
                         }
                     })
@@ -595,9 +565,11 @@ const y=action.payload.posY
             switch (action.payload.property) {
                 case 'backgroundColor':
                     state.jsonPage.arrSections[action.payload.indexSection].settings.style[action.payload.property] = action.payload.val
+                    break;
                 case 'opacity':
                     state.jsonPage.arrSections[action.payload.indexSection].settings.style["opacity"] = action.payload.val
-
+                    break;
+                default:break;
             }
             // arrSections[indexSectionInEditing].settings.style.backgroundColor.replace(action.payload.val)
 
