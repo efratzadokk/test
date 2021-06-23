@@ -5,7 +5,7 @@ import ItemInAllFunnels from '../itemIInAllFunnels/itemInAllFunnels';
 import './allFunnels.css'
 function AllFunnels(props) {
     const { allFunnels } = props
-    // salomee  356 ere
+    // salomee  356 ere add
     return (
 
         <>
