@@ -9,7 +9,7 @@ const initialState = {
 export default produce((state = initialState, action) => {
     switch (action.type) {
         case '[user] SET_USER_ID':
-            state.userId=action.payload
+            state.userId=action.payload;break;
         default:
             return state
     }

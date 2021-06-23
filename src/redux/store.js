@@ -1,9 +1,6 @@
 import { createStore ,applyMiddleware,combineReducers} from 'redux';
-import { produce } from 'immer'
 import { composeWithDevTools } from 'redux-devtools-extension';
-// import reducer from './reducers/index'
-import ReduxThunk from 'redux-thunk' 
-import {getFromServer,uploadImage,creatFunnel,getAllFunnelByUserId,getUidByUserName,getFunnelByName,updateFunnel,removeFunnel,uploadFile,saveOrUpdate} from './middleware/crud'
+import {getFromServer,creatFunnel,getAllFunnelByUserId,getUidByUserName,getFunnelByName,updateFunnel,removeFunnel,uploadFile,saveOrUpdate} from './middleware/crud'
 import userReducer from './reducers/user.reducer'
 import funnelReducer from './reducers/funnel.reducer'
 
@@ -26,7 +23,6 @@ const store = createStore(
             removeFunnel,
             uploadFile,
             saveOrUpdate
-            // uploadImage
         ),
     )
 )
