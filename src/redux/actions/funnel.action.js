@@ -22,8 +22,25 @@ export const GET_ALL_FUNNELS='[funnel] GET_ALL_FUNNELS'
 export const SET_STYLE_IMAGE='[funnel] SET_STYLE_IMAGE'
 export const CHANE_LOADING ='[funnel] CHANE_LOADING'
 export const SET_POS_ELEMENT='[funnel] SET_POS_ELEMENT'
+export const DUPLICATE_FUNNEL ='[funnel] DUPLICATE_FUNNEL'
+export const REMOVE_FUNNEL ='[funnel] REMOVE_FUNNEL'
+export const REMOVE_FUNNEL1 ='[funnel] REMOVE_FUNNEL1'
+export const SET_NAME_FUNNEL ='[funnel] SET_NAME_FUNNEL'
+export const SET_NAME_CHOSEN_FUNNEL ='[funnel] SET_NAME_CHOSEN_FUNNEL'
+
+// export const SET_JSON_PAGE='[funnel] SET_JSON_PAGE'
+export const SET_JSON_SERVER='[funnel] SET_JSON_SERVER'
 // export const ADD_SECTION_IN_IFRAME ='[funnel] ADD_SECTION_IN_IFRAME'
 export const SET_MON_INDEX ='[funnel] SET_MON_INDEX'
+
+
+export function duplicateFunnel(value) {
+    return {
+        type: DUPLICATE_FUNNEL,
+        payload: value
+    }
+}
+
 
 export function setFlagToggleCon(newFlag) {
     return {
@@ -35,6 +52,36 @@ export function setFlagthumbtack(newFlag) {
     return {
         type: '[funnel] SET_THUMBTACK',
         payload: newFlag
+    }
+}
+
+
+// export function setJsonPage(json) {
+//     return {
+//         type: SET_JSON_PAGE,
+//         payload: json
+//     }
+// }
+
+
+
+export function setJsonServer(json) {
+    return {
+        type: SET_JSON_SERVER,
+        payload: json
+    }
+}
+export function removeFunnel(value) {
+    return {
+        type: '[funnel] REMOVE_FUNNEL1',
+        payload: value
+    }
+}
+export function removeReducer(value) {
+    debugger
+    return {
+        type: '[funnel] REMOVE_FUNNEL',
+        payload: value
     }
 }
 
@@ -219,12 +266,22 @@ export function setStyleImage(ob) {
         payload: ob
     }
 }
-export function removeFunnel(value) {
+
+export function setNameChosenFunnel(name) {
     return {
-        type: '[funnel] REMOVE_FUNNEL',
-        payload: value
+        type: SET_NAME_CHOSEN_FUNNEL,
+        payload: name
     }
 }
+export function setNameFunnel(obj) {
+    //console.log("i in action" +id,name)
+    return {
+        type: SET_NAME_FUNNEL,
+        payload: obj,
+      //  id:id
+    }
+}
+
 export function setHrefButton(value) {
     return {
         type: '[funnel] SET_HREF_BUTTON',

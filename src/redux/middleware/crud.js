@@ -36,6 +36,33 @@ export const saveOrUpdate = ({ dispatch, getState }) => next => action => {
     return next(action)
 }
 
+export const duplicateFunnel = ({ dispatch, getState }) => next => action => {
+    if (action.type === '[funnel] DUPLICATE_FUNNEL') {
+        debugger
+        // console.log(getState().funnel.jsonPage);
+        $.ajax({
+            url:`${url}/api/duplicateFunnel/${action.payload}`,//5f6b069358a042177629086b
+            type: 'POST',
+            // data: { url: "efrat1", json: JSON.stringify(getState().funnel.jsonPage) },
+            // data: { 'name': getState().funnel.name, json: JSON.stringify(getState().funnel.jsonPage) },
+            success: function (data) {
+                debugger
+                console.log(data);
+                // dispatch({ type: '[funnel] SET_ID_FUNNEL', payload: data.funnel._id  })
+                // dispatch({ type: '[funnel] CHANGE_LOADING'})
+                dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
+            },
+            error: function (err) {
+                debugger
+                console.log();
+                alert(JSON.parse(err.responseText).message)
+            }
+        })
+    }
+    return next(action)
+
+}
+
 export const updateFunnel1 = ({ dispatch, getState }) => next => action => {
     if (action.type === '[funnel] UPDATING_FUNNEL1') {
         dispatch({ type: '[funnel] CHANGE_LOADING'})
@@ -59,6 +86,26 @@ export const getFromServer = ({ dispatch, getState }) => next => action => {
                 console.log(data);
             }
         })
+    return next(action)
+}
+export const removeFunnel = ({ dispatch, getState }) => next => action => {
+    debugger
+    if (action.type === '[funnel] REMOVE_FUNNEL1') {
+        debugger
+        $.ajax({
+            url: `${url}/api/deleteFunnel/${action.payload}`,
+            type: 'DELETE',
+            success: function (data) {
+                debugger
+                console.log(data);
+                // dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
+                // dispatch({ type: '[funnel] REMOVE_FUNNEL'})
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    }
     return next(action)
 }
 //////////good
@@ -196,23 +243,6 @@ export const getAllFunnelByUserId = ({ dispatch, getState }) => next => action =
     return next(action)
 
  }
-export const removeFunnel = ({ dispatch, getState }) => next => action => {
-
-    if (action.type === '[funnel] REMOVE_FUNNEL') {
-        $.ajax({
-            url: `${url}/api/removeFunnel/${action.payload}`,
-            type: 'DELETE',
-            success: function (data) {
-                console.log(data);
-                dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        })
-    }
-    return next(action)
-}
 export const uploadFile = ({ dispatch, getState }) => next => action => {
     return new Promise((resolve, reject) => {
         if (action.type === '[funnel] UPLOAD_FILE') {

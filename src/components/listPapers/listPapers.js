@@ -1,151 +1,59 @@
 
-// import React, { useEffect, useState } from 'react'
-// import { connect } from 'react-redux';
-// // import { setStylePage, setOpacityPage, setNamePage } from '../../redux/actions/funnel.action'
-
-
-// function ListPapers(props) {
-//   const {allFunnels } = props
-//     return (
-//         <div style={{marginTop:"100px"}}>
-//             <table class="table">
-//   <thead class="thead-dark">
-//     <tr>
-//       <th scope="col">NAME</th>
-//       <th scope="col">PRODUCTION DATE</th>
-//       <th scope="col">LAST OPENNING DATE</th>
-//       <th scope="col">SOME RECIPIENTS</th>
-//       <th scope="col">NUMBER OF VIEWS</th>
-//       <th scope="col">NUMBER OF SIGNTURE</th>
-//       <th scope="col">EXPORT</th>
-//     </tr>
-//   </thead>
-
-//   <tbody>
-//     {allFunnels.map((funnel,index)=>{
-//       debugger
-//           <tr>
-//           <th id={index} scope="row" ></th>
-//             <td>{funnel.name}</td>
-//             <td>{funnel.name}</td>
-//             <td>{funnel.name}</td>
-//             <td>{funnel.name}</td>
-//             <td>{funnel.name}</td>
-//             <td>{funnel.name}</td>
-//           </tr>
-//     })}
-//   </tbody>
-// </table>
-//         </div>
-//     )
-// }
-// export default connect(
-//   (state) => {
-//       return {
-//          allFunnels:state.funnel.allFunnels,
-//       }
-//   },
-//   (dispatch) => {
-//       return {
-//           // setStylePage: (property, newValue) => { dispatch(setStylePage({ property: property, value: newValue })) },
-//           // setOpacityPage: (newValue) => { dispatch(setOpacityPage(newValue)) },
-//           // setNamePage: (newName) => { dispatch(setNamePage(newName)) }
-//       }
-//   }
-// )(ListPapers)
-
-
-
-
-// import link from './assets/export.png'
-
-// import SelectMassage from './selectMassage';
-// import alert from '../Redux/reducers/alert';
-
-// import {setNameFunnel} from '../../redux/actions/funnel.action'
-// // import logo from './assets/newLogoLeader.png';
-// // import { actions } from '../Redux/Actions/ContactAction';
- import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 // import animate from '../listPapers/components/assets/img.png'
- import animate from '../../assets/leader_logo.png'
+import animate from '../../assets/leader_logo.png'
+import threeDots from '../../assets/ellipsis-v-solid.svg'
+import searchImgGif from '../../assets/searchIcon.gif'
+import LabelCompleted from '../../assets/Label - Completed.svg'
+import copyIcon from '../../assets/Group 22678.svg'
+import downArrow from '../../assets/down-arrow.svg'
+import userSolid from '../../assets/user-solid.svg'
+import fileFolder from '../../assets/fileFolder.svg'
+import NoFunnels from '../noFunnels/noFunnels'
+import JsonToHtml from '../convertJsonToHtmk/jsonToHtml'
 
- import { Link, Redirect } from 'react-router-dom';
- import "bootstrap/dist/css/bootstrap.min.css";
- import BootstrapTable from "react-bootstrap-table-next";
- import ToolkitProvider, { CSVExport, Search } from "react-bootstrap-table2-toolkit";
+import { Link, Redirect } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
+import ToolkitProvider, { CSVExport, Search } from "react-bootstrap-table2-toolkit";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
- import paginationFactory from 'react-bootstrap-table2-paginator';
- import { render } from '@testing-library/react';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import { render } from '@testing-library/react';
 //import { history } from "../../App";
- import { createBrowserHistory } from 'history'
- import overlayFactory from 'react-bootstrap-table2-overlay';
- import Button from '@material-ui/core/Button';
- import './listPapers.css'
+import { createBrowserHistory } from 'history'
+// import FileCopyIcon from '@material-ui/icons/FileCopy';
+import overlayFactory from 'react-bootstrap-table2-overlay';
+import Button from '@material-ui/core/Button';
+import './listPapers.css'
 //  import SelectMassage from './selectMassage';
- import loading from '../../assets/leader_logo.png'
-
+import loading from '../../assets/leader_logo.png'
 // // import profileDefault from './assets/error.png'
-
- import $ from 'jquery';
+import  {chageEditMode, setJsonPage, setNameChosenFunnel,setOrderSection,duplicateFunnel,setNameFunnel ,addSection, setNamePage, setStylePage, removeFunnel,removeReducer, setStyleSection,setJsonServer, setFlagBorderParts, setIdFunnel } from '../../redux/actions/funnel.action'
+import $ from 'jquery';
+import Stage from '../stage/stage'
 import { from } from 'pumpify';
-//  import MultiSelectInput from '../sendEmail/sensEmail'
+import html2canvas from 'html2canvas';
+
+import { useLocation } from 'react-router-dom';
+// import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
+// import { duplicateFunnel } from '../../redux/middleware/crud';
+// import { backgroundImage } from 'html2canvas/dist/types/css/property-descriptors/background-image';
+
+//   import MultiSelectInput from '../sendEmail/sensEmail'
 const { SearchBar, ClearSearchButton } = Search;
 const { ExportCSVButton } = CSVExport;
+
+
+
+
+// const location = useLocation();
+
 // import $ from "jquery";
 // import { addElement } from '../../redux/actions/funnel.action'
 
 
-
-//  const mapStateToProps = (state) => {
-//     return {
-//         // allContact: state.contactDetails.allContact,
-//         contactDetails: state.contactDetails.contactDetails,
-//         allquote: state.quote.allQuote,
-//         quote: state.quote.quote,
-//         quote2: state.quote,
-
-
-
-
-
-
-//     };
-// }
-// const mapDispatchToProps = (dispatch) => ({
-//     getAllQuote: (a) => dispatch({ type: 'GETALL_QUOTE' }),
-//     changeNameQ: (email) => dispatch(actions.actions(email)),
-//     getQuote: (a) => dispatch(actions.getQuote()),
-//     currentName: (a) => dispatch(actions.setCurrentName(a)),
-//     editQuote: (a) => dispatch({ type: 'EDIT_QUOTE' }),
-//     createQuote: (a) => dispatch({ type: 'CREATE_QUOTE' }),
-//     // editQuote: (a) => dispatch({ type: 'EDIT_QUOTE' }),
-
-//     approachedToServerYesOrNo: () => dispatch(actions.setApproachedToServerYesOrNo()),
-//     massageToShowSuccesOrError: (e) => dispatch(actions.setMassageToShowSuccesOrError(e)),
-//     massageSuccessOrError: (e) => dispatch(actions.setMassageSuccessOrError(e)),
-//     massageSuccessOrOops: (e) => dispatch(actions.setMassageSuccessOrOops(e)),
-
-
-
-// })
-
-
-
-// export default connect(mapStateToProps, mapDispatchToProps)(function ListPapers(props) {
-//     useEffect(() => {
-
-//         localStorage.removeItem('approachedToServerYesOrNo');
-//         //     // console.log(history);
-//         props.getAllQuote()
-//         console.log(props.allquote)
-
-//         //  props.quote.name(props.getQuote().currentName);
-
-
-//     }, []);
-
- const getEmailsContacts = (contacts) => {
+const getEmailsContacts = (contacts) => {
     let emailsContacts = [];
     if (contacts) {
         contacts.map((contact) => {
@@ -156,27 +64,60 @@ const { ExportCSVButton } = CSVExport;
 }
 
 
-function ListPapers(props){ 
-    const { allFunnels} = props
-    
-const statusClrs = { 'Open': 'green', 'Deal': '#d93025', 'In Progress': '#FFA756', 'New': '#00B69B', 'Connected': '#6226EF', 'Unqualified': '#EF3826' }
+function ListPapers(props) {
+    const { allFunnels, setJsonPage,  setNameChosenFunnel,setJsonServer,removeFunnel,removeReducer ,duplicateFunnel, setNameFunnel} = props
+
+    const statusClrs = { 'Open': 'green', 'Deal': '#d93025', 'In Progress': '#FFA756', 'New': '#00B69B', 'Connected': '#6226EF', 'Unqualified': '#EF3826' }
     const statusLeft = { 'Open': '22px', 'Deal': '20px', 'In Progress': '17px', 'New': '47px', 'Connected': '27px', 'Unqualified': '25px' }
-    let url = window.location;
-    var userName = (url.pathname.split('/')[1]);
-    const isIframe = new URLSearchParams(url.search).get('iframe') ? "iframe=true&" : ""
     // let { history } = props;
-   const history = createBrowserHistory({ forceRefresh: true })
+    // const history = createBrowserHistory({ forceRefresh: true })
 
-   const [funnelName, setFunnelName] = useState("");
-   const [idFunnelChangeName, setIdFunnelChangeName] = useState("");
+    const [idfunnelName, setIdFunnelName] = useState("");
+    const [newName, setNewName] = useState("");
+    const [isSend, setIsSend] = useState(false);
 
-   const [exportYN, setExportYN] = useState(false);
+
+    //----------
+    const [flag ,setFlag]=useState(0)
+
+    const [idFunnelChangeName, setIdFunnelChangeName] = useState("");
+
+    const [exportYN, setExportYN] = useState(false);
+
+    let url = window.location;
+    const isIframe = new URLSearchParams(url.search).get('iframe') ? "iframe=true&" : ""
+
+    var userName = (url.pathname.split('/')[1]);
+        let { history } = props;
+
+    history = createBrowserHistory({ forceRefresh: true })
 
     const historyPush = (url) => {
         history.push(`/${userName}/${url}`)
+    
     }
+const remove=(e)=>
+{  debugger
+    removeReducer(e)
+removeFunnel(e)
 
-    console.log(allFunnels)
+}
+const downloadFunnel=(json)=>
+{     debugger
+     <JsonToHtml jsonFunnel={json}></JsonToHtml>
+}
+
+
+   
+const setjsonByIdFunnel=(e)=>
+{ debugger
+    console.log("jsonnnn"+e, e._id, e.name)
+    setjsonReducer(e._id)
+setJsonServer(e, e.name)
+
+
+}  
+ console.log(allFunnels)
     const handleClick = () => {
 
         var parser = new DOMParser();
@@ -222,187 +163,631 @@ const statusClrs = { 'Open': 'green', 'Deal': '#d93025', 'In Progress': '#FFA756
         pageButtonRenderer
     };
 
-const getIdFunnelByIndex=(index)=>{
-    {allFunnels.map((item, i) => {
-                  
-                       
-        setIdFunnelChangeName(item[index]._id)
-    // return idFunnel
+    //   const  setJsonPage=(idFunneltochange)=>{
+    //       console.log("helloo! , i in f2"+idFunneltochange)
+    //   }
 
-})}
+//     const duplicateFunnel = (idFunnel, user, name, json) => {
+// duplicateFunnel(idFunnel, user, name, json)
+//     }
+
+
+    const setjsonReducer = (e) => {
+        console.log(e)
+        debugger
+        console.log("i am in func setJsonBy..." + " " + e.idFunnel)
+        let indexfunnel = 0
+        allFunnels.map((item, index) => {
+            if (item._id == e._id) {
+                indexfunnel = index
+                console.log(indexfunnel)
+                // console.log("uuuuu" + allFunnels[indexfunnel].json)
+                console.log("rrrr" + JSON.parse(allFunnels[indexfunnel].json))
+
+                //  history.goBack()
+                //   setJsonPage(JSON.parse(allFunnels[index].json))
+            }
+            // <Stage />
+
+        })
+        setNameChosenFunnel(allFunnels[indexfunnel].name)
+        setIdFunnel(allFunnels[indexfunnel]._id)
+        setJsonPage(JSON.parse(allFunnels[indexfunnel].json))
+    console.log("alldetailsfunnel"+" "+allFunnels[indexfunnel].name, +" "+allFunnels[indexfunnel]._id)
+        // userName = (url.pathname.split('/')[2]);
+        // history.push(`/admin/${userName}/new`)
+        // setJsonPage(JSON.parse(allFunnels[indexfunnel].json))
+
+    }
+
+    //  let splitedPathname = location.pathname.split("/");
+    // const redirectFunction=()=>{
+    //     // history.direct()
+
+    // }
+    // redirectFunction()
+
+  const optionDetails=()=>{
+      debugger
+    console.log("aaaaaaaaaaaaaaaaaaaaa")
+    $(".ui").css('display','block')
+    return(<>
+
+    <span>chaya</span>
+    {/* <div class="ui dropdown">
+  <div class="text">File</div>
+  <i class="dropdown icon"></i>
+  <div class="menu">
+    <div class="item">Delete</div>
+    <div class="item">
+      <span class="description">ctrl + o</span>
+      Open...
+    </div>
+    <div class="item">
+      <span class="description">ctrl + s</span>
+    Copy
+    </div>
+    <div class="item">
+      <span class="description">ctrl + r</span>
+      Edit
+    </div>
+    <div class="item">Make a copy</div>
+    <div class="item">
+      <i class="folder icon"></i>
+      Move to folder
+    </div>
+    <div class="item">
+      <i class="trash icon"></i>
+      Move to trash
+    </div>
+    <div class="divider"></div>
+    <div class="item">Download As...</div>
+    <div class="item">
+      <i class="dropdown icon"></i>
+      Publish To Web */}
+      {/* <div class="menu"> */}
+        {/* <div class="item">Google Docs</div>
+        <div class="item">Google Drive</div>
+        <div class="item">Dropbox</div>
+        <div class="item">Adobe Creative Cloud</div>
+        <div class="item">Private FTP</div>
+        <div class="item">Another Service...</div>
+      </div> */}
+    {/* </div> */}
+    {/* <div class="item">E-mail Collaborators</div> */}
+  {/* </div> */}
+{/* </div> */}
+</>)
 }
 
-    const columns = [
-        // {
-        //     dataField: "thumbnail",
-        //     style: { width: '10%' },
-        //     text: "",
-        //     align: "center",
-        //     headerAlign: "center",
-        //     csvExport: false,
-        //     headerStyle: {
-        //         backgroundColor: '#F5F5FA',
-        //         borderRadius: "15px 0 0 0"
-        //     },
-        //     formatter: (c) => {
-        //         return (
-        //             <img
-        //                 style={{
-        //                     height: '6vh', width: '6vh', marginTop: "0",
-        //                     borderRadius: "50%", marginLeft: '3vh'
-        //                 }}
-        //                 // src={c ? c : profileDefault}
-        //             />
+    const getIdFunnelByIndex = (index) => {
+        {
+            allFunnels.map((item, i) => {
 
-        //         )
-        //     }
+
+                setIdFunnelChangeName(item[index]._id)
+                // return idFunnel
+
+            })
+        }
+    }
+
+    const txtName="ALL TEAM"
+
+    const columns = [
+
+
         // },
         {
-            // events: {
-            //     onDoubleClick: (e) => {
-            //         e.currentTarget.contentEditable = 'true';
-            //         props.currentName(e.currentTarget.innerText);
-            //         // props.quote2.currentName=
-            //     },
-            //     onBlur: async (e) => {
-            //         if (props.quote2.currentName != e.currentTarget.innerText) {
-            //             props.changeNameQ(e.currentTarget.innerText);
-            //             await props.editQuote();
-            //             //    createQuote
 
-            //             // setNameQ
-            //         }
-            //     }
+//             events: {
+//                 onDoubleClick: (e) => {
+//                     // e.currentTarget.contentEditable = 'true';
+//                     // setFunnelName(e.currentTarget.innerText);
+//                     //    console.log("fff:"+rowIndex);
 
-            
-                events: {
-                    onDoubleClick: (e) => {
-                        console.log("eeeeeeeee:"+e.currentTarget);
-                        e.currentTarget.contentEditable = 'true';
-                       setFunnelName(e.currentTarget.innerText);
-                       console.log("eeeeeeeee:"+e.currentTarget.innerText);
+//                     ;
+//                     // getIdFunnelByIndex()
+//                 },
+
+//                 onClick: (e) => {
+//                     e.stopPropagation();
+//                 },
+//                 onBlur: async (e) => {
+//                     // debugger;
+//                     // console.log(props.quote2.currentName)
+//                     // if (props.quote2.currentName != e.currentTarget.innerText) {
+//                     //     console.log(props.name)
+
+//                     //     await props.changeNameQ(e.currentTarget.innerText);
+//                     //     console.log(props.quote2.name)
+//                     //     await props.changePaperName();
+//                     // }
+
+//                 },
+
+//             },
+//              text: "STATUS",
+//             dataField: "edit&delete",
+//             align: "center",
+//             headerAlign: "center",
+//             sort: true,
+//             style: { width: '15%' },
+//              formatter: s => s ? s.substr(0, 15) : "",
+//             formatter: (c, e) => {
+//                 // setjsonByIdFunnel(e._id)
+//                 return  (<><img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img></>)
+
+
+                    
+
+
+               
+//             },
+
+//             headerStyle: (column, colIndex) => {
+//                 return { textAlign: 'center',
+//                 backgroundColor: '#F5F5FA' ,    
+//                 //   height: '2vh',
+//                 padding: '2vh',
+//                 letterSpacing: '0px',
+//                 color: '#202224',
+//                 textTransform: 'uppercase',
+//                 opacity: 0.9, };
+//             },
+//             headerStyle: {
+//                 backgroundColor: '#F5F5FA',
+               
+// color: '#202224',
+// textTransform: 'uppercase',
+// opacity: 0.9,
+// // font: 'normal normal 800 14px/19px Nunito Sans',
+// letterSpacing: '0px',
+// color: '#202224',
+// textTransform: 'uppercase',
+// opacity: 0.9,
+//             },
+//         },
+        
+
+
+
+
+            events: {
+                onDoubleClick: (e) => {
+                    // console.log("eeeeeeeee:" + e.currentTarget);
+                    // e.currentTarget.contentEditable = 'true';
+                    // console.log("eeeeeeeee:" + e.currentTarget.innerText, +"dddd" +e._id);
                     //    console.log("fff:"+rowIndex);
 
-                       ;
-                       getIdFunnelByIndex()
-                        console.log(props.quote2.currentName)
-                    },
+                    e.currentTarget.contentEditable = 'true';
+                    setNewName(e.currentTarget.innerText)
 
-                    onClick: (e) => {
-                        e.stopPropagation();
+                    // getIdFunnelByIndex()
+                
+
+                // onClick: (e) => {
+                    // e.stopPropagation();
+                    //  e.currentTarget.contentEditable = 'true';
+                    //  setNewName(e.currentTarget.innerText)
+                  //   console.log("חיה"+e.currentTarget.innerText)
+
+
+                },
+                
+                onBlur: async (e) => {
+                    // debugger;
+                    console.log("חחחחחחחחחחחח"+e.currentTarget.innerText)
+                    setNewName(e.currentTarget.innerText)
+
+                    console.log(e.currentTarget.innerText)
+                     console.log(newName)
+                //  await 
+                   setNameFunnel(idfunnelName, e.currentTarget.innerText);
+                   console.log("ממממממממממ"+newName)
+
+                   console.log("גגגגג"+idfunnelName,"דדדדדדד"+newName)
+                 console.log(idfunnelName)
+            //  console.log(e.currentTarget.innerText)
+                    // if (props.quote2.currentName != e.currentTarget.innerText) {
+                        // console.log(props.name)
+
+                        // await props.changeNameQ(e.currentTarget.innerText);
+                        // console.log(props.quote2.name)
+                        // await props.changePaperName();
+                    // }
+
+                },
+
+            },
+            // dataField: "name",
+            // text: "NAME",
+            // align: "center",
+            // headerAlign: "center",
+            // sort: true,
+            // style: { width: '15%' },
+            // formatter: s => s ? s.substr(0, 20) : "",
+            // style: {
+                // width: '15% !important',
+                // overfolw: "hidden"
+            // },
+            // formatter: s => s ? s.substr(0, 20) : "",
+
+            // formatter: (c, e) => {
+            //    c.substr(0, 15) 
+                // console.log(e._id)
+                // setjsonByIdFunnel(e._id)
+                
+                // setNameFunnel(e._id)
+                    
+                
+                    // <button className="btn
+                    dataField: "name",
+                    // title: "name",
+                    text: "NAME",
+                    align: "left",
+                    headerAlign: "center",
+                    sort: true,
+                    style: { width: '15%',overfolw: "inherit" },
+                    formatter: s => s ? s.substr(0, 22) : "",
+                    // formatter: (c, e) => {
+                        // setjsonByIdFunnel(e._id)
+                //         return  (<>
+                              
+
+                
+                // {/* {noDepartment||question?null:<br/>} */}
+   
+                //         </>)                    // formatter: s => s ? s.substr(0, 15) : "",
+                //     // headerStyle: (column, colIndex) => {
+                //     //     return { textAlign: 'center' }; 
+                //      },
+                    headerStyle: {
+                        backgroundColor: '#F5F5FA', position: 'sticky',
+                        top: '0', 
+                        //  height: '2vh',
+                        //   padding: '2vh',
+                          letterSpacing: '0px',
+color: '#202224',
+textTransform: 'uppercase',
+opacity: 0.9,
                     },
-                    onBlur: async (e) => {
-                        // debugger;
-                        console.log(props.quote2.currentName)
-                        if (props.quote2.currentName != e.currentTarget.innerText) {
-                            console.log(props.name)
-    
-                            await props.changeNameQ(e.currentTarget.innerText);
-                            console.log(props.quote2.name)
-                            await props.changePaperName();
-                        }
-    
-                    },
+        
+                },
+
+                       // formatter: (c, e) => {
+                    //    c? c.substr(0, 15) :"",
+                        // console.log(e._id)
+                        // return (
+        
+                            // {/* <button className="btn bkg" style={{ borderRadius: "4px", position: "fixed", bottom: "4vh", color: "#FFFFFF", right: "5.7vw", width: "10%", fontSize: "1vw", marginRight: "-2vw" }}>export</button> */}
+                        
+                                // <button onBlur={() => setIdFunnelName(e._id)} style={{width:"60px", border:"none", background:"none"}}> 
+                                // {/* // onChange={()=>setNewName(e.currentTarget.innerText) */}
+                            // {c.substr(0, 15)}
+                            //   </button>
+                        // )
+
+                        // },           
+
+         
+            // headerStyle: (column, colIndex) => {
+                // return { textAlign: 'center' };
+            // },
+            // headerStyle: {
+            //     backgroundColor: '#F5F5FA',
+        //  } ,// },
+            {
+
+                events: {
+                    onClick: (e, c) => {
+                        userName = (url.pathname.split('/')[2]);
+                        // history.push(`/admin/${userName}/${c.name}`)
+                    }
+                },
+                dataField: "date",
+                style: { width: '15% !important', overfolw: "inherit" },
+                formatter: s => s ? s.substr(0, 20) : "",
+                headerStyle: { backgroundColor: '#F5F5FA' ,    
+                //   height: '2vh',
+                // padding: '2vh',
+                letterSpacing: '0px',
+                color: '#202224',
+                textTransform: 'uppercase',
+                opacity: 0.9,},
+                text: "START"
+            },
+        
+        
+            // dataField: "date",
+            //  text: "START",
+            // align: "center",
+            // headerAlign: "center",
+            // sort: true,
+            // style: { width: '15%' },
+            // //  formatter: s => s ?                        
+            // //  {new Date(s.toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric' })},
+            // //  substr(0, 15) : "",
+            // formatter: (c, e) => {
+            //     // setjsonByIdFunnel(e._id)
+            //     return  (<></>)
+
+
+                    
+
+
                
-            },
-            dataField: "name",
-            text: "NAME",
-            align: "center",
-            headerAlign: "center",
-            sort: true,
-            style: { width: '15%' },
-            formatter: s => s ? s.substr(0, 15) : "",
-            headerStyle: (column, colIndex) => {
-                return { textAlign: 'center' };
-            },
-            headerStyle: {
-                backgroundColor: '#F5F5FA',
-            },
-        },
+            // },
+
+            // headerStyle: (column, colIndex) => {
+            //     return { textAlign: 'center' };
+            // },
+            // headerStyle: {
+            //     backgroundColor: '#F5F5FA',
+            //     // height: '2vh',
+            //     padding: '2vh',
+            //     textAlign: 'left',
+            //     letterSpacing: '0px',
+// color: '#202224',
+// textTransform: 'uppercase',
+// opacity: 0.9,
+// // font: 'normal normal 800 14px/19px Nunito Sans',
+// letterSpacing: '0px',
+// color: '#202224',
+// textTransform: 'uppercase',
+// opacity: 0.9,
+//             },
+//         },
         {
+
             events: {
                 onClick: (e, c) => {
                     userName = (url.pathname.split('/')[2]);
-                    history.push(`/admin/${userName}/${c.name}`)
-                }
-            },
-             dataField: "date",
-            align: "center",
-            headerAlign: "center",
-            // לשאול
-            formatter: s => s ? s.substr(0, 20) : "",
-            style: {
-                width: '15% !important',
-                overfolw: "hidden"
-            },
-            headerStyle: { backgroundColor: '#F5F5FA' },
-            sort: true,
-            text: "PRODUCTION DATE",
-        },
-        {
-            events: {
-                onClick: (e, c) => {
-                    userName = (url.pathname.split('/')[2]);
-                    history.push(`/admin/${userName}/${c.name}`)
+                    // history.push(`/admin/${userName}/${c.name}`)
                 }
             },
             dataField: "lastUpdate",
             style: { width: '15% !important', overfolw: "inherit" },
-            formatter: s => s ? s.substr(0, 20) : "",
-            headerStyle: { backgroundColor: '#F5F5FA' },
-            text: "LAST OPENING DATE"
+              formatter: s => s ? s.substr(0, 20) : "",
+            
+            headerStyle: { backgroundColor: '#F5F5FA' ,    
+            //   height: '2vh',
+            padding: '2vh',
+            letterSpacing: '0px',
+            color: '#202224',
+            textTransform: 'uppercase',
+            opacity: 0.9,},
+            text: "END"
         },
         {
             events: {
                 onClick: (e, c) => {
-                    userName = (url.pathname.split('/')[2]);
-                    history.push(`/admin/${userName}/${c.name}`)
+                    //    setJsonPage 
+                    console.log("eeeeeee" + e)
+                    console.log("cccccc" + c)
+                    console.log("cccccc" + c.name)
+
+                    // userName = (url.pathname.split('/')[2]);
+                    // history.push(`/admin/${userName}/${c.name}`)
                 }
             },
-        //     dataField: "emailsToSend",
-        //     align: "center",
-        //     csvExport: false,
-        //     headerAlign: "center",
-        //     style: { width: '15% !important', overfolw: "inherit" },
-        //     headerStyle: { backgroundColor: '#F5F5FA' },
-        //     text: "SOME RECIPIENTS",
-        //     sort: true,
-        //     formatter: (c) => c ? c.length : "",
-        // },
-        // {
-        //     events: {
-        //         onClick: (e, c) => {
-        //             userName = (url.pathname.split('/')[2]);
-        //             history.push(`/admin/${userName}/${c.name}`)
-        //         }
-            
-            dataField: "viewsNumber",
-            text: "NUMBER OF VIEWS",
-            align: "center",
-            csvExport: false,
-            headerAlign: "center",
-            style: { width: '15% !important' },
-            headerStyle: {
-                borderRadius: " 0 15px 0 0",
-                backgroundColor: '#F5F5FA',
 
-            },
+
+//             events: {
+//                 onDoubleClick: (e) => {
+//                     // e.currentTarget.contentEditable = 'true';
+//                     // setFunnelName(e.currentTarget.innerText);
+//                     //    console.log("fff:"+rowIndex);
+
+//                     ;
+//                     // getIdFunnelByIndex()
+//                 },
+
+//                 onClick: (e) => {
+//                     e.stopPropagation();
+//                 },
+//                 onBlur: async (e) => {
+//                     // debugger;
+//                     // console.log(props.quote2.currentName)
+//                     // if (props.quote2.currentName != e.currentTarget.innerText) {
+//                     //     console.log(props.name)
+
+//                     //     await props.changeNameQ(e.currentTarget.innerText);
+//                     //     console.log(props.quote2.name)
+//                     //     await props.changePaperName();
+//                     // }
+
+//                 },
+
+//             },
+             text: "STATUS",
+            dataField: "edit&delete",
+            align: "center",
+            headerAlign: "center",
             sort: true,
+            style: { width: '15%' },
+             formatter: s => s ? s.substr(0, 15) : "",
+            formatter: (c, e) => {
+            if(e.viewsNumber>0)  
+             setIsSend(true)
+                // setjsonByIdFunnel(e._id)
+                return  (<>
+
+                {isSend?
+                <img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img>
+              :    <img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img>
+
+               } 
+                </>
+            
+                )
+
+
+               
+
+
+               
+            },
+
+            headerStyle: (column, colIndex) => {
+                return { textAlign: 'center',
+                backgroundColor: '#F5F5FA' ,    
+                //   height: '2vh',
+                padding: '2vh',
+                letterSpacing: '0px',
+                color: '#202224',
+                textTransform: 'uppercase',
+                opacity: 0.9, };
+            },
+            headerStyle: {
+                backgroundColor: '#F5F5FA',
+               
+color: '#202224',
+textTransform: 'uppercase',
+opacity: 0.9,
+// font: 'normal normal 800 14px/19px Nunito Sans',
+letterSpacing: '0px',
+color: '#202224',
+textTransform: 'uppercase',
+opacity: 0.9,
+            },
         },
+
+            //     formatter: (c) => c ? c.length : "",
+            // },
+            // {
+            //     events: {
+            //         onClick: (e, c) => {
+            //             userName = (url.pathname.split('/')[2]);
+            //             history.push(`/admin/${userName}/${c.name}`)
+            //         }
+
+        //     dataField: "viewsNumber",
+        //     text: `ALL TEAM ${<div class="dropdown">
+        //     <a class="dropbtn">           <img 
+          
+        //   style={{marginLeft:"2vw",marginTop:"2vh", display:"inline-block"}} 
+        //   src={threeDots}>
+        //      </img> </a>
+        //     <div class="dropdown-content">
+        //       <a  onClick={()=>remove()}><span  onClick={()=>remove()} style={{ width: '25%', marginBottom:'0px'}} class="material-icons">delete</span> Delete</a>
+        //       <a onClick={()=>{duplicateFunnel()}}><span  style={{ width: '25%'}} class="material-icons">file_copy</span> Copy</a>
+        //     </div></div>}`
+            //  ,
+            // align: "left",
+            // csvExport: false,
+            // headerAlign: "center",
+            // formatter: (c, e) => {
+            //     return(
+            //         <>
+            //         {/* <JsonToHtml json= {e.json}></JsonToHtml> */}
+
+            //                <img style={{width:"15%", marginTop:"2vh", verticalAlign:"center"}}  src={userSolid}></img>
+            //         </>)
+//             //     },
+        
+//             style: { width: '15% !important' },
+//             headerStyle: {
+//                 borderRadius: " 0 15px 0 0",
+//                 backgroundColor: '#F5F5FA',
+//                 // height: '2vh',
+//                 // padding: '2vh',
+//                 letterSpacing: '0px',
+// color: '#202224',
+// textTransform: 'uppercase',
+// opacity: 0.9,
+
+            // },
+            // sort: true,
+        
         {
             events: {
                 onClick: (e, c) => {
                     userName = (url.pathname.split('/')[2]);
-                    history.push(`/admin/${userName}/${c.name}`)
+                    console.log("aaaa" + c)
+                    // history.push(`/admin/${userName}/${c.name}`)
                 }
             },
             dataField: "url",
-            text: "MY FUNNEL",
+            text: "LINK",
             style: { width: '15% !important', },
             align: "center",
             headerAlign: "center",
-            headerStyle: { backgroundColor: '#F5F5FA' },
-//             // לשאול איך מראים הכל*
+            headerStyle: { backgroundColor: '#F5F5FA' ,
+            // height: '2vh',
+            // padding: '2vh',
+            letterSpacing: '0px',
+            color: '#202224',
+            textTransform: 'uppercase',
+            opacity: 0.9,},
+            formatter: (c, e) => {
+                console.log("dddd"+c)
+                // setjsonByIdFunnel(e._id)
+                return  (
+                <>
+                       
+                            {/* // {c.substr(0, 15)} */}
+                         
+                            {/* // style={{marginRight:"2vw"}} */}
+                            <span  style={{marginLeft:"12%"}}> { c.substr(0, 20) }</span>
+
+
+                            {/* <div className="col-md-4"> */}
+                {/* <text style={{ width: '100%', height: '35px', borderRadius: '2px',  textAlign: 'center' }}  type="button" data-toggle="dropdown"  aria-expanded="false"> */}
+                  {/* {!selectDepartment ? 'Select Knowledge Base' : selectDepartment.categoryName} */}
+    
+       
+<div class="dropdown">
+  <a class="dropbtn">           <img 
+
+style={{marginLeft:"2vw",marginTop:"2vh", display:"inline-block"}} 
+src={threeDots}>
+   </img> </a>
+  <div class="dropdown-content">
+    <a  onClick={()=>remove(e._id)}><span  onClick={()=>remove(e._id)} style={{ width: '25%', marginBottom:'0px'}} class="material-icons">delete</span> Delete</a>
+    <a onClick={()=>{duplicateFunnel(e._id)}}><span  style={{ width: '25%'}} class="material-icons">file_copy</span> Copy</a>
+    <a onClick={()=>setFlag(!flag)}> <span  style={{ width: '25%', marginBottom:'0px'}} class="material-icons" >edit</span>  Edit</a>
+    <a  onClick={()=>{setFlag(!flag)}}><span  style={{ width: '25%'}} class="material-icons">download</span> Download</a>
+    {flag? <JsonToHtml jsonFunnel={e.json}/> :""}
+    <a href="#"><span  style={{ width: '25%'}} class="material-icons">share</span> Share</a>
+    <a href="#"><span  style={{ width: '25%'}} class="material-icons">print</span> Print</a>
+
+  </div>
+</div>
+       
+   
+         
+      
+    
+    {/* <div class="item">
+      <i class="folder icon"></i>
+      Move to folder
+    </div>
+    <div class="item">
+      <i class="trash icon"></i>
+      Move to trash
+    </div>
+    <div class="divider"></div>
+    <div class="item">Download As...</div>
+    <div class="item">
+      <i class="dropdown icon"></i>
+      Publish To Web
+      <div class="menu"> */}
+        {/* <div class="item">Google Docs</div>
+        <div class="item">Google Drive</div>
+        <div class="item">Dropbox</div>
+        <div class="item">Adobe Creative Cloud</div>
+        <div class="item">Private FTP</div>
+        <div class="item">Another Service...</div>
+      </div>
+    </div>
+    <div class="item">E-mail Collaborators</div>
+  </div>
+</div> */}
+
+                </>)
+            }
+            //             // לשאול איך מראים הכל*
 
             // formatter: e => {
             //     if (e) {
@@ -418,39 +803,75 @@ const getIdFunnelByIndex=(index)=>{
             //         return count;
             //     }
             // },
-            sort: true,
-        },
-        {
-            events: {
-                onClick: (e, c) => {
-                    userName = (url.pathname.split('/')[2]);
-                    history.push(`/admin/${userName}/${c.name}`)
-                }
-            },
-            dataField: "link",
-            text: "export",
-            align: "center",
-            csvExport: false,
-            headerAlign: "center",
-            style: { width: '15% !important' },
-            headerStyle: {
-                borderRadius: " 0 15px 0 0",
-                backgroundColor: '#F5F5FA',
+        },  
+            //             // לשאול איך מראים הכל*
 
-            },
-            sort: true,
-            formatter: (c) => {
-                return (
-                    // <button className="btn bkg" style={{ borderRadius: "4px", position: "fixed", bottom: "4vh", color: "#FFFFFF", right: "5.7vw", width: "10%", fontSize: "1vw", marginRight: "-2vw" }}>export</button>
-                    <a href="#"  onClick={exportBtn} onClick={aaa} className="btn bkg" style={{color: "#FFFFFF", backgroundColor:"red"}}>export
-                        {/* <button className="btn bkg" style={{ borderRadius: "4px", position: "fixed", bottom: "4vh", color: "#FFFFFF", right: "5.7vw", width: "10%", fontSize: "1vw", marginRight: "-2vw" }}>export</button> */}
-                        </a>
-                )
-            }
-        },
+            // formatter: e => {
+            //     if (e) {
+            //         let count = 0;
+            //         e.forEach(e => {
+            //             if (e) {
+            //                 if (e.isSigned) {
+            //                     count++
+            //                 }
+            //             }
+
+            //         })
+            //         return count;
+            //     }
+            // },
+        
+        // {
+        //     events: {
+
+        //         onClick: (e, c) => {
+        //             userName = (url.pathname.split('/')[2]);
+        //             console.log("aaaaaaaa" + c)
+        //             // history.push(`/admin/${userName}/${c.name}`)
+        //             //  <Stage/>
+        //         }
+        //     },
+//             dataField: "link",
+//             text: "send",
+//             align: "center",
+//             csvExport: false,
+//             headerAlign: "center",
+//             style: { width: '15% !important' },
+//             headerStyle: {
+//                 borderRadius: " 0 15px 0 0",
+//                 backgroundColor: '#F5F5FA',
+//                 height: '4vh',
+//                 padding: '2vh',
+//                 letterSpacing: '0px',
+// color: '#202224',
+// textTransform: 'uppercase',
+// opacity: 0.9,
+
+            // },
+            // sort: true,
+            // formatter: (c, e) => {
+            //     console.log("eeee"+e)
+
+                // console.log(e._id)
+                // setjsonByIdFunnel(e._id)
+            //     return (
+            //         <>
+
+            //          {/* <button className="btn bkg" style={{ borderRadius: "4px", position: "fixed", bottom: "4vh", color: "#FFFFFF", right: "5.7vw", width: "10%", fontSize: "1vw", marginRight: "-2vw" }}>export</button> */}
+            //         <button 
+            //         // onClick={()=> setjsonByIdFunnel(e)}
+
+            //             //  onClick={exportBtn} onClick={aaa}
+            //             className="btn bkg" style={{ color: "#FFFFFF", backgroundColor: "gray" }}>send
+            //             {/* <button className="btn bkg" style={{ borderRadius: "4px", position: "fixed", bottom: "4vh", color: "#FFFFFF", right: "5.7vw", width: "10%", fontSize: "1vw", marginRight: "-2vw" }}>export</button> */}
+            //         </button>
+            //         </>
+            //     )
+            // }
+        // },
 
     ];
-    
+
     function exportBtn(e) {
         // setPaperName(e.currentTarget.parentElement.parentElement.firstChild.innerText)
         setExportYN(true)
@@ -461,53 +882,67 @@ const getIdFunnelByIndex=(index)=>{
         e.stopPropagation();
 
     }
-function aaa(){
-    // alert("safeaw")
-    props.approachedToServerYesOrNo();
-    props.massageSuccessOrError(true);
-    // props.massageToShowSuccesOrError("The Mail Sent May Take A Few Minutes To Arrive")
-    // props.massageSuccessOrOops("select");
-}
+    function aaa() {
+        // alert("safeaw")
+        props.approachedToServerYesOrNo();
+        props.massageSuccessOrError(true);
+        // props.massageToShowSuccesOrError("The Mail Sent May Take A Few Minutes To Arrive")
+        // props.massageSuccessOrOops("select");
+    }
     // PaperName
     // const rowEvents = {
-        // onClick: (e, c) => {
+    // onClick: (e, c) => {
 
-        //     userName = (url.pathname.split('/')[2]);
-        //     history.push(`/admin/${userName}/${c.name}`)
+    //     userName = (url.pathname.split('/')[2]);
+    //     history.push(`/admin/${userName}/${c.name}`)
 
 
 
-        // },
+    // },
 
     // };
-     const rowEvents = {
-    onDoubleClick: (e, row, rowIndex) => {
-        return rowIndex
-      },
-    };
+//     const rowEvents = {
+//         onClick: (e, row, rowIndex) => {
+//             // return rowIndex
+// console.log("row"+e._id)
+//             // setjsonByIdFunnel(e._id)
+//         },
+//     };
+
+const rowEvents = {
+    onClick: (e, c) => {
+        debugger
+        console.log("id"+c._id)
+        setjsonReducer(c)
+        // userName = (url.pathname.split('/')[2]);
+        // history.push(`/admin/${userName}/${c.name}`)
+// console.log("ffff")
+
+    },
+}
     const rowClasses = (row, rowIndex) => {
         return '';
-    };
-    const createDefaultPaper = () => {
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(props.quote.quillStyle, 'text/html');
-        // let empty = "empty_paper" + "_" + new Date().toLocaleString().replace("/", ".").replace(" ", "")
-        // empty = empty.replace("/", ".").replace(" ", "_")
-        // props.changeNameQ(empty)
-        props.createQuote();
-
-        // rowEvents(empty)
-        userName = (url.pathname.split('/')[2]);
-        // history.push(`/admin/${userName}/${empty}`)
-        // history.replace(`/${userName}/${empty}`)
-
-
-
-//     };
-    const MyExportCSV = () => {
-
     }
-}
+    // const createDefaultPaper = () => {
+    //     var parser = new DOMParser();
+    //     var doc = parser.parseFromString(props.quote.quillStyle, 'text/html');
+    //     // let empty = "empty_paper" + "_" + new Date().toLocaleString().replace("/", ".").replace(" ", "")
+    //     // empty = empty.replace("/", ".").replace(" ", "_")
+    //     // props.changeNameQ(empty)
+    //     props.createQuote();
+
+    //     // rowEvents(empty)
+    //     userName = (url.pathname.split('/')[2]);
+    //     // history.push(`/admin/${userName}/${empty}`)
+    //     // history.replace(`/${userName}/${empty}`)
+
+
+
+    //     //     };
+    //     const MyExportCSV = () => {
+
+    //     }
+    // }
 
 
     // return(
@@ -527,67 +962,75 @@ function aaa(){
     //         </div>
     //         // </div>
     //    </> );
-    
+
 
     // return(<h1>chaya</h1>)
 
-     const mydata = [];
+    const MyExportCSV = () => {
+        return (
+            // <div className="row d-flex mt-1 btnDiv">
+            <div className="col-2" style={{ "justify-content": "end" }} >
+                <button className="btn w-100  "
+                    style={{
+                        backgroundColor: "#f7b500",
+                        width: "100%",
+                        color: "white"
+                    }}
+                    // onClick={handleClick}>Download to CSV</button>
+                    onClick={createNewFunnel}>Create new template+</button>
 
-console.log(columns);
+            </div>
+            // </div>
+        );
+    };
+
+    const mydata = [];
+
+    console.log(columns);
 
     const indication = () => {
         return (
 
-            props ? props.allFunnels ? "oopsss...   no papers found 😞" :
-                <div className="indicationAnimate" >
-                    <img src={animate} ></img>
-                </div>
-                :
-                <div className="indicationAnimate">
-                    <img src={animate} ></img>
-                </div >
+        //   allFunnels ? 
+            // <NoFunnels></NoFunnels>:
+            // <img  style={{width:"40%", marginTop:"2vh"}} src={fileFolder}></img>:
+
+            // "oopsss...   no papers found 😞" :
+                 <div className="indicationAnimate" >
+
+          <img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img>
+                 </div>
+                
+                // <div className="indicationAnimate">
+                    // <img src={animate} ></img>
+                // </div >
+    
         )
     }
-    return (
-       
-        <>
-          
-                {allFunnels.map((item, i) => {
-                  
-                       
-                            <p> {i.date}</p>
-                        
-                    
-                })}
-      
+    const createNewFunnel = () => {
+        userName = (url.pathname.split('/')[2]);
+        //         console.log("aaaaaaaa"+c)
+        history.push(`/admin/${userName}/new`)
+    }
+    return (        <>
+
+
+{
+// allFunnels ? 
+
+
+
         
-      <div className="row">
-          
 
-         <div className={exportYN? "container-fixed-width containerDivList mw-100 mb-0 pr-lg-5 pr-sm-1 pr-md-1 justify-content-start align-items-center col-10":"container-fixed-width containerDivList mw-100 mb-0 pr-lg-5 pr-sm-1 pr-md-1 justify-content-start align-items-center col-12"}
-       style={{ marginTop: '7vh' }}>
+            <div className="row">
+
+
+                <div className={exportYN ? "container-fixed-width containerDivList mw-100 mb-0 pr-lg-5 pr-sm-1 pr-md-1 justify-content-start align-items-center col-10" : "container-fixed-width containerDivList mw-100 mb-0 pr-lg-5 pr-sm-1 pr-md-1 justify-content-start align-items-center col-12"}
+                    style={{ marginTop: '7vh' }}>
                     {/* <SelectMassage ></SelectMassage> */}
-                    {/* <div class="d-flex justify-content-center align-items-center">
-          {props.quote2.approachedToServerYesOrNo ?
 
-            < img src={loading} id="loading" style={{ position: "absolute", top: "12vh", zIndex: "5" ,width:"80%"}} />
-            : null
-          }
-        </div> */}
-            <div className="pt-3">
-                {/* <div className="row ">
-          <h3>Contant List</h3>
-        </div> */}
-                {/* {!iFrame &&
-     <><Top_frame></Top_frame>
-      <Sidebar_left></Sidebar_left></>} */}
-                {/* <Sidebar_left /> */}
-                {/* <div className="sidebar_top d-flex" >
-        <img src={logo} className="imgLogo"></img>
-      </div> */}
-                {/* <div className="row d-flex btnDiv mb-2" > */}
-                {/* <div className="col-2 " >
-                        <Button
+                    <div className="pt-3">
+                        {/* <Button
                             variant="filled"
                             component="label"
                             style={{
@@ -599,224 +1042,120 @@ console.log(columns);
                         >
                             + New Contact
 
-            </Button>
-                    </div> */}
-                {/* <div className="col-2" >
-                        <Button
-                            variant="filled"
-                            component="label"
-                            style={{
-                                backgroundColor: "#A66DFF",
-                                width: "100%",
-                                color: "white"
-                            }}
-                            onClick={() => historyPush("deals")}
-                        >Deals
-            </Button>
-                    </div> */}
-                {/* </div> */}
-                <div className="row">
-                    <div className="col-12 container-fixed-width px-0"
-                        style={{ "zIndex": 0 }}>
-                        {/* {props ? props.allContact ? */}
+            </Button> */}
 
-                        {/* // {true ? true ? */}
-                        <ToolkitProvider
-                            style={{ "marginTop": "0px" }}
-                            keyField="id"
-                            data={props ? props.allFunnels   || mydata : mydata}
-                            columns={columns}
-                            // exportCSV={{
-                            //     fileName: 'contacts.csv',
-                            //     noAutoBOM: false,
-                            //     blobType: 'text/csv;charset=ansi'
-                            // }}
-                            search >
-                            {
-                                props => (
-                                    <div>
-                                        <div className="mt-2 px-0 d-flex justify-content-between"
-                                            style={{ "marginTop": "7vh" }}>
-                                            <div className="fas fa-search searchIcon"  >  </div>
-                                            <SearchBar {...props.searchProps}
-                                                className="searhBtn"
-                                                placeholder="search..."
-                                                style={{
-                                                    "width": "50vw",
-                                                    "color": "gray",
-                                                    "minWidth": "100%",
-                                                    "paddingLeft": "2.375rem"
-                                                }} >
-                                            </SearchBar>
-                                            {/* <MyExportCSV
+                        <div className="row">
+                            <div className="col-12 container-fixed-width px-0"
+                                style={{ "zIndex": 0 }}>
+                                {/* {props ? props.allContact ? */}
+
+                                {/* // {true ? true ? */}
+                                <ToolkitProvider
+                                    style={{ "marginTop": "0px" }}
+                                    keyField="id"
+                                    data={props ? props.allFunnels || mydata : mydata}
+                                    columns={columns}
+                                    // exportCSV={{
+                                    //     fileName: 'contacts.csv',
+                                    //     noAutoBOM: false,
+                                    //     blobType: 'text/csv;charset=ansi'
+                                    // }}
+                                    search >
+                                    {
+                                        props => (
+                                            <div>
+                                                <div className="mt-2 px-0 d-flex justify-content-between"
+                                                    style={{ "marginTop": "7vh" }}>
+                                                    {/* <img src={searchImgGif}  style={{ width: "5vw"}}></img> */}
+
+                                                    {/* <div className="fas fa-search searchIcon"  >  </div> */}
+                                                    <SearchBar {...props.searchProps}
+                                                        className="searhBtn"
+                                                        placeholder="search..."
+                                                        style={{
+                                                            "width": "50vw",
+                                                            "color": "gray",
+                                                            "minWidth": "100%",
+                                                            "paddingLeft": "2.375rem"
+                                                        }} >
+                                                    <img src={searchImgGif}  style={{ width: "15vw"}}></img>
+
+                                                    </SearchBar>
+                                                    <MyExportCSV
+                                                        {...props.csvProps}>Export CSV</MyExportCSV>
+
+                                                    {/* <MyExportCSV
                                                 {...props.csvProps}>Export CSV</MyExportCSV> */}
-                                            {/* {<ClearSearchButton  {...props.searchProps} />} */}
-                                        </div>
+                                                    {/* {<ClearSearchButton  {...props.searchProps} />} */}
+                                                </div>
+                                                <div className="row mt-0 "  ></div>
+                                                <BootstrapTable
+                                                    style={{ top: '10px' }}
+                                                    loading={false}  //only loading is true, react-bootstrap-table will render overlay
+                                                    overlay={overlayFactory()}
+                                                    rowStyle={{ overfolw: "hidden" }}
+                                                    bodyStyle={{
+                                                        tableLayout: "fixed !important",
+                                                    }}
+                                                    noDataIndication={indication}
+                                                    bordered={false}
+                                                    classes="table-hover contactTable mt-2"
+                                                    rowClasses={rowClasses}
+                                                    rowEvents={rowEvents}
+                                                    tabIndexCell={true}
+                                                    pagination={paginationFactory(options)}
+                                                    {...props.baseProps} />
+                                            </div>
+                                        )
+                                    }
+                                </ToolkitProvider>
 
-                                        <div className="row mt-0 "  ></div>
-                                        <BootstrapTable
-                                            style={{ top: '10px' }}
-                                            loading={false}  //only loading is true, react-bootstrap-table will render overlay
-                                            overlay={overlayFactory()}
-                                            rowStyle={{ overfolw: "hidden" }}
-                                            bodyStyle={{
-                                                tableLayout: "fixed !important",
-                                            }}
-                                            noDataIndication={indication}
-                                            bordered={false}
-                                            classes="table-hover contactTable mt-2"
-                                            rowClasses={rowClasses}
-                                            rowEvents={rowEvents}
-                                            tabIndexCell ={true}
-                                            pagination={paginationFactory(options)}
-                                            {...props.baseProps} />
-                                    </div>
-                                )
-                            }
-                        </ToolkitProvider>
+                            </div >
+                        </div>
 
                     </div >
-                </div>
+                    <div className="sendEmailFromList col" style={{ width: "17vw", background: "white",
+                    //  height: "100vh", 
+                    display: "none", marginTop: "10vh" }}>
+                        <button onClick={() => { setExportYN(false); $(".sendEmailFromList").css("display", "none") }} style={{ background: "white", justifyContent: 'flex-end !important' }}
+                        >x</button>
+                         {/* {props.allContact && */}
+                        {/* // <MultiSelectInput options={getEmailsContacts(props.allContact)} style={{ backgroundColor: '#F6F6FA', border: 'aliceblue', zIndex: "10", width: '20vw !important', zIndex: "10" }} paperName={props.paperName}></MultiSelectInput> */}
+                    {/* // }  */}
+                    </div>
+                </div >
+            </div> 
+            // :
+           
+                    //    <NoFunnels/>
 
-            </div >
-            <div className="sendEmailFromList col" style={{ width: "17vw", background: "white", height: "100vh", display: "none", marginTop: "10vh" }}>
-                    <button onClick={()=>{setExportYN(false); $(".sendEmailFromList").css("display", "none")}} style={{background:"white", justifyContent: 'flex-end !important'}}
-                    >x</button>
-                    {/* {props.allContact &&
-                        <MultiSelectInput options={getEmailsContacts(props.allContact)} style={{ backgroundColor: '#F6F6FA', border: 'aliceblue', zIndex: "10", width: '20vw !important', zIndex: "10" }} paperName={props.paperName}></MultiSelectInput>
-                    } */}
-                </div>
-        </div >
-        </div>
+            }
+       
         </>
     )
 };
- 
-
 
 export default connect(
     (state) => {
         return {
             allFunnels: state.funnel.allFunnels
-          
-            
+
+
             // iframe: state.funnel.iframe
         }
     },
     (dispatch) => {
         return {
-            // setNameFunnel: (property, newValue) => { dispatch(setStylePage({ property: property, value: newValue })) },
-            // setOpacityPage: (newValue) => { dispatch(setOpacityPage(newValue)) },
-            // setNameFunnel: (newName, idFunnel) => { dispatch(setNameFunnel({newName:newName,idFunnel:idFunnel})) }
+            removeReducer:(id) => {dispatch(removeReducer(id)) },
+            setNameFunnel: (idFunnel, newName) => { dispatch(setNameFunnel({id:idFunnel,name: newName })) },
+            setJsonPage: (json) => { dispatch(setJsonPage(json)) },
+            setNameChosenFunnel: (name) => { dispatch(setNameChosenFunnel(name)) },
+            setIdFunnel: (id) => { dispatch(setIdFunnel(id)) },
+            setJsonServer: (json) => { dispatch(setJsonServer(json)) },
+            removeFunnel: (id) => {dispatch(removeFunnel(id)) },
+            duplicateFunnel:(idFunnel)=>  {dispatch(duplicateFunnel(idFunnel))}
         }
     }
-    // (dispatch) => {
-    //     return {
-    //         // changeMessage: () => { dispatch({ type: '[funnel] CHANGE_MESSAGE' }) },
 
-    //         addElement: function (newGallery, value, section, part, numElement) {
-    //             dispatch(addElement({
-    //                 type: newGallery, value: value, section: section, part: part, id: numElement
-    //             }))
-    //         },
-    //     }
-    // },
 )(ListPapers)
 
-// export default function ListPapers() {
-//     return (
-//         <div style={{marginTop:"100px"}}>
-//             <table class="table">
-//   <thead class="thead-dark">
-//     <tr>
-//       <th scope="col">NAME</th>
-//       <th scope="col">PRODUCTION DATE</th>
-//       <th scope="col">LAST OPENNING DATE</th>
-//       <th scope="col">SOME RECIPIENTS</th>
-//       <th scope="col">NUMBER OF VIEWS</th>
-//       <th scope="col">NUMBER OF SIGNTURE</th>
-//       <th scope="col">EXPORT</th>
-//     </tr>
-//   </thead>
-//   <tbody>
-//     <tr>
-//     <th scope="row" ></th>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-
-
-//     </tr>
-//     <tr>
-//     <th scope="row" ></th>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-
-//     </tr>
-//     <tr>
-//     <th scope="row" ></th>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-
-//     </tr>
-//   </tbody>
-//   <thead>
-//   <tr>
-//     <th scope="row" ></th>
-//     <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//     </tr>
-//   </thead>
-//   <tbody>
-//     <tr>
-//     <th scope="row" ></th>
-//     <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-
-//    </tr>
-//     <tr>
-//     <th scope="row" ></th>
-//     <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-
-//     </tr>
-//     <tr>
-//     <th scope="row" ></th>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//       <td></td>
-//     </tr>
-//   </tbody>
-// </table>
-//         </div>
-//     )
-// }
