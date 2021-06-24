@@ -36,14 +36,21 @@ const initialState = {
         { index: 1, type: 'title', border: false, text: "Welcome enter your title!", backgroundColor: "transparent", color: "black", textAlign: "center", fontSize: "25", fontFamily: 'Arial, Helvetica, sans-serif' },
         { index: 2, type: 'button', fontSize: "25", text: "Button ", color: "black", backgroundColor: "grey", textAlign: "center", fontFamily: 'Arial, Helvetica, sans-serif', borderRadius: '0', width: '100' },
 
-        { index: 3, type: 'image', border: false, path: '', backgroundColor: "",  borderRadius: "",  textAlign: "center", opacity: '0.6' },
-        {
-            index: 4, type: 'paragraph', text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
-            border: false, color: "black", textAlign: "center", fontSize: "16", fontFamily: 'Arial, Helvetica, sans-serif', backgroundColor: "transparent"
-        },
-      //  { index: 5, type: 'video', border: false, path: '', backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center", opacity: '0.6' },
-        // { index: 6, type: 'gallery', border: false, path: '', backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center", opacity: '0.6' },
-        {index: 5 ,  type: 'video', border: false, path: '',  backgroundColor: "transparent", borderRadius: "",  textAlign: "center" , opacity:'0.6'},
+    //     { index: 3, type: 'image', border: false, path: '', backgroundColor: "",  borderRadius: "",  textAlign: "center", opacity: '0.6' },
+    //     {
+    //         index: 4, type: 'paragraph', text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
+    //         border: false, color: "black", textAlign: "center", fontSize: "16", fontFamily: 'Arial, Helvetica, sans-serif', backgroundColor: "transparent"
+    //     },
+    //   //  { index: 5, type: 'video', border: false, path: '', backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center", opacity: '0.6' },
+    //     // { index: 6, type: 'gallery', border: false, path: '', backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center", opacity: '0.6' },
+    //     {index: 5 ,  type: 'video', border: false, path: '',  backgroundColor: "transparent", borderRadius: "",  textAlign: "center" , opacity:'0.6'},
+
+    { index:3 ,  type: 'image', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", textAlign: "center" , opacity:'0.6'},
+    { index:4 ,type: 'paragraph',text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
+        border: false,  color: "black", textAlign: "center", fontSize: "16", fontFamily:'Arial, Helvetica, sans-serif' , backgroundColor: "transparent"
+    },
+    {index:5 ,  type: 'video', border: false, path: '',  backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center" , opacity:'0.6'},
+
 
         {
             index: 6, images: [
@@ -282,7 +289,9 @@ export default produce((state = initialState, action) => {
             else if (action.payload.type === 'Image' || action.payload.type=== 'Video' || action.payload.type === 'Gallery') {
                 // if (action.payload.type == 'Gallery')
                 //     action.payload.value = []
-                newElement = { type: action.payload.type, value: action.payload.value.value, images: action.payload.value.images, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border:action.payload.value.border , settings: {}, id: action.payload.id}
+             newElement = { type: action.payload.type, value: action.payload.value.value, textAlign: action.payload.value.textAlign,backgroundColor:action.payload.value.backgroundColor,border:action.payload.value.border, settings: {}, id: action.payload.id}
+              
+                // newElement = { type: action.payload.type, value: action.payload.value.value, images: action.payload.value.images, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border:action.payload.value.border , settings: {}, id: action.payload.id}
             }
             else if (action.payload.type === 'Icon' || action.payload.type ==='Form' || action.payload.type === 'Sharing') {
                 newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
@@ -329,7 +338,10 @@ const y=action.payload.posY
 
             }
             else if (action.payload.type === 'Image' || action.payload.type === 'Video' || action.payload.type === 'Gallery') {
-                newElement = { type: action.payload.type, value: action.payload.value.path, images: action.payload.value.images, alignItem: action.payload.value.alignItem, backgroundColor: action.payload.value.backgroundColor }
+                // newElement = { type: action.payload.type, value: action.payload.value.path, images: action.payload.value.images, alignItem: action.payload.value.alignItem, backgroundColor: action.payload.value.backgroundColor }
+                newElement = { type: action.payload.type, value: action.payload.value.path ,textAlign: action.payload.value.textAlign,border:action.payload.value.border,backgroundColor:action.payload.value.backgroundColor}
+
+
             }
             else if (action.payload.type === 'Icon' || action.payload.type === 'Form' || action.payload.type === 'Sharing') {
                 newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize }

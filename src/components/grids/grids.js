@@ -36,72 +36,59 @@ function Grids(props) {
         changeMessage()
     }
 
-    // const [{ isDragging }, drag] = useDrag({
-    //     item: { type: ItemTypes.BOX },
-    //     collect: (monitor) => ({
-    //         isDragging: !!monitor.isDragging()
-    //     }),
-    //     end: (item, monitor) => {
-    //         const dropResult = monitor.getDropResult();
-    //         if (item && dropResult) {
-    //             alert(`You dropped ${item.type} into ${dropResult.name}!`);
-    //             props.addElement('title')
-    //         }
-    //     }
-    // })
-    // const opacity = isDragging ? 0.4 : 1;
     return (
        
 
-        <>
-  
-<Grid container direction="row" style={{height:"15%", marginButton:'0px'}}>
+<div className="card button_collapse p-0" style={{width:'100%',height:'90%',marginTop:'2%'}}>
 
-<Grid item md={5} sm={5} > <div id="g1" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(2,'a')}></div> </Grid>
+
+<Grid container direction="row" style={{height:"11vh", marginLeft:'3%',marginTop:'5%'}}>
+
+<Grid item md={5} sm={5} > <div id="g1" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(2,'a')}></div> </Grid>
 <Grid item md={1} sm={1}></Grid>
-<Grid item md={5} sm={5} > <div id="g2" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(2 ,'b')}></div></Grid>
+<Grid item md={5} sm={5} > <div id="g2" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(2 ,'b')}></div></Grid>
 
 </Grid>
 
 
-<Grid container direction="row" style={{height:"15%" , marginButton:'0px'}}>
+<Grid container direction="row" style={{height:"11vh" ,marginLeft:'3%' }}>
 
-<Grid item md={5} sm={5} > <div id="g3" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(3,'c')}></div> </Grid>
+<Grid item md={5} sm={5} > <div id="g3" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(3,'c')}></div> </Grid>
 <Grid item md={1} sm={1}></Grid>
-<Grid item md={5} sm={5} > <div id="g4" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(3,'d')}></div></Grid>
+<Grid item md={5} sm={5} > <div id="g4" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(3,'d')}></div></Grid>
 
 </Grid>
-<Grid container direction="row" style={{height:"15%", marginButton:'0px'}}>
+<Grid container direction="row" style={{height:"11vh" ,marginLeft:'3%'}}>
 
-<Grid item md={5} sm={5} > <div id="g5" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(4,'e')}></div> </Grid>
+<Grid item md={5} sm={5} > <div id="g5" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(4,'e')}></div> </Grid>
 <Grid item md={1} sm={1}></Grid>
-<Grid item md={5} sm={5} > <div id="g6" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(3,'f')}></div></Grid>
+<Grid item md={5} sm={5} > <div id="g6" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(3,'f')}></div></Grid>
 
 </Grid>
-<Grid container direction="row" style={{height:"15%", marginButton:'0px'}}>
+<Grid container direction="row" style={{height:"11vh" ,marginLeft:'3%'}}>
 
-<Grid item md={5} sm={5} > <div id="g7" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(4,'g')}></div> </Grid>
+<Grid item md={5} sm={5} > <div id="g7" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(4,'g')}></div> </Grid>
 <Grid item md={1} sm={1}></Grid>
-<Grid item md={5} sm={5} > <div id="g8" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(9,'h')}></div></Grid>
+<Grid item md={5} sm={5} > <div id="g8" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(9,'h')}></div></Grid>
 
 </Grid>
-<Grid container direction="row" style={{height:"15%", marginButton:'0px'}}>
+<Grid container direction="row" style={{height:"11vh",marginLeft:'3%'}}>
 
-<Grid item md={5} sm={5} > <div id="g9" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(3,'i')}></div> </Grid>
+<Grid item md={5} sm={5} > <div id="g9" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(3,'i')}></div> </Grid>
 <Grid item md={1} sm={1}></Grid>
-<Grid item md={5} sm={5} > <div id="g10" className=" grid_imgs m-1 pointer" style={{width:'100%', height:'100%'}} onClick={() => clickAddSection(3,'j')}></div></Grid>
+<Grid item md={5} sm={5} > <div id="g10" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(3,'j')}></div></Grid>
 
 </Grid>
 
 <Grid container direction="row" style={{height:"20px"}}>
-
-<Grid item md={2} sm={2} style={{marginTop:'5px'}}>     <input type="checkbox" id="show_grid_checkbox"  onClick={(e) => setShowGrid(e)} /> </Grid>
-<Grid item md={10} sm={10} style={{marginTop:'0px'}} >  <label id="monlabel"  for="show_grid_checkbox" style={{color:'grey' ,marginTop:'0px'}}>Show Grid Line</label> </Grid>
+<Grid item md={1} sm={1}/>
+<Grid item md={2} sm={2} style={{marginTop:'1%'}}>     <input type="checkbox" id="show_grid_checkbox"  onClick={(e) => setShowGrid(e)} style={{width:'1vw', height:'100%'}} /> </Grid>
+<Grid item md={9} sm={9} style={{marginTop:'0px'}} >  <label id="monlabel"  for="show_grid_checkbox" style={{color:'grey' ,marginTop:'0px',fontSize:"1vw"}}>Show Grid Line</label> </Grid>
 </Grid>
        
        
        
-        </>
+        </div>
     )
 }
 
