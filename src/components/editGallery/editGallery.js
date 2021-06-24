@@ -17,8 +17,7 @@ function EditGallery(props) {
 
 return (
     <>
-
-
+    
     </>
 )
 }

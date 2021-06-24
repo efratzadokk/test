@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import './element.css'
@@ -341,7 +339,7 @@ function Element(props) {
                     </div>}
                       {/* <textarea onChange={e=>hlps(element.type, e.target.value)} > {newElementTypeAndValue.value}</textarea>  */}
                     
-                    <textarea  className="montitre" type="text" multiline
+                    <textarea  className="montitre" type="text" multiline id="montxtarea"
                     onFocus={() =>{ onEnterElement() ; moi()}}
                     value={element.value}
                     onChange={(e) =>{ setValue(e.target.value); moi()}}
