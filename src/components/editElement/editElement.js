@@ -8,7 +8,7 @@
 // // // import Editbutton from '../editButton/editbutton';
 // // // import EditTitle from '../editTitle/editTitle';
 // // // import EditForm from '../editForm/editForm';
-// // // import EditIcon from '../EditIcon/EditIcon'
+// // // import EditIcon from '..//EditIcon'
 // // // import Spacer from '../spacer/spacer'
 // // // import Gallery  from '../image_gallery/imageGallery'
 
@@ -48,7 +48,7 @@
 // // //                                    {elementInEditing.type=="Button"&& <Editbutton></Editbutton>}{elementInEditing.type=="Form"&& <EditForm></EditForm>}
 // // //                                    {elementInEditing.type=="Gallery"&& <Gallery titleOnEdit={elementInEditing}></Gallery>}
 
-// // //                                    {/* {elementInEditing.type=="Icon"&& <EditIcon IconOnEdit={elementInEditing}></EditIcon>} */}
+// // //                                    {/* {elementInEditing.type=="Icon"&& < IconOnEdit={elementInEditing}></EditIcon>} */}
 // // //                                    {/* {elementInEditing.type=="Spacer"&& <Spacer SpacerOnEdit={elementInEditing}></Spacer>} */}
 // // // {/*                                 
 
@@ -246,7 +246,7 @@ import EditForm from '../editForm/editForm';
 import Editbutton from '../editButton/editbutton';
 import EditTitle from '../editTitle/editTitle'
 import EditSpacing from '../editSpacing/editSpacing'
-import EditIcon from '../editIcon/editIcon'
+import EditIcon from '../EditIcon/EditIcon'
 import './editElement.css'
 function EditElement(props) {
     const {elementInEditing}=props

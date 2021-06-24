@@ -416,7 +416,7 @@ import { setSizeIcon } from '../../redux/actions/funnel.action'
  import dropper from '../../assets/dropper.svg'
 
 
-import './editIcon.css'
+import './EditIcon.css'
 
 function EditIcon(props) {
     const {styleIcon,element,IconOnEdit,setValueElement,setStyleIcon}=props
