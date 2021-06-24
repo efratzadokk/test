@@ -15,6 +15,7 @@ import VideoUploader from '../video/video';
 import Parser from 'html-react-parser';
 import Gallery from '../image_gallery/imageGallery'
 import SelectIcon from '../SelectIcon/SelectIcon'
+import Shares from '../sharing/sharing'
 //import Spacer from '../spacer/spacer'
 // import Spacer from 'react-spacer'
 import Spacer from 'react-spacer'
@@ -638,8 +639,28 @@ function Element(props) {
                 case 'Sharing':
                     return (
                         <>
+                  <div id={element.id}>
+                      <div className={editMode && "hoverToEdit pointer"}>
+                          {editMode && <div className='edit_buttons_element'>
+                              <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => removeElement(id)}>
+                                  delete
+                  </span>
+                      
+                          </div>
+                          }
+                          <div  className={element.value ? "d-flex flex-column align-items-center justify-content-center m-2  y" : 'd-flex flex-column align-items-center justify-content-center m-2 y divEmptyElement'} onClick={() => onEnterElement()} >
+                            {/* <div className='monIconClass' style={{width:'100%', height:'100%' , textAlign:''}} > */}
+                            <Shares element={element}  onDrag={e => drag1(e)} draggable="true" style={{alignItem:'center'}}/>
                         {/* <Shares/> */}
-                        </>
+
+
+                            </div>
+                          {/* </div> */}
+                          </div>
+                      </div></>
+                        // <>
+                        // <Shares/>
+                        // </>
                     )
         default:
             break;
