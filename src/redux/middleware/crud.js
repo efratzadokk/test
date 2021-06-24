@@ -1,6 +1,6 @@
 import $, { error } from "jquery";
-// const url = `https://funnel.leader.codes`
-const url = `http://localhost:3008`
+const url = `https://funnel.leader.codes`
+// const url = `http://localhost:3008`
 
 //////////login
 // export const getUserByJWT = ({ dispatch, getState }) => next => action => {
