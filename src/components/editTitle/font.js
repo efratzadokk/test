@@ -1,3 +1,4 @@
+
 import fontFamilies from './fontFamily'
 import React, { useEffect,useState } from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -8,8 +9,9 @@ import WebFont from 'webfontloader';
 import { Select } from '@material-ui/core';
 import { setValueMe } from '../../redux/actions/funnel.action'
 import { connect } from 'react-redux';
-
-
+import './font.css'
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const mapDispatchToProps = (dispatch) => {
     return {           
@@ -68,36 +70,62 @@ export default connect( null,mapDispatchToProps) ( function Font(props) {
       margin: theme.spacing(0),
       
     },
+   
+    textField: {
+      width: '90%',
+  },
+  input: {
+    fontSize:'1vw'
+  }
   }));
   const classes = useStyles();
   
- return (
-<div style={{width:"2px"}}>
+
  
-       <FormControl  className={classes.margin} >
-      <Select onChange=
-      {(event) => {setValueMe(event.target.value,"fontFamily") ;setoneFont(event.target.value)}}
-          labelId="demo-customized-select-label"
-          id="demo-customized-select"
-          value={oneFont}
-            style={{fontFamily:oneFont,margin:"0px !important"}}
-         
-          input={<BootstrapInput />}  >
-       
- {arrFonts.map((font) =>
+ return (
+//<div style={{width:"100%",height:'100%',alignItems:'center'}}>
+ 
+       <FormControl  id='c' className={classes.margin} style={{width:'100%',height:'90%',fontSize:'1vw'}} >
+      
 
-<MenuItem id="optionfont" 
-style={{fontFamily:font.family}} value={font.family} key={font.family}>
-  {font.family}
+<Autocomplete
+      id="moi"
+      options={arrFonts}
+      onChange={(event) =>setValueMe(event.target.innerText,"fontFamily") }
+      getOptionLabel={(option) => option.family}
+      //style={{ width: '100%',fontSize:'1vw' ,color:'red'}}
+      defaultValue={ arrFonts[0] }
+     // classes={{input:{backgroundColor:'red'}}}
+      
+    //  input={{style:{color:'green'}}}
+      renderOption={(a, option) => {
+        const {family } = a;
+        return (
+          
+          <label {...a} style={{ fontFamily: family, fontSize:'1vw' }}>
+            {family}
+          </label>
+        );
+      }}
+    
+    
+      renderInput={(params) => {
+        
+        return (
+          <TextField 
+        //  inputStyle={{ backgroundColor: 'red' }} 
+          {...params} variant="outlined" 
+         // inputProps={{style:{ }}}
 
-</MenuItem>
+          />
+        );
+      }}
+    />
 
-)}
-         
-        </Select>
+
       </FormControl>
      
-    </div>
+   // </div>
 
 
 

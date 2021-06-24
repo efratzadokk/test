@@ -1,3 +1,28 @@
+/* .newEelement{
+    background-color: #E8EAEC;
+   
+    border-radius: 50%;
+}
+.newEelement .material-icons{
+    color: #384364 !important; 
+    font-size: 1rem;
+
+}
+.p{
+    font: normal normal normal 15px/20px Roboto;
+letter-spacing: 0px;
+    color: #384364;
+text-transform: capitalize;
+opacity: 1;
+}
+.ql-toolbar{
+    z-index: 1100;
+}
+
+#opc{
+    opacity: 0.9;
+} */
+
 .newEelement{
     background-color: #E8EAEC;
     /* color: #384364; */
@@ -20,5 +45,5 @@ opacity: 1;
 }
 
 #opc{
-    opacity: 0.9;
+    opacity: 0.7;
 }

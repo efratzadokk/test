@@ -1,49 +1,3 @@
-// // import React, { useState, useRef } from 'react';
-// // import { connect } from 'react-redux';
-// // import { setHrefButton } from '../../redux/actions/funnel.action'
-
-// // function EditButton(props) {
-// //     const {formOnEdit,setHrefButton}=props
-// //     return (
-// //         <>
-// //         <label for="">add url</label>
-// //         <input type="text" className="form-control input " id="" data-toggle="tooltip" data-placement="bottom" placeholder="" onChange={(e) => setHrefButton(e.target.value)}  /> 
-// //    </>
-// //     )
-// // }
-
-// // export default connect(
-// //     undefined,
-// //     (dispatch) => {
-// //         return {
-// //             setHrefButton:(newValue)=>{dispatch(setHrefButton({value:newValue}))}
-// //                 }
-// //     }
-// // )(EditButton)
-
-// // import React, { useState, useRef } from 'react';
-// // import { connect } from 'react-redux';
-// // import { setHrefButton } from '../../redux/actions/funnel.action'
-
-// // function EditButton(props) {
-// //     const {formOnEdit,setHrefButton}=props
-// //     return (
-// //         <>
-// //         <label for="">add url</label>
-// //         <input type="text" className="form-control input " id="" data-toggle="tooltip" data-placement="bottom" placeholder="" onChange={(e) => setHrefButton(e.target.value)}  /> 
-// //    </>
-// //     )
-// // }
-
-// // export default connect(
-// //     undefined,
-// //     (dispatch) => {
-// //         return {
-// //             setHrefButton:(newValue)=>{dispatch(setHrefButton({value:newValue}))}
-// //                 }
-// //     }
-// // )(EditButton)
-
 
 // import React, { Component } from 'react'
 // import {Container,Row,Col} from 'react-bootstrap'
@@ -135,14 +89,14 @@
 //         <Container>
 
         
-// <Row style={{fontSize:"17px"}}>
+// <Row style={{fontSize:"17px",color:'#4169E1', fontWeight:'bold'}}>
 //     Button
 // </Row>
 // <hr/>
 
-//          <b style={{ fontSize: "14px", }}>Content</b>
+//     <Grid container direction="row" ><b style={{ fontSize: "14px", }}>Content</b></Grid> 
 
-//     <textarea    placeholder={'button'} value={BtnOnEdit.value} style={{backgroundColor:'transparent' ,color:'white'}} onChange={e=>{setValue(e.target.value)}}>
+//     <textarea    placeholder={'button'} value={BtnOnEdit.value} style={{backgroundColor:'transparent' ,color:'black',border:'none', }} onChange={e=>{setValue(e.target.value)}}>
 //     </textarea>
 //     {/* {elementInEditing} value={elementInEditing.value} */}
 //     {/* {elementInEditing.value} */}
@@ -305,9 +259,9 @@
 //       <b >Border</b>
 
 //       <Grid container direction="row"  style={{height:"10px"}}>
-//         <Grid item sm={1} md={1}> <BorderStyleIcon style={{ alignItems: "right" }}></BorderStyleIcon></Grid>
+//         <Grid item sm={1} md={1}> <BorderStyleIcon style={{ alignItems: "right" ,height:'20px' }}></BorderStyleIcon></Grid>
 //         <Grid item sm={1} md={1}></Grid>
-//         <Grid item sm={1}  md={8}> <Box flexDirection="row" display="flex" justifyContent="space-between">
+//         <Grid item sm={8}  md={8}> <Box flexDirection="row" display="flex" justifyContent="space-between">
 //           <Box width={'100%'} >
 //             <Slider
 //              key={`opac-${BtnOnEdit.id}`}
@@ -356,54 +310,11 @@
 //     )
 // }
 // )
-// import React, { useState, useRef } from 'react';
-// import { connect } from 'react-redux';
-// import { setHrefButton } from '../../redux/actions/funnel.action'
-
-// function EditButton(props) {
-//     const {formOnEdit,setHrefButton}=props
-//     return (
-//         <>
-//         <label for="">add url</label>
-//         <input type="text" className="form-control input " id="" data-toggle="tooltip" data-placement="bottom" placeholder="" onChange={(e) => setHrefButton(e.target.value)}  /> 
-//    </>
-//     )
-// }
-
-// export default connect(
-//     undefined,
-//     (dispatch) => {
-//         return {
-//             setHrefButton:(newValue)=>{dispatch(setHrefButton({value:newValue}))}
-//                 }
-//     }
-// )(EditButton)
-
-// import React, { useState, useRef } from 'react';
-// import { connect } from 'react-redux';
-// import { setHrefButton } from '../../redux/actions/funnel.action'
-
-// function EditButton(props) {
-//     const {formOnEdit,setHrefButton}=props
-//     return (
-//         <>
-//         <label for="">add url</label>
-//         <input type="text" className="form-control input " id="" data-toggle="tooltip" data-placement="bottom" placeholder="" onChange={(e) => setHrefButton(e.target.value)}  /> 
-//    </>
-//     )
-// }
-
-// export default connect(
-//     undefined,
-//     (dispatch) => {
-//         return {
-//             setHrefButton:(newValue)=>{dispatch(setHrefButton({value:newValue}))}
-//                 }
-//     }
-// )(EditButton)
 
 
-import React, { Component } from 'react'
+
+
+import React, { useState } from 'react'
 import {Container,Row,Col} from 'react-bootstrap'
 // import fontFamilies from './fontFamily'
 import textSize from '../../assets/textSize.svg'
@@ -411,8 +322,8 @@ import dropper from '../../assets/dropper.svg'
 import alignLeft from '../../assets/align-left.png'
 import alignMid from '../../assets/align-mid.png'
 import alignRight from '../../assets/align-right.png'
-
-
+import Iframe from 'react-iframe'
+import './editButton.css'
 import { setValueElement,setValueMe ,elementInEditing} from '../../redux/actions/funnel.action'
 import { connect } from 'react-redux';
 import Grid  from '@material-ui/core/Grid';
@@ -449,6 +360,7 @@ export default connect(mapStateToProps, mapDispatchToProps) ( function EditButto
 {
     const {elementInEditing,BtnOnEdit}=props
    
+  const [murl, setMurl] = useState('')
 
     console.log(elementInEditing)
   console.log(BtnOnEdit)
@@ -490,53 +402,31 @@ console.log(type)
 
         <>
 
-        <Container>
+        <Container style={{height:'100%'}}>
 
         
-<Row style={{fontSize:"17px",color:'#4169E1', fontWeight:'bold'}}>
+<Row style={{fontSize:"1.5vw",color:'#4169E1', fontWeight:'bold'}}>
     Button
 </Row>
 <hr/>
 
-    <Grid container direction="row" ><b style={{ fontSize: "14px", }}>Content</b></Grid> 
-
-    <textarea    placeholder={'button'} value={BtnOnEdit.value} style={{backgroundColor:'transparent' ,color:'black',border:'none', }} onChange={e=>{setValue(e.target.value)}}>
-    </textarea>
-    {/* {elementInEditing} value={elementInEditing.value} */}
-    {/* {elementInEditing.value} */}
-  {/* {elementInEditing} */}
+    <Grid container direction="row" ><b style={{ fontSize: "1vw", }}>Content</b></Grid> 
+    <Row container direction="row" style={{height:"4vh"}}>
+    <Grid item md={1}/>
+    <Grid item md={11}>  <textarea placeholder={'button'} value={BtnOnEdit.value} style={{backgroundColor:'transparent' ,color:'black',border:'none', width:'100%',fontSize:'1vw',height:'80%'}} onChange={e=>{setValue(e.target.value)}}>
+    </textarea> 
     
-    <hr/>
-    {/* <b style={{ fontSize: "14px", }}>Font</b>
+    </Grid>
+  </Row>
+  <hr/>
+    <b style={{ fontSize: "1vw" }}>Size</b>
 
-    <Row >
-{/* 
-<Font/> */}
-    {/* <select className="form-select" style={{width:'150px' , marginLeft:'15px'}} >
-     {/* <option selected>Select Font</option> */}
-        {/* {arrfont.map(item=>
-            <option value={item.family} key={item.family} >{item.family}</option>
-        )}
-         */}
-    {/* </select> */} 
-
-
-
-    {/* </Row> */} 
-    {/* <hr/> */}
-    <b style={{ fontSize: "14px" }}>Size</b>
-
-    {/* <Row>
-        <Col sm='1'><img src={textSize}></img></Col>
-        <Col sm='10' ><input type='range' min="16" max="100"/></Col>
-    </Row> */}
-
-<Grid container direction="row" style={{height:"13px"}}>
-                <Grid item sm={1} md={1}> <img style={{ alignItems: "right" ,height:'13px' }} src={textSize}></img> </Grid>
+<Grid container direction="row" style={{height:"5vh"}}>
+                <Grid item sm={1} md={1}> <img style={{ alignItems: "right" ,height:'100%',width:'100%' }} src={textSize}></img> </Grid>
                 <Grid item sm={1} md={1}></Grid>
-                <Grid item sm={8} md={8}> 
-                < Box flexDirection="row" display="flex" justifyContent="space-between" >
-                    <Box width={'100%'} >
+                <Grid item sm={7} md={7}> 
+                < Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
+                    <Box width={'100%'}  >
                         <Slider
                           key={`fontSize-${BtnOnEdit.id}`}
                             defaultValue={BtnOnEdit.fontSize}
@@ -551,15 +441,15 @@ console.log(type)
 
                            
                         />
-                    </Box>
-                <Grid item md={1} sm={1} />
-
-               <Grid item md={1} sm={1} > <p style={{position:'fixed', buttom:'0px'}}>{BtnOnEdit.fontSize? BtnOnEdit.fontSize+'px':""}</p> </Grid>
-                    
-                </Box>
+                    </Box>  </Box>
                 
                 </Grid>
                 
+                <Grid item md={1} sm={1} />
+
+               <Grid item md={2} sm={2} > <p style={{alignItems:'left', fontSize:'1vw'}}>{BtnOnEdit.fontSize? BtnOnEdit.fontSize+'px':""}</p> </Grid>
+                    
+              
                 
                 </Grid>
 
@@ -567,10 +457,10 @@ console.log(type)
 
 
             {/* ----------- */}
-            <Grid container direction="row" style={{height:"15px", marginTop:'5px'}}>
-        <Grid item sm={1} md={1}> <BorderLeftIcon style={{ alignItems: "right",height:'20px' }}></BorderLeftIcon></Grid>
+            <Grid container direction="row" style={{height:"5vh", marginTop:'5px'}}>
+        <Grid item sm={1} md={1}> <BorderLeftIcon style={{ alignItems: "right",height:'100%',width:'100%' }}></BorderLeftIcon></Grid>
         <Grid item sm={1} md={1}></Grid>
-        <Grid item sm={8} md={8}> <Box flexDirection="row" display="flex" justifyContent="space-between">
+        <Grid item sm={7} md={7}> <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
           <Box width={'100%'} >
             <Slider
              key={`width-${BtnOnEdit.id}`}
@@ -583,31 +473,25 @@ console.log(type)
              // onChange={(e) => changeVal(e.target.ariaValueNow, "width")}
              onChangeCommitted={(e) => changeVal(e.target.ariaValueNow, "width")}
             />
+          </Box> 
           </Box>
+        </Grid>
           <Grid item md={1} sm={1} />
 
-          <Grid item md={1} sm={1} > <p style={{position:'fixed', buttom:'0px'}}>{BtnOnEdit.width}</p> </Grid>
+          <Grid item md={2} sm={2} > <p style={{alignItems:'left',fontSize:'1vw'}}>{BtnOnEdit.width}</p> </Grid>
      
-        </Box>
-        </Grid>
+      
         </Grid>
     <hr/>
 
-    <b style={{ fontSize: "14px" }}>Color</b>
-
-    {/* <Grid container direction="row" >
-                <Grid item sm={3}> <p >Fill</p></Grid>
-                <Grid item sm={5}><input type='range' min="16" max="100"/></Grid>
-        {/* <Col sm='2'><p>Fill</p></Col>
-        <Col sm='10' ><input type='range' min="16" max="100"/></Col> */}
-    {/* </Grid> */} 
+    <b style={{ fontSize: "1vw" }}>Color</b>
 
 
-    <Grid container direction="row" style={{height:"15px"}} >
-                <Grid item sm={2}> <p >Fill</p></Grid>
+    <Grid container direction="row" style={{height:"5vh"}} >
+                <Grid item md={2}> <p style={{fontSize:'1vw',alignItems:'left'}} >Fill</p></Grid>
                 <Grid item md={5}/>
-                <Grid item md={2}>  <img style={{ alignItems: "right" }} src={dropper}></img></Grid>
-                <Grid item sm={3}><input type="color" onChange={e=>{changeVal(e.target.value,'color')}} style={{ backgroundColor: "transparent", border: "none", width: "100%" }}
+                <Grid item md={2}>  <img style={{ alignItems: "right" ,width:'80%', height:'45%' }} src={dropper}></img></Grid>
+                <Grid item md={3}><input type="color" onChange={e=>{changeVal(e.target.value,'color')}} style={{ backgroundColor: "transparent", border: "none", width: "70%" ,height:'70%'}}
                   //  onChange={(e) => setItem(e.target.value, "color", index)}
                     // value={item.color}
                     
@@ -617,55 +501,24 @@ console.log(type)
     </Grid>
 
 
-    <Grid container direction="row" style={{height:"15px"}} >
-                <Grid item sm={6}> <p>Background</p></Grid>
+    <Grid container direction="row" style={{height:"8vh"}} >
+                <Grid item md={6}> <p style={{fontSize:'1vw',alignItems:'left'}} >Background</p></Grid>
                 <Grid item md={1}/>
-                <Grid item md={2}>  <img style={{ alignItems: "right" }} src={dropper}></img></Grid>
-                <Grid item sm={3}><input type="color" onChange={e=>{changeVal(e.target.value,'backgroundColor')}} style={{ backgroundColor: "transparent", border: "none", width: "100%" }}
+                <Grid item md={2}>  <img style={{ alignItems: "right" ,width:'80%', height:'30%' }} src={dropper}></img></Grid>
+                <Grid item md={3}><input type="color" onChange={e=>{changeVal(e.target.value,'backgroundColor')}} style={{ backgroundColor: "transparent", border: "none", width: "70%" ,height:'45%' }}
         
                     />
                     
                     </Grid>
     </Grid>
-
-    {/* /////////////////////// BORDER */}
-
-    {/* <Grid container direction="row" >
-                <Grid item sm={3}> <label>border</label></Grid>
-                <Grid item sm={1}>
-                </Grid>
-                <Grid item sm={6}><input type='range' min="16" max="100"/></Grid>
-        {/* <Col sm='2'><p>Fill</p></Col>
-        <Col sm='10' ><input type='range' min="16" max="100"/></Col> */}
-    {/* </Grid>  */}
-
-{/* 
-    <Row>
-        <Col sm='2'><lable>Border</lable></Col>
-        <Col sm='10' ><input type='range' min="16" max="100"/></Col>
-    </Row> */}
-    
     <hr/>
 
-    {/* <b style={{ fontSize: "14px" }}>Alignement</b>
+      <b style={{ fontSize: "1vw" }}>Border</b>
 
-    <Grid container direction="row" style={{height:"10px"}} >
-                {/* <Grid item md={1}/> */}
-                {/* <Grid item md={2}>  <img style={{ alignItems: "right" }} src={alignLeft} onClick={e => {changeVal('left','textAlign')}}></img></Grid>
-                <Grid item md={2}>  <img style={{ alignItems: "right" }} src={alignMid} onClick={e=> changeVal('center','textAlign')}></img></Grid>
-                <Grid item md={2}>  <img style={{ alignItems: "right" }} src={alignRight} onClick={e=> changeVal('right','textAlign')}></img></Grid>
-
-
-
-
-    </Grid> */} 
-
-      <b >Border</b>
-
-      <Grid container direction="row"  style={{height:"10px"}}>
-        <Grid item sm={1} md={1}> <BorderStyleIcon style={{ alignItems: "right" ,height:'20px' }}></BorderStyleIcon></Grid>
+      <Grid container direction="row"  style={{height:"5vh"}}>
+        <Grid item sm={1} md={1}> <BorderStyleIcon style={{ alignItems: "right",height:'100%',width:'100%' }}></BorderStyleIcon></Grid>
         <Grid item sm={1} md={1}></Grid>
-        <Grid item sm={8}  md={8}> <Box flexDirection="row" display="flex" justifyContent="space-between">
+        <Grid item sm={7}  md={7}> <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
           <Box width={'100%'} >
             <Slider
              key={`opac-${BtnOnEdit.id}`}
@@ -679,31 +532,45 @@ console.log(type)
            onChangeCommitted={(e) => changeVal(e.target.ariaValueNow, "borderRadius")}
             />
           </Box>
-
+</Box></Grid>
           <Grid item sm={1}  md={1}/>
 
-          <Grid item md={1} sm={1} > <p style={{position:'fixed', buttom:'0px'}}>{BtnOnEdit.borderRadius}</p> </Grid>
+          <Grid item md={2} sm={2} > <p style={{alignItems:'left', fontSize:'1vw'}}>{BtnOnEdit.borderRadius}</p> </Grid>
 
-        </Box></Grid></Grid>
+        </Grid>
 
 
 
         <hr/>
-<div>
-    Alignement
-</div>
 
 
-<Grid container direction="row" style={{height:"10px"}} >
+<b style={{ fontSize: "1vw" }}>Alignement</b>
+
+<Grid container direction="row" style={{height:"5vh"}} >
                 {/* <Grid item md={1}/> */}
-                <Grid item md={2}>  <img  src={AlignL} onClick={e=> props.setValueMe('left','textAlign')} ></img></Grid>
-                <Grid item md={2}>  <img  src={AlignM} onClick={e=> props.setValueMe('center','textAlign')}></img></Grid>
-                <Grid item md={2}>  <img  src={AlignR} onClick={e=> props.setValueMe('right','textAlign')}></img></Grid>
+                <Grid item md={2}>  <img style={{width:'80%', height:'55%'}}  src={AlignL} onClick={e=> props.setValueMe('left','textAlign')} ></img></Grid>
+                <Grid item md={2}>  <img style={{width:'80%', height:'55%'}} src={AlignM} onClick={e=> props.setValueMe('center','textAlign')}></img></Grid>
+                <Grid item md={2}>  <img style={{width:'80%', height:'55%'}} src={AlignR} onClick={e=> props.setValueMe('right','textAlign')}></img></Grid>
 
           
                     
     </Grid>
+    <hr/>
 
+    <b style={{ fontSize: "1vw" }}>Send Link To</b>
+
+  <Grid container direction='row' style={{height:'8vh',alignItems:'center'}}  >
+  <input style={{fontSize:'1vw',color:'black'}} type="text" className="form-control input urlVideo" data-placement="bottom" placeholder="enter yout link" onChange={(e) => setMurl(e.target.value)}  /> 
+ {
+   murl?<Iframe url={murl}
+   width="100%"
+  //  height="100%"
+   id="myiframe"
+   display="initial"
+   position="relative"/> :""
+ }
+
+  </Grid>
 
   
 </Container>
@@ -714,5 +581,4 @@ console.log(type)
     )
 }
 )
-
 

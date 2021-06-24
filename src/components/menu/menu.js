@@ -50,10 +50,11 @@
 //     const opacity = isDragging ? 0.4 : 1;
 //     return (
 //         <div id="menu" className="col-md-3 pr-0">
-//             <button className="btn col-md-12 my-2 p-0" id="new_button">
+//             {/* <button className="btn col-md-12 my-2 p-0" id="new_button">
 //                 +
 //                 New
-//             </button>
+//             </button>  */}
+//             {/* ----------------------------------------------------------- */}
 //             <div id="sections_select" className="d-flex flex-column">
 //                 <div className="form-check m-2">
 //                     {/* <input type="checkbox" className="form-check-input pointer" id="show_grid_checkbox" onChange={() => props.changeFlagBorderPart(!flagBorderParts)} /> */}
@@ -102,12 +103,6 @@
 
 
 
-
-
-
-
-
-
 // export default connect(
 //     (state) => {
 //         return {
@@ -130,7 +125,6 @@
 //         }
 //     },
 // )(Menu)
-
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';

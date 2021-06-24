@@ -20,9 +20,30 @@ height: calc(100vh - 40px);
 width: ${props => (props.flagCon ? '79%' : '95%')};
 `
     return (
+        // <WrapCenter flagCon={flagCon}>
+        //         {/* <Ex></Ex> */}
+        //     <div className="row" >
+        //         <Switch>
+        //             {/* <Route path='/admin/:userName/:funnel/all'>
+        //                 <AllFunnels></AllFunnels>
+        //             </Route> */}
+        //             <Route path='/:userName/:funnel'>
+        //                 {/* <Menu ></Menu> */}
+        //                 {/* <Emulator> */}
+        //                 <Stage edit={true}></Stage>
+        //                 {/* </Emulator> */}
+        //                 {/* <StageIframe ></StageIframe> */}
+        //             </Route>
+        //         </Switch> </div>
+        // </WrapCenter>
+
         <WrapCenter flagCon={flagCon}>
-                {/* <Ex></Ex> */}
-            <div className="row" >
+        {/* <Ex></Ex> */}
+        {/* ----------------------------------------------------------- */}
+        {/* ----------------------------------------------------------- */}
+        {/* jai ajoute le style!!!! */}
+        {/* ----------------------------------------------------------- */}
+            <div className="row" style={{marginTop:'10%'}} >
                 <Switch>
                     {/* <Route path='/admin/:userName/:funnel/all'>
                         <AllFunnels></AllFunnels>
