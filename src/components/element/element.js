@@ -636,6 +636,11 @@ function Element(props) {
                 );
 
                 case 'Sharing':
+                    return (
+                        <>
+                        {/* <Shares/> */}
+                        </>
+                    )
         default:
             break;
     }
