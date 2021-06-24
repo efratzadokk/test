@@ -5,9 +5,7 @@ import ItemInAllFunnels from '../itemIInAllFunnels/itemInAllFunnels';
 import './allFunnels.css'
 function AllFunnels(props) {
     const { allFunnels } = props
-    // salomee  new
     return (
-
         <>
             <div id='divAllFunnels'className='row no-gutters py-3 '>
                 {allFunnels.map((item, i) => {

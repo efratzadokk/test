@@ -1,26 +1,26 @@
 #top_frame{
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    /* position: sticky; */
+    position: sticky;
     top: 0px;
     opacity: 1;
-    height: 40px;
-    position: fixed;
-    width: 100vw;
+    height: 7%;
     z-index: 1;
     box-shadow:0px 1px 6px #00000029;
     z-index: 2;
-
-
-
 }
-
 #img_logo{
     border-radius: 50%;
-    width: 20px;
+    width: 60%;
+    height:100% 
 }
 #thumbtack{
-    width: 16px;
-}
+    width: 25px;
+    
+}/* 
+#menu2{
+    width: 25%;
+    
+} */
 .rotateThumbtack{
     transform: rotate(-45deg);
 }
@@ -29,10 +29,4 @@
 }
 .red:hover{
 background-color:red;
-}
-.copyButton{
-    background-color: lightskyblue;
-    color: white;
-    padding: 4px;
-    border-radius: 0px 4px 4px 0px;
 }

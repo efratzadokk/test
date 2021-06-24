@@ -374,11 +374,6 @@ export default connect(mapStateToProps, mapDispatchToProps) ( function EditButto
 
 }
 
-const goToUrl=(url)=>{
-
-
-
-}
   const changeVal= (newValue,type) => {
     debugger
    // console.log(newValue.target)

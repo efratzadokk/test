@@ -102,7 +102,7 @@ import Sharing from '../../assets/sharing.svg'
 
 function Sidebar_left(props){
     return(
-    <div id="sidebar_left" style={{paddingTop: "0px" , height: "87%", width:"5vw", borderRadius: "10px"}}>
+    <div id="sidebar_left" style={{paddingTop: "0px" , height: "92%", width:"5vw", borderRadius: "10px"}}>
       
 
 <Widget name="Title" img={Title} ></Widget>
@@ -125,4 +125,3 @@ function Sidebar_left(props){
     )
 }
 export default Sidebar_left
-
