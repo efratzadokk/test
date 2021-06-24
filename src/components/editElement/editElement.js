@@ -246,7 +246,7 @@ import EditForm from '../editForm/editForm';
 import Editbutton from '../editButton/editbutton';
 import EditTitle from '../editTitle/editTitle'
 import EditSpacing from '../editSpacing/editSpacing'
-import EditIcon from '../editIcon/editIcon'
+import EditIcon from '../EditIcon/EditIcon'
 import './editElement.css'
 function EditElement(props) {
     const {elementInEditing}=props
