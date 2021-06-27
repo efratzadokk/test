@@ -148,7 +148,7 @@ console.log(type)
 
 <Grid container direction="row" style={{height:"7vh",alignItems:'center'}}>
                 <Grid item md={2} sm={2}> <img style={{ alignItems: "right" ,height:'85%',width:'50%'}} src={textSize}></img> </Grid>
-                <Grid item md={7} sm={7}> < Box  style={{marginLeft:'10px',alignItems: "center",height:'100%',width:'100%' }}flexDirection="row" display="flex" justifyContent="space-between" >
+                <Grid item md={6} sm={6}> < Box  style={{marginLeft:'10px',alignItems: "center",height:'100%',width:'100%' }}flexDirection="row" display="flex" justifyContent="space-between" >
                     <Box width={'100%'} >
                         <Slider
                             // defaultValue={item.fontSize}
@@ -169,7 +169,7 @@ console.log(type)
                 </Grid>
                 <Grid item md={1}/>
 
-               <Grid item md={2} sm={2} > <p style={{alignItems:'right',fontSize: "1vw"}}>{elementInEditing.fontSize? elementInEditing.fontSize+'px':"" }</p> </Grid>
+               <Grid item md={3} sm={3} > <p style={{alignItems:'right',fontSize: "1vw"}}>{elementInEditing.fontSize? elementInEditing.fontSize+'px':"" }</p> </Grid>
                     
             
                 

@@ -16,15 +16,17 @@ import Grid  from '@material-ui/core/Grid';
 import Cloud from '../../assets/cloud.png'
 import $ from "jquery";
 import dropper from '../../assets/dropper.svg'
-
+import FormControl from '@material-ui/core/FormControl';
+import { Select } from '@material-ui/core';
 import { Col, Row, Container } from "react-bootstrap";
 import Input from '@material-ui/core/Input';
-
+import MenuItem from '@material-ui/core/MenuItem';
 function EditImg(props) {
 
     const {styleImage,element,ImgOnEdit,setValueElement,setStyleImage,elementInEditing,elementInEditing1}=props
-    const [tmp4, settmp4] = useState(0)
-
+    const arrBorders=["solid","dotted","dashed","double","groove","ridge","inset","outset","none"];
+    const [oneBorder, setoneBorder] = useState(arrBorders[0]);
+    
     console.log(elementInEditing)
     console.log(ImgOnEdit)
 
@@ -135,7 +137,6 @@ function EditImg(props) {
 
         <Grid item md={2} sm={2} > <p style={{fontSize:'1vw',alignItems:'left'}}>{ImgOnEdit.settings.height? ImgOnEdit.settings.height.slice(0,-1) : "" }</p> </Grid>
 
-        <Grid item md={1} sm={1} > <p style={{position:'fixed', buttom:'0px'}}>{ImgOnEdit.settings.height? ImgOnEdit.settings.height.slice(0,-1) : "" }</p> </Grid>
 
      
     </Grid>
@@ -196,8 +197,8 @@ function EditImg(props) {
     
     <Grid container direction="row" style={{height:"5vh"}} >
                
-               <Grid item md={9} sm={9} s>   
-           
+               <Grid item md={9} sm={9}>   
+{/*            
                <select name="border" id="border" style={{width:'100%',height:'100%', border:'none',fontSize:'1vw'}}
                // defaultValue={setBColor('solid','borderStyle')} 
                 onChange={e=>setBColor(e.target.value,'borderStyle') }>
@@ -206,7 +207,36 @@ function EditImg(props) {
                    <option value="dotted">-------------</option>
                    <option value="double">=========</option>
            
-                   </select>
+                   </select> */}
+
+
+
+                <FormControl  style={{width:"100%",height:'100%'}}>
+                <Select style={{width:"100%",height:'100%', border:'none',fontSize:'1vw'}} 
+                onChange={(event) => 
+                    {setBColor(event.target.value,"borderStyle")
+                ;setoneBorder(event.target.value);console.log(event.target.value)}
+            }
+            defaultValue={setBColor(oneBorder,'borderStyle')} 
+                    labelId="demo-customized-select-label"s
+                    id="demo-customized-select"
+                    value={oneBorder}
+                    
+
+                    >
+                    {arrBorders.map((border) =>
+            
+             <MenuItem  id="optionBorder" 
+                 value={border} key={border} style={{width:'100%'}}>
+                <img  style={{border:border,width:'90%',height:'6px'}}/>
+            </MenuItem>        
+            )}                 
+                    </Select>
+                </FormControl>
+
+
+
+
                    </Grid>
                    <Grid item md={1} sm={1} /> 
 

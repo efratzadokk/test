@@ -367,7 +367,7 @@ function Element(props) {
                         height: "16vh",
                         textAlign: element.textAlign,
                         color: element.color,
-                        fontSize:element.fontSize,
+                        fontSize:element.fontSize +'px',
                         fontFamily:element.fontFamily,
 
 

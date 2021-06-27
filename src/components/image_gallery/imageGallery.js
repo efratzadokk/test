@@ -48,10 +48,6 @@ function Gallery(props) {
             <button onClick={() => clickToChoose()}>choose images</button>
             <input id='chooseImg' type="file" onChange={(e) => chooseImg(e.target.files[0])} style={{ display: 'none', width:'100%',height:'100%' }}></input>
         
-
-        
-
-         {/* <h1>hello</h1> */}
         
         </>
         )
