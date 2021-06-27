@@ -228,9 +228,11 @@ function Element(props) {
         
 
     //   }
-    function moi()
+    function moi(a)
     {
-    const textareas = document.querySelector('#montxtarea');
+        debugger
+        console.log(a)
+    const textareas = document.querySelector(`#${a}`);
     // console.log(textareas)
     // console.log(textareas.scrollHeight)
     // console.log(textareas.innerHTML)
@@ -264,9 +266,11 @@ function Element(props) {
                         </div>}
 
     
-                        <textarea id="widgEditor" className="montitre pointe " type="text" 
-
-                               onFocus={() => onEnterElement()}
+                        <textarea 
+                        //id="widgEditor" 
+                        className="montitre pointe " type="text" 
+                        id={`montxtarea${element.id}`}
+                             //  onFocus={() => onEnterElement()}
                                //quil-------------------------
                             //    readOnly={!editMode}
                             //    bounds={$("#textarea")[0]}
@@ -283,8 +287,12 @@ function Element(props) {
                             //     /* ... other modules */
                             //    }}
                               //-----------------------------
+                                // value={element.value}
+                             
+                               // id=`montxtarea`
+                                onFocus={() =>{ onEnterElement() ; moi(`montxtarea${element.id}`)}}
                                 value={element.value}
-                                onChange={(e)=>setValue(e.target.value)}
+                                onChange={(e) =>{ setValue(e.target.value); moi(`montxtarea${element.id}`)}}
                                 placeholder='add here your title'
                                 style={{
                                 textAlign: element.textAlign,
@@ -341,10 +349,10 @@ function Element(props) {
                     </div>}
                       {/* <textarea onChange={e=>hlps(element.type, e.target.value)} > {newElementTypeAndValue.value}</textarea>  */}
                     
-                    <textarea  className="montitre" type="text" multiline id="montxtarea"
-                    onFocus={() =>{ onEnterElement() ; moi()}}
+                    <textarea  className="montitre" type="text" multiline id={`montxtarea${element.id}`}
+                    onFocus={() =>{ onEnterElement() ; moi(`montxtarea${element.id}`)}}
                     value={element.value}
-                    onChange={(e) =>{ setValue(e.target.value); moi()}}
+                    onChange={(e) =>{ setValue(e.target.value); moi(`montxtarea${element.id}`)}}
                     // onFocus={() => onEnterElement()}
                     // value={element.value}
 
@@ -458,6 +466,7 @@ function Element(props) {
                             </div>
                             } */}
                             <Gallery element={element} items={images.images} onDrag={e => drag1(e)} draggable="true"  ></Gallery>
+                       
                         </div>
                         {/* <img style={{ width: '30%' }} src={element.value}></img> */}
                     </div></div>

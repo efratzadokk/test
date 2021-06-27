@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import ImageGallery  from 'react-image-gallery';
@@ -24,7 +23,7 @@ const images = [
 
 function Gallery(props) {
 
-    const { addElement } = props
+    const { addElement,items } = props
     const chooseImg = (e) => {
         debugger
         let reader = new FileReader();
@@ -43,14 +42,11 @@ function Gallery(props) {
     }
     return (
         <>
-              <ImageGallery id="gallery" items={images}/> 
+              <ImageGallery id="gallery" items={items?items:[]}/> 
             {/* </div> */}
 
-             {/* <ImageGallery id="gallery" items={items?items:[]}/>  */}
-
-
             <button onClick={() => clickToChoose()}>choose images</button>
-            <input id='chooseImg' type="file" onChange={(e) => chooseImg(e.target.files[0])} style={{ display: 'none' }}></input>
+            <input id='chooseImg' type="file" onChange={(e) => chooseImg(e.target.files[0])} style={{ display: 'none', width:'100%',height:'100%' }}></input>
         
 
         
@@ -65,18 +61,12 @@ export default connect(
     (state) => {
         return {
             numElement: state.funnel.jsonPage.num_elements,
-            // iframe: state.funnel.iframe
+            
         }
     },
     (dispatch) => {
         return {
-            // changeMessage: () => { dispatch({ type: '[funnel] CHANGE_MESSAGE' }) },
-
-            // addElement: function (newGallery, value, section, part, numElement) {
-            //     dispatch(addElement({
-            //         type: newGallery, value: value, section: section, part: part, id: numElement
-            //     }))
-            // },
+           
         }
     },
 )(Gallery)

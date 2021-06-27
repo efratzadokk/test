@@ -70,30 +70,7 @@ export default function Shares(props) {
       </Grid>
 
 
-
-
-
-      {/* <TwitterIcon size={32} round={true} url={TwitterShareButton} /> */}
-      {/* <FacebookShareCount url={''}>
-  {shareCount => <span className="myShareCountWrapper">{''}</span>}
-</FacebookShareCount> */}
-      {/* <InstapaperIcon  size={32} round={true} url={InstapaperShareButton} />
-<FacebookIcon  size={32} round={true} url={FacebookShareCount} />
-<TelegramIcon  size={32} round={true} url={TelegramShareButton} />
-<WhatsappIcon  size={32} round={true} url={TelegramShareButton} /> */}
-
-    </>
-    // <div>
-    //   <div>
-    //     <Icon type="Facebook" className="shares-facebook"/>
-    //     <Icon type="Twitter" className="shares-twitter"/>
-    //     <Instagram className="shares-instagram"/>
-    //   </div>
-
-    //   <a href="https://telegram.org/">
-    //     <Telegram className="shares-telegram"/>
-    //   </a>
-    // </div>
+</>
   );
 }
 
