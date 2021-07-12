@@ -1,6 +1,7 @@
 
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
+import {actions} from '../../redux/actions/funnel-try.action'
 import './top_frame.css'
 import { InputBase } from '@material-ui/core';
 import logo from '../../assets/leader_logo.png'
@@ -10,7 +11,6 @@ import { FaRegCopy, FaLink } from "react-icons/all";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Alert } from '@material-ui/lab';
 
-import { setFlagToggleCon ,setFlagthumbtack,getJson} from '../../redux/actions/funnel.action'
 import{Link,useHistory,useRouteMatch}from 'react-router-dom'
 import { from } from 'form-data';
 
@@ -23,8 +23,6 @@ $("#button").css('background-color','blue')
 }
 let history=useHistory()
 const {url,path}=useRouteMatch()
-// const userName='sariHaizler';
-// const {userName}=props;
 const [copy, setCopy] = useState(false);
     return (
         <div id="top_frame" className="row d-flex justify-content-between align-items-center mx-0">
@@ -76,10 +74,10 @@ export default connect(
     },
     (dispatch) => {
         return {
-            // changeFlagConfigurator: function (newFlag) {dispatch(setFlagToggleCon(newFlag))},
-            changeFlagConfigurator: function (newFlag) {dispatch({type: '[funnel] SET_IS_OPEN_CON',payload: newFlag })},
-            changeFlagThumbtack: function (newFlag) {dispatch(setFlagthumbtack(newFlag))},
-            getJson:()=>{dispatch(getJson())}
+            // changeFlagConfigurator: function (newFlag) {dispatch({type: '[funnel] SET_IS_OPEN_CON',payload: newFlag })},
+            changeFlagConfigurator:  (newFlag) =>{dispatch(actions.setIsOpenCon(newFlag))},
+            changeFlagThumbtack: (newFlag)=> {dispatch(actions.setFlagthumbtack(newFlag))},
+            getJson:()=>{dispatch(actions.getJson())}
         }
     }
 )(Top_frame)

@@ -2,7 +2,6 @@
 // import { connect } from 'react-redux';
 // import Part from '../part/part'
 // // import { useDrag } from 'react-dnd'
-// import { removeSection, setCollapseOpen, sectionInEditing } from '../../redux/actions/funnel.action'
 // import './section.css'
 
 // import GridList from '@material-ui/core/GridList';
@@ -203,10 +202,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Part from '../part/part'
-// import { useDrag } from 'react-dnd'
-import { removeSection, setCollapseOpen, sectionInEditing } from '../../redux/actions/funnel.action'
 import './section.css'
-
+import {actions} from '../../redux/actions/funnel-try.action'
 import GridList from '@material-ui/core/GridList';
 import Grid  from '@material-ui/core/Grid';
 function Section(props) {
@@ -336,12 +333,10 @@ export default connect(
     },
     (dispatch) => {
         return {
-            removeSection: function (indexSection) {
-                dispatch(removeSection(indexSection))
-            },
-            saveInLocalStorage: () => { dispatch({ type: '[funnel] SAVE_IN_LOCAL_STORAGE' }) },
-            setCollapseOpen: function (collapse) { dispatch(setCollapseOpen(collapse)) },
-            sectionInEditing: (indexSection) => { dispatch(sectionInEditing(indexSection)) }
+            removeSection:  (indexSection) =>{dispatch(actions.removeSection(indexSection))},
+            saveInLocalStorage: () => { dispatch(actions.saveInLocalStorage()) },
+            // setCollapseOpen:  (collapse)=> { dispatch(actions.setCollapseOpen(collapse)) },
+            sectionInEditing: (indexSection) => { dispatch(actions.sectionInEditing(indexSection)) }
         }
     }
 )(Section)

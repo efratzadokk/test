@@ -1,6 +1,5 @@
 // import React, { useState, useRef } from 'react';
 // import { connect } from 'react-redux';
-// import { setValueElement } from '../../redux/actions/funnel.action'
 
 // function EditForm(props) {
 //     const {formOnEdit,setValueElement,nameUser}=props
@@ -27,7 +26,7 @@
 
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { setValueElement } from '../../redux/actions/funnel.action'
+import {actions} from '../../redux/actions/funnel-try.action'
 
 function EditForm(props) {
     const {formOnEdit,setValueElement,nameUser}=props
@@ -47,7 +46,7 @@ export default connect(
     },
     (dispatch) => {
         return {
-            setValueElement:(newValue)=>{dispatch(setValueElement({value:newValue}))}
+            setValueElement:(newValue)=>{dispatch(actions.setValueElement({value:newValue}))}
                 }
     }
 )(EditForm)

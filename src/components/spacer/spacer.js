@@ -6,7 +6,6 @@
 
 // // import  { useEffect, useState, useRef } from 'react';
 // // import { connect } from 'react-redux';
-//  import {  allFunnels } from '../../redux/actions/funnel.action'
 // import $ from "jquery";
 // import { Directions } from '@material-ui/icons';
 // // import { actions } from '../Redux/Action/action';
@@ -70,7 +69,6 @@ import { connect } from 'react-redux';
 
 // import  { useEffect, useState, useRef } from 'react';
 // import { connect } from 'react-redux';
- import {  allFunnels } from '../../redux/actions/funnel.action'
 import $ from "jquery";
 import { Directions } from '@material-ui/icons';
 // import { actions } from '../Redux/Action/action';

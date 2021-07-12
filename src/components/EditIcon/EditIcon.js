@@ -2,10 +2,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { setSizeIcon } from '../../redux/actions/funnel.action'
 
- import { setValueMe , elementInEditing} from '../../redux/actions/funnel.action'
-
+ import {actions} from '../../redux/actions/funnel-try.action'
  import Grid from '@material-ui/core/Grid';
  import { Box, Slider } from '@material-ui/core';
 
@@ -21,7 +19,7 @@ import { setSizeIcon } from '../../redux/actions/funnel.action'
 import './EditIcon.css'
 
 function EditIcon(props) {
-    const {styleIcon,element,IconOnEdit,setValueElement,setStyleIcon}=props
+    const {styleIcon,IconOnEdit}=props
 
 
 
@@ -145,8 +143,8 @@ export default connect(
     (dispatch) => {
         return {           
             //  setStyleIcon: (property, newValue) => { dispatch(setStyleIcon({ property: property, value: newValue })) }
-            setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
-            elementInEditing1: function (id) { dispatch(elementInEditing({ id: id })) },
+            setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
+            elementInEditing1: function (id) { dispatch(actions.elementInEditing({ id: id })) },
             
 
         }

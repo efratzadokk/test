@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import './element.css'
 import { useDrag, useDrop } from 'react-dnd';
-import { setValueElement, moveElementInPart, removeElement, elementInEditing, setCollapseOpen } from '../../redux/actions/funnel.action'
 import { ItemTypes } from '../../ItemTypes'
 import EelementEditButtons from '../elementsEditButtons/elementEditButtons'
 import ReactQuill, { Quill, Mixin, Toolbar } from 'react-quill';
@@ -20,48 +19,13 @@ import Shares from '../sharing/sharing'
 // import Spacer from 'react-spacer'
 import Spacer from 'react-spacer'
 import Form from '../Form/Form'
-// import { useDrag } from 'react-dnd'
-// import { ItemTypes } from '../../ItemTypes'
-// import Parser from 'html-react-parser';
-// import PanoramaIcon from '@material-ui/icons/Panorama';
-// import Icon from '@material-ui/core/Icon';
-
-//import Spacer from 'react-native-spacer';
-
-// import BlankSpacer from "react-native-blank-spacer";
-//import Spacer from '@material-ui/core/Spacer';
-
-//import { Editor } from 'react-draft-wysiwyg';
-// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-
-//import fontFamilies from '../editTitle/fontFamily';
+import {actions} from '../../redux/actions/funnel-try.action'
 
 function Element(props) {
-    const { newElementTypeAndValue ,images, removeElement, currentKey, element, editMode, section, part, id, setCollapseOpen, jsonPage,saveInLocalStorage } = props
+    const { newElementTypeAndValue ,images, elementInEditing,removeElement, currentKey, element, editMode, section, part, id, setCollapseOpen, jsonPage,saveInLocalStorage } = props
     const [name, setName] = useState()
-    //console.log(newElementTypeAndValue)
-    //console.log(elementInEditing)
-    // let id='qq'
-    // const ref = React.createRef();
 
-    //////////אני  יירקתי
-    // useEffect(() => {
-    //     window.addEventListener("message", iframeFunctions, false);
-    // }, [props.message])
 
-    //////////אני  יירקתי
-    // function iframeFunctions(event) {
-    //     debugger
-    //     console.log('I am an iframe, I accepted it:', event.data);
-    //     let data = JSON.parse(event.data)
-    //     // console.log(data.params)
-    //     switch (data.function) {
-    //         case "move to view":
-    //             console.log(jsonPage)
-    //             saveInLocalStorage()
-    //             break;
-    //     }
-    // }
     
     // const [{ isDragging }, drag] = useDrag({
     //     item: { name: props.name, type: ItemTypes.BOX },
@@ -88,18 +52,6 @@ function Element(props) {
     //         ////////////////
     //     }
     // )
-
-    // useEffect(() => {
-    //     // debugger
-    //     // setSettings({tamar:"cohjkds"});
-    //     // window.addEventListener("message", iframeFunctions, false);
-    //     if (name) {
-
-    //         props.addElement(name, valueWidget[name], indexSection, indexPart, numElement)
-
-    //     }
-    //     // console.log('dd', settings)
-    // }, [changePosition])
 
     const drag1 = (event) => {
         console.log("dragging!!!!")
@@ -233,21 +185,13 @@ function Element(props) {
         debugger
         console.log(a)
     const textareas = document.querySelector(`#${a}`);
-    // console.log(textareas)
-    // console.log(textareas.scrollHeight)
-    // console.log(textareas.innerHTML)
     textareas.style.height ='inherit'
     textareas.style.height= textareas.scrollHeight+'px'
-    
     }
     
     console.log(element)
-  //  console.log(element.color)
-    
-    //console.log(elementInEditing)
     switch (element.type)
      {
-        
         case "Title": 
         return (
             <>
@@ -688,23 +632,12 @@ export default connect(
     ,
     (dispatch) => {
         return {
-            
-          //  movingElement:(elementId) => { dispatch(setValueElement({ value: newValue })) },
-            saveInLocalStorage: () => { dispatch({ type: '[funnel] SAVE_IN_LOCAL_STORAGE' }) },
-            // changeFlagConfigurator: function (newFlag) { dispatch(setFlagToggleCon(newFlag)) }
-            setValueElement: (newValue) => { dispatch(setValueElement({ value: newValue })) },
-            // setValueElement: (section, part, element, newValue) => { dispatch(setValueElement({ section: section, part: part, element: element, newValue: newValue })) },
-            moveElementInPart: function (dragIndex, hoverIndex) { dispatch(moveElementInPart({ dragIndex: dragIndex, hoverIndex: hoverIndex })) },
-            removeElement: function (id) { dispatch(removeElement({ id: id })) },
-            elementInEditing: function (id) { dispatch(elementInEditing({ id: id })) },
-           // setCollapseOpen: function (collapse) { dispatch(setCollapseOpen(collapse)) },
-            // addElement1: function (newElement, value) {
-            // dispatch(addElement1({ type: newElement, value: value }))
-            //////////
-            setCollapseOpen:function (collapse,id){dispatch(setCollapseOpen({collapse: collapse,id:id})) }
-
-
-           // }
+            saveInLocalStorage: () => { dispatch(actions.saveInLocalStorage()) },
+            setValueElement: (newValue) => { dispatch(actions.setValueElement({ value: newValue })) },
+            moveElementInPart:  (dragIndex, hoverIndex)=> { dispatch(actions.moveElementInPart({ dragIndex: dragIndex, hoverIndex: hoverIndex })) },
+            removeElement:  (id) =>{ dispatch(actions.removeElement({ id: id })) },
+            elementInEditing:  (id) =>{ dispatch(actions.elementInEditing({ id: id })) },
+            setCollapseOpen: (collapse,id)=>{dispatch(actions.setCollapseOpen({collapse: collapse,id:id})) }
         }
     }
 )(Element)

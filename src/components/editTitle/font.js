@@ -7,15 +7,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import WebFont from 'webfontloader';
 import { Select } from '@material-ui/core';
-import { setValueMe } from '../../redux/actions/funnel.action'
 import { connect } from 'react-redux';
 import './font.css'
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import {actions} from '../../redux/actions/funnel-try.action'
 
 const mapDispatchToProps = (dispatch) => {
     return {           
-        setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
+        setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
     }
 }
 

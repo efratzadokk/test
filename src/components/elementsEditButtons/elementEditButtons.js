@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeSection } from '../../redux/actions/funnel.action'
-import { removeElement, elementInEditing,setCollapseOpen } from '../../redux/actions/funnel.action'
 import './elementEditButtons.css'
+import {actions} from '../../redux/actions/funnel-try.action'
 
 function EelementEditButtons(props) {
     const {id,removeElement, elementInEditing,setCollapseOpen}=props
@@ -22,9 +21,9 @@ export default connect(
     undefined,
     (dispatch) => {
         return {
-            removeElement: function (id) { dispatch(removeElement({ id: id })) },
-            elementInEditing: function (id) { dispatch(elementInEditing({ id: id })) },
-            setCollapseOpen:function (collapse,id){dispatch(setCollapseOpen(collapse,id)) }
+            removeElement:  (id) =>{ dispatch(actions.removeElement({ id: id })) },
+            elementInEditing:  (id)=> { dispatch(actions.elementInEditing({ id: id })) },
+            setCollapseOpen: (collapse,id)=>{dispatch(actions.setCollapseOpen({collapse:collapse,id:id})) }
         }
     }
 )

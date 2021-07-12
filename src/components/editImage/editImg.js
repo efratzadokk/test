@@ -2,7 +2,6 @@
 import React, { useState, useRef } from 'react';
 import { useDropzone, onDragOver } from 'react-dropzone'
 import { connect } from 'react-redux';
-import { setValueElement,setStyleImage,setValueMe ,elementInEditing} from '../../redux/actions/funnel.action'
 import './editImg.css'
 import AlignB from '../../assets/AlignB.svg'
 import AlignL from '../../assets/AlignL.svg'
@@ -21,9 +20,10 @@ import { Select } from '@material-ui/core';
 import { Col, Row, Container } from "react-bootstrap";
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
+import {actions} from '../../redux/actions/funnel-try.action'
 function EditImg(props) {
 
-    const {styleImage,element,ImgOnEdit,setValueElement,setStyleImage,elementInEditing,elementInEditing1}=props
+    const {styleImage,element,ImgOnEdit,setStyleImage,elementInEditing,elementInEditing1}=props
     const arrBorders=["solid","dotted","dashed","double","groove","ridge","inset","outset","none"];
     const [oneBorder, setoneBorder] = useState(arrBorders[0]);
     
@@ -287,9 +287,9 @@ export default connect(
     },
     (dispatch) => {
         return {           
-             setStyleImage: (property, newValue) => { dispatch(setStyleImage({ property: property, value: newValue })) },
-            setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
-            elementInEditing1: function (id) { dispatch(elementInEditing({ id: id })) },
+             setStyleImage: (property, newValue) => { dispatch(actions.setStyleImage({ property: property, value: newValue })) },
+            setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
+            elementInEditing1: function (id) { dispatch(actions.elementInEditing({ id: id })) },
 
         }
     }

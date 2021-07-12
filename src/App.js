@@ -11,11 +11,11 @@ import { connect } from 'react-redux';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { getFunnel, getUid, getAllFunnel } from './redux/actions/funnel.action';
 import styled from 'styled-components';
 import WrapAll from './components/wrapAll/wrap_all'
 import MyGallery from './components/image_gallery/imageGallery'
 import ListPapers from './components/listPapers/listPapers';
+import {actions} from './redux/actions/funnel-try.action'
 
 
 function App(props) {
@@ -104,9 +104,9 @@ export default connect(
   },
   (dispatch) => {
     return {
-      getUid: () => { dispatch(getUid()) },
-      getFunnel: () => { dispatch(getFunnel()) },
-      getAllFunnel: () => { dispatch(getAllFunnel()) },
+      getUid: () => { dispatch(actions.getUid()) },
+      getFunnel: () => { dispatch(actions.getFunnel()) },
+      getAllFunnel: () => { dispatch(actions.getAllFunnel()) },
 
     }
     

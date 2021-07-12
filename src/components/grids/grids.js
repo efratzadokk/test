@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import {actions} from '../../redux/actions/funnel-try.action'
 import './grids.css'
-import { addSection, setFlagBorderParts, addElement } from '../../redux/actions/funnel.action'
+
 import { useDrag } from 'react-dnd'
 import { ItemTypes } from '../../ItemTypes'
 import Widget from '../widget/widget'
@@ -109,9 +110,8 @@ export default connect(
     (dispatch) => {
         return {
             addToArrSection: () => { dispatch({ type: '[funnel] ADD_TO_ARR_SECTION' }) },
-            // addSectionInIframe:function(newSection) { dispatch(addSectionInIframe(newSection)) },
-            addSectioOnClick: function (newSection,id,s) { dispatch(addSection(newSection,id,s)) },
-            changeFlagBorderPart: function (newFlag) { dispatch(setFlagBorderParts(newFlag)) },
+            addSectioOnClick:  (newSection,id,s)=> { dispatch(actions.addSection({newSection:newSection,id:id,s:s})) },
+            changeFlagBorderPart: (newFlag)=> { dispatch(actions.setBorderParts(newFlag)) },
             changeMessage: () => { dispatch({ type: '[funnel] CHANGE_MESSAGE' }) },
             // addElement: function (newElement, part) { dispatch(addElement({ type: newElement, section: 1 })) },
         }

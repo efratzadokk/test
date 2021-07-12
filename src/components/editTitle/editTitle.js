@@ -7,9 +7,7 @@ import dropper from '../../assets/dropper.svg'
 import alignLeft from '../../assets/align-left.png'
 import alignMid from '../../assets/align-mid.png'
 import alignRight from '../../assets/align-right.png'
-
-
-import { setValueElement,setValueMe ,elementInEditing} from '../../redux/actions/funnel.action'
+import {actions} from '../../redux/actions/funnel-try.action'
 import { connect } from 'react-redux';
 import Grid  from '@material-ui/core/Grid';
 import { Box, Slider, TextField } from '@material-ui/core';
@@ -28,9 +26,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
     return {           
-        setValueElement: (newValue) => { dispatch(setValueElement({ value: newValue })) },
-        setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
-        elementInEditing1: function (id) { dispatch(elementInEditing({ id: id })) },
+        setValueElement: (newValue) => { dispatch(actions.setValueElement({ value: newValue })) },
+        setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
+        elementInEditing1: function (id) { dispatch(actions.elementInEditing({ id: id })) },
 
 
 

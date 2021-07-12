@@ -1,18 +1,15 @@
 
 
 import React, { useState, useRef } from 'react';
-import { useDropzone, onDragOver } from 'react-dropzone'
 import { connect } from 'react-redux';
-import { setValueElement,setStyleImage, elementInEditing,setValueMe } from '../../redux/actions/funnel.action'
 import './editVideo.css'
 import Grid  from '@material-ui/core/Grid';
 import { Col, Row, Container } from "react-bootstrap";
-import Opacity from '../../assets/opacity.svg'
 import Image from '../../assets/Image.svg'
-
+import {actions} from '../../redux/actions/funnel-try.action'
 
 function EditVideo(props) {
-    const {videoOnEdit,setStyleImage,elementInEditing,setValueMe}=props
+    const {videoOnEdit,setStyleImage,elementInEditing,setValueMe,setValueElement}=props
     const [i,setI]= useState(0)
  console.log(videoOnEdit)
 console.log(elementInEditing)
@@ -112,10 +109,10 @@ export default connect(
     },
     (dispatch) => {
         return {
-            setValueElement:(newValue)=>{dispatch(setValueElement({value:newValue}))},
-            setStyleImage: (property, newValue) => { dispatch(setStyleImage({ property: property, value: newValue })) },
-            setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
-            elementInEditing1: function (id) { dispatch(elementInEditing({ id: id })) },
+            setValueElement:(newValue)=>{dispatch(actions.setValueElement({value:newValue}))},
+            setStyleImage: (property, newValue) => { dispatch(actions.setStyleImage({ property: property, value: newValue })) },
+            setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
+            elementInEditing1: function (id) { dispatch(actions.elementInEditing({ id: id })) },
 
 
                 }

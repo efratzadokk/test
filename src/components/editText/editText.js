@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { useDropzone, onDragOver } from 'react-dropzone'
 import { connect } from 'react-redux';
-import { setValueElement,setStyleImage, elementInEditing } from '../../redux/actions/funnel.action'
+import {actions} from '../../redux/actions/funnel-try.action'
+
 import './editText.css'
 
 function EditText(props) {
-    const {styleImage,element,ImgOnEdit,setValueElement,setStyleImage}=props
+    const {styleImage,setStyleImage}=props
     const setWidthImage = (value)=>{
         setStyleImage('width',value+'%')
 console.log(value)
@@ -47,6 +48,6 @@ export default connect(
     },
     (dispatch) => {
         return {           
-             setStyleImage: (property, newValue) => { dispatch(setStyleImage({ property: property, value: newValue })) }}
+             setStyleImage: (property, newValue) => { dispatch(actions.setStyleImage({ property: property, value: newValue })) }}
     }
 )(EditText)

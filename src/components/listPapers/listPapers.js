@@ -1,56 +1,26 @@
 
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import {actions} from '../../redux/actions/funnel-try.action'
 // import animate from '../listPapers/components/assets/img.png'
-import animate from '../../assets/leader_logo.png'
+
 import threeDots from '../../assets/ellipsis-v-solid.svg'
 import searchImgGif from '../../assets/searchIcon.gif'
 import LabelCompleted from '../../assets/Label - Completed.svg'
-import copyIcon from '../../assets/Group 22678.svg'
-import downArrow from '../../assets/down-arrow.svg'
-import userSolid from '../../assets/user-solid.svg'
-import fileFolder from '../../assets/fileFolder.svg'
-import NoFunnels from '../noFunnels/noFunnels'
-import JsonToHtml from '../convertJsonToHtmk/jsonToHtml'
 
-import { Link, Redirect } from 'react-router-dom';
+import JsonToHtml from '../convertJsonToHtmk/jsonToHtml'
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { CSVExport, Search } from "react-bootstrap-table2-toolkit";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import { render } from '@testing-library/react';
-//import { history } from "../../App";
 import { createBrowserHistory } from 'history'
-// import FileCopyIcon from '@material-ui/icons/FileCopy';
 import overlayFactory from 'react-bootstrap-table2-overlay';
-import Button from '@material-ui/core/Button';
 import './listPapers.css'
-//  import SelectMassage from './selectMassage';
-import loading from '../../assets/leader_logo.png'
-// // import profileDefault from './assets/error.png'
-import  {chageEditMode, setJsonPage, setNameChosenFunnel,setOrderSection,duplicateFunnel,setNameFunnel ,addSection, setNamePage, setStylePage, removeFunnel,removeReducer, setStyleSection,setJsonServer, setFlagBorderParts, setIdFunnel } from '../../redux/actions/funnel.action'
 import $ from 'jquery';
-import Stage from '../stage/stage'
-import { from } from 'pumpify';
-import html2canvas from 'html2canvas';
 
-import { useLocation } from 'react-router-dom';
-// import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
-// import { duplicateFunnel } from '../../redux/middleware/crud';
-// import { backgroundImage } from 'html2canvas/dist/types/css/property-descriptors/background-image';
-
-//   import MultiSelectInput from '../sendEmail/sensEmail'
 const { SearchBar, ClearSearchButton } = Search;
 const { ExportCSVButton } = CSVExport;
-
-
-
-
-// const location = useLocation();
-
-// import $ from "jquery";
-// import { addElement } from '../../redux/actions/funnel.action'
 
 
 const getEmailsContacts = (contacts) => {
@@ -65,7 +35,7 @@ const getEmailsContacts = (contacts) => {
 
 
 function ListPapers(props) {
-    const { allFunnels, setJsonPage,  setNameChosenFunnel,setJsonServer,removeFunnel,removeReducer ,duplicateFunnel, setNameFunnel} = props
+    const { allFunnels, setJsonPage, setIdFunnel, setNameChosenFunnel,setJsonServer,removeFunnel,removeReducer ,duplicateFunnel, setNameFunnel} = props
 
     const statusClrs = { 'Open': 'green', 'Deal': '#d93025', 'In Progress': '#FFA756', 'New': '#00B69B', 'Connected': '#6226EF', 'Unqualified': '#EF3826' }
     const statusLeft = { 'Open': '22px', 'Deal': '20px', 'In Progress': '17px', 'New': '47px', 'Connected': '27px', 'Unqualified': '25px' }
@@ -1139,21 +1109,18 @@ export default connect(
     (state) => {
         return {
             allFunnels: state.funnel.allFunnels
-
-
-            // iframe: state.funnel.iframe
         }
     },
     (dispatch) => {
         return {
-            removeReducer:(id) => {dispatch(removeReducer(id)) },
-            setNameFunnel: (idFunnel, newName) => { dispatch(setNameFunnel({id:idFunnel,name: newName })) },
-            setJsonPage: (json) => { dispatch(setJsonPage(json)) },
-            setNameChosenFunnel: (name) => { dispatch(setNameChosenFunnel(name)) },
-            setIdFunnel: (id) => { dispatch(setIdFunnel(id)) },
-            setJsonServer: (json) => { dispatch(setJsonServer(json)) },
-            removeFunnel: (id) => {dispatch(removeFunnel(id)) },
-            duplicateFunnel:(idFunnel)=>  {dispatch(duplicateFunnel(idFunnel))}
+            removeReducer:(id) => {dispatch(actions.removeReducer(id)) },
+            setNameFunnel: (idFunnel, newName) => { dispatch(actions.setNameFunnel({id:idFunnel,name: newName })) },
+            setJsonPage: (json) => { dispatch(actions.setJsonPage(json)) },
+            setNameChosenFunnel: (name) => { dispatch(actions.setNameChosenFunnel(name)) },
+            setIdFunnel: (id) => { dispatch(actions.setIdFunnel(id)) },
+            setJsonServer: (json) => { dispatch(actions.setJsonServer(json)) },
+            removeFunnel: (id) => {dispatch(actions.removeFunnel(id)) },
+            duplicateFunnel:(idFunnel)=>  {dispatch(actions.duplicateFunnel(idFunnel))}
         }
     }
 

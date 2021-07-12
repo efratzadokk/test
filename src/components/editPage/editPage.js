@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { setValueMe,setStylePage, setOpacityPage, setNamePage } from '../../redux/actions/funnel.action'
 import './editPage.css'
 import $ from "jquery";
+import {actions} from '../../redux/actions/funnel-try.action'
 
 
 
@@ -227,10 +227,10 @@ export default connect(
     },
     (dispatch) => {
         return {
-            setStylePage: (property, newValue) => { dispatch(setStylePage({ property: property, value: newValue })) },
-            setOpacityPage: (newValue) => { dispatch(setOpacityPage(newValue)) },
-            setNamePage: (newName) => { dispatch(setNamePage(newName)) },
-            setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
+            setStylePage: (property, newValue) => { dispatch(actions.setStylePage({ property: property, value: newValue })) },
+            setOpacityPage: (newValue) => { dispatch(actions.setOpacityPage(newValue)) },
+            setNamePage: (newName) => { dispatch(actions.setNamePage(newName)) },
+            setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
         }
     }
 )(EditPage)

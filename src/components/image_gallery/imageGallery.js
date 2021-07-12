@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ImageGallery  from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import $ from "jquery";
-import { addElement } from '../../redux/actions/funnel.action'
 import './image_gallery.css'
 
 const images = [

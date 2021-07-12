@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import './part.css'
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes'
-import { addElement, changeMessage, setStylePage } from '../../redux/actions/funnel.action'
-
+import {actions} from '../../redux/actions/funnel-try.action'
 function Part(props) {
-    const { part, flagBorder, indexPart, indexSection, numElement, editMode, addElement, add1, changeMessage } = props
+    const { part, flagBorder, indexPart, indexSection, numElement, editMode, addElement, add1 } = props
     const [add, setAdd] = useState();
     // const partStyle = {
     //     //   backgroundColor:props.part.settings.bgColor,
@@ -106,10 +105,10 @@ export default connect(
         }
     }, (dispatch) => {
         return {
-            setStylePage: (property, newValue) => { dispatch(setStylePage({ property: property, value: newValue })) },
+            setStylePage: (property, newValue) => { dispatch(actions.setStylePage({ property: property, value: newValue })) },
             changeMessage: () => { dispatch({ type: '[funnel] CHANGE_MESSAGE' }) },
             addElement: function (newElement, value, section, part, numElement) {
-                dispatch(addElement({
+                dispatch(actions.addElement({
                     type: newElement, value: value, section: section, part: part, id: numElement
                 }))
             },

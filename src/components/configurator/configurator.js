@@ -4,20 +4,17 @@ import './configurator.css'
 import EditPage from '../editPage/editPage'
 import EditSection from '../editSection/editSection'
 import EditElement from '../editElement/editElement'
-import { chageEditMode, creatFunnel, getAllFunnel, updateFunnel, updateFunnel1,removeFunnel, setFlagAllFunnnels, setAllFunnels, uploadFile, save, sectionInEditing, setCollapseOpen,setMonIndex } from '../../redux/actions/funnel.action'
 import {  Route, withRouter } from 'react-router-dom'
 import html2canvas from 'html2canvas';
 import Grid  from '@material-ui/core/Grid';
 import Grids from '../grids/grids';
+import {actions } from '../../redux/actions/funnel-try.action'
 
-import {FiSettings} from 'react-icons/fi'
-import {CgScreen} from 'react-icons/cg'
-import {BsEye} from 'react-icons/bs'
 
 function Configurator(props) {
 
     const [flag, setFlag] = useState(false);
-    const { history, setFlagAllFunnnels, userName, funnelName, flagCon, collapseIsOpen, elementInEditing, chageEditMode, jsonPage, creatFunnel, getAllFunnel, save, updateFunnel, removeFunnel, idPage, nameFunnel, nameUser, uploadFile, urlPage, sectionInEditing, setCollapseOpen ,setMonIndex,monindex} = props
+    const { history, setFlagAllFunnnels, userName,updateFunnel1, funnelName, flagCon, collapseIsOpen, elementInEditing, chageEditMode, jsonPage, creatFunnel, getAllFunnel, save, updateFunnel, removeFunnel, idPage, nameFunnel, nameUser, uploadFile, urlPage, sectionInEditing, setCollapseOpen ,setMonIndex,monindex} = props
   
     // function changeColor(co) {
     //     elementInEditing.settings.style.color = co;
@@ -190,25 +187,25 @@ export default withRouter(connect(
             urlPage: state.funnel.urlPage,
             userName: state.user.userName,
             funnelName: state.funnel.name,
-            // iframe: state.funnel.iframe,
             monindex:state.funnel.monindex
         }
         
     },
     (dispatch) => {
         return {
-            chageEditMode: () => { dispatch(chageEditMode()) },
-            creatFunnel: () => { dispatch(creatFunnel()) },
-            getAllFunnel: () => { dispatch(getAllFunnel()) },
-            updateFunnel: () => { dispatch(updateFunnel()) },
-            updateFunnel1:()=>{dispatch(updateFunnel1())},
-            removeFunnel: (id) => { dispatch(removeFunnel(id)) },
-            setFlagAllFunnnels: () => { dispatch(setFlagAllFunnnels()) },
-            uploadFile: (file) => { dispatch(uploadFile(file)) },
-            save: (file) => { dispatch(save(file)) },
-            setCollapseOpen: function (collapse) { dispatch(setCollapseOpen(collapse)) },
-            sectionInEditing: (indexSection) => { dispatch(sectionInEditing(indexSection)) },
-            setMonIndex: (idx)=>{dispatch(setMonIndex(idx))},
+            chageEditMode: () => { dispatch(actions.chageEditMode()) },
+            creatFunnel: () => { dispatch(actions.creatFunnel()) },
+            getAllFunnel: () => { dispatch(actions.getAllFunnel()) },
+            updateFunnel: () => { dispatch(actions.updateFunnel()) },
+            updateFunnel1:()=>{dispatch(actions.updateFunnel1())},
+            removeFunnel: (id) => { dispatch(actions.removeFunnel(id)) },
+            setFlagAllFunnnels: () => { dispatch(actions.setFlagAllFunnnels()) },
+            uploadFile: (file) => { dispatch(actions.uploadFile(file)) },
+            save: (file) => { dispatch(actions.save(file)) },
+            setCollapseOpen: function (collapse) { dispatch(actions.setCollapseOpen(collapse)) },
+            sectionInEditing: (indexSection) => { dispatch(actions.sectionInEditing(indexSection)) },
+            setMonIndex: (idx)=>{dispatch(actions.setMonIndex(idx))},
+         
         }
     }
 )(Configurator))

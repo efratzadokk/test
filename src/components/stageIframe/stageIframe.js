@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import './stageIframe.css'
-import { setIframe} from '../../redux/actions/funnel.action'
 import $ from "jquery";
 import 'jquery-ui-bundle';
 

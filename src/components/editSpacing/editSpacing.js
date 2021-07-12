@@ -1,37 +1,25 @@
 
-import React, { Component } from 'react'
+import React from 'react'
 import {Container,Row,Col} from 'react-bootstrap'
-// import fontFamilies from './fontFamily'
-import textSize from '../../assets/textSize.svg'
 import dropper from '../../assets/dropper.svg'
-
-
-
-import { setValueElement,setValueMe ,elementInEditing} from '../../redux/actions/funnel.action'
+import {actions} from '../../redux/actions/funnel-try.action'
 import { connect } from 'react-redux';
 import Grid  from '@material-ui/core/Grid';
-import { Box, Slider, TextField } from '@material-ui/core';
-// import Font from './font'
-import BorderStyleIcon from '@material-ui/icons/BorderStyle';
+import { Box, Slider } from '@material-ui/core';
 import BorderLeftIcon from '@material-ui/icons/BorderLeft';
-import AlignL from '../../assets/AlignL.svg'
-import AlignM from '../../assets/AlignM.svg'
-import AlignR from '../../assets/AlignR.svg'
 
 function mapStateToProps(state) {
     return {
-        //titleEdit: state.funnel.elementInEditing.value
         elementInEditing: state.funnel.elementInEditing,
-        // titleEdit:state.funnel.elementInEditing.settings
         newTitle: state.funnel.newElementTypeAndValue
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {           
-        setValueElement: (newValue) => { dispatch(setValueElement({ value: newValue })) },
-        setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
-        elementInEditing1: function (id) { dispatch(elementInEditing({ id: id })) },
+        setValueElement: (newValue) => { dispatch(actions.setValueElement({ value: newValue })) },
+        setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
+        elementInEditing1: function (id) { dispatch(actions.elementInEditing({ id: id })) },
 
 
 

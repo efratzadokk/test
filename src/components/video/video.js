@@ -7,7 +7,6 @@
 // import { useDropzone, onDragOver } from 'react-dropzone'
 // import './video.css'
 // import { connect } from 'react-redux';
-// import { uploadImage, setValueElement, setStyleImage ,setValueMe,elementInEditing} from '../../redux/actions/funnel.action'
 // import $ from "jquery";
 
 
@@ -278,9 +277,8 @@ import { Player, ControlBar } from 'video-react';
 import { useDropzone, onDragOver } from 'react-dropzone'
 import './video.css'
 import { connect } from 'react-redux';
-import { uploadImage, setValueElement, setStyleImage ,setValueMe,elementInEditing} from '../../redux/actions/funnel.action'
 import $ from "jquery";
-
+import {actions} from '../../redux/actions/funnel-try.action'
 
 function VideoUploader(props) {
     const modalImageRef = useRef();
@@ -525,10 +523,10 @@ export default connect(
 },
 (dispatch) => {
     return {
-        setValueElement: (newValue) => { dispatch(setValueElement({ value: newValue })) },
-        setStyleImage: (property, newValue) => { dispatch(setStyleImage({ property: property, value: newValue })) },
-        setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
-        elementInEditing: function (id) { dispatch(elementInEditing({ id: id })) },
+        setValueElement: (newValue) => { dispatch(actions.setValueElement({ value: newValue })) },
+        setStyleImage: (property, newValue) => { dispatch(actions.setStyleImage({ property: property, value: newValue })) },
+        setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
+        elementInEditing: function (id) { dispatch(actions.elementInEditing({ id: id })) },
 
     }
  

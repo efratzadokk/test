@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeSection } from '../../redux/actions/funnel.action'
 import EditHtmlElement from '../editHtmlElement/editHtmlElement';
 import EditVideo from '../editVideo/editVideo'
 import EditImg from '../editImage/editImg'

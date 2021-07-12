@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { removeSection, setStyleSection } from '../../redux/actions/funnel.action'
+import {actions} from '../../redux/actions/funnel-try.action'
 
 function EditSection(props) {
     const { sectionInEditing, arrSections,iframe, indexSectionInEditing, setStyleSection } = props
@@ -63,8 +63,8 @@ export default connect(
     },
     (dispatch) => {
         return {
-            setStyleSection: (obj) => { dispatch(setStyleSection(obj)) }
-            // setStyleSection: (indexSection, property, value) => { dispatch(setStyleSection({ indexSection: indexSection, property: property, value: value })) }
+            setStyleSection: (obj) => { dispatch(actions.setStyleSection(obj)) }
+       
         }
     }
 

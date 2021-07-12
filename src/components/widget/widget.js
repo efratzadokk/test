@@ -5,7 +5,6 @@
 // import './widget.css'
 // import { useDrag } from 'react-dnd'
 // import { ItemTypes } from '../../ItemTypes'
-// import { addElement, addElement1 } from '../../redux/actions/funnel.action'
 // import element from '../element/element';
 // import { setName } from '../../redux/actions/user.action';
 // // import STitle from '../s_title/stitle'
@@ -192,16 +191,16 @@ import { connect } from 'react-redux';
 import './widget.css'
 import { useDrag } from 'react-dnd'
 import { ItemTypes } from '../../ItemTypes'
-import { addElement, addElement1,setMonIndex } from '../../redux/actions/funnel.action'
 import element from '../element/element';
 import { setName } from '../../redux/actions/user.action';
 // import STitle from '../s_title/stitle'
 import Grid  from '@material-ui/core/Grid';
+import {actions} from '../../redux/actions/funnel-try.action'
 
 
 
 function Widget(props) {
-    const { numElement, changeMessage, addElement, addElement1,newVal ,newElementTypeAndValue} = props
+    const { numElement,  addElement1,newVal } = props
     const [settings, setSettings] = useState({})
     const [indexSection, setIndexSection] = useState()
     const [indexPart, setIndexPart] = useState()
@@ -267,7 +266,7 @@ function Widget(props) {
     })
 
     useEffect(() => {
-         debugger
+        //  debugger
         // setSettings({tamar:"cohjkds"});
         // window.addEventListener("message", iframeFunctions, false);
         if (name) {
@@ -343,15 +342,15 @@ export default connect(
     (dispatch) => {
         return {
             changeMessage: () => { dispatch({ type: '[funnel] CHANGE_MESSAGE' }) },
-            addElement: function (newElement, value, section, part, numElement) {
-                dispatch(addElement({
+            addElement:  (newElement, value, section, part, numElement)=> {
+                dispatch(actions.addElement({
                     type: newElement, value: value, section: section, part: part, id: numElement
                 }))
             },
-            addElement1: function (newElement, value) {
-                dispatch(addElement1({ type: newElement, value: value }))
+            addElement1:  (newElement, value)=> {
+                dispatch(actions.addElement1({ type: newElement, value: value }))
             },
-            setMonIndex: (idx)=>{dispatch(setMonIndex(idx))},
+            setMonIndex: (idx)=>{dispatch(actions.setMonIndex(idx))},
 
         }
     }

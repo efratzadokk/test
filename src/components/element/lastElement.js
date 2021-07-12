@@ -4,7 +4,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import './element.css'
 import { useDrag, useDrop } from 'react-dnd';
-import { setValueElement, moveElementInPart, removeElement, elementInEditing, setCollapseOpen } from '../../redux/actions/funnel.action'
 import { ItemTypes } from '../../ItemTypes'
 import EelementEditButtons from '../elementsEditButtons/elementEditButtons'
 import ReactQuill, { Quill, Mixin, Toolbar } from 'react-quill';
@@ -13,6 +12,7 @@ import 'react-quill/dist/quill.bubble.css';
 import ImageUploader from '../image/image';
 import $ from "jquery";
 import VideoUploader from '../video/video';
+import {actions} from '../../redux/actions/funnel-try.action'
 // import Parser from 'html-react-parser';
 
 
@@ -539,11 +539,8 @@ export default connect(
     (dispatch) => {
         return {
             
-          //  movingElement:(elementId) => { dispatch(setValueElement({ value: newValue })) },
             saveInLocalStorage: () => { dispatch({ type: '[funnel] SAVE_IN_LOCAL_STORAGE' }) },
-            // changeFlagConfigurator: function (newFlag) { dispatch(setFlagToggleCon(newFlag)) }
-            setValueElement: (newValue) => { dispatch(setValueElement({ value: newValue })) },
-            // setValueElement: (section, part, element, newValue) => { dispatch(setValueElement({ section: section, part: part, element: element, newValue: newValue })) },
+            setValueElement: (newValue) => { dispatch(actions.setValueElement({ value: newValue })) },
             moveElementInPart: function (dragIndex, hoverIndex) { dispatch(moveElementInPart({ dragIndex: dragIndex, hoverIndex: hoverIndex })) },
             removeElement: function (id) { dispatch(removeElement({ id: id })) },
             elementInEditing: function (id) { dispatch(elementInEditing({ id: id })) },

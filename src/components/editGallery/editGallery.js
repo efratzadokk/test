@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { useDropzone, onDragOver } from 'react-dropzone'
 import { connect } from 'react-redux';
-import { setValueElement,setStyleImage,setValueMe ,elementInEditing} from '../../redux/actions/funnel.action'
+import {actions} from '../../redux/actions/funnel-try.action'
 
 import Grid  from '@material-ui/core/Grid';
 
@@ -32,9 +32,9 @@ export default connect(
     },
     (dispatch) => {
         return {           
-             setStyleImage: (property, newValue) => { dispatch(setStyleImage({ property: property, value: newValue })) },
-            setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
-            elementInEditing1: function (id) { dispatch(elementInEditing({ id: id })) },
+             setStyleImage: (property, newValue) => { dispatch(actions.setStyleImage({ property: property, value: newValue })) },
+            setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
+            elementInEditing1: function (id) { dispatch(actions.elementInEditing({ id: id })) },
 
         }
     }

@@ -4,9 +4,8 @@ import React, { useState, useRef } from 'react';
 import { useDropzone, onDragOver } from 'react-dropzone'
 import './image.css'
 import { connect } from 'react-redux';
-import { uploadImage, setValueElement, setStyleImage,setValueMe,elementInEditing } from '../../redux/actions/funnel.action'
 import $ from "jquery";
-
+import {actions} from '../../redux/actions/funnel-try.action'
 
 function ImageUploader(props) {
     const modalImageRef = useRef();
@@ -180,11 +179,10 @@ export default connect(
     },
     (dispatch) => {
         return {
-            // movingElement:(elementId) => { dispatch(setValueElement({ value: newValue })) },
-            setValueElement: (newValue) => { dispatch(setValueElement({ value: newValue })) },
-            setStyleImage: (property, newValue) => { dispatch(setStyleImage({ property: property, value: newValue })) },
-             setValueMe: (newValue,type) => { dispatch(setValueMe({ value: newValue, type:type })) },
-             elementInEditing: function (id) { dispatch(elementInEditing({ id: id })) },
+            setValueElement: (newValue) => { dispatch(actions.setValueElement({ value: newValue })) },
+            setStyleImage: (property, newValue) => { dispatch(actions.setStyleImage({ property: property, value: newValue })) },
+             setValueMe: (newValue,type) => { dispatch(actions.setValueMe({ value: newValue, type:type })) },
+             elementInEditing: function (id) { dispatch(actions.elementInEditing({ id: id })) },
 
         }
         // uploadImage: (files) => { dispatch(uploadImage(files)) }

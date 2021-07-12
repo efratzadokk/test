@@ -2,12 +2,13 @@
 import React from 'react';
 import Element from '../element/element'
 import { connect } from 'react-redux';
-import { setValueElement } from '../../redux/actions/funnel.action'
 import Grid  from '@material-ui/core/Grid';
 import {Container,Row,Col} from 'react-bootstrap'
 import Font from '../editTitle/font'
+import {actions} from '../../redux/actions/funnel-try.action'
+
 function EditHtmlElement(props) {
-    const {setValueElement,thisElement,HtmlOnEdit}=props
+    const {setValueElement,HtmlOnEdit}=props
     return (
         <Container>
 
@@ -41,7 +42,7 @@ export default connect(
     },
     (dispatch) => {
         return {
-            setValueElement:(newValue)=>{dispatch(setValueElement({value:newValue}))}
+            setValueElement:(newValue)=>{dispatch(actions.setValueElement({value:newValue}))}
                 }
     }
 )(EditHtmlElement)

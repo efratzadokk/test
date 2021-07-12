@@ -1,4 +1,5 @@
 import $, { error } from "jquery";
+import {actions} from '../actions/funnel-try.action'
 const url = `https://funnel.leader.codes`
 // const url = `http://localhost:3008`
 
@@ -23,23 +24,22 @@ const url = `https://funnel.leader.codes`
 //     return next(action)
 // }
 export const saveOrUpdate = ({ dispatch, getState }) => next => action => {
-    if (action.type === '[funnel] SAVE_OR_UPDATE') {
-        dispatch({ type: '[funnel] CHANGE_LOADING'})
+    if (action.type === 'SAVE_OR_UPDATE') {
+        dispatch(actions.changeLoading())
         // dispatch({ type: '[funnel] UPLOAD_FILE', payload: action.payload }).then((res) => {
             // if (getState().funnel.idFunnel)
             //     dispatch({ type: '[funnel] UPDATE_FUNNEL' })
             // else
-                dispatch({ type: '[funnel] CREAT_FUNNEL' })
-                dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
+                dispatch(actions.creatFunnel())
+                dispatch(actions.getAllFunnels())
         // })
     }
     return next(action)
 }
 
 export const duplicateFunnel = ({ dispatch, getState }) => next => action => {
-    if (action.type === '[funnel] DUPLICATE_FUNNEL') {
+    if (action.type === 'DUPLICATE_FUNNEL') {
         debugger
-        // console.log(getState().funnel.jsonPage);
         $.ajax({
             url:`${url}/api/duplicateFunnel/${action.payload}`,//5f6b069358a042177629086b
             type: 'POST',
@@ -50,7 +50,7 @@ export const duplicateFunnel = ({ dispatch, getState }) => next => action => {
                 console.log(data);
                 // dispatch({ type: '[funnel] SET_ID_FUNNEL', payload: data.funnel._id  })
                 // dispatch({ type: '[funnel] CHANGE_LOADING'})
-                dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
+                dispatch(actions.getAllFunnels())
             },
             error: function (err) {
                 debugger
@@ -64,14 +64,14 @@ export const duplicateFunnel = ({ dispatch, getState }) => next => action => {
 }
 
 export const updateFunnel1 = ({ dispatch, getState }) => next => action => {
-    if (action.type === '[funnel] UPDATING_FUNNEL1') {
-        dispatch({ type: '[funnel] CHANGE_LOADING'})
+    if (action.type === 'UPDATING_FUNNEL1') {
+        dispatch(actions.changeLoading())
         // dispatch({ type: '[funnel] UPLOAD_FILE', payload: action.payload }).then((res) => {
             // if (getState().funnel.idFunnel)
             //     dispatch({ type: '[funnel] UPDATE_FUNNEL' })
             // else
-                dispatch({ type: '[funnel] UPDATE_FUNNEL' })
-                dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
+                dispatch(actions.updateFunnel())
+                dispatch(actions.getAllFunnels())
         // })
     }
     return next(action)
@@ -90,7 +90,7 @@ export const getFromServer = ({ dispatch, getState }) => next => action => {
 }
 export const removeFunnel = ({ dispatch, getState }) => next => action => {
     debugger
-    if (action.type === '[funnel] REMOVE_FUNNEL1') {
+    if (action.type === 'REMOVE_FUNNEL1') {
         debugger
         $.ajax({
             url: `${url}/api/deleteFunnel/${action.payload}`,
@@ -110,20 +110,18 @@ export const removeFunnel = ({ dispatch, getState }) => next => action => {
 }
 //////////good
 export const creatFunnel = ({ dispatch, getState }) => next => action => {
-    if (action.type === '[funnel] CREAT_FUNNEL') {
+    if (action.type === 'CREAT_FUNNEL') {
         console.log(getState().funnel.jsonPage);
         $.ajax({
-            // url: `${url}/api/createFunnel/${getState().user.userId}/${getState().funnel.name}`,
             url:`${url}/api/createFunnel/${getState().user.userId}/${getState().funnel.name}`,//5f6b069358a042177629086b
             type: 'POST',
             data: { url: "efrat1", json: JSON.stringify(getState().funnel.jsonPage) },
-            // data: { 'name': getState().funnel.name, json: JSON.stringify(getState().funnel.jsonPage) },
             success: function (data) {
                 debugger
                 console.log(data);
-                dispatch({ type: '[funnel] SET_ID_FUNNEL', payload: data.funnel._id  })
-                dispatch({ type: '[funnel] CHANGE_LOADING'})
-                dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
+                dispatch(actions.setIdFunnel(data.funnel._id))
+                dispatch(actions.changeLoading())
+                dispatch(actions.getAllFunnels())
             },
             error: function (err) {
                 debugger
@@ -136,7 +134,7 @@ export const creatFunnel = ({ dispatch, getState }) => next => action => {
 
 }
 export const updateFunnel = ({ dispatch, getState }) => next => action => {
-    if (action.type === '[funnel] UPDATE_FUNNEL') {
+    if (action.type === 'UPDATE_FUNNEL') {
         console.log(getState().funnel.jsonPage);
         $.ajax({
             url: `${url}/api/updateFunnelDetails/${getState().user.userId}/${getState().funnel.idFunnel}`,
@@ -147,8 +145,8 @@ export const updateFunnel = ({ dispatch, getState }) => next => action => {
                 console.log(data);
 
                 debugger
-                dispatch({ type: '[funnel] CHANGE_LOADING'})
-                dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
+                dispatch(actions.changeLoading())
+                dispatch(actions.getAllFunnels())
             },
             error: function (err) {
                 console.log();
@@ -160,7 +158,7 @@ export const updateFunnel = ({ dispatch, getState }) => next => action => {
 }
 
 export const getUidByUserName = ({ dispatch, getState }) => next => action => {
-    if (action.type === '[user] GET_UID_BY_USER_NAME') {
+    if (action.type === 'GET_UID') {//_BY_USER_NAME
         // let url = window.location;
         // let userName = url.pathname.split('/')[1]
         $.ajax({
@@ -170,11 +168,13 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
                 console.log(data);
                 debugger
                 let newUid = data.uid;
-                dispatch({ type: '[user] SET_USER_ID', payload: newUid })
-                dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
+                // dispatch({ type: '[user] SET_USER_ID', payload: newUid })
+                debugger
+                dispatch(actions.setUserId(newUid))
+                dispatch(actions.getAllFunnels())
 
                 if (getState().funnel.name !== 'new')
-                    dispatch({ type: '[user] GET_FUNNEL', payload: newUid })
+                    dispatch(actions.getFunnel(newUid))
             },
             error: function (err) {
                 console.log(err);
@@ -186,7 +186,7 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
 }
 
 export const getAllFunnelByUserId = ({ dispatch, getState }) => next => action => {
-    if (action.type === '[funnel] GET_ALL_FUNNELS') {
+    if (action.type === 'GET_ALL_FUNNELS') {
         debugger
         let uid1=`${getState().user.userId}`
         console.log(uid1);
@@ -200,7 +200,7 @@ export const getAllFunnelByUserId = ({ dispatch, getState }) => next => action =
             success: function (data) {
                 // console.log(data);
                 debugger
-                dispatch({ type: '[funnel] SET_ALL_FUNNELS', payload: data.funnels })
+                dispatch(actions.setAllFunnels(data.funnels))
             },
             error: function (err) {
                 console.log(err);
@@ -211,7 +211,7 @@ export const getAllFunnelByUserId = ({ dispatch, getState }) => next => action =
 }
  export const getFunnelByName = ({ dispatch, getState }) => next => action => {
 
-     if (action.type === '[user] GET_FUNNEL') {
+     if (action.type === 'GET_FUNNEL') {
 //         const uid = getState().user.userId ? getState().user.userId : action.payload
 //         debugger
 //         $.ajax({
@@ -245,7 +245,7 @@ export const getAllFunnelByUserId = ({ dispatch, getState }) => next => action =
  }
 export const uploadFile = ({ dispatch, getState }) => next => action => {
     return new Promise((resolve, reject) => {
-        if (action.type === '[funnel] UPLOAD_FILE') {
+        if (action.type === 'UPLOAD_FILE') {
             const fil = action.payload
             console.log(fil);
             const myFile = new FormData()
@@ -263,7 +263,7 @@ export const uploadFile = ({ dispatch, getState }) => next => action => {
                 },
                 success: function (data) {
                     console.log(data);
-                    dispatch({ type: '[funnel] SET_IMAGE_FILE', payload: data })
+                    dispatch(actions.setImageFile(data))
                     resolve(data)
                 },
                 error: function (err) {
@@ -543,5 +543,3 @@ export const uploadFile = ({ dispatch, getState }) => next => action => {
 // //         return next(action)
 // // })
 // // }
-
-

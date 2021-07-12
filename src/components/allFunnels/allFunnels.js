@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { setHrefButton } from '../../redux/actions/funnel.action'
 import ItemInAllFunnels from '../itemIInAllFunnels/itemInAllFunnels';
 import './allFunnels.css'
 function AllFunnels(props) {
@@ -28,7 +27,6 @@ export default connect(
     },
     (dispatch) => {
         return {
-            // setHrefButton:(newValue)=>{dispatch(setHrefButton({value:newValue}))}
         }
     }
 )(AllFunnels)

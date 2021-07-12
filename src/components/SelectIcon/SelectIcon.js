@@ -2,7 +2,6 @@
 // import * as React from 'react'
 // import  { useEffect, useState, useRef } from 'react';
 // import { connect } from 'react-redux';
-// import {  setValueElement } from '../../redux/actions/funnel.action'//, setStyleIcon
 
 // import { IconPicker } from 'react-fa-icon-picker'
 
@@ -81,8 +80,7 @@
 import * as React from 'react'
 import  { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import {  setValueElement } from '../../redux/actions/funnel.action'//, setStyleIcon
-
+import {actions} from '../../redux/actions/funnel-try.action'
 import { IconPicker } from 'react-fa-icon-picker'
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -147,10 +145,7 @@ export default connect(
   },
   (dispatch) => {
       return {      
-        setValueElement: (newValue) => { dispatch(setValueElement({ value: newValue })) },     
-        //setStyleIcon: (property, newValue) => { dispatch(setStyleIcon({ property: property, value: newValue })) }
-
-
+        setValueElement: (newValue) => { dispatch(actions.setValueElement({ value: newValue })) },     
           }
   }
 )(SelectIcon)
