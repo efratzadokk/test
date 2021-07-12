@@ -20,15 +20,20 @@ const LandingPageSchema = mongoose.Schema({
     required_of_third_label: { type: Boolean },
     required_of_four_label: { type: Boolean },
     check_content: { type: Boolean },
+    check_videoDiv:{ type: Boolean },
     check_tb_title: { type: Boolean },
+    check_image:{ type: Boolean },
     check_full_name: { type: Boolean },
     check_email: { type: Boolean },
     check_message: { type: Boolean },
     check_phone: { type: Boolean },
+    height_of_content:{ type: String },
     to_whom_send_leads: [{ type: String }],
+    order: [{ type: String }],
     img: { type: String },
+    video:{type:String},
     viewers:[
-        {date:{type:Date},amount:{type:Number}}
+        {date:{type:String},amount:{type:Number}}
     ],
     user: {
         type: mongoose.Schema.Types.ObjectId,

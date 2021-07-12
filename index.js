@@ -2,11 +2,10 @@ const express = require("express");
 const fileupload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const request = require("request");
-
-
-
 // const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
+const common =require('@leadercodes/modelsnpm');
+common.init(mongoose);
 const dotenv = require("dotenv");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -14,6 +13,13 @@ const path = require("path");
 const app = express();
 dotenv.config();
 app.use(cors());
+
+///////////
+// const mongoose = require("mongoose");
+
+
+
+
 const landingPageRouterApi = require("./routes/api");
 const landingPageRouter = require("./routes/views");
 app.use(bodyParser.json());
@@ -26,12 +32,12 @@ app.use(
 );
 
 app.use(cookieParser());
-mongoose.connect(process.env.DB_CONNECT, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+// mongoose.connect(process.env.DB_CONNECT, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+//   useFindAndModify: false,
+// });
 
 app.all("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", req.headers.origin);
@@ -51,20 +57,18 @@ checkPermission = async (req, res, next) => {
   console.log("checkPermission");
   let redirectUrl=req.get('host')
   let urlRoute=req.originalUrl.split("/")[2]
-  if(req.originalUrl.includes('getUser')||req.originalUrl.includes('updateViewers'))
+  if(req.originalUrl.includes('getUser')||req.originalUrl.includes('updateViewers')||req.originalUrl.includes("/view/") || req.headers["authorization"] == "view")
     {
       console.log("inside")
        return next()
     }
-  if (req.originalUrl.includes("/view/") || req.headers["authorization"] == "view")
-    return next();
   let uId = req.originalUrl.split("/")[1];
  
   if (uId == "api") {
     uId = req.originalUrl.split("/")[2];
    
   }
- //console.log("######",req.originalUrl); 
+  
   if (uId == "removeLandingPage") {
     uId = req.originalUrl.split("/")[3];
   }
@@ -103,12 +107,12 @@ checkPermission = async (req, res, next) => {
   });
 };
 
-app.use(express.static(path.join(__dirname, "./views")));
- app.use(checkPermission);
+// app.use(express.json({ limit: "50mb" }));
+// app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.static(path.join(__dirname, "./build")));
+//  app.use(checkPermission);
 app.use("/api/", landingPageRouterApi);
 app.use("/", landingPageRouter);
 app.listen(3000, () => {
   console.log("server is up");
 });
-
-

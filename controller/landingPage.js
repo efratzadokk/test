@@ -1,12 +1,58 @@
-const User = require("../models/user.js");
-const Contact = require("../models/Contact.js");
-const Wave = require("../models/Wave.js");
-const Conversation = require("../models/Conversation");
-const LandingPage = require("../models/LandingPage.js");
+// const User = require("../models/user.js");
+// const Funnels =require("../models/Funnels.js")
+const common = require('@leadercodes/modelsnpm');
+const User = common.models.user;
+const Funnels =common.models.funnel
+
 const fs = require("fs");
 const request = require("request");
-
 const path = require("path");
+
+duplicateFunnelById = async (req, res) => {
+  //   console.log("duplicateFunnel");
+  //   let funnel = await Funnels.find({ _id: req.params.funnelId });
+  //   console.log(funnel)
+  //   let currentUser = await User.find({ _id: funnel.user });
+  //   console.log(currentUser)
+  //   let funnelUrl = req.body.url;
+  //   console.log(funnelUrl)
+  //   let funnelName = funnel.name;
+  //   try {
+  //     result = await saveDataFunnels(funnel, currentUser, funnelName, funnelUrl);
+  //     res.status(200).send(result);
+  //   } catch (error) {
+  //     res.status(500).send(error);
+  //   }
+  // };
+  console.log("duplicateFunnel");
+  let funnel = await Funnels.findOne({ _id: req.params.funnelId });
+  console.log(funnel)
+  let currentUser = await User.findOne({ _id: funnel.user });
+  console.log("currentUser:",currentUser)
+  let funnelToSave = funnel.json;
+  console.log("funnelToSave:",funnelToSave)
+
+  // let funnelUrl = req.body.url;
+  let funnelUrl = funnel.url;
+  console.log(funnelUrl)
+  let funnelName = funnel.name
+  try {
+    result = await saveDataFunnels(funnelToSave, currentUser, funnelName, funnelUrl);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+deleteFunnelById = async (req, res) => {
+  const userName = req.params.userName
+  console.log(userName)
+  const funnel = await Funnels.findOneAndDelete({ _id: req.params.funnelId })
+  console.log("deleted")
+  if (funnel)
+    res.send({ massage: "deleted" })
+}
+
 
 duplicateLandingPage = async (req, res) => {
   console.log("req:" + req.params.landingPageId);
@@ -28,16 +74,149 @@ duplicateLandingPage = async (req, res) => {
   await currentUser.save();
   res.status(200).send({ massage: "form added succesfully", newLandingPage });
 };
+//////////good
 getUidByUserName = async (req, res) => {
   console.log("inside!!")
   const userName = req.params.userName
   console.log(userName)
   const user = await User.findOne({ username: userName })
-  if (user)
-    console.log("uid " + user.uid)
-  res.json({ "uid": user.uid })
+//   if (user)
+    console.log("uid " + user)
+  res.json({ "uid": user._id })
+}
+//////////good
+getAllFunnelsByUserId = async (req, res) => {
+  console.log("inside  getAllFunnelsByUserId!!")
+  const userId = req.params.userId
+  console.log(userId)
+
+  const allFunnels = await Funnels.find({ user: userId })
+  if (allFunnels)
+    // console.log("funnels " + allFunnels)
+    res.json({ "funnels": allFunnels })
+}
+//////////good
+createFunnel = async (req, res) => {
+  console.log("createFunnel");
+  let currentUser = await User.findOne({ _id: req.params.uId });
+  console.log(currentUser._id)
+  console.log(req.body)
+  let funnelToSave = req.body.json;
+  let funnelUrl = req.body.url;
+  let funnelName = req.params.funnelName;
+
+  // if (req.files) {
+  //   console.log("with img");
+  //   try {
+  //     let url = await uploadedFile(req.files.image, req.params.uId, req.headers["authorization"]);
+  //     console.log("uploaded img", url);
+  //     funnelToSave.img = url;
+  //     funnelToSave.name = funnelToSave.name.toLowerCase();
+  //     // console.log(url);
+  //     result = await saveDataFunnels(customUser, currentUser);
+
+  //     res.status(200).send(result);
+  //   } catch (error) {
+  //     res.status(500).send(error);
+  //   }
+  // } else {
+  //   console.log("without img");
+  try {
+    result = await saveDataFunnels(funnelToSave, currentUser, funnelName, funnelUrl);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+  // }
+};
+//////////good
+saveDataFunnels = (funnelToSave, currentUser, funnelName, funnelUrl) => {
+  return new Promise(async (resolve, reject) => {
+    const funnel = new Funnels({
+      name: funnelName,
+      json: JSON.stringify(funnelToSave),
+      url: funnelUrl,
+      date: Date.now(),
+      lastUpdate: Date.now(),
+      viewsNumber: 0,
+      count: 0,
+      user: currentUser._id,
+    });
+    console.log("funnel:", funnel)
+    // funnel.user = currentUser._id;
+    let result = await funnel.save();
+    // currentUser.landingPages.push(landingPage);
+    // need to save the funnel in the user schema,object
+    try {
+      // await currentUser.save();
+      //add the funnel to the current user
+
+      console.log("saved successfully");
+      // console.log(result)
+      resolve({ funnel: result });
+    } catch (error) {
+      res.status(500).send(error)
+    }
+
+  });
+};
+//////////good
+getFunnelByName = async (req, res) => {
+  console.log("inside  getFunnelByName!!")
+  const userId = req.params.uId
+  const funnelName = req.params.funnelName
+
+  console.log(userId, funnelName)
+  const funnel = await Funnels.findOne({ user: userId, name: funnelName })
+  if (funnel)
+    // console.log("funnels " + allFunnels)
+    res.json({ "funnel": funnel })
 }
 
+//////////good
+updateFunnelDetails = async (req, res) => {
+
+  // console.log(req.files);
+  console.log("inside updateFunnelDetails!!!!!");
+  let currentUser = await User.findOne({ _id: req.params.uId });
+  console.log(currentUser);
+  let funnelToUpdate = req.body;
+  console.log(funnelToUpdate);
+
+  // if (req.files) {
+  //   try {
+  //     let url = await uploadedFile(req.files.image, req.params.uId, req.headers["authorization"]);
+  //     customUser.img = url;
+  //     console.log(url);
+  //     result = await updateData(customUser, currentUser._id, req.params.name);
+  //     res.status(200).send(result);
+  //   } catch (error) {
+  //     res.status(500).send(error);
+  //   }
+  // } else {
+  try {
+    result = await updateData(funnelToUpdate, currentUser._id, req.params.funnelId);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+  // }
+};
+//////////good
+updateData = (funnelToUpdate, userId, funnelId) => {
+  // console.log(userId,funnelId)
+  return new Promise(async (resolve, reject) => {
+    Funnels.findOneAndUpdate(
+      { _id: funnelId, user: userId },//.toLowerCase() 
+      funnelToUpdate, { new: true }
+      // funnelToUpdate,{new:true,upsert: true}
+    ).then((result, err) => {
+      if (err) console.log(err);
+      console.log("updated successfully");
+      resolve(result);
+    });
+  });
+};
 
 
 removeLandingPage = async (req, res) => {
@@ -74,7 +253,9 @@ submit = async (req, res) => {
 getLandingPages = async (req, res) => {
   console.log("getLandingPages");
   let currentUser = await User.findOne({ uid: req.params.uId });
+  console.log(currentUser)
   LandingPage.find({ user: currentUser._id }).then((landingPages, err) => {
+    // console.log(landingPages)
     if (err) res.status(500).send(err);
     res.status(200).send(landingPages);
   });
@@ -82,12 +263,15 @@ getLandingPages = async (req, res) => {
 getLandingPageDetails = async (req, res) => {
   console.log(req.params);
   let currentUser = await User.findOne({ uid: req.params.uId });
+  // console.log(currentUser)
   console.log(currentUser._id);
   LandingPage.findOne({
     user: currentUser._id,
     name: req.params.name.toLowerCase(),
   }).then((user, err) => {
-    // console.log(user);
+    console.log(user);
+    console.log(user);
+
     if (!err) res.status(200).send(user);
     console.log(err);
   });
@@ -160,18 +344,8 @@ saveData = (customUser, currentUser) => {
   });
 };
 
-updateData = (customUser, id, name) => {
-  return new Promise(async (resolve, reject) => {
-    LandingPage.findOneAndUpdate(
-      { user: id, name: name.toLowerCase() },
-      customUser
-    ).then((result, err) => {
-      if (err) console.log(err);
-      console.log("updated successfully");
-      resolve(result);
-    });
-  });
-};
+
+
 newLeader = (dataToSocket, headers) => {
   const options = {
     url: "https://api.leader.codes/socket",
@@ -233,46 +407,46 @@ sendEmail = async (name, body, list, currentUser) => {
       console.log(error);
       res.status(500).json({ error });
     });
-}),
-  (uploadedFile = (fileToUpload, uId, headers) => {
-    console.log("headers", headers);
-    return new Promise(async (resolve, reject) => {
-      console.log(fileToUpload);
-      console.log("uploadedFile");
-      const uri = `https://files.leader.codes/api/${uId}/upload`;
-      console.log(uri);
-      const options = {
-        method: "POST",
-        url: uri,
-        headers: {
-          Authorization: headers,
-          "Content-Type": "multipart/form-data",
-        },
-        formData: {
-          file: {
-            value: fileToUpload.data,
-            options: {
-              filename: fileToUpload.name,
-            },
+}), uploadedFile = (fileToUpload, uId, headers) => {
+  console.log("headers", headers);
+  return new Promise(async (resolve, reject) => {
+    console.log(fileToUpload);
+    console.log("uploadedFile");
+    const uri = `https://files.leader.codes/api/${uId}/upload`;
+    console.log(uri);
+    const options = {
+      method: "POST",
+      url: uri,
+      headers: {
+        Authorization: headers,
+        "Content-Type": "multipart/form-data",
+      },
+      formData: {
+        file: {
+          value: fileToUpload.data,
+          options: {
+            filename: fileToUpload.name,
           },
         },
-      };
+      },
+    };
 
-      request(options, async (err, res, body) => {
-        if (err) {
-          console.log(err);
-          reject(err);
-        }
-        console.log("result from server", body);
-        try {
-          let url = JSON.parse(body).data.url;
-          resolve(url);
-        } catch (error) {
-          reject(error);
-        }
-      });
+    request(options, async (err, res, body) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+      }
+      console.log("result from server", body);
+      try {
+        let url = JSON.parse(body).data.url;
+        resolve(url);
+      } catch (error) {
+        reject(error);
+      }
     });
   });
+};
+// });
 submitToLeaderBox = async (req) => {
   const { body, list, subject, name, submition } = req.body;
   let contactDetails = JSON.parse(submition);
@@ -301,36 +475,44 @@ submitToLeaderBox = async (req) => {
   });
 };
 
-function randomDate(start,end) {
+function randomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }
- 
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 updateViewers = async (req, res) => {
   console.log("updaeViewrs");
- let start = new Date(2020, 09, 01);
- let  end = new Date(2020, 09, 31);
- let randDate=randomDate(start,end);
+  let start = new Date(2020, 09, 01);
+  let end = new Date(2020, 09, 31);
+  let randDate = randomDate(start, end);
 
-  let number=getRandomInt(100);
+  let number = getRandomInt(100);
 
-  await LandingPage.updateMany({}, { $push: { viewers:  { date: randDate, amount: number } }  });
+  await LandingPage.updateMany({}, { $push: { viewers: { date: randDate, amount: number } } });
   console.log("updated successfully!!");
   res.send({ massage: "updated successfully!!" })
 }
-
+function gggg(params) {
+}
 
 module.exports = {
+  gggg,
   submit,
+  getFunnelByName,
   getLandingPageDetails,
   updateLandingPageDetails,
+  updateFunnelDetails,
   createLandingPage,
+  getAllFunnelsByUserId,
+  createFunnel,
   getLandingPages,
   getUserEmail,
   removeLandingPage,
   duplicateLandingPage,
   getUidByUserName,
-  updateViewers
+  updateViewers,
+  deleteFunnelById,
+  duplicateFunnelById
 };

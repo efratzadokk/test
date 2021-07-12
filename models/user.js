@@ -15,6 +15,9 @@ const userSchema = mongoose.Schema({
     landingPages: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'LandingPage' }
     ],
+    funnels: [
+        { type: mongoose.Schema.Types.ObjectId, ref: 'Funnels' }
+    ],
     forms: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'Form' }
     ],
