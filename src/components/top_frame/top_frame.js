@@ -34,7 +34,7 @@ const [copy, setCopy] = useState(false);
             <div
               className="m-auto"
               style={{ color:'black', fontSize: '1vw', zIndex: 3, border: `2px solid black `, borderRadius: '4px', padding: '5px' }}>
-              <span style={{ color: 'black', }}>
+              <span style={{ color: '#007bff', }}>
                 https://funnel.leader.codes/{userName}/Home
            </span> &nbsp;
         <FaLink
@@ -52,7 +52,7 @@ const [copy, setCopy] = useState(false);
           </>
         {/* <button id="button" onClick={()=>{change()}} className="red">onClick</button> */}
             <div className="mr-3" >
-                <img src={thumbtack} id="thumbtack"  className={props.thumbtack?"rotateThumbtack pointer":"pointer"} onClick={() => props.changeFlagThumbtack(!props.thumbtack)} />
+            <img src={thumbtack} id="thumbtack"  className={props.thumbtack?"rotateThumbtack pointer":"pointer"} onClick={() => props.changeFlagThumbtack(!props.thumbtack)} />
                 <div id="menu2" className="material-icons align-middle pl-2 pointer btn btn-simple" onClick={!props.thumbtack && (() => props.changeFlagConfigurator(!props.flagCon))}>
                     menu
                 </div>

@@ -2,7 +2,7 @@
   --blue: #3a405e;
 }
 #wrap-configurator {
-  border-radius: 60px 0px 0px 0px;
+  /* border-radius: 60px 0px 0px 0px; */
   background-color: white;
   color: #ebeaea;
   display: inline-block;
@@ -16,7 +16,7 @@
   padding: 0px;
   width: 16%;
   opacity: 1;
-  border-radius: 40px 0px 0px 0px;
+  /* border-radius: 40px 0px 0px 0px; */
   z-index: 2;
 }
 #wrap-configurator label {
@@ -125,18 +125,14 @@ input[type="range"]::-moz-range-thumb {
   border: 6px solid rgb(0, 105, 44);
   cursor: pointer;
 }
-#whatapp {
-  /* margin-right: 10%; */
+/* #whatapp {
   height: 100%;
-  /* padding: 0px; */
   margin: 0px;
   width: 100%;
   border: "none";
   background-color: royalblue;
-  /* margin-left: 20px; */
   font-size: 1vw;
-  /* overflow: scroll; */
-}
+} */
 .b1 {
   background-color: transparent;
   border: none;
@@ -180,4 +176,42 @@ input[type="range"]::-moz-range-thumb {
 
 #gdm {
   overflow: scroll;
+}
+
+.mobile{
+  background-color: #000;
+
+}
+.responsive{
+  color: white;
+  text-align: center;
+  /* border: "1px solid #2e2e2e"; */
+  /* font-size: x-small; */
+  /* padding:3%; */
+
+  background-color: transparent;
+  letter-spacing: 0.28px;
+  font-size: 10px;
+  width: 100%;
+  height: inherit;
+  padding: 4%;
+  border: 1px gray solid;
+  border-top: none;
+  border-bottom: none;
+}
+.iconRes{
+  font-size: xx-large;
+  padding-bottom: 1%;
+
+}
+.responsive:hover{
+  color: #839de9;
+} .mobile{
+  background-color: #000;
+
+}
+
+#mydr
+{
+  bottom: 0 !important
 }

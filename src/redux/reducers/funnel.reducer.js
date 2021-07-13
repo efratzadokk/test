@@ -3,6 +3,7 @@
 
 import produce from 'immer'
 import createReducer from "./reducerUtil";
+import defualtValue from '../../assets/defultimgbig700.png'
 const initialState = {
     urlPage: '',//'http://localhost:3000'
     // urlPage:'http://funnel.dev.leader.codes',
@@ -24,127 +25,13 @@ const initialState = {
     imgsToUpload: [],
     imgsGallery: [],
     name: 'firstFunnel4',// window.location.pathname.split('/')[3],
-    allFunnels: [
-        {
-            name: "funneltoChaya",
-            // json:  { 
-            //      num_elements: 0,
-            // num_sections: 0,
-            // image_funnel: '',
-            // settings: {
-            //     style: { color: '', backgroundColor: 'rgba(255,255,255,0.99)', opacity: '0.99' }
-            //     , opacity: '0.99'
-            // },
-            // arrSections: [
-
-            // ],
-            // },
-            json: {
-                num_elements: 3,
-                num_sections: 3,
-                image_funnel: '',
-                settings: {
-                    style: { color: '', backgroundColor: 'rgba(255,255,255,0.99)', opacity: '0.99' }
-                    , opacity: '0.99'
-                },
-                arrSections: [
-                    {
-                        gridType: "b",
-                        id: 1,
-                        settings: {
-                            style: {
-                                backgroundColor: ""
-                            }
-                        },
-                        arrParts: [
-                            {
-                                settings: {
-                                    style: {}
-                                },
-                                arrElements: [
-                                    {
-                                        backgroundColor: "transparent",
-                                        border: false,
-                                        borderRadius: undefined,
-                                        color: "#801fad",
-                                        fontFamily: "Abril Fatface",
-                                        fontSize: "25",
-                                        id: 0,
-                                        textAlign: "center",
-                                        type: "Title",
-                                        value: "Good mornning chaya!!",
-                                        settings: {}
-                                    }
-                                ]
-                            },
-                            {
-                                settings: {
-                                    style: {}
-                                },
-                                arrElements: [
-                                    {
-                                        backgroundColor: "#e60a0a",
-                                        borderRadius: "0",
-                                        color: "#050976",
-                                        fontFamily: "Arial, Helvetica, sans-serif",
-                                        fontSize: "22",
-                                        textAlign: "center",
-                                        type: "Button",
-                                        value: "click here",
-                                        width: "53",
-                                    }
-                                ]
-
-                            }
-                        ]
-
-                    },
-                    {
-                        gridType: "b",
-                        id: 2,
-                        settings: { style: { backgroundColor: "" } },
-                        arrParts: [
-                            {
-                                settings: { style: {} },
-                                arrElements: [
-                                    {
-                                        color: "#cb8e25",
-                                        height: "5",
-                                        id: 2,
-                                        settings: {},
-                                        type: "Spacer",
-                                    }
-                                ]
-                            },
-                            {
-                                settings: { style: {} },
-                                arrElements: []
-                            }
-
-                        ]
-
-                    }
-                ]
-
-
-
-
-            },
-
-            url: "ftyghj",
-            date: Date.now(),
-            lastUpdate: Date.now(),
-            viewsNumber: 0,
-            count: 0,
-            user: "WzM020nw4TgcAo1XIyl94g0Z0152"
-        }
-    ],
+    allFunnels: [],
     idFunnel: '',
     urlFunnel: '',
     newVal: [
         { index: 0, type: 'logo', border: false, path: '', backgroundColor: "", borderRadius: "", width: "", height: "", alignItem: "center" },
         { index: 1, type: 'title', border: false, text: "Welcome enter your title!", backgroundColor: "transparent", color: "black", textAlign: "center", fontSize: "25", fontFamily: 'Arial, Helvetica, sans-serif' },
-        { index: 2, type: 'button', fontSize: "25", text: "Button ", color: "black", backgroundColor: "grey", textAlign: "center", fontFamily: 'Arial, Helvetica, sans-serif', borderRadius: '0', width: '100' },
+        { index: 2, type: 'button', fontSize: "25", text: "Button ", color: "white", backgroundColor: "#13436c", textAlign: "center", fontFamily: 'Arial, Helvetica, sans-serif', borderRadius: '0', width: '100' },
         { index: 3, type: 'image', border: false, path: '', backgroundColor: "", width: "20", borderRadius: "", height: "10", textAlign: "center", opacity: '0.6' },
         {
             index: 4, type: 'paragraph', text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
@@ -159,93 +46,7 @@ const initialState = {
         { index: 11, type: 'sharing', border: false, text: "START ACTIVE", color: "white", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1" },
 
     ],
-    // jsonPage: {
-    // num_elements: 3,
-    // num_sections: 3,
-    // image_funnel: '',
-    // settings: {
-    //     style: { color: '', backgroundColor: 'rgba(255,255,255,0.99)', opacity: '0.99' }
-    //     , opacity: '0.99'
-    // },
-    // arrSections: [
-    //     {
-    //         gridType: "b",
-    //         id: 1,
-    //         settings:{
-    //             style:{
-    //                 backgroundColor: ""
-    //             }
-    //         },
-    //         arrParts:[
-    //             {
-    //                 settings:{
-    //                     style: {}
-    //                 },
-    //                 arrElements:[
-    //                     {
-    //                         backgroundColor: "transparent",
-    //                         border: false,
-    //                         borderRadius: undefined,
-    //                         color: "#801fad",
-    //                         fontFamily: "Abril Fatface",
-    //                         fontSize: "25",
-    //                         id: 0,
-    //                         textAlign: "center",
-    //                         type: "Title",
-    //                         value: "Good mornning chaya!!",
-    //                         settings: {}
-    //                     }
-    //                 ]
-    //             },
-    //             {
-    //                 settings:{
-    //                     style: {}
-    //                 },
-    //                 arrElements:[
-    //                     {
-    //                         backgroundColor: "#e60a0a",
-    //                         borderRadius: "0",
-    //                         color: "#050976",
-    //                         fontFamily: "Arial, Helvetica, sans-serif",
-    //                         fontSize: "22",
-    //                         textAlign: "center",
-    //                         type: "Button",
-    //                         value: "click here",
-    //                         width: "53",
-    //                     }
-    //                 ]
 
-    //             }
-    //         ]
-
-    //     },
-    //     {
-    //         gridType: "b",
-    //         id: 2,
-    //         settings:{style:{backgroundColor: ""}},
-    //         arrParts:[
-    //             {
-    //                 settings:{style: {}},
-    //                 arrElements:[
-    //                     {
-    //                         color: "#cb8e25",
-    //                         height: "5",
-    //                         id: 2,
-    //                         settings: {},
-    //                         type: "Spacer",
-    //                     }
-    //                 ]
-    //             },
-    //             {
-    //                 settings:{style: {}},
-    //                 arrElements:[]
-    //             }
-
-    //         ]
-
-    //     }
-    // ]
-    // },
     jsonPage: {
         num_elements: 1,
         num_sections: 1,
@@ -255,119 +56,106 @@ const initialState = {
             , opacity: '0.99'
         },
         arrSections: [
-            {
-                arrParts: [
-                    {
-                        arrElements: [
-                            {
-                                backgroundColor: "transparent",
-                                border: false,
-                                borderRadius: undefined,
-                                color: "#193880",
-                                fontFamily: "Anonymous Pro",
-                                fontSize: "15",
-                                id: 0,
-                                settings: {},
-                                textAlign: "left",
-                                type: "Title",
-                                value: "      🪐  YOUR LOGO"
-                            }, {
-                                backgroundColor: "transparent",
-                                border: false,
-                                borderRadius: undefined,
-                                color: "black",
-                                fontFamily: "Acme",
-                                fontSize: "33",
-                                id: 1,
-                                settings: {},
-                                textAlign: "center",
-                                type: "Title",
-                                value: "START CREATE",
-                            }, {
-                                backgroundColor: "transparent",
-                                border: false,
-                                borderRadius: undefined,
-                                color: "black",
-                                fontFamily: "Acme",
-                                fontSize: "35",
-                                id: 2,
-                                settings: {},
-                                textAlign: "center",
-                                type: "Title",
-                                value: "LANDING PAGE",
-                            }, {
-                                backgroundColor: "transparent",
-                                border: false,
-                                borderRadius: undefined,
-                                color: "#193880",
-                                fontFamily: "Acme",
-                                fontSize: "17",
-                                id: 3,
-                                settings: { borderStyle: "none" },
-                                textAlign: "center",
-                                type: "Paragraph",
-                                value: "Lorem ipsum dolor sit amet,\r\n consectetuer adipiscing elit,\r\n sed diam "
-                            },
-                            //  {
-                            //     color: "#ffffff",
-                            //     height: "1.5",
-                            //     id: 4,
-                            //     settings: {},
-                            //     type: "Spacer"
-                            //  },
-                            {
-                                backgroundColor: "#13436c",
-                                borderRadius: "30",
-                                color: "#ffffff",
-                                fontFamily: "Acme",
-                                fontSize: "16",
-                                id: 2,
-                                settings: {},
-                                textAlign: "left",
-                                type: "Button",
-                                value: "Learn more",
-                                width: "50",
-                                height: "10"
-                            }
-                        ],
-                        settings: {
-                            style: {}
-                        }
-                    },
-
-                    {
-                        arrElements: [
-                            {
-                                backgroundColor: "",
-                                border: false,
-                                id: 6,
-                                settings: { borderStyle: "none", width: "100%", height: "100%", opacity: "0.99" },
-                                textAlign: "center",
-                                type: "Image",
-                                // value: {defualtValue}
-                                value: "blob:http://localhost:3000/71d45d00-19de-4574-b0b6-2ab7c5a41d11"
-
-                                // "blob:http://localhost:3000/7d846e07-f4ea-47b"
-
-                            },
-
-                        ],
-                        settings: {
-                            style: {}
-                        }
+            {arrParts:[
+                {
+                    arrElements:[
+                        {
+                            backgroundColor: "transparent",
+                            border: false,
+                            borderRadius: undefined,
+                            color: "#193880",
+                            fontFamily: "Anonymous Pro",
+                            fontSize: "13",
+                            id: `myId${0}`,
+                            settings: {},
+                            textAlign: "left",
+                            type: "Title",
+                            value: "      🪐  YOUR LOGO"
+                     },{
+                        backgroundColor: "transparent",
+                        border: false,
+                        borderRadius: undefined,
+                        color: "black",
+                        fontFamily: "Acme !important",
+                        fontSize: "30",
+                        id: `myId${1}`,
+                        settings: {},
+                        textAlign: "center",
+                        type: "Title",
+                        value: "START CREATE \n LANDING PAGE",
+                        height:"100%"
+                     },{
+                        backgroundColor: "transparent",
+                        border: false,
+                        borderRadius: undefined,
+                        color: "#193880",
+                        fontFamily: "Acme",
+                        fontSize: "15",
+                        id: `myId${2}`,
+                        settings: {borderStyle: "none"},
+                        textAlign: "center",
+                        type: "Paragraph",
+                        value: "Lorem ipsum dolor sit amet,\r\n consectetuer adipiscing elit,\r\n sed diam "
+                     },
+                     {
+                        backgroundColor: "#13436c",
+                        borderRadius: "30",
+                        color: "#ffffff",
+                        fontFamily: "Acme",
+                        fontSize: "16",
+                        id: `myId${3}`,
+                        settings: {},
+                        textAlign: "left",
+                        type: "Button",
+                        value: "Learn more",
+                        // width: "50",
+                        // height:"10"
+                     }
+                     ],
+                    settings:{
+                        style:{}
                     }
-                ],
-                gridType: "b",
-                id: 0,
-                settings: {
-                    style: {
-                        backgroundColor: ""
+                },
+
+                {
+                    arrElements:[
+                        {
+                            backgroundColor: "",
+                            border: false,
+                            id:6,
+                            settings: {borderStyle: "none", width: "100%", height: "100%", opacity: "0.99",maxHeight:'50vh'},
+                            textAlign: "center",
+                            type: "Image",
+                             value: defualtValue
+                            // value: "blob:http://localhost:3000/b18ecc35-9cb2-4b31-9d95-c3da0c0cc9dd"
+
+                            // "blob:http://localhost:3000/7d846e07-f4ea-47b"
+
+                        },
+                       
+                    ],
+                    settings:{
+                        style:{}
                     }
                 }
+            ],
+            gridType:"b",
+            id:0,
+                settings:{
+                style:{
+                    backgroundColor:""
+                }
             }
+        }
 
         ]
+
+
+
+
     },
+
+    
 }
 
 const funnelReducer = {
@@ -384,6 +172,17 @@ const funnelReducer = {
         newSection.id = action.payload.id
         newSection.gridType = action.payload.s
         state.jsonPage.arrSections.push(newSection)
+        state.jsonPage.num_sections++
+        console.log(state.jsonPage.num_sections)
+        return state
+    },
+    addSection2(state, action) {
+        console.log(action)
+        let newSection = action.payload.newSection
+        newSection.id = action.payload.id
+        newSection.gridType=action.payload.s
+        let place=action.payload.place
+        state.jsonPage.arrSections.splice(place,0,newSection)
         state.jsonPage.num_sections++
         console.log(state.jsonPage.num_sections)
         return state

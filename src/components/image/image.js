@@ -111,16 +111,20 @@ function ImageUploader(props) {
         setStyleImage('width', '100%')
         setStyleImage('height', '100%')
         setStyleImage('opacity', '0.99')
+        setStyleImage('maxHeight', '50vh')
+
     }
   const  local_image=(url)=>{
       debugger
     setStyleImage('width', '100%')
     setStyleImage('height', '100%')
     setStyleImage('opacity', '0.99')
+    setStyleImage('maxHeight', '50vh')
+
     setImage(url)
   //  console.log(image)
     console.log(url)
-    props.setValueMe(url,'value')
+    props.setValueMe(url,'path')
     //  console.log(element)
     //  console.log(element.id)
      props.elementInEditing(element.id)

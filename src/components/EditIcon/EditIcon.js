@@ -43,14 +43,16 @@ console.log(IconOnEdit)
         <Container style={{width:'100%'}}>
 
         
-    Icon
-        
-    <b style={{ fontSize: "1vw" }}>Height</b>
+        <Row style={{fontSize:"1.5vw",color:'#4169E1', fontWeight:'bold'}} >Icon </Row>
 
-            <Grid container direction="row" style={{height:"7vh",textAlign:'center'}}>
+        
+    <b style={{ fontSize: "1vw",alignItems:'center' }}>Height</b>
+
+            <Grid container direction="row" style={{height:"7vh",alignItems:'center'}}>
             <Grid item sm={2} md={2}> <BorderLeftIcon style={{ alignItems: "right", width: "80%" ,height:'100%' }}></BorderLeftIcon></Grid>
             <Grid item sm={1} md={1}></Grid>
-            <Grid item sm={6} md={6}> <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
+            <Grid item sm={6} md={6}> 
+            {/* <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
             <Box width={'100%'} >
             <Slider
               defaultValue={IconOnEdit.fontSize}
@@ -63,7 +65,15 @@ console.log(IconOnEdit)
               onClick={(e) => changeVal(e.target.ariaValueNow, "fontSize")}
             />
           </Box>
-</Box></Grid>
+</Box> */}
+ <input type="range" 
+                // style={{height:'100%', width:'100%'}} 
+                className="slider" id="" data-toggle="tooltip" data-placement="bottom" placeholder="" min="0" max="100" step="1"
+         onChange={(e) => changeVal(e.target.value, "fontSize")}
+         defaultValue={IconOnEdit.fontSize}
+         
+         />
+</Grid>
           <Grid item md={1} sm={1} />
 
           <Grid item md={2} sm={2} > <p style={{textAlign:'left',fontSize:'1vw',margin:'0px', paddingRight:'0px'}}>{IconOnEdit.fontSize}</p> </Grid>
@@ -71,7 +81,7 @@ console.log(IconOnEdit)
 
         </Grid>
    
-    <hr/>
+    {/* <hr/>
 
     <b style={{ fontSize: "1vw" }}>Color</b>
 
@@ -88,16 +98,17 @@ console.log(IconOnEdit)
                     />
                     
                     </Grid>
-    </Grid>
+    </Grid> */}
 
 
  <hr/>
-    <b style={{ fontSize: "1vw" }}>Opacity</b>
+    <b style={{ fontSize: "1vw"  }}>Opacity</b>
     
-    <Grid container direction="row" style={{height:"7vh",textAlign:'center'}}>
+    <Grid container direction="row" style={{height:"7vh",alignItems:'center'}}>
       <Grid item sm={2} md={2}> <img style={{ alignItems: "right" ,height:'80%',width:'58%' }} src={Opacity}></img></Grid>
       <Grid item md={1} sm={1} />
-      <Grid item sm={6} md={6}> <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
+      <Grid item sm={6} md={6}>
+         {/* <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
         <Box width={'100%'} >
           <Slider
             defaultValue={IconOnEdit.opacity}
@@ -110,7 +121,15 @@ console.log(IconOnEdit)
             onClick={(e) => changeVal(e.target.ariaValueNow, "opacity")}
           />
         </Box>
-         </Box></Grid>
+         </Box> */}
+          <input type="range" 
+                // style={{height:'100%', width:'100%'}} 
+                className="slider" id="" data-toggle="tooltip" data-placement="bottom" placeholder="" min="0" max="1" step="0.1"
+         onChange={(e) => changeVal(e.target.value, "opacity")}
+         defaultValue={IconOnEdit.opacity}
+         
+         />
+         </Grid>
 
         <Grid item md={1} sm={1} />
 <Grid item md={2} sm={2} > <p style={{textAlign:'left',fontSize:'1vw'}}>{IconOnEdit.opacity}</p> </Grid>

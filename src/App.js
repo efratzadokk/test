@@ -16,80 +16,82 @@ import WrapAll from './components/wrapAll/wrap_all'
 import MyGallery from './components/slider/slider'
 import ListPapers from './components/listPapers/listPapers';
 import {actions} from './redux/actions/funnel-try.action'
-
+import NoFunnels from './components/noFunnels/noFunnels';
 
 function App(props) {
   const [flag, setFlag] = useState(true);
   const [aaa, setaaa] = useState(true)
-  const { flagCon,getAllFunnel, getFunnel, flagAllFunnels, editMode } = props
+  const { flagCon,getAllFunnel, getFunnel, flagAllFunnels, editMode,allFunnels } = props
   const { getUid } = props
   useEffect(() => {
     if (flag) {
       getUid()
-      // getFunnel()
-      // getAllFunnel()
       setFlag(false)
     }
   })
   {
   
 }
-  // let TokenToString = document.cookie && document.cookie.includes("devJwt") ? document.cookie.split(";")
-  //   .filter(s => s.includes('devJwt'))[0].split("=").pop() : null;
-
+  
   return (
 
     <div id="body" className="App">
-    {aaa?
-      <div className="asd" ></div>:null}
-          <div   onClick={()=>setaaa(false)}>
-      <Router>
-        <DndProvider backend={HTML5Backend}>
-          <Switch>
-            <Route path='/stage/:userName/:funnel'>
-              <div className="pt-5" style={{ minHeight: '100vh' }}>
-                <Stage edit={true}></Stage>
-              </div>
-            </Route>
-            <Route path='/admin/:userName/listPapers'>
-              <div>
-                <ListPapers></ListPapers>
-              </div>
-            </Route>
-            <Route path='/admin/:userName/:funnel/listPapers'>
-              <div>
-                <ListPapers></ListPapers>
-              </div>
-            </Route>
-              {/* </div> */}
-            {/* </Route> */}
-            {/* <ProtectedRoute path='/admin/:userName/:funnel' user={TokenToString} component={WrapAll}>
-            </ProtectedRoute> */}
-            <Route path='/admin/:userName/:funnel'>
-            {/* <MyGallery></MyGallery> */}
-            {/* <ProtectedRoute path='/admin/:userName/:funnel' user={TokenToString} component={WrapAll}> */}
 
-              <Configurator></Configurator>
-              <Top_frame></Top_frame>
-              <Sidebar_left></Sidebar_left>
-              {aaa?<div style={{width:"100vw",height:"100vh"}}></div>: 
-              <WrapCenter></WrapCenter>}
-            {/* </ProtectedRoute> */}
-            </Route>
+    <Router>
+      <DndProvider backend={HTML5Backend}>
+        <Switch>
+          <Route path='/stage/:userName/:funnel'>
+            <div className="pt-5" style={{ minHeight: '100vh' }}>
+              <Stage edit={true}></Stage>
+            </div>
+          </Route>
 
-            
-            <Route path='/:userName/:funnel'>
-              <div className={editMode && "pt-5"} style={{ minHeight: '100vh' }}>
-                <Stage edit={false}></Stage>
-              </div>
-            </Route>
 
-          </Switch>
-        </DndProvider>
-      </Router>
-  
+          {/* <Route path='/admin/:userName/listPapers'>
+            <div>
+              
+{ (allFunnels.length) ?
+              <ListPapers/>
+              :
+              <NoFunnels/>
+}
+            </div>
+          </Route> */}
+          <Route path='/admin/:userName/:funnel/listPapers' >
+            {/* <div>
+              <ListPapers></ListPapers>
+            </div> */}
+            { (allFunnels.length) ?
+              <ListPapers/>
+              :
+              <NoFunnels/>
+}
+          </Route>
 
-    </div></div>
+
+          
+          <Route path='/admin/:userName/:funnel'  >
+        
+            <Configurator></Configurator>
+            <Top_frame></Top_frame>
+            <Sidebar_left></Sidebar_left>
+            <WrapCenter></WrapCenter>
+          {/* </ProtectedRoute> */}
+          </Route>
+
+          
+          <Route path='/:userName/:funnel'>
+            <div className={editMode && "pt-5"} style={{ minHeight: '100vh' }}>
+              <Stage edit={false}></Stage>
+            </div>
+          </Route>
+
+        </Switch>
+      </DndProvider>
+    </Router>
+ 
+
+  </div>
   );
 }
 
@@ -98,7 +100,8 @@ export default connect(
     return {
       flagCon: state.funnel.isOpenConfigurator,
       flagAllFunnels: state.funnel.isOpenAllFunnels,
-      editMode: state.funnel.editMode
+      editMode: state.funnel.editMode,
+      allFunnels: state.funnel.allFunnels
 
     }
   },

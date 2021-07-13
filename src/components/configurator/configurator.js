@@ -9,12 +9,15 @@ import html2canvas from 'html2canvas';
 import Grid  from '@material-ui/core/Grid';
 import Grids from '../grids/grids';
 import {actions } from '../../redux/actions/funnel-try.action'
-
+import { FaDesktop, FaTabletAlt ,FaMobileAlt} from "react-icons/fa";
+import {FiSettings} from 'react-icons/fi'
+import {CgScreen} from 'react-icons/cg'
+import {BsEye} from 'react-icons/bs'
 
 function Configurator(props) {
 
     const [flag, setFlag] = useState(false);
-    const { history, setFlagAllFunnnels, userName,updateFunnel1, funnelName, flagCon, collapseIsOpen, elementInEditing, chageEditMode, jsonPage, creatFunnel, getAllFunnel, save, updateFunnel, removeFunnel, idPage, nameFunnel, nameUser, uploadFile, urlPage, sectionInEditing, setCollapseOpen ,setMonIndex,monindex} = props
+    const {setWidthPage, history, setFlagAllFunnnels, userName,updateFunnel1, funnelName, flagCon, collapseIsOpen, elementInEditing, chageEditMode, jsonPage, creatFunnel, getAllFunnel, save, updateFunnel, removeFunnel, idPage, nameFunnel, nameUser, uploadFile, urlPage, sectionInEditing, setCollapseOpen ,setMonIndex,monindex} = props
   
     // function changeColor(co) {
     //     elementInEditing.settings.style.color = co;
@@ -91,12 +94,12 @@ function Configurator(props) {
             {  flagCon &&
                 <>
                     <div id="wrap-configurator" className="pt-4 px-2">
-                        <div id="head-configurator" className="row d-flex justify-content-between m-0 mb-3 mt-1">
+                        {/* <div id="head-configurator" className="row d-flex justify-content-between m-0 mb-3 mt-1">
                                  <span className="material-icons pointer" onClick={() => clickAllFunnels()}>
                                 settings
                  </span>
                             
-                        </div>
+                        </div> */}
                        
 
 
@@ -112,7 +115,7 @@ function Configurator(props) {
                             </Grid>
                               
                          
-                             <Grid container direction ='row'id='gdm' style={{height:'80%',marginTop:'4%'}} >
+                             <Grid container direction ='row'id='gdm' style={{height:'100%',marginTop:'4%'}} >
                                  
                             { monindex ?
                            (() => {
@@ -134,7 +137,7 @@ function Configurator(props) {
 
 
                            
-                            <Route render={({ history }) => (
+                            {/* <Route render={({ history }) => (
                                 <div id="bottom_configurtor"   >
                                      <Grid container direction="row" style={{height:"100%", width:'100%'}} >
                                      <Grid item md={2} sm={2}><button className='btn' style={{width:'100%',height:'100%',textAlign:'center'}} onClick={() => clickView(history)}>
@@ -164,7 +167,53 @@ function Configurator(props) {
 
 
 
-                            )} />
+                            )} /> */}
+
+<Route render={({ history }) => (
+                                    <div id="bottom_configurtor"  >
+                                        {/* <div class="dropup"> */}
+                                        <button className='btn' style={{ background: "none", border: "none" }} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={() => clickView(history)}>
+                                            <CgScreen style={{ color: "#cac6c6"}}></CgScreen>
+                                        </button>
+                                        <div class="dropdown-menu mobile container row" id="mydr" style={{ backgroundColor: "#2E2E2E", position: "fixed", width: "100% ", height: "75px", marginRight:"-33%"}}>
+                                            <div class="container">
+                                                <div class="row" style={{color:"white"}}>
+                                                    <div class="col-4 responsive"  onClick={(e) => setWidthPage("90vh")}>
+                                                        <FaDesktop className="iconRes"  />
+                                                        <br />
+                                                        Desktop    </div>
+                                                    <div class="col-4 responsive" onClick={(e) => setWidthPage("70vh")} style={{  border:"1px 0px white solid"}}>
+                                                    <FaTabletAlt className="iconRes" /><br/>
+                                                        Tablet    </div>
+                                                    <div class="col-4 responsive" onClick={(e) => setWidthPage("20vh")}>
+                                                        <FaMobileAlt className="iconRes" /><br/>
+                                                        Mobile    </div>
+                                                </div>
+                                            </div>
+                                          
+                                        </div>
+
+                                        <button className='btn' onClick={() => clickView(history)}>
+                                            <BsEye style={{ color: "#cac6c6" }}></BsEye>
+                                        </button>
+
+                                        <button className='btn' onClick={() => clickView(history)}>
+                                            <FiSettings style={{ color: "#cac6c6" }}></FiSettings>
+                                        </button>
+                                        {idPage && <div> <button className='btn' style={{ background: '#ff5f5f' }} onClick={() => updatefunnel2()} >update</button>
+                                            <button className='btn' style={{ background: '#ff5f5f' }} onClick={() => removeFunnel("5fd9f7b28eedc0eb8b5dea30")} >remove</button>
+                                        </div>
+                                            ||
+                                            // <button className='btn '  style={{width:'80%', backgroundColor:'blue'}} onClick={() => saveOrUpdatefunnel()} >save</button>}
+                                            <button type="button" id="whatapp" class="btn btn-info btn-sm" onClick={() => saveOrUpdatefunnel()} style={{height:'80%'}}>update</button>
+                                        }
+                                    </div>
+
+
+
+
+
+                                )} />
                                </Grid>
                         </div>
                     </div>
@@ -205,6 +254,7 @@ export default withRouter(connect(
             setCollapseOpen: function (collapse) { dispatch(actions.setCollapseOpen(collapse)) },
             sectionInEditing: (indexSection) => { dispatch(actions.sectionInEditing(indexSection)) },
             setMonIndex: (idx)=>{dispatch(actions.setMonIndex(idx))},
+            setWidthPage:(idx)=>{dispatch(actions.setWidthPage(idx))},
          
         }
     }

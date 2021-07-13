@@ -21,75 +21,72 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect( null,mapDispatchToProps) ( function Font(props) {
 
-    const {setValueMe}=props
+  const {setValueMe}=props
   const [arrFonts, setArrFonts] = useState(fontFamilies);
   const [oneFont, setoneFont] = useState(fontFamilies[0].family);
+  const [ismyt,setismyt]=useState(true)
+
+  // useEffect(() => {
+  //   const arr = [];
+  //   fontFamilies.map((i) => { arr.push(i.family) })
+    
+  //   WebFont.load({
+  //     google: {
+  //       src:"https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js",
+  //       families: arr
+  //     }
+  //   });
 
 
-  useEffect(() => {
-    const arr = [];
+  // }, []); 
+//const WebFont=lazy(() => import('webfontloader'));
+const findMyFtSize=()=>{
+ if(ismyt)
+ {
+
+
+  const arr = [];
     fontFamilies.map((i) => { arr.push(i.family) })
-    WebFont.load({
-      google: {
-        families: arr
-       
-      }
-    });
-  }, []); 
+   // React.lazy(()=>{
 
-  const BootstrapInput = withStyles((theme) => ({
-    root: {
-      'label + &': {
-        marginTop: theme.spacing(8),
-      },
-    },
-    input: {
-      borderRadius: 1,
-      position: 'relative',
-      background: "#F0F0F0 0% 0% no-repeat padding-box",
-      opacity: 0.5,
-      width:"10vw",
-      height:"0.7vh",
-      float:'left',
-      // paddingLeft:"10px",
-      border: '1px solid #ced4da',
-      fontSize: 16,
-      // padding: '10px 20px 10px 100px',
-      transition: theme.transitions.create(['border-color', 'box-shadow']),
-     
-      '&:focus': {
-        borderRadius: 8,
-        borderColor: '#80bdff',
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-      },
-    },
-  }))(InputBase);
-  
-  const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(0),
-      
-    },
-   
-    textField: {
-      width: '90%',
-  },
-  input: {
-    fontSize:'1vw'
-  }
-  }));
-  const classes = useStyles();
-  
+      WebFont.load({
+      google: {
+        // src:"https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js",
+        families: arr
+      }
+      })
+   // })
+   setismyt(false)
+ }
+    
+    
+}
+// $("#c").one( "click", function() {
+//   const arr = [];
+//   fontFamilies.map((i) => { arr.push(i.family) })
+//  // React.lazy(()=>{
+
+//     WebFont.load({
+//     google: {
+//       // src:"https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js",
+//       families: arr
+//     }
+//     })
+// })
 
  
  return (
 //<div style={{width:"100%",height:'100%',alignItems:'center'}}>
- 
-       <FormControl  id='c' className={classes.margin} style={{width:'100%',height:'90%',fontSize:'1vw'}} >
+ //<Suspense fallback={<div>Loading</div>}>
+       <FormControl  id='c'
+        onClick={()=>{findMyFtSize()}}
+      //  className={classes.margin} 
+       style={{width:'100%',height:'90%',fontSize:'1vw'}} >
       
 
 <Autocomplete
       id="moi"
+      //onClick={()=>{findMyFtSize()}}
       options={arrFonts}
       onChange={(event) =>setValueMe(event.target.innerText,"fontFamily") }
       getOptionLabel={(option) => option.family}
@@ -124,6 +121,7 @@ export default connect( null,mapDispatchToProps) ( function Font(props) {
 
 
       </FormControl>
+    //  </Suspense>
      
    // </div>
 

@@ -14,7 +14,7 @@ import './editElement.css'
 function EditElement(props) {
     const {elementInEditing}=props
     return (
-        <div className="card button_collapse p-0" style={{width:'100%'}}>
+        <div className="card button_collapse p-0" style={{width:'100%',height:'90%'}}>
                            
                             <div id="collapseTwo" className="collapse show" name="1" aria-labelledby="headingTwo"
                                 data-parent="#accordion" style={{width:'100%',height:'100%'}}>

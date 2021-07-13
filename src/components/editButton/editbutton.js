@@ -82,7 +82,7 @@ console.log(type)
 
         <>
 
-        <Container style={{height:'100%'}}>
+<Container style={{height:'100%'}}>
 
         
 <Row style={{fontSize:"1.5vw",color:'#4169E1', fontWeight:'bold'}}>
@@ -104,8 +104,8 @@ console.log(type)
 <Grid container direction="row" style={{height:"5vh"}}>
                 <Grid item sm={1} md={1}> <img style={{ alignItems: "right" ,height:'100%',width:'100%' }} src={textSize}></img> </Grid>
                 <Grid item sm={1} md={1}></Grid>
-                <Grid item sm={7} md={7}> 
-                < Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
+                <Grid item sm={6} md={6}> 
+                {/* < Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
                     <Box width={'100%'}  >
                         <Slider
                           key={`fontSize-${BtnOnEdit.id}`}
@@ -121,13 +121,20 @@ console.log(type)
 
                            
                         />
-                    </Box>  </Box>
+                    </Box>  </Box> */}
+                           <input type="range" 
+                // style={{height:'100%', width:'100%'}} 
+                className="slider"  data-toggle="tooltip" data-placement="bottom"  min="10" max="50" step="1"
+         onChange={(e) => changeVal(e.target.value, "fontSize")}
+         defaultValue={elementInEditing.fontSize}
+         
+         />
                 
                 </Grid>
                 
                 <Grid item md={1} sm={1} />
 
-               <Grid item md={2} sm={2} > <p style={{alignItems:'left', fontSize:'1vw'}}>{BtnOnEdit.fontSize? BtnOnEdit.fontSize+'px':""}</p> </Grid>
+               <Grid item md={3} sm={3} > <p style={{alignItems:'left', fontSize:'1vw'}}>{BtnOnEdit.fontSize? BtnOnEdit.fontSize+'px':""}</p> </Grid>
                     
               
                 
@@ -140,9 +147,10 @@ console.log(type)
             <Grid container direction="row" style={{height:"5vh", marginTop:'5px'}}>
         <Grid item sm={1} md={1}> <BorderLeftIcon style={{ alignItems: "right",height:'100%',width:'100%' }}></BorderLeftIcon></Grid>
         <Grid item sm={1} md={1}></Grid>
-        <Grid item sm={7} md={7}> <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
-          <Box width={'100%'} >
-            <Slider
+        <Grid item sm={7} md={7}>
+           {/* <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
+          <Box width={'100%'} > */}
+            {/* <Slider
              key={`width-${BtnOnEdit.id}`}
               defaultValue={BtnOnEdit.width}
               step={1}
@@ -154,7 +162,14 @@ console.log(type)
              onChangeCommitted={(e) => changeVal(e.target.ariaValueNow, "width")}
             />
           </Box> 
-          </Box>
+          </Box> */}
+                 <input type="range" 
+                // style={{height:'100%', width:'100%'}} 
+                className="slider" id="" data-toggle="tooltip" data-placement="bottom" placeholder="" min="25" max="100" step="1"
+         onChange={(e) => changeVal(e.target.value, "width")}
+         defaultValue={BtnOnEdit.width}
+         
+         />
         </Grid>
           <Grid item md={1} sm={1} />
 
@@ -198,21 +213,30 @@ console.log(type)
       <Grid container direction="row"  style={{height:"5vh"}}>
         <Grid item sm={1} md={1}> <BorderStyleIcon style={{ alignItems: "right",height:'100%',width:'100%' }}></BorderStyleIcon></Grid>
         <Grid item sm={1} md={1}></Grid>
-        <Grid item sm={7}  md={7}> <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
+        <Grid item sm={7}  md={7}> 
+        {/* <Box flexDirection="row" display="flex" justifyContent="space-between" style={{ alignItems: "center",height:'100%',width:'100%' }}>
           <Box width={'100%'} >
             <Slider
              key={`opac-${BtnOnEdit.id}`}
               defaultValue={BtnOnEdit.borderRadius}
-              step={0.1}
+              step={1}
               marks
               min={0}
-              max={10}
+              max={100}
               valueLabelDisplay="auto"
            //   onChange={(e) => changeVal(e.target.ariaValueNow, "borderRadius")}
            onChangeCommitted={(e) => changeVal(e.target.ariaValueNow, "borderRadius")}
             />
           </Box>
-</Box></Grid>
+</Box> */}
+ <input type="range" 
+                // style={{height:'100%', width:'100%'}} 
+                className="slider" id="" data-toggle="tooltip" data-placement="bottom" placeholder="" min="0" max="50" step="1"
+         onChange={(e) => changeVal(e.target.value, "borderRadius")}
+         defaultValue={BtnOnEdit.borderRadius}
+         
+         />
+</Grid>
           <Grid item sm={1}  md={1}/>
 
           <Grid item md={2} sm={2} > <p style={{alignItems:'left', fontSize:'1vw'}}>{BtnOnEdit.borderRadius}</p> </Grid>
@@ -240,8 +264,14 @@ console.log(type)
     <b style={{ fontSize: "1vw" }}>Send Link To</b>
 
   <Grid container direction='row' style={{height:'8vh',alignItems:'center'}}  >
-  <input style={{fontSize:'1vw',color:'black'}} type="text" className="form-control input urlVideo" data-placement="bottom" placeholder="enter yout link" onChange={(e) => setMurl(e.target.value)}  /> 
-  <button style={{fontSize:'1vw'}} onClick={()=>murl?window.open(murl):''}>Ok</button>
+  <Grid item md={9}>  <input style={{fontSize:'1vw',color:'black'}} type="text" className="form-control input urlVideo" data-placement="bottom" placeholder="enter yout link" onChange={(e) => setMurl(e.target.value)}  /> 
+ </Grid>
+ <Grid item md={1}/> 
+ <Grid item md={2}> 
+ <button style={{fontSize:'1vw', border:'none',borderRadius:'45px'}} onClick={()=>murl?window.open(murl):''}>Ok</button>
+
+ </Grid>
+ 
  {/* {
    murl?<Iframe url={murl}
    width="100%"
@@ -256,6 +286,9 @@ console.log(type)
   
 </Container>
         </>
+
+
+
 
 
 
