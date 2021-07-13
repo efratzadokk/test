@@ -13,7 +13,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import styled from 'styled-components';
 import WrapAll from './components/wrapAll/wrap_all'
-import MyGallery from './components/image_gallery/imageGallery'
+import MyGallery from './components/slider/slider'
 import ListPapers from './components/listPapers/listPapers';
 import {actions} from './redux/actions/funnel-try.action'
 

@@ -20,11 +20,13 @@ const initialState = {
     isOpenAllFunnels: false,
     editMode: true,
     collapseIsOpen: '',
-    posElement:'',
+    posElement: '',
+    imgsToUpload: [],
+    imgsGallery: [],
     name: 'firstFunnel4',// window.location.pathname.split('/')[3],
     allFunnels: [
         {
-            name:"funneltoChaya",
+            name: "funneltoChaya",
             // json:  { 
             //      num_elements: 0,
             // num_sections: 0,
@@ -34,7 +36,7 @@ const initialState = {
             //     , opacity: '0.99'
             // },
             // arrSections: [
-    
+
             // ],
             // },
             json: {
@@ -49,17 +51,17 @@ const initialState = {
                     {
                         gridType: "b",
                         id: 1,
-                        settings:{
-                            style:{
+                        settings: {
+                            style: {
                                 backgroundColor: ""
                             }
                         },
-                        arrParts:[
+                        arrParts: [
                             {
-                                settings:{
+                                settings: {
                                     style: {}
                                 },
-                                arrElements:[
+                                arrElements: [
                                     {
                                         backgroundColor: "transparent",
                                         border: false,
@@ -76,10 +78,10 @@ const initialState = {
                                 ]
                             },
                             {
-                                settings:{
+                                settings: {
                                     style: {}
                                 },
-                                arrElements:[
+                                arrElements: [
                                     {
                                         backgroundColor: "#e60a0a",
                                         borderRadius: "0",
@@ -92,19 +94,19 @@ const initialState = {
                                         width: "53",
                                     }
                                 ]
-        
+
                             }
                         ]
-        
+
                     },
                     {
                         gridType: "b",
                         id: 2,
-                        settings:{style:{backgroundColor: ""}},
-                        arrParts:[
+                        settings: { style: { backgroundColor: "" } },
+                        arrParts: [
                             {
-                                settings:{style: {}},
-                                arrElements:[
+                                settings: { style: {} },
+                                arrElements: [
                                     {
                                         color: "#cb8e25",
                                         height: "5",
@@ -115,26 +117,26 @@ const initialState = {
                                 ]
                             },
                             {
-                                settings:{style: {}},
-                                arrElements:[]
+                                settings: { style: {} },
+                                arrElements: []
                             }
-        
+
                         ]
-        
+
                     }
                 ]
-        
-        
-        
-        
+
+
+
+
             },
-        
-            url:"ftyghj",
-            date:Date.now(),
-            lastUpdate:Date.now(),
-            viewsNumber:0,
-            count:0,
-            user:"WzM020nw4TgcAo1XIyl94g0Z0152"
+
+            url: "ftyghj",
+            date: Date.now(),
+            lastUpdate: Date.now(),
+            viewsNumber: 0,
+            count: 0,
+            user: "WzM020nw4TgcAo1XIyl94g0Z0152"
         }
     ],
     idFunnel: '',
@@ -143,26 +145,13 @@ const initialState = {
         { index: 0, type: 'logo', border: false, path: '', backgroundColor: "", borderRadius: "", width: "", height: "", alignItem: "center" },
         { index: 1, type: 'title', border: false, text: "Welcome enter your title!", backgroundColor: "transparent", color: "black", textAlign: "center", fontSize: "25", fontFamily: 'Arial, Helvetica, sans-serif' },
         { index: 2, type: 'button', fontSize: "25", text: "Button ", color: "black", backgroundColor: "grey", textAlign: "center", fontFamily: 'Arial, Helvetica, sans-serif', borderRadius: '0', width: '100' },
-        { index:3 ,  type: 'image', border: false, path: '',  backgroundColor: "", width: "20", borderRadius: "", height: "10", textAlign: "center" , opacity:'0.6'},
-        { index:4 ,type: 'paragraph',text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
-        border: false,  color: "black", textAlign: "center", fontSize: "16", fontFamily:'Arial, Helvetica, sans-serif' , backgroundColor: "transparent"
-    },
-    {index:5 ,  type: 'video', border: false, path: '',  backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center" , opacity:'0.6'},
-
-
+        { index: 3, type: 'image', border: false, path: '', backgroundColor: "", width: "20", borderRadius: "", height: "10", textAlign: "center", opacity: '0.6' },
         {
-            index: 6, images: [
-                {
-                    original: 'https://picsum.photos/id/1018/1000/600/',
-                    thumbnail: 'https://picsum.photos/id/1018/250/150/',
-                },
-                {
-                    original: 'https://picsum.photos/id/1015/1000/600/',
-                    thumbnail: 'https://picsum.photos/id/1015/250/150/',
-                }
-            ], type: 'gallery', border: false, path: '', backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center", opacity: '0.6'
+            index: 4, type: 'paragraph', text: "Welcome to the family Thanks to you we grew up and now we are over 2000 members  You are welcome to start an activity to get started Click here",
+            border: false, color: "black", textAlign: "center", fontSize: "16", fontFamily: 'Arial, Helvetica, sans-serif', backgroundColor: "transparent"
         },
-        
+        { index: 5, type: 'video', border: false, path: '', backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center", opacity: '0.6' },
+        { index: 6, type: 'gallery', images: [], border: false, path: '', backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center", opacity: '0.6' },
         { index: 7, type: 'spacer', border: false, color: "#D3D3D3", borderRadius: "2", width: "20", height: "5" },
         { index: 8, type: 'icon', border: false, opacity: '1', fontSize: '20', color: "black", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1" },
         { index: 9, type: 'form', border: false, text: "Welcome enter your title!", color: "black", textAlign: "center", fontSize: "25px", fontFamily: 'Arial, Helvetica, sans-serif' },
@@ -171,104 +160,105 @@ const initialState = {
 
     ],
     // jsonPage: {
-        // num_elements: 3,
-        // num_sections: 3,
-        // image_funnel: '',
-        // settings: {
-        //     style: { color: '', backgroundColor: 'rgba(255,255,255,0.99)', opacity: '0.99' }
-        //     , opacity: '0.99'
-        // },
-        // arrSections: [
-        //     {
-        //         gridType: "b",
-        //         id: 1,
-        //         settings:{
-        //             style:{
-        //                 backgroundColor: ""
-        //             }
-        //         },
-        //         arrParts:[
-        //             {
-        //                 settings:{
-        //                     style: {}
-        //                 },
-        //                 arrElements:[
-        //                     {
-        //                         backgroundColor: "transparent",
-        //                         border: false,
-        //                         borderRadius: undefined,
-        //                         color: "#801fad",
-        //                         fontFamily: "Abril Fatface",
-        //                         fontSize: "25",
-        //                         id: 0,
-        //                         textAlign: "center",
-        //                         type: "Title",
-        //                         value: "Good mornning chaya!!",
-        //                         settings: {}
-        //                     }
-        //                 ]
-        //             },
-        //             {
-        //                 settings:{
-        //                     style: {}
-        //                 },
-        //                 arrElements:[
-        //                     {
-        //                         backgroundColor: "#e60a0a",
-        //                         borderRadius: "0",
-        //                         color: "#050976",
-        //                         fontFamily: "Arial, Helvetica, sans-serif",
-        //                         fontSize: "22",
-        //                         textAlign: "center",
-        //                         type: "Button",
-        //                         value: "click here",
-        //                         width: "53",
-        //                     }
-        //                 ]
-
-        //             }
-        //         ]
-
-        //     },
-        //     {
-        //         gridType: "b",
-        //         id: 2,
-        //         settings:{style:{backgroundColor: ""}},
-        //         arrParts:[
-        //             {
-        //                 settings:{style: {}},
-        //                 arrElements:[
-        //                     {
-        //                         color: "#cb8e25",
-        //                         height: "5",
-        //                         id: 2,
-        //                         settings: {},
-        //                         type: "Spacer",
-        //                     }
-        //                 ]
-        //             },
-        //             {
-        //                 settings:{style: {}},
-        //                 arrElements:[]
-        //             }
-
-        //         ]
-
-        //     }
-        // ]
+    // num_elements: 3,
+    // num_sections: 3,
+    // image_funnel: '',
+    // settings: {
+    //     style: { color: '', backgroundColor: 'rgba(255,255,255,0.99)', opacity: '0.99' }
+    //     , opacity: '0.99'
     // },
-        jsonPage: {
-            num_elements: 1,
-            num_sections: 1,
-            image_funnel: '',
-            settings: {
-                style: { color: '', backgroundColor: 'rgba(255,255,255,0.99)', opacity: '0.99' }
-                , opacity: '0.99'
-            },
-            arrSections: [
-                {arrParts:[
+    // arrSections: [
+    //     {
+    //         gridType: "b",
+    //         id: 1,
+    //         settings:{
+    //             style:{
+    //                 backgroundColor: ""
+    //             }
+    //         },
+    //         arrParts:[
+    //             {
+    //                 settings:{
+    //                     style: {}
+    //                 },
+    //                 arrElements:[
+    //                     {
+    //                         backgroundColor: "transparent",
+    //                         border: false,
+    //                         borderRadius: undefined,
+    //                         color: "#801fad",
+    //                         fontFamily: "Abril Fatface",
+    //                         fontSize: "25",
+    //                         id: 0,
+    //                         textAlign: "center",
+    //                         type: "Title",
+    //                         value: "Good mornning chaya!!",
+    //                         settings: {}
+    //                     }
+    //                 ]
+    //             },
+    //             {
+    //                 settings:{
+    //                     style: {}
+    //                 },
+    //                 arrElements:[
+    //                     {
+    //                         backgroundColor: "#e60a0a",
+    //                         borderRadius: "0",
+    //                         color: "#050976",
+    //                         fontFamily: "Arial, Helvetica, sans-serif",
+    //                         fontSize: "22",
+    //                         textAlign: "center",
+    //                         type: "Button",
+    //                         value: "click here",
+    //                         width: "53",
+    //                     }
+    //                 ]
+
+    //             }
+    //         ]
+
+    //     },
+    //     {
+    //         gridType: "b",
+    //         id: 2,
+    //         settings:{style:{backgroundColor: ""}},
+    //         arrParts:[
+    //             {
+    //                 settings:{style: {}},
+    //                 arrElements:[
+    //                     {
+    //                         color: "#cb8e25",
+    //                         height: "5",
+    //                         id: 2,
+    //                         settings: {},
+    //                         type: "Spacer",
+    //                     }
+    //                 ]
+    //             },
+    //             {
+    //                 settings:{style: {}},
+    //                 arrElements:[]
+    //             }
+
+    //         ]
+
+    //     }
+    // ]
+    // },
+    jsonPage: {
+        num_elements: 1,
+        num_sections: 1,
+        image_funnel: '',
+        settings: {
+            style: { color: '', backgroundColor: 'rgba(255,255,255,0.99)', opacity: '0.99' }
+            , opacity: '0.99'
+        },
+        arrSections: [
+            {
+                arrParts: [
                     {
-                        arrElements:[
+                        arrElements: [
                             {
                                 backgroundColor: "transparent",
                                 border: false,
@@ -281,235 +271,231 @@ const initialState = {
                                 textAlign: "left",
                                 type: "Title",
                                 value: "      🪐  YOUR LOGO"
-                         },{
-                            backgroundColor: "transparent",
-                            border: false,
-                            borderRadius: undefined,
-                            color: "black",
-                            fontFamily: "Acme",
-                            fontSize: "33",
-                            id: 1,
-                            settings: {},
-                            textAlign: "center",
-                            type: "Title",
-                            value: "START CREATE",
-                         },{
-                            backgroundColor: "transparent",
-                            border: false,
-                            borderRadius: undefined,
-                            color: "black",
-                            fontFamily: "Acme",
-                            fontSize: "35",
-                            id: 2,
-                            settings: {},
-                            textAlign: "center",
-                            type: "Title",
-                            value: "LANDING PAGE",
-                         },{
-                            backgroundColor: "transparent",
-                            border: false,
-                            borderRadius: undefined,
-                            color: "#193880",
-                            fontFamily: "Acme",
-                            fontSize: "17",
-                            id: 3,
-                            settings: {borderStyle: "none"},
-                            textAlign: "center",
-                            type: "Paragraph",
-                            value: "Lorem ipsum dolor sit amet,\r\n consectetuer adipiscing elit,\r\n sed diam "
-                         },
-                        //  {
-                        //     color: "#ffffff",
-                        //     height: "1.5",
-                        //     id: 4,
-                        //     settings: {},
-                        //     type: "Spacer"
-                        //  },
-                         {
-                            backgroundColor: "#13436c",
-                            borderRadius: "30",
-                            color: "#ffffff",
-                            fontFamily: "Acme",
-                            fontSize: "16",
-                            id: 2,
-                            settings: {},
-                            textAlign: "left",
-                            type: "Button",
-                            value: "Learn more",
-                            width: "50",
-                            height:"10"
-                         }
-                         ],
-                        settings:{
-                            style:{}
+                            }, {
+                                backgroundColor: "transparent",
+                                border: false,
+                                borderRadius: undefined,
+                                color: "black",
+                                fontFamily: "Acme",
+                                fontSize: "33",
+                                id: 1,
+                                settings: {},
+                                textAlign: "center",
+                                type: "Title",
+                                value: "START CREATE",
+                            }, {
+                                backgroundColor: "transparent",
+                                border: false,
+                                borderRadius: undefined,
+                                color: "black",
+                                fontFamily: "Acme",
+                                fontSize: "35",
+                                id: 2,
+                                settings: {},
+                                textAlign: "center",
+                                type: "Title",
+                                value: "LANDING PAGE",
+                            }, {
+                                backgroundColor: "transparent",
+                                border: false,
+                                borderRadius: undefined,
+                                color: "#193880",
+                                fontFamily: "Acme",
+                                fontSize: "17",
+                                id: 3,
+                                settings: { borderStyle: "none" },
+                                textAlign: "center",
+                                type: "Paragraph",
+                                value: "Lorem ipsum dolor sit amet,\r\n consectetuer adipiscing elit,\r\n sed diam "
+                            },
+                            //  {
+                            //     color: "#ffffff",
+                            //     height: "1.5",
+                            //     id: 4,
+                            //     settings: {},
+                            //     type: "Spacer"
+                            //  },
+                            {
+                                backgroundColor: "#13436c",
+                                borderRadius: "30",
+                                color: "#ffffff",
+                                fontFamily: "Acme",
+                                fontSize: "16",
+                                id: 2,
+                                settings: {},
+                                textAlign: "left",
+                                type: "Button",
+                                value: "Learn more",
+                                width: "50",
+                                height: "10"
+                            }
+                        ],
+                        settings: {
+                            style: {}
                         }
                     },
-    
+
                     {
-                        arrElements:[
+                        arrElements: [
                             {
                                 backgroundColor: "",
                                 border: false,
-                                id:6,
-                                settings: {borderStyle: "none", width: "100%", height: "100%", opacity: "0.99"},
+                                id: 6,
+                                settings: { borderStyle: "none", width: "100%", height: "100%", opacity: "0.99" },
                                 textAlign: "center",
                                 type: "Image",
                                 // value: {defualtValue}
                                 value: "blob:http://localhost:3000/71d45d00-19de-4574-b0b6-2ab7c5a41d11"
-    
+
                                 // "blob:http://localhost:3000/7d846e07-f4ea-47b"
-    
+
                             },
-                           
+
                         ],
-                        settings:{
-                            style:{}
+                        settings: {
+                            style: {}
                         }
                     }
                 ],
-                gridType:"b",
-                id:0,
-                    settings:{
-                    style:{
-                        backgroundColor:""
+                gridType: "b",
+                id: 0,
+                settings: {
+                    style: {
+                        backgroundColor: ""
                     }
                 }
             }
-    
-            ]
-    
-    
-    
-    
-        },
+
+        ]
+    },
 }
 
 const funnelReducer = {
 
     setIsOpenCon(state, action) {
-        return {...state, isOpenConfigurator: action.payload }
+        return { ...state, isOpenConfigurator: action.payload }
     },
-    setFlagthumbtack(state, action){
+    setFlagthumbtack(state, action) {
         state.thumbtack = action.payload
         return state;
     },
-    addSection(state,action){
+    addSection(state, action) {
         let newSection = action.payload.newSection
         newSection.id = action.payload.id
-        newSection.gridType=action.payload.s
+        newSection.gridType = action.payload.s
         state.jsonPage.arrSections.push(newSection)
         state.jsonPage.num_sections++
         console.log(state.jsonPage.num_sections)
         return state
     },
-    setBorderParts(state,action){
+    setBorderParts(state, action) {
         state.borderPart = action.payload
         return state;
     },
-    setPosElement(state,action){
+    setPosElement(state, action) {
         // console.log("action.payload:",action.payload)
-        state.posElement=action.payload
+        state.posElement = action.payload
         return state
     },
-    addElement(state,action){
+    addElement(state, action) {
         debugger
-            let newElement
-            if (action.payload.type === 'Title' || action.payload.type === 'Paragraph') {
+        let newElement
+        if (action.payload.type === 'Title' || action.payload.type === 'Paragraph') {
 
-                newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontSize: action.payload.value.fontSize, border: action.payload.value.border, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius, settings: {}, id: action.payload.id }
-            }
-            else if (action.payload.type === 'Button') {
-                newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontSize: action.payload.value.fontSize, borderRadius: action.payload.value.borderRadius, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor,  width: action.payload.value.width, settings: {}, id: action.payload.id }
+            newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontSize: action.payload.value.fontSize, border: action.payload.value.border, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius, settings: {}, id: action.payload.id }
+        }
+        else if (action.payload.type === 'Button') {
+            newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontSize: action.payload.value.fontSize, borderRadius: action.payload.value.borderRadius, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, width: action.payload.value.width, settings: {}, id: action.payload.id }
 
-            }
-            else if (action.payload.type === 'Spacer') {
-                newElement = { type: action.payload.type, color: action.payload.value.color, height: action.payload.value.height, settings: {}, id: action.payload.id }
+        }
+        else if (action.payload.type === 'Spacer') {
+            newElement = { type: action.payload.type, color: action.payload.value.color, height: action.payload.value.height, settings: {}, id: action.payload.id }
 
-            }
-            else if (action.payload.type === 'Image' || action.payload.type=== 'Video') {
-                // if (action.payload.type == 'Gallery')
-                //     action.payload.value = []
-             newElement = { type: action.payload.type, value: action.payload.value.value, textAlign: action.payload.value.textAlign,backgroundColor:action.payload.value.backgroundColor,border:action.payload.value.border, settings: {}, id: action.payload.id}
-              
-                // newElement = { type: action.payload.type, value: action.payload.value.value, images: action.payload.value.images, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border:action.payload.value.border , settings: {}, id: action.payload.id}
-            }
-            else if (action.payload.type === 'Icon' || action.payload.type ==='Form' || action.payload.type === 'Sharing') {
-                newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
-            }
-            else if (action.payload.type === 'Html') {
-                newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontFamily: action.payload.value.fontFamily, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
-            }
-            else if (action.payload.type === 'Gallery') {
-                newElement = { type: action.payload.type, value: action.payload.value.value, images: action.payload.value.images, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border:action.payload.value.border , settings: {}, id: action.payload.id}
-            }
-            console.log(newElement)
+        }
+        else if (action.payload.type === 'Image' || action.payload.type === 'Video') {
+            // if (action.payload.type == 'Gallery')
+            //     action.payload.value = []
+            newElement = { type: action.payload.type, value: action.payload.value.value, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border: action.payload.value.border, settings: {}, id: action.payload.id }
 
-if(state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements!==[]){
+            // newElement = { type: action.payload.type, value: action.payload.value.value, images: action.payload.value.images, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border:action.payload.value.border , settings: {}, id: action.payload.id}
+        }
+        else if (action.payload.type === 'Icon' || action.payload.type === 'Form' || action.payload.type === 'Sharing') {
+            newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
+        }
+        else if (action.payload.type === 'Html') {
+            newElement = { type: action.payload.type, value: action.payload.value.value, color: action.payload.value.color, fontFamily: action.payload.value.fontFamily, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
+        }
+        else if (action.payload.type === 'Gallery') {
+            newElement = { type: action.payload.type, value: action.payload.value.value, images: action.payload.value.images, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border: action.payload.value.border, settings: {}, id: action.payload.id }
+        }
+        console.log(newElement)
 
-const y=action.payload.posY
-// console.log("y newElement:",y)
-// state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.reverse().map((element)=>{
-// var elem= document.getElementById(element.id)
-// if(y<elem.getBoundingClientRect.y)
-// afterId=element.id
-// })
+        if (state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements !== []) {
 
-}
-// afterIndex=state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.findIndex(func)
-// state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.splice(afterIndex+1,0,newElement)
-            state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
-            state.elementInEditing = newElement;
-            state.collapseIsOpen = "element"
-            state.jsonPage.num_elements++
-            // state.editinigElement = true
-            return state
+            const y = action.payload.posY
+            // console.log("y newElement:",y)
+            // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.reverse().map((element)=>{
+            // var elem= document.getElementById(element.id)
+            // if(y<elem.getBoundingClientRect.y)
+            // afterId=element.id
+            // })
+
+        }
+        // afterIndex=state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.findIndex(func)
+        // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.splice(afterIndex+1,0,newElement)
+        state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+        state.elementInEditing = newElement;
+        state.collapseIsOpen = "element"
+        state.jsonPage.num_elements++
+        // state.editinigElement = true
+        return state
     },
-    addElement1(state,action){
-                    //avant
-            // const newElement = { type: action.payload.type, value: action.payload.value}
-            //apres
-            let newElement
-            console.log(action.payload.type)
-            if (action.payload.type === 'Title' || action.payload.type === 'Paragraph') {
-                // console.log('he enter a itle or addelement1')
+    addElement1(state, action) {
+        //avant
+        // const newElement = { type: action.payload.type, value: action.payload.value}
+        //apres
+        let newElement
+        console.log(action.payload.type)
+        if (action.payload.type === 'Title' || action.payload.type === 'Paragraph') {
+            // console.log('he enter a itle or addelement1')
 
-                newElement = { type: action.payload.type, value: action.payload.value.text, color: action.payload.value.color, fontSize: action.payload.value.fontSize, border: action.payload.value.border, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius }
-                //  newElement={ type: action.payload.type, value: action.payload.value.text}
+            newElement = { type: action.payload.type, value: action.payload.value.text, color: action.payload.value.color, fontSize: action.payload.value.fontSize, border: action.payload.value.border, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius }
+            //  newElement={ type: action.payload.type, value: action.payload.value.text}
 
-            }
-            else if (action.payload.type === 'Image' || action.payload.type === 'Video' ) {
-                // newElement = { type: action.payload.type, value: action.payload.value.path, images: action.payload.value.images, alignItem: action.payload.value.alignItem, backgroundColor: action.payload.value.backgroundColor }
-                newElement = { type: action.payload.type, value: action.payload.value.path ,textAlign: action.payload.value.textAlign,border:action.payload.value.border,backgroundColor:action.payload.value.backgroundColor}
+        }
+        else if (action.payload.type === 'Image' || action.payload.type === 'Video') {
+            // newElement = { type: action.payload.type, value: action.payload.value.path, images: action.payload.value.images, alignItem: action.payload.value.alignItem, backgroundColor: action.payload.value.backgroundColor }
+            newElement = { type: action.payload.type, value: action.payload.value.path, textAlign: action.payload.value.textAlign, border: action.payload.value.border, backgroundColor: action.payload.value.backgroundColor }
 
 
-            }
-            else if (action.payload.type === 'Icon' || action.payload.type === 'Form' || action.payload.type === 'Sharing') {
-                newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize }
-            }
-            else if (action.payload.type === 'Button') {
-                newElement = { type: action.payload.type, value: action.payload.value.text, color: action.payload.value.color, fontSize: action.payload.value.fontSize, border: action.payload.value.borderRadius, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius, width: action.payload.value.width }
+        }
+        else if (action.payload.type === 'Icon' || action.payload.type === 'Form' || action.payload.type === 'Sharing') {
+            newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize }
+        }
+        else if (action.payload.type === 'Button') {
+            newElement = { type: action.payload.type, value: action.payload.value.text, color: action.payload.value.color, fontSize: action.payload.value.fontSize, border: action.payload.value.borderRadius, textAlign: action.payload.value.textAlign, fontFamily: action.payload.value.fontFamily, backgroundColor: action.payload.value.backgroundColor, borderRadius: action.payload.value.borderRadius, width: action.payload.value.width }
 
-            }
-            else if (action.payload.type === 'Spacer') {
-                newElement = { type: action.payload.type, color: action.payload.value.color, height: action.payload.value.height }
+        }
+        else if (action.payload.type === 'Spacer') {
+            newElement = { type: action.payload.type, color: action.payload.value.color, height: action.payload.value.height }
 
-            }
-            else if (action.payload.type === 'Html') {
-                newElement = { type: action.payload.type, value: action.payload.value.text, color: action.payload.value.color, fontFamily: action.payload.value.fontFamily, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
-            }
-            else if (action.payload.type === 'Gallery') {
-                newElement = { type: action.payload.type, value: action.payload.value.path, images: action.payload.value.images, alignItem: action.payload.value.alignItem, backgroundColor: action.payload.value.backgroundColor }
-            }
+        }
+        else if (action.payload.type === 'Html') {
+            newElement = { type: action.payload.type, value: action.payload.value.text, color: action.payload.value.color, fontFamily: action.payload.value.fontFamily, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
+        }
+        else if (action.payload.type === 'Gallery') {
+            newElement = { type: action.payload.type, value: action.payload.value.path, images: action.payload.value.images, alignItem: action.payload.value.alignItem, backgroundColor: action.payload.value.backgroundColor }
+        }
 
-            // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
-            // state.elementInEditing = newElement;
-            // state.collapseIsOpen = "element"
-            // state.jsonPage.num_elements++
-            state.newElementTypeAndValue = newElement
-            // state.editinigElement = true
-            return state
+        // state.jsonPage.arrSections[action.payload.section].arrParts[action.payload.part].arrElements.push(newElement)
+        // state.elementInEditing = newElement;
+        // state.collapseIsOpen = "element"
+        // state.jsonPage.num_elements++
+        state.newElementTypeAndValue = newElement
+        // state.editinigElement = true
+        return state
     },
-    setValueElement(state,action){
+    setValueElement(state, action) {
         console.log(action.payload.value)
         state.elementInEditing.value = action.payload.value
         state.jsonPage.arrSections.map((item, a) => {
@@ -523,14 +509,14 @@ const y=action.payload.posY
         })
         return state
     },
-    setValueMe(state,action){
-        let stv= action.payload.type
+    setValueMe(state, action) {
+        let stv = action.payload.type
         state.jsonPage.arrSections.map((item, a) => {
             item.arrParts.map((item, b) => {
                 item.arrElements.map((item, c) => {
                     debugger
                     if (item.id == state.elementInEditing.id) {
-                         item[stv]=action.payload.value
+                        item[stv] = action.payload.value
                     }
                 })
             })
@@ -538,11 +524,11 @@ const y=action.payload.posY
         return state
 
     },
-    setMonIndex(state,action){
-        state.monindex=action.payload
+    setMonIndex(state, action) {
+        state.monindex = action.payload
         return state
     },
-    setValueElement(state,action){
+    setValueElement(state, action) {
         state.elementInEditing.value = action.payload.value
         state.jsonPage.arrSections.map((item, a) => {
             item.arrParts.map((item, b) => {
@@ -556,18 +542,18 @@ const y=action.payload.posY
         })
         return state
     },
-    moveElementInPart(state,action){
-                  // let a= state.jsonPage.arrSections[0].arrParts[0].arrElements;
-            // state.jsonPage.arrSections[0].arrParts[0].arrElements.splice(2, 0,state.jsonPage.arrSections[0].arrParts[0].arrElements.splice(2,1)[0] );
-            // // state.jsonPage.arrSections[0].arrParts[0].arrElements=a
-            // const components = prevState.components.slice(0);
-            // components.splice(0, 0, element);
-            // return { components };
-            let a = state.jsonPage.arrSections[0].arrParts[0].arrElements.splice(action.payload.dragIndex, 1)
-            state.jsonPage.arrSections[0].arrParts[0].arrElements.splice(action.payload.hoverIndex, 0, a[0])
-            return state
+    moveElementInPart(state, action) {
+        // let a= state.jsonPage.arrSections[0].arrParts[0].arrElements;
+        // state.jsonPage.arrSections[0].arrParts[0].arrElements.splice(2, 0,state.jsonPage.arrSections[0].arrParts[0].arrElements.splice(2,1)[0] );
+        // // state.jsonPage.arrSections[0].arrParts[0].arrElements=a
+        // const components = prevState.components.slice(0);
+        // components.splice(0, 0, element);
+        // return { components };
+        let a = state.jsonPage.arrSections[0].arrParts[0].arrElements.splice(action.payload.dragIndex, 1)
+        state.jsonPage.arrSections[0].arrParts[0].arrElements.splice(action.payload.hoverIndex, 0, a[0])
+        return state
     },
-    elementInEditing(state,action){
+    elementInEditing(state, action) {
         state.jsonPage.arrSections.map((item, a) => {
             item.arrParts.map((item, b) => {
                 item.arrElements.map((item, c) => {
@@ -580,15 +566,15 @@ const y=action.payload.posY
         state.editinigElement = true
         return state
     },
-    sectionInEditing(state,action){
+    sectionInEditing(state, action) {
         state.indexSectionInEditing = action.payload
         return state
     },
-    removeSection(state,action){
+    removeSection(state, action) {
         state.jsonPage.arrSections.splice(action.payload, 1)
         return state
     },
-    setCollapseOpen(state,action){
+    setCollapseOpen(state, action) {
         // debugger
         state.collapseIsOpen = action.payload.collapse
         console.log(action.payload.collapse)
@@ -616,7 +602,7 @@ const y=action.payload.posY
 
         return state
     },
-    removeElement(state,action){
+    removeElement(state, action) {
         state.jsonPage.arrSections.map((item, a) => {
             item.arrParts.map((item, b) => {
                 item.arrElements.map((item, c) => {
@@ -628,37 +614,86 @@ const y=action.payload.posY
         })
         return state
     },
-    saveInLocalStorage(state,action){
+    saveInLocalStorage(state, action) {
         console.log(state.jsonPage)
         localStorage.setItem("json", JSON.stringify(state.jsonPage));
         window.open(`${state.urlPage}/${state.userName}/${state.name}`)
         return state
     },
-    changeEditMode(state,action){
+    changeEditMode(state, action) {
         state.editMode = action.payload
         return state
     },
-    setJsonPage(state,action){
+    setAllFiles(state, action) {
+        action.payload.map((img) => {
+            state.imgsGallery.push({ name: img.name, url: img.url })
+        })
+        return state
+    },
+    delImgsArr(state, action) {
+        state.imgsToUpload = []
+        return state
+    },
+    addImgs(state, action) {
+        action.payload.map(image => {
+            state.imgsGallery.map((img, index) => {
+                //fix the if
+                if (img.name == image.name)
+                    state.imgsGallery.splice(index, 1)
+            })
+            // state.imgsGallery.push({ name: img.name, url: img.url })
+            state.imgsGallery.push(image)
+        })
+        return state
+    },
+    addImgToSlider(state, action) {
+        state.elementInEditing.images.push({ original: action.payload.url, thumbnail: action.payload.url });
+        state.jsonPage.arrSections.map((item, a) => {
+            item.arrParts.map((item, b) => {
+                item.arrElements.map((item, c) => {
+                    if (item.id == state.elementInEditing.id) {
+                        item.images.push({ original: action.payload.url, thumbnail: action.payload.url });
+                        item.index = [a, b, c]
+                    }
+                })
+            })
+        })
+        return state
+    },
+    addImgToGallery(state, action) {
+        state.imgsToUpload.push(action.payload.file);
+        state.imgsGallery.push({ name: action.payload.file.name, url: action.payload.url });
+        return state
+
+    },
+    delImgGallery(state, action) {
+        state.imgsGallery.map((img, index) => {
+            if (img.url == action.payload.url)
+                state.imgsGallery.splice(index, 1)
+        })
+        return state
+    },
+    setJsonPage(state, action) {
         state.jsonPage = action.payload
         return state
     },
-    setOpacityPage(state,action){
+    setOpacityPage(state, action) {
         state.jsonPage.settings.opacity = action.payload
         return state
     },
-    setStylePage(state,action){
+    setStylePage(state, action) {
         state.jsonPage.settings.style[action.payload.property] = action.payload.value
         return state
     },
-    setNamePage(state,action){
+    setNamePage(state, action) {
         state.name = action.payload
         return state
     },
-    setIdFunnel(state,action){
+    setIdFunnel(state, action) {
         state.idFunnel = action.payload
         return state
     },
-    setHrefButton(state,action){
+    setHrefButton(state, action) {
         state.elementInEditing.value = action.payload.value
         state.jsonPage.arrSections.map((item, a) => {
             item.arrParts.map((item, b) => {
@@ -671,7 +706,7 @@ const y=action.payload.posY
         })
         return state
     },
-    setStyleImage(state,action){
+    setStyleImage(state, action) {
         state.elementInEditing.settings[action.payload.property] = action.payload.value
         state.jsonPage.arrSections.map((item, a) => {
             item.arrParts.map((item, b) => {
@@ -684,15 +719,15 @@ const y=action.payload.posY
         })
         return state
     },
-    setAllFunnels(state,action){
+    setAllFunnels(state, action) {
         state.allFunnels = action.payload
         return state
     },
-    setFlagAllFunnels(state,action){
+    setFlagAllFunnels(state, action) {
         state.isOpenAllFunnels = !state.isOpenAllFunnels
         return state
     },
-    setStyleSection(state,action){
+    setStyleSection(state, action) {
         switch (action.payload.property) {
             case 'backgroundColor':
                 state.jsonPage.arrSections[action.payload.indexSection].settings.style[action.payload.property] = action.payload.val
@@ -700,25 +735,25 @@ const y=action.payload.posY
             case 'opacity':
                 state.jsonPage.arrSections[action.payload.indexSection].settings.style["opacity"] = action.payload.val
                 break;
-            default:break;
+            default: break;
         }
         // arrSections[indexSectionInEditing].settings.style.backgroundColor.replace(action.payload.val)
 
         return state
     },
-    setImageFile(state,action){
+    setImageFile(state, action) {
         state.jsonPage.image_funnel = action.payload
         return state
     },
-    changeLoading(state,action){
+    changeLoading(state, action) {
         state.loading = !state.loading
         return state
     },
-    changeMessage(state,action){
+    changeMessage(state, action) {
         state.message = !state.message
         return state
     },
-    setOrderSection(state,action){
+    setOrderSection(state, action) {
         let a = state.jsonPage.arrSections.indexOf(state.jsonPage.arrSections.find(x => `${x.id}` === action.payload.old_index))
         let b = action.payload.new_index ? state.jsonPage.arrSections.indexOf(state.jsonPage.arrSections.find(x => `${x.id}` === action.payload.new_index)) : undefined
         if (b >= state.jsonPage.arrSections.length) {
@@ -731,5 +766,5 @@ const y=action.payload.posY
         return state; // for testing
     }
 }
-export default produce((state, action) => createReducer(state,action,funnelReducer),initialState)
+export default produce((state, action) => createReducer(state, action, funnelReducer), initialState)
 

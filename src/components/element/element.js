@@ -12,7 +12,7 @@ import ImageUploader from '../image/image';
 import $ from "jquery";
 import VideoUploader from '../video/video';
 import Parser from 'html-react-parser';
-import Gallery from '../image_gallery/imageGallery'
+import Slider from '../slider/slider'
 import SelectIcon from '../SelectIcon/SelectIcon'
 import Shares from '../sharing/sharing'
 //import Spacer from '../spacer/spacer'
@@ -409,7 +409,9 @@ function Element(props) {
                                 <p className="m-0 text-center">Drag & Drop files here or click to upload</p>
                             </div>
                             } */}
-                            <Gallery element={element} items={images.images} onDrag={e => drag1(e)} draggable="true"  ></Gallery>
+                            {/* <Gallery element={element} items={images.images} onDrag={e => drag1(e)} draggable="true"  ></Gallery> */}
+                            <Slider element={element} elementId={element.id} onDrag={e => drag1(e)} draggable="true"  ></Slider>
+
                        
                         </div>
                         {/* <img style={{ width: '30%' }} src={element.value}></img> */}
