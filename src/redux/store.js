@@ -1,6 +1,6 @@
 import { createStore ,applyMiddleware,combineReducers} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import {getAllFilesByUserName,uploadFiles,removeFile,downladFileFromServer,getFromServer,creatFunnel,getAllFunnelByUserId,getUidByUserName,getFunnelByName,updateFunnel,removeFunnel,uploadFile,saveOrUpdate} from './middleware/crud'
+import {updatingFunnel,duplicateFunnel,getAllFilesByUserName,uploadFiles,removeFile,downladFileFromServer,getFromServer,creatFunnel,getAllFunnelByUserId,getUidByUserName,getFunnelByName,updateFunnel,removeFunnel,uploadFile,saveOrUpdate} from './middleware/crud'
 import userReducer from './reducers/user.reducer'
 import funnelReducer from './reducers/funnel.reducer'
 
@@ -21,13 +21,14 @@ const store = createStore(
             getFunnelByName,
             updateFunnel,
             removeFunnel,
+            updatingFunnel,
             uploadFile,
             saveOrUpdate,
             uploadFiles,
             removeFile,
             downladFileFromServer,
             getAllFilesByUserName,
-
+            duplicateFunnel
         ),
     )
 )

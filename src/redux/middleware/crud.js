@@ -63,8 +63,8 @@ export const duplicateFunnel = ({ dispatch, getState }) => next => action => {
 
 }
 
-export const updateFunnel1 = ({ dispatch, getState }) => next => action => {
-    if (action.type === 'UPDATING_FUNNEL1') {
+export const updatingFunnel = ({ dispatch, getState }) => next => action => {
+    if (action.type === 'UPDATING_FUNNEL') {
         dispatch(actions.changeLoading())
         // dispatch({ type: '[funnel] UPLOAD_FILE', payload: action.payload }).then((res) => {
         // if (getState().funnel.idFunnel)
@@ -90,7 +90,7 @@ export const getFromServer = ({ dispatch, getState }) => next => action => {
 }
 export const removeFunnel = ({ dispatch, getState }) => next => action => {
     // debugger
-    if (action.type === 'REMOVE_FUNNEL1') {
+    if (action.type === 'REMOVE_FUNNEL') {
         debugger
         $.ajax({
             url: `${url}/api/deleteFunnel/${action.payload}`,
@@ -135,6 +135,7 @@ export const creatFunnel = ({ dispatch, getState }) => next => action => {
 }
 export const updateFunnel = ({ dispatch, getState }) => next => action => {
     if (action.type === 'UPDATE_FUNNEL') {
+        debugger
         console.log(getState().funnel.jsonPage);
         $.ajax({
             url: `${url}/api/updateFunnelDetails/${getState().user.userId}/${getState().funnel.idFunnel}`,

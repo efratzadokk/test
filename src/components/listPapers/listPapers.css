@@ -1,141 +1,166 @@
 .searhBtn{
-    width:300%;
-    color: gray;
-    padding-left: 2.375rem;
-  } 
-  /* .sidebar_top{
-    z-index: 2;
-    position: sticky;
-    background-color: white;
-    height: 6% !important;
-    max-height: 6%;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    overflow: hidden;
-    opacity: 1;
-    box-shadow: 0px 1px 7px #00000029;
-  } */
-  
-  .indicationAnimate{
-    background-color: white;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width:300%;
+  color: gray;
+  padding-left: 2.375rem;
+} 
+
+
+.indicationAnimate{
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.imgLogo{
+  border-radius: 50px;
+  height: 6vh;
+  width: 6vh;
+  margin-left: 3vh;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
+.btnNeWDeals{  
+    background-color: "#A66DFF";
+    width: "100%";
+    color: "white"
+}
+
+.btnDiv{
+  justify-content:flex-end
+}
+
+
+.imgAnimate{
+  height: 25%;
+  width: 25%;
+  /* margin-left: 5%; */
   }
-  
-  .imgLogo{
-    border-radius: 50px;
-    height: 6vh;
-    width: 6vh;
-    margin-left: 3vh;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-  }
-  
-  .btnNeWDeals{  
-      background-color: "#A66DFF";
-      width: "100%";
-      color: "white"
-  }
-  
-  .btnDiv{
-    justify-content:flex-end
-  }
-  
-  
-  .imgAnimate{
-    height: 25%;
-    width: 25%;
-    /* margin-left: 5%; */
-    }
-  .containerDivList{
-    padding-left: 8%;
-    height: 100vh;
-    min-height: 100vh;
-    max-height: 100vh;
-  
-  }
-  
-  .containerDiv{
-    padding-top: 6vh;
-    padding-left: 8%;
-    /* height:90vh !important; */
-    overflow-y: hidden;
-  }
-  
-  .searchIcon{
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
-    text-align: center;
-    pointer-events: none;
-    color: #aaa;
-  }
-  
-  .btnNew{
-    z-index: 1;
-  }
-  
-  .contactTable{
-    z-index: 0;
+.containerDivList{
+  padding-left: 8%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+
+}
+
+.containerDiv{
+  padding-top: 6vh;
+  padding-left: 8%;
+  /* height:90vh !important; */
+  overflow-y: hidden;
+}
+
+.searchIcon{
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.btnNew{
+  z-index: 1;
+}
+
+.contactTable{
+  z-index: 0;
+  background-color:white;
+  border-radius: 15px 15px 15px 15px  ;
+  /* overflow-x: hidden !important; */
+
+  /* width: 60vh; */
+  /* width: 100% !important; */
+}
+.contactTable td{
+  padding: .5rem !important;
+  padding-bottom: .0rem !important;
+
+}
+.table td, .table th {
+  padding: .10rem;
+  padding-bottom: .10rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+tr:hover{
+  height: 0.2vh !important ;
+  max-height: 0.2vh !important
+}
+
+tr:before{
+  height: 0.2vh !important ;
+  max-height: 0.2vh !important
+}
+
+/*----crop -*/
+
+body {
+  margin: 0;
+  padding: 0;
+  /* overflow: hidden; */
+}
+
+.App {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.dropbtn {
+  /* color: none; */
+   /* padding: 16px; */
+   /* font-size: 20px; */
+   border: none;
+ }
+ 
+ .dropdown {
+   width: 10vw;
+   bottom:0px;
+   position: relative;
+   display: inline-block;
+ }
+ 
+ .dropdown-content {
+   display: none;
+   position: absolute;
+   text-align: left;
     background-color:white;
-    border-radius: 15px 15px 15px 15px  ;
-    /* overflow-x: hidden !important; */
-  
-    /* width: 60vh; */
-    /* width: 100% !important; */
-  }
-  .contactTable td{
-    padding: .5rem !important;
-    padding-bottom: .0rem !important;
-  
-  }
-  .table td, .table th {
-    padding: .10rem;
-    padding-bottom: .10rem;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
-  }
-  tr:hover{
-    height: 0.2vh !important ;
-    max-height: 0.2vh !important
-  }
-  
-  tr:before{
-    height: 0.2vh !important ;
-    max-height: 0.2vh !important
-  }
-  
-  /*----crop -*/
-  
-  body {
-    margin: 0;
-    padding: 0;
-    /* overflow: hidden; */
-  }
-  
-  .App {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  
-  
-  .crop-container {
-    position: relative;
-    width: 100%;
-    height: 60vh !important;
-  }
-  
-  
-  .react-bootstrap-table{
-    height: 70vh;
-    overflow-y: scroll;
-    overflow-x: hidden
-  }
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   z-index: 1;
+ }
+ 
+ .dropdown-content a {
+   color: black;
+   text-decoration: gray;
+   padding: 12px 16px;
+   /* text-decoration: none; */
+   display: block;
+ }
+ 
+ .dropdown-content a:hover {background-color: #ddd;}
+ 
+ .dropdown:hover .dropdown-content {display: block;}
+ 
+ .dropdown:hover .dropbtn {background-color: #ecf3ed;}
+
+
+.crop-container {
+  position: relative;
+  width: 100%;
+  height: 60vh !important;
+}
+
+
+.react-bootstrap-table{
+  height: 70vh;
+  overflow-y: scroll;
+  overflow-x: hidden
+}

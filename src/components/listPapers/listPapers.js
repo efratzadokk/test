@@ -1,26 +1,56 @@
 
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import {actions} from '../../redux/actions/funnel-try.action'
 // import animate from '../listPapers/components/assets/img.png'
-
+import animate from '../../assets/leader_logo.png'
 import threeDots from '../../assets/ellipsis-v-solid.svg'
 import searchImgGif from '../../assets/searchIcon.gif'
 import LabelCompleted from '../../assets/Label - Completed.svg'
-
+import copyIcon from '../../assets/Group 22678.svg'
+import downArrow from '../../assets/down-arrow.svg'
+import userSolid from '../../assets/user-solid.svg'
+import fileFolder from '../../assets/fileFolder.svg'
+import NoFunnels from '../noFunnels/noFunnels'
 import JsonToHtml from '../convertJsonToHtmk/jsonToHtml'
+import {actions} from '../../redux/actions/funnel-try.action'
+import { Link, Redirect } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { CSVExport, Search } from "react-bootstrap-table2-toolkit";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import { render } from '@testing-library/react';
+//import { history } from "../../App";
 import { createBrowserHistory } from 'history'
+// import FileCopyIcon from '@material-ui/icons/FileCopy';
 import overlayFactory from 'react-bootstrap-table2-overlay';
+import Button from '@material-ui/core/Button';
 import './listPapers.css'
+//  import SelectMassage from './selectMassage';
+import loading from '../../assets/leader_logo.png'
+// // import profileDefault from './assets/error.png'
+import  {chageEditMode, setJsonPage, setNameChosenFunnel,setOrderSection,duplicateFunnel,setNameFunnel ,addSection, setNamePage, setStylePage, removeFunnel,removeReducer, setStyleSection,setJsonServer, setFlagBorderParts, setIdFunnel } from '../../redux/actions/funnel.action'
 import $ from 'jquery';
+import Stage from '../stage/stage'
+import { from } from 'pumpify';
+import html2canvas from 'html2canvas';
 
+import { useLocation } from 'react-router-dom';
+// import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
+// import { duplicateFunnel } from '../../redux/middleware/crud';
+// import { backgroundImage } from 'html2canvas/dist/types/css/property-descriptors/background-image';
+
+//   import MultiSelectInput from '../sendEmail/sensEmail'
 const { SearchBar, ClearSearchButton } = Search;
 const { ExportCSVButton } = CSVExport;
+
+
+
+
+// const location = useLocation();
+
+// import $ from "jquery";
+// import { addElement } from '../../redux/actions/funnel.action'
 
 
 const getEmailsContacts = (contacts) => {
@@ -35,7 +65,7 @@ const getEmailsContacts = (contacts) => {
 
 
 function ListPapers(props) {
-    const { allFunnels, setJsonPage, setIdFunnel, setNameChosenFunnel,setJsonServer,removeFunnel,removeReducer ,duplicateFunnel, setNameFunnel} = props
+    const { allFunnels,setIdFunnel,setJsonPage,  setNameChosenFunnel,setJsonServer,removeFunnel,removeReducer ,duplicateFunnel, setNameFunnel} = props
 
     const statusClrs = { 'Open': 'green', 'Deal': '#d93025', 'In Progress': '#FFA756', 'New': '#00B69B', 'Connected': '#6226EF', 'Unqualified': '#EF3826' }
     const statusLeft = { 'Open': '22px', 'Deal': '20px', 'In Progress': '17px', 'New': '47px', 'Connected': '27px', 'Unqualified': '25px' }
@@ -1109,6 +1139,9 @@ export default connect(
     (state) => {
         return {
             allFunnels: state.funnel.allFunnels
+
+
+            // iframe: state.funnel.iframe
         }
     },
     (dispatch) => {
@@ -1125,4 +1158,438 @@ export default connect(
     }
 
 )(ListPapers)
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import { connect } from 'react-redux';
+// import threeDots from '../../assets/ellipsis-v-solid.svg'
+// import searchImgGif from '../../assets/searchIcon.gif'
+// import LabelCompleted from '../../assets/Label - Completed.svg'
+// import JsonToHtml from '../convertJsonToHtmk/jsonToHtml'
+
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import BootstrapTable from "react-bootstrap-table-next";
+// import ToolkitProvider, { CSVExport, Search } from "react-bootstrap-table2-toolkit";
+// import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+// import paginationFactory from 'react-bootstrap-table2-paginator';
+// import { createBrowserHistory } from 'history'
+// import overlayFactory from 'react-bootstrap-table2-overlay';
+// import './listPapers.css'
+// import $ from 'jquery';
+// import Stage from '../stage/stage'
+// import { from } from 'pumpify';
+// import html2canvas from 'html2canvas';
+// import {actions} from '../../redux/actions/funnel-try.action'
+
+// import { useLocation } from 'react-router-dom';
+
+// const { SearchBar, ClearSearchButton } = Search;
+// const { ExportCSVButton } = CSVExport;
+
+
+
+
+
+// const getEmailsContacts = (contacts) => {
+//     let emailsContacts = [];
+//     if (contacts) {
+//         contacts.map((contact) => {
+//             emailsContacts.push({ value: contact.email, label: contact.email })
+//         })
+//     }
+//     return emailsContacts;
+// }
+
+
+// function ListPapers(props) {
+//     const { allFunnels, setJsonPage, setIdFunnel, setNameChosenFunnel,setJsonServer,removeFunnel,removeReducer ,duplicateFunnel, setNameFunnel} = props
+//     const statusClrs = { 'Open': 'green', 'Deal': '#d93025', 'In Progress': '#FFA756', 'New': '#00B69B', 'Connected': '#6226EF', 'Unqualified': '#EF3826' }
+//     const statusLeft = { 'Open': '22px', 'Deal': '20px', 'In Progress': '17px', 'New': '47px', 'Connected': '27px', 'Unqualified': '25px' }
+//     const [idfunnelName, setIdFunnelName] = useState("");
+//     const [newName, setNewName] = useState("");
+//     const [isSend, setIsSend] = useState(false);
+//     //----------
+//     const [flag ,setFlag]=useState(0)
+//     const [idFunnelChangeName, setIdFunnelChangeName] = useState("");
+//     const [exportYN, setExportYN] = useState(false);
+//     let url = window.location;
+//     const isIframe = new URLSearchParams(url.search).get('iframe') ? "iframe=true&" : ""
+//     var userName = (url.pathname.split('/')[1]);
+//         let { history } = props;
+//     history = createBrowserHistory({ forceRefresh: true })
+//     const historyPush = (url) => {
+//         history.push(`/${userName}/${url}`)
+    
+//     }
+//    const remove=(e)=>
+//    {  debugger
+//     removeReducer(e)
+//    removeFunnel(e)
+
+//    }
+//    const downloadFunnel=(json)=>
+//    {     debugger
+//      <JsonToHtml jsonFunnel={json}></JsonToHtml>
+//     }
+//      const setjsonByIdFunnel=(e)=>{ 
+//        setjsonReducer(e._id)
+//       setJsonServer(e, e.name)
+//       }  
+//     const handleClick = () => {
+//         var parser = new DOMParser();
+//         var doc = parser.parseFromString(props.quote.quillStyle, 'text/html');
+//         if (!doc.body.innerText) {
+//             props.createQuote();
+//         }
+//     };
+//     const pageButtonRenderer = ({ page, active, disable, title, onPageChange }) => {
+//         const handleClick = (e) => {
+//             e.preventDefault();
+//             onPageChange(page);
+//         };
+//         const activeStyle = {};
+//         if (active) {
+//             activeStyle.backgroundColor = 'gray';
+//             activeStyle.color = 'white';
+//         } else {
+//             activeStyle.backgroundColor = 'white';
+//             activeStyle.color = 'black';
+//         }
+//         if (typeof page === 'string') {
+//             activeStyle.backgroundColor = 'white';
+//             activeStyle.color = 'black';
+//         }
+//         return (
+//             <li className="page-item mb-0 px-1" >
+//                 <button className="btn btn-outline-secondary" onClick={(e) => handleClick(e)} style={activeStyle}>{page}</button>
+//             </li>
+//         );
+//     };
+//     const options = {
+//         sizePerPage: 10,
+//         pageButtonRenderer
+//     };
+//     const setjsonReducer = (e) => {
+//         console.log("i am in func setJsonBy..." + " " + e.idFunnel)
+//         let indexfunnel = 0
+//         allFunnels.map((item, index) => {
+//             if (item._id == e._id) {
+//                 indexfunnel = index
+//             }
+//         })
+//         setNameChosenFunnel(allFunnels[indexfunnel].name)
+//         setIdFunnel(allFunnels[indexfunnel]._id)
+//         setJsonPage(JSON.parse(allFunnels[indexfunnel].json))
+//     }
+//     const getIdFunnelByIndex = (index) => {
+//         {
+//             allFunnels.map((item, i) => {
+//                 setIdFunnelChangeName(item[index]._id)
+//             })
+//         }
+//     }
+//     const columns = [
+//         {
+//             events: {
+//                 onDoubleClick: (e) => {
+//                     e.currentTarget.contentEditable = 'true';
+//                     setNewName(e.currentTarget.innerText)
+//                 },
+//                 onBlur: async (e) => {
+//                     console.log("חחחחחחחחחחחח"+e.currentTarget.innerText)
+//                     setNewName(e.currentTarget.innerText)
+//                     console.log(e.currentTarget.innerText)
+//                      console.log(newName) 
+//                    setNameFunnel(idfunnelName, e.currentTarget.innerText);
+//                    console.log("ממממממממממ"+newName)
+//                    console.log("גגגגג"+idfunnelName,"דדדדדדד"+newName)
+//                  console.log(idfunnelName)
+//                 },
+
+//             },
+//                     dataField: "name",
+//                     text: "NAME",
+//                     align: "left",
+//                     headerAlign: "center",
+//                     sort: true,
+//                     style: { width: '15%',overfolw: "inherit" },
+//                     formatter: s => s ? s.substr(0, 22) : "",
+//                     headerStyle: {
+//                         backgroundColor: '#F5F5FA', position: 'sticky',
+//                         top: '0', 
+//                           letterSpacing: '0px',
+// color: '#202224',
+// textTransform: 'uppercase',
+// opacity: 0.9,
+//                     },
+//                 },
+//             {
+//                 events: {
+//                     onClick: (e, c) => {
+//                         userName = (url.pathname.split('/')[2]);
+//                     }
+//                 },
+//                 dataField: "date",
+//                 style: { width: '15% !important', overfolw: "inherit" },
+//                 formatter: s => s ? s.substr(0, 20) : "",
+//                 headerStyle: { backgroundColor: '#F5F5FA' ,    
+//                 letterSpacing: '0px',
+//                 color: '#202224',
+//                 textTransform: 'uppercase',
+//                 opacity: 0.9,},
+//                 text: "START"
+//             },
+//         {
+
+//             events: {
+//                 onClick: (e, c) => {
+//                     userName = (url.pathname.split('/')[2]);
+//                 }
+//             },
+//             dataField: "lastUpdate",
+//             style: { width: '15% !important', overfolw: "inherit" },
+//               formatter: s => s ? s.substr(0, 20) : "",
+//             headerStyle: { backgroundColor: '#F5F5FA' ,   
+//             padding: '2vh',
+//             letterSpacing: '0px',
+//             color: '#202224',
+//             textTransform: 'uppercase',
+//             opacity: 0.9,},
+//             text: "END"
+//         },
+//         {
+//             events: {
+//                 onClick: (e, c) => {
+//                     console.log("eeeeeee" + e)
+//                     console.log("cccccc" + c)
+//                     console.log("cccccc" + c.name)
+//                 }
+//             },
+//              text: "STATUS",
+//             dataField: "edit&delete",
+//             align: "center",
+//             headerAlign: "center",
+//             sort: true,
+//             style: { width: '15%' },
+//              formatter: s => s ? s.substr(0, 15) : "",
+//             formatter: (c, e) => {
+//             if(e.viewsNumber>0)  
+//              setIsSend(true)
+//                 return  (<>
+//                 {isSend?
+//                 <img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img>
+//               :    <img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img>
+//                } 
+//                 </>
+//                 )
+//             },
+//             headerStyle: (column, colIndex) => {
+//                 return { textAlign: 'center',
+//                 backgroundColor: '#F5F5FA' ,    
+//                 padding: '2vh',
+//                 letterSpacing: '0px',
+//                 color: '#202224',
+//                 textTransform: 'uppercase',
+//                 opacity: 0.9, };
+//             },
+//             headerStyle: {
+//                 backgroundColor: '#F5F5FA',
+               
+// color: '#202224',
+// textTransform: 'uppercase',
+// opacity: 0.9,
+// letterSpacing: '0px',
+// color: '#202224',
+// textTransform: 'uppercase',
+// opacity: 0.9,
+//             },
+//         },
+//         {
+//             events: {
+//                 onClick: (e, c) => {
+//                     userName = (url.pathname.split('/')[2]);
+//                     console.log("aaaa" + c)
+//                 }
+//             },
+//             dataField: "url",
+//             text: "LINK",
+//             style: { width: '15% !important', },
+//             align: "center",
+//             headerAlign: "center",
+//             headerStyle: { backgroundColor: '#F5F5FA' ,
+//             letterSpacing: '0px',
+//             color: '#202224',
+//             textTransform: 'uppercase',
+//             opacity: 0.9,},
+//             formatter: (c, e) => {
+//                 console.log("dddd"+c)
+//                 return  (
+//                 <>
+//                             <span  style={{marginLeft:"12%"}}> { c.substr(0, 20) }</span>
+// <div class="dropdown">
+//   <a class="dropbtn">           <img 
+
+// style={{marginLeft:"2vw",marginTop:"2vh", display:"inline-block"}} 
+// src={threeDots}>
+//    </img> </a>
+//   <div class="dropdown-content">
+//     <a  onClick={()=>remove(e._id)}><span  onClick={()=>remove(e._id)} style={{ width: '25%', marginBottom:'0px'}} class="material-icons">delete</span> Delete</a>
+//     <a onClick={()=>{duplicateFunnel(e._id)}}><span onClick={()=>duplicateFunnel(e._id)} style={{ width: '25%'}} class="material-icons">file_copy</span> Copy</a>
+//     <a onClick={()=>setFlag(!flag)}> <span  style={{ width: '25%', marginBottom:'0px'}} class="material-icons" >edit</span>  Edit</a>
+//     <a  onClick={()=>{setFlag(!flag)}}><span  style={{ width: '25%'}} class="material-icons">download</span> Download</a>
+//     {flag? <JsonToHtml jsonFunnel={e.json}/> :""}
+//     <a href="#"><span  style={{ width: '25%'}} class="material-icons">share</span> Share</a>
+//     <a href="#"><span  style={{ width: '25%'}} class="material-icons">print</span> Print</a>
+
+//   </div>
+// </div>
+//                 </>)
+//             }
+//         },  
+//     ];
+//     function exportBtn(e) {
+//         setExportYN(true)
+//         $(".sendEmailFromList").css("display", "block")
+//         e.stopPropagation();
+//     }
+//     function aaa() {
+//         props.approachedToServerYesOrNo();
+//         props.massageSuccessOrError(true);
+
+//     }
+//     const rowEvents = {
+//        onClick: (e, c) => {
+//         setjsonReducer(c)
+//        },
+//     }
+//     const rowClasses = (row, rowIndex) => {
+//         return '';
+//     }
+ 
+//     const MyExportCSV = () => {
+//         return (
+//             <div className="col-2" style={{ "justify-content": "end" }} >
+//                 <button className="btn w-100  "
+//                     style={{
+//                         backgroundColor: "#f7b500",
+//                         width: "100%",
+//                         color: "white"
+//                     }}
+//                     onClick={createNewFunnel}>Create new template+</button>
+//             </div>
+//         );
+//     };
+//     const mydata = [];
+//     const indication = () => {
+//         return (
+//                  <div className="indicationAnimate" >
+//           <img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img>
+//                  </div>
+//         )
+//     }
+//     const createNewFunnel = () => {
+//         userName = (url.pathname.split('/')[2]);
+//         history.push(`/admin/${userName}/new`)
+//     }
+//     return (   
+//          <>
+//            {
+//             <div className="row">
+//                 <div className={exportYN ? "container-fixed-width containerDivList mw-100 mb-0 pr-lg-5 pr-sm-1 pr-md-1 justify-content-start align-items-center col-10" : "container-fixed-width containerDivList mw-100 mb-0 pr-lg-5 pr-sm-1 pr-md-1 justify-content-start align-items-center col-12"}
+//                     style={{ marginTop: '7vh' }}>
+//                     <div className="pt-3">
+//                         <div className="row">
+//                             <div className="col-12 container-fixed-width px-0"
+//                                 style={{ "zIndex": 0 }}>
+//                                 <ToolkitProvider
+//                                     style={{ "marginTop": "0px" }}
+//                                     keyField="id"
+//                                     data={props ? props.allFunnels || mydata : mydata}
+//                                     columns={columns}
+//                                     search >
+//                                     {
+//                                         props => (
+//                                             <div>
+//                                                 <div className="mt-2 px-0 d-flex justify-content-between"
+//                                                     style={{ "marginTop": "7vh" }}>
+//                                                     <SearchBar {...props.searchProps}
+//                                                         className="searhBtn"
+//                                                         placeholder="search..."
+//                                                         style={{
+//                                                             "width": "50vw",
+//                                                             "color": "gray",
+//                                                             "minWidth": "100%",
+//                                                             "paddingLeft": "2.375rem"
+//                                                         }} >
+//                                                     <img src={searchImgGif}  style={{ width: "15vw"}}></img>
+
+//                                                     </SearchBar>
+//                                                     <MyExportCSV
+//                                                         {...props.csvProps}>Export CSV</MyExportCSV>
+//                                                 </div>
+//                                                 <div className="row mt-0 "  ></div>
+//                                                 <BootstrapTable
+//                                                     style={{ top: '10px' }}
+//                                                     loading={false}  //only loading is true, react-bootstrap-table will render overlay
+//                                                     overlay={overlayFactory()}
+//                                                     rowStyle={{ overfolw: "hidden" }}
+//                                                     bodyStyle={{
+//                                                         tableLayout: "fixed !important",
+//                                                     }}
+//                                                     noDataIndication={indication}
+//                                                     bordered={false}
+//                                                     classes="table-hover contactTable mt-2"
+//                                                     rowClasses={rowClasses}
+//                                                     rowEvents={rowEvents}
+//                                                     tabIndexCell={true}
+//                                                     pagination={paginationFactory(options)}
+//                                                     {...props.baseProps} />
+//                                             </div>
+//                                         )
+//                                     }
+//                                 </ToolkitProvider>
+//                             </div >
+//                         </div>
+//                     </div >
+//                     <div className="sendEmailFromList col" style={{ width: "17vw", background: "white",
+//                     display: "none", marginTop: "10vh" }}>
+//                         <button onClick={() => { setExportYN(false); $(".sendEmailFromList").css("display", "none") }} style={{ background: "white", justifyContent: 'flex-end !important' }}
+//                         >x</button>
+//                     </div>
+//                 </div >
+//             </div> 
+//         }      
+//       </>
+//     )
+// }
+// export default connect(
+//     (state) => {
+//         return {
+//             allFunnels: state.funnel.allFunnels
+//         }
+//     },
+//     (dispatch) => {
+//         return {
+//             removeReducer:(id) => {dispatch(actions.removeReducer(id)) },
+//             setNameFunnel: (idFunnel, newName) => { dispatch(actions.setNameFunnel({id:idFunnel,name: newName })) },
+//             setJsonPage: (json) => { dispatch(actions.setJsonPage(json)) },
+//             setNameChosenFunnel: (name) => { dispatch(actions.setNameChosenFunnel(name)) },
+//             setIdFunnel: (id) => { dispatch(actions.setIdFunnel(id)) },
+//             setJsonServer: (json) => { dispatch(actions.setJsonServer(json)) },
+//             removeFunnel: (id) => {dispatch(actions.removeFunnel(id)) },
+//             duplicateFunnel:(idFunnel)=>  {dispatch(actions.duplicateFunnel(idFunnel))}
+//         }
+//     }
+
+// )(ListPapers)
 

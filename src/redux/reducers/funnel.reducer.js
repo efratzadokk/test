@@ -157,7 +157,23 @@ const initialState = {
 }
 
 const funnelReducer = {
-
+    removeReducer(state,action){
+        state.allFunnels.map((item, a) => {
+            if (item._id == action.payload) {
+                state.allFunnels.splice(a, 1)
+            }
+        });
+        return state
+    },
+    setNameFunnel(state,action){
+        return state;
+    },
+    setNameChosenFunnel(state,action){
+        return state;
+    },
+    setJsonServer(state,action){
+        return state;
+    },
     setIsOpenCon(state, action) {
         return { ...state, isOpenConfigurator: action.payload }
     },

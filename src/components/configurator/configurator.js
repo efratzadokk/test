@@ -17,7 +17,7 @@ import {BsEye} from 'react-icons/bs'
 function Configurator(props) {
 
     const [flag, setFlag] = useState(false);
-    const {setMyComputer, history, setFlagAllFunnnels, userName,updateFunnel1, funnelName, flagCon, collapseIsOpen, elementInEditing, chageEditMode, jsonPage, creatFunnel, getAllFunnel, save, updateFunnel, removeFunnel, idPage, nameFunnel, nameUser, uploadFile, urlPage, sectionInEditing, setCollapseOpen ,setMonIndex,monindex} = props
+    const {setMyComputer, history, saveOrUpdate,setFlagAllFunnnels, userName,updatingFunnel, funnelName, flagCon, collapseIsOpen, elementInEditing, chageEditMode, jsonPage, creatFunnel, getAllFunnel, save, updateFunnel, removeFunnel, idPage, nameFunnel, nameUser, uploadFile, urlPage, sectionInEditing, setCollapseOpen ,setMonIndex,monindex} = props
   
     // function changeColor(co) {
     //     elementInEditing.settings.style.color = co;
@@ -62,7 +62,7 @@ function Configurator(props) {
             console.log(funnelImage);
             const myFile = new FormData()
             myFile.append("file", funnelImage[0])
-            updateFunnel1(funnelImage)
+            updatingFunnel(funnelImage)
         });
     }
     const dataURLtoFile = (dataurl, filename) => {
@@ -170,7 +170,7 @@ function Configurator(props) {
                                             <button className='btn' style={{ background: '#ff5f5f' }} onClick={() => removeFunnel("5fd9f7b28eedc0eb8b5dea30")} >remove</button>
                                         </div>
                                             ||
-                                            <button type="button" id="whatapp" class="btn btn-info btn-sm" onClick={() => saveOrUpdatefunnel()} style={{height:'80%'}}>update</button>
+                                            <button type="button" id="whatapp" class="btn btn-info btn-sm" onClick={() => saveOrUpdate()} style={{height:'80%'}}>update</button>
                                         }
                                     </div>
 
@@ -209,9 +209,10 @@ export default withRouter(connect(
         return {
             chageEditMode: () => { dispatch(actions.chageEditMode()) },
             creatFunnel: () => { dispatch(actions.creatFunnel()) },
+            saveOrUpdate:()=>{dispatch(actions.saveOrUpdate())},
             getAllFunnel: () => { dispatch(actions.getAllFunnel()) },
             updateFunnel: () => { dispatch(actions.updateFunnel()) },
-            updateFunnel1:()=>{dispatch(actions.updateFunnel1())},
+            updatingFunnel:()=>{dispatch(actions.updatingFunnel())},
             removeFunnel: (id) => { dispatch(actions.removeFunnel(id)) },
             setFlagAllFunnnels: () => { dispatch(actions.setFlagAllFunnnels()) },
             uploadFile: (file) => { dispatch(actions.uploadFile(file)) },
