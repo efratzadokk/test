@@ -27,7 +27,7 @@ function EditElement(props) {
                                    {elementInEditing.type=="Gallery"&& <EditGallery GalleryOnEdit={elementInEditing}></EditGallery>}
                                    {elementInEditing.type=="Button"&& <Editbutton BtnOnEdit={elementInEditing}></Editbutton>}  
                                    {elementInEditing.type=="Spacer"&& <EditSpacing SpacerOnEdit={elementInEditing}></EditSpacing>}                                   
-                                   {elementInEditing.type=="Icon"&& <EditIcon IconOnEdit={elementInEditing}></EditIcon>}                                   
+                                   {elementInEditing.type=="Emoji"&& <EditIcon IconOnEdit={elementInEditing}></EditIcon>}                                   
                                    {elementInEditing.type=="Html"&& <EditHtmlElement HtmlOnEdit={elementInEditing}></EditHtmlElement>}
                                    {elementInEditing.type=="Form"&& <EditForm FormOnEdit={elementInEditing}></EditForm>}
                                    {elementInEditing.type=="Logo"&& <EditLogo ImgOnEdit={elementInEditing}></EditLogo>}

@@ -41,7 +41,7 @@ const initialState = {
         { index: 5, type: 'video', border: false, path: '', backgroundColor: "transparent", width: "20", borderRadius: "", height: "10", textAlign: "center", opacity: '0.6' },
         { index: 6, type: 'gallery', images: [], border: false, path: '', backgroundColor: "", width: "20", borderRadius: "", height: "10", alignItem: "center", opacity: '0.6' },
         { index: 7, type: 'spacer', border: false, color: "#D3D3D3", borderRadius: "2", width: "20", height: "5" },
-        { index: 8, type: 'icon', border: false, opacity: '1', fontSize: '20', color: "black", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1" },
+        { index: 8, type: 'emoji', border: false, opacity: '1', fontSize: '20', color: "black", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1" },
         { index: 9, type: 'form', border: false, text: "Welcome enter your title!", color: "black", textAlign: "center", fontSize: "25px", fontFamily: 'Arial, Helvetica, sans-serif' },
         { index: 10, type: 'html', border: false, text: "", color: "white", backgroundColor: "#0AB0FE", textAlign: "center", fontFamily: "Arial, Helvetica, sans-serif", width: "20", height: "1" },
         { index: 11, type: 'sharing', border: false, text: "START ACTIVE", color: "white", backgroundColor: "#0AB0FE", textAlign: "center", borderRadius: "2", width: "20", height: "1" },
@@ -215,7 +215,7 @@ const funnelReducer = {
 
             // newElement = { type: action.payload.type, value: action.payload.value.value, images: action.payload.value.images, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border:action.payload.value.border , settings: {}, id: action.payload.id}
         }
-        else if (action.payload.type === 'Icon' || action.payload.type === 'Form' || action.payload.type === 'Sharing') {
+        else if (action.payload.type === 'Emoji' || action.payload.type === 'Form' || action.payload.type === 'Sharing') {
             newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize, settings: {}, id: action.payload.id }
         }
         else if (action.payload.type === 'Html') {
@@ -265,7 +265,7 @@ const funnelReducer = {
 
 
         }
-        else if (action.payload.type === 'Icon' || action.payload.type === 'Form' || action.payload.type === 'Sharing') {
+        else if (action.payload.type === 'Emoji' || action.payload.type === 'Form' || action.payload.type === 'Sharing') {
             newElement = { type: action.payload.type, value: action.payload.type, color: action.payload.value.color, opacity: action.payload.value.opacity, textAlign: action.payload.value.textAlign, fontSize: action.payload.value.fontSize }
         }
         else if (action.payload.type === 'Button') {

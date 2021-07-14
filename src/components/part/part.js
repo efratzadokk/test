@@ -81,7 +81,7 @@ function Part(props) {
             case 'Form' : { calcheight=350 } break
             case 'Html' : { calcheight=114 } break
             case 'Button' : { calcheight=79 } break
-            case 'Icon' : { calcheight=60 } break
+            case 'Emoji' : { calcheight=60 } break
             case 'Spacer' : { calcheight=45 } break
             case 'Sharing' : { calcheight=67 } break
             case 'Logo': { calcheight=70 }break; 

@@ -43,7 +43,7 @@ console.log(IconOnEdit)
         <Container style={{width:'100%'}}>
 
         
-        <Row style={{fontSize:"1.5vw",color:'#4169E1', fontWeight:'bold'}} >Icon </Row>
+        <Row style={{fontSize:"1.5vw",color:'#4169E1', fontWeight:'bold'}} >Emoji </Row>
 
         
     <b style={{ fontSize: "1vw",alignItems:'center' }}>Height</b>

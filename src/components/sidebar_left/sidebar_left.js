@@ -48,7 +48,7 @@ function Sidebar_left(props){
     <Widget name="Button" img={Button} ></Widget>
     <Widget name="Video" img={Video} ></Widget>
     <Widget name="Spacer" img={Spacer} ></Widget>
-    <Widget name="Icon" img={Icon} ></Widget>
+    <Widget name="Emoji" img={Icon} ></Widget>
     <span id="text">
         {
             btnMore? <>
