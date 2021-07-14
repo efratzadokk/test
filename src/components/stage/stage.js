@@ -9,7 +9,7 @@ import 'jquery-ui-bundle';
 import PdfContainer from '../../components/pdf/pdfContainer'
 
 function Stage(props) {
-    const { jsonPage, edit, chageEditMode, setJsonPage, editMode, loading } = props;
+    const { jsonPage, edit, chageEditMode, setJsonPage, editMode, loading ,myComputer} = props;
     const [flag, setFlag] = useState(true);
     const bodyRef = useRef();
     useEffect(() => {
@@ -49,7 +49,7 @@ function Stage(props) {
                         }
                         {props.jsonPage.arrSections.map((item, i) => {
                             return (
-                                <div key={i} id="myStage" style={{height:"60vh",maxHeight:'70vh',width:'100%',padding:'0',marginBottom:'0px',overflow:'scroll'}} className="ui-state-default" section-id={item.id} data-id={i}>
+                                <div key={i} id="myStage" style={{height: myComputer==='c'?"70vh":'60vh',maxHeight:'70vh',width:'100%',padding:'0',marginBottom:'0px',overflow:'scroll'}} className="ui-state-default" section-id={item.id} data-id={i}>
                                     <Section section={item} indexSection={i} leid={item.id}></Section>
                                     </div>
                             )
@@ -71,7 +71,8 @@ export default connect(
             numSections: state.funnel.jsonPage.num_sections,
             urlPage: state.funnel.urlPage,
             nameUser: state.user.userName,
-            nameFunnel: state.funnel.name
+            nameFunnel: state.funnel.name,
+            myComputer:state.funnel.myComputer
         }
     },
     (dispatch) => {

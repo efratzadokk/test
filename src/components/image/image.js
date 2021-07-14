@@ -129,9 +129,9 @@ function ImageUploader(props) {
 
   console.log(element)
   return (
-    <div style={{width:'100%',height:'100%',alignItems:'center'}}>
+    <div style={{width:'100%',height:'100%',alignItems:'center',marginBottom:'0'}}>
         <input  type="file" id={'inputFileImg'+element.id} className="d-none " onChange={(e) => chooseImg(e)} ></input>
-        <div className="content" onDoubleClick={() => changeImgOnClick()} style={{height:'100%'}} >
+        <div className="content" onDoubleClick={() => changeImgOnClick()} style={{height:'100%',marginBottom:'0'}} >
             <div className="container p-0" id={image ? "" :'ddd'} style={{height:'100%'}}>
                 <div className="drop-container col-12 p-0" onDragOver={dragOver}
                     onDragEnter={dragEnter}

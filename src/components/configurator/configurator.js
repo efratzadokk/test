@@ -17,7 +17,7 @@ import {BsEye} from 'react-icons/bs'
 function Configurator(props) {
 
     const [flag, setFlag] = useState(false);
-    const {setWidthPage, history, setFlagAllFunnnels, userName,updateFunnel1, funnelName, flagCon, collapseIsOpen, elementInEditing, chageEditMode, jsonPage, creatFunnel, getAllFunnel, save, updateFunnel, removeFunnel, idPage, nameFunnel, nameUser, uploadFile, urlPage, sectionInEditing, setCollapseOpen ,setMonIndex,monindex} = props
+    const {setMyComputer, history, setFlagAllFunnnels, userName,updateFunnel1, funnelName, flagCon, collapseIsOpen, elementInEditing, chageEditMode, jsonPage, creatFunnel, getAllFunnel, save, updateFunnel, removeFunnel, idPage, nameFunnel, nameUser, uploadFile, urlPage, sectionInEditing, setCollapseOpen ,setMonIndex,monindex} = props
   
     // function changeColor(co) {
     //     elementInEditing.settings.style.color = co;
@@ -135,40 +135,6 @@ function Configurator(props) {
                             }
                          
 
-
-                           
-                            {/* <Route render={({ history }) => (
-                                <div id="bottom_configurtor"   >
-                                     <Grid container direction="row" style={{height:"100%", width:'100%'}} >
-                                     <Grid item md={2} sm={2}><button className='btn' style={{width:'100%',height:'100%',textAlign:'center'}} onClick={() => clickView(history)}>
-                                        <span class="material-icons iconBottom" style={{ color: "#cac6c6"}}>
-                                            remove_red_eye
-                                        </span>
-                                         </button>
-                                        </Grid>
-                                        <Grid item md={2} sm={2}></Grid>
-                                    <Grid item md={5} sm={5}>
-                                    {idPage && <div> <button className='btn' style={{ background: '#ff5f5f' }} onClick={() => updatefunnel2()} >update</button>
-                                        <button className='btn' style={{ background: '#ff5f5f' }} onClick={() => removeFunnel("5fd9f7b28eedc0eb8b5dea30")} >remove</button>
-                                        </div>
-                                        ||
-                                        // <button className='btn '  style={{width:'80%', backgroundColor:'blue'}} onClick={() => saveOrUpdatefunnel()} >save</button>}
-                                        <button type="button" id="whatapp"  onClick={() => saveOrUpdatefunnel()}>Save</button>
-                            }
-                                        </Grid>
-                                        <Grid item md={2} sm={2}></Grid>
-
-                                     </Grid>
-                                    
-                                    
-                                </div>
-                                
-
-
-
-
-                            )} /> */}
-
 <Route render={({ history }) => (
                                     <div id="bottom_configurtor"  >
                                         {/* <div class="dropup"> */}
@@ -178,14 +144,14 @@ function Configurator(props) {
                                         <div class="dropdown-menu mobile container row" id="mydr" style={{ backgroundColor: "#2E2E2E", position: "fixed", width: "100% ", height: "75px", marginRight:"-33%"}}>
                                             <div class="container">
                                                 <div class="row" style={{color:"white"}}>
-                                                    <div class="col-4 responsive"  onClick={(e) => setWidthPage("90vh")}>
+                                                    <div class="col-4 responsive"  onClick={(e) => setMyComputer("a")}>
                                                         <FaDesktop className="iconRes"  />
                                                         <br />
                                                         Desktop    </div>
-                                                    <div class="col-4 responsive" onClick={(e) => setWidthPage("70vh")} style={{  border:"1px 0px white solid"}}>
+                                                    <div class="col-4 responsive" onClick={(e) => setMyComputer("b")} style={{  border:"1px 0px white solid"}}>
                                                     <FaTabletAlt className="iconRes" /><br/>
                                                         Tablet    </div>
-                                                    <div class="col-4 responsive" onClick={(e) => setWidthPage("20vh")}>
+                                                    <div class="col-4 responsive" onClick={(e) => setMyComputer("c")}>
                                                         <FaMobileAlt className="iconRes" /><br/>
                                                         Mobile    </div>
                                                 </div>
@@ -204,7 +170,6 @@ function Configurator(props) {
                                             <button className='btn' style={{ background: '#ff5f5f' }} onClick={() => removeFunnel("5fd9f7b28eedc0eb8b5dea30")} >remove</button>
                                         </div>
                                             ||
-                                            // <button className='btn '  style={{width:'80%', backgroundColor:'blue'}} onClick={() => saveOrUpdatefunnel()} >save</button>}
                                             <button type="button" id="whatapp" class="btn btn-info btn-sm" onClick={() => saveOrUpdatefunnel()} style={{height:'80%'}}>update</button>
                                         }
                                     </div>
@@ -255,6 +220,8 @@ export default withRouter(connect(
             sectionInEditing: (indexSection) => { dispatch(actions.sectionInEditing(indexSection)) },
             setMonIndex: (idx)=>{dispatch(actions.setMonIndex(idx))},
             setWidthPage:(idx)=>{dispatch(actions.setWidthPage(idx))},
+            setMyComputer: (idx)=>{dispatch(actions.setMyComputer(idx))},
+
          
         }
     }

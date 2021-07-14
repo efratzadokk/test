@@ -294,10 +294,10 @@ function Element(props) {
           //  debugger
             //   return (
                 return (
-                    <div style={{ backgroundColor: 'transparent',height:'95%'}}
+                    <div id='botn' style={{ backgroundColor: 'transparent',height:'95%'}}
                     //  ref={myImage}
                     >
-                        <div className={editMode && "hoverToEdit pointer"} style={{ height: '100%' }} id={`allmyelem${element.id}`}>
+                        <div className={editMode && "hoverToEdit pointer botn" } style={{ height: '100%' }} id={`allmyelem${element.id}`}>
                             {editMode && <div className='edit_buttons_element'>
                                 <span class="material-icons" style={{ zIndex: 3, fontSize: '1.2rem' }} onClick={() => {removeElement(id);delpart(id)}}>
                                     delete
@@ -306,6 +306,7 @@ function Element(props) {
                             </div>}
                             <div className={element.value ? "d-flex flex-column align-items-center justify-content-center m-2  y" : 'd-flex flex-column align-items-center justify-content-center m-2 y divEmptyElement'}
                                 // onFocus={() => setCollapseOpen('element')}
+                                id='botn'
                                 onClick={() => onEnterElement()}
                                 style={{ height: '100%' }}>
                                 <ImageUploader element={element} onDrag={e => drag1(e)} draggable="true" taille={props.taille} ></ImageUploader>

@@ -12,6 +12,7 @@ const initialState = {
     newElementTypeAndValue: {},
     loading: false,
     message: false,
+    myComputer:'a',
     newElement: {},
     elementInEditing: {},
     sectionInEditing: {},
@@ -119,7 +120,7 @@ const initialState = {
                         {
                             backgroundColor: "",
                             border: false,
-                            id:6,
+                            id:`myId${4}`,
                             settings: {borderStyle: "none", width: "100%", height: "100%", opacity: "0.99",maxHeight:'50vh'},
                             textAlign: "center",
                             type: "Image",
@@ -191,6 +192,11 @@ const funnelReducer = {
     setPosElement(state, action) {
         // console.log("action.payload:",action.payload)
         state.posElement = action.payload
+        return state
+    },
+    setMyComputer(state, action) {
+        // console.log("action.payload:",action.payload)
+        state.myComputer = action.payload
         return state
     },
     addElement(state, action) {
