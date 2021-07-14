@@ -4,6 +4,7 @@
 import produce from 'immer'
 import createReducer from "./reducerUtil";
 import defualtValue from '../../assets/defultimgbig700.png'
+import mylogo from '../../assets/mylogo.svg'
 const initialState = {
     urlPage: '',//'http://localhost:3000'
     // urlPage:'http://funnel.dev.leader.codes',
@@ -29,7 +30,7 @@ const initialState = {
     idFunnel: '',
     urlFunnel: '',
     newVal: [
-        { index: 0, type: 'logo', border: false, path: '', backgroundColor: "", borderRadius: "", width: "", height: "", alignItem: "center" },
+        { index: 0, type: 'logo', border: false, path: '', opacity: '0.6', borderRadius: "", width: "", height: "", alignItem: "center",textAlign: "center" },
         { index: 1, type: 'title', border: false, text: "Welcome enter your title!", backgroundColor: "transparent", color: "black", textAlign: "center", fontSize: "25", fontFamily: 'Arial, Helvetica, sans-serif' },
         { index: 2, type: 'button', fontSize: "25", text: "Button ", color: "white", backgroundColor: "#13436c", textAlign: "center", fontFamily: 'Arial, Helvetica, sans-serif', borderRadius: '0', width: '100' },
         { index: 3, type: 'image', border: false, path: '', backgroundColor: "", width: "20", borderRadius: "", height: "10", textAlign: "center", opacity: '0.6' },
@@ -60,17 +61,13 @@ const initialState = {
                 {
                     arrElements:[
                         {
-                            backgroundColor: "transparent",
+                            backgroundColor: "",
                             border: false,
-                            borderRadius: undefined,
-                            color: "#193880",
-                            fontFamily: "Anonymous Pro",
-                            fontSize: "13",
-                            id: `myId${0}`,
-                            settings: {},
+                            id:`myId${0}`,
+                            settings: {borderStyle: "none", width: "30%", height: "30%", opacity: "0.99",maxHeight:'10vh', textAlign: "left"},
                             textAlign: "left",
-                            type: "Title",
-                            value: "      🪐  YOUR LOGO"
+                            type: "Logo",
+                            value: mylogo
                      },{
                         backgroundColor: "transparent",
                         border: false,
@@ -211,7 +208,7 @@ const funnelReducer = {
             newElement = { type: action.payload.type, color: action.payload.value.color, height: action.payload.value.height, settings: {}, id: action.payload.id }
 
         }
-        else if (action.payload.type === 'Image' || action.payload.type === 'Video') {
+        else if (action.payload.type === 'Image' || action.payload.type === 'Video' || action.payload.type === 'Logo') {
             // if (action.payload.type == 'Gallery')
             //     action.payload.value = []
             newElement = { type: action.payload.type, value: action.payload.value.value, textAlign: action.payload.value.textAlign, backgroundColor: action.payload.value.backgroundColor, border: action.payload.value.border, settings: {}, id: action.payload.id }
@@ -262,7 +259,7 @@ const funnelReducer = {
             //  newElement={ type: action.payload.type, value: action.payload.value.text}
 
         }
-        else if (action.payload.type === 'Image' || action.payload.type === 'Video') {
+        else if (action.payload.type === 'Image' || action.payload.type === 'Video' || action.payload.type==='Logo') {
             // newElement = { type: action.payload.type, value: action.payload.value.path, images: action.payload.value.images, alignItem: action.payload.value.alignItem, backgroundColor: action.payload.value.backgroundColor }
             newElement = { type: action.payload.type, value: action.payload.value.path, textAlign: action.payload.value.textAlign, border: action.payload.value.border, backgroundColor: action.payload.value.backgroundColor }
 

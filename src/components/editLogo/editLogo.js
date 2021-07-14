@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { useDropzone, onDragOver } from 'react-dropzone'
 import { connect } from 'react-redux';
-import './editImg.css'
+import './editLogo.css'
 import AlignB from '../../assets/AlignB.svg'
 import AlignL from '../../assets/AlignL.svg'
 import AlignM from '../../assets/AlignM.svg'
@@ -21,7 +21,7 @@ import { Col, Row, Container } from "react-bootstrap";
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import {actions} from '../../redux/actions/funnel-try.action'
-function EditImg(props) {
+function EditLogo(props) {
 
     const {styleImage,element,ImgOnEdit,setStyleImage,elementInEditing,elementInEditing1}=props
     const arrBorders=["solid","dotted","dashed","double","groove","ridge","inset","outset","none"];
@@ -51,18 +51,9 @@ function EditImg(props) {
 
     const changePic=(e)=>
     {
-        $(`#inputFileImg${ImgOnEdit.id}`).trigger('click')
-        
+        $(`#inputFileImg${ImgOnEdit.id}`).trigger('click')  
     }
 
-    // function changeBackground(e) {
-    //     console.log('onverra',e)
-    //     console.log(e.target.style.opacity)
-    //     console.log(e.target.style)
-    //    // console.log(e.target.parent)
-
-    //     e.target.style.background = 'red';
-    //   }
   
     const setBColor=(c ,typei)=>{
         props.elementInEditing1(ImgOnEdit.id)
@@ -89,7 +80,7 @@ function EditImg(props) {
     return (
         <>
 <Container>
-  <Row style={{fontSize:"1.5vw",color:'#4169E1', fontWeight:'bold'}} >Image </Row>
+  <Row style={{fontSize:"1.5vw",color:'#4169E1', fontWeight:'bold'}} >Logo </Row>
   <hr/>
   <Row style={{width:'100%' ,height:'11vh' , marginRight:'4%'}} >
   {ImgOnEdit.value ? 
@@ -166,7 +157,7 @@ function EditImg(props) {
 <Grid container direction="row" style={{height:"7vh", alignItems:'center'}} >
             
                 <Grid item md={2} sm={2}>  <img src={Opacity} style={{width:'66%', height:'100%',alignItems:'right'}}></img></Grid>
-                {/* <Grid item md={1} sm={1} ></Grid> */}
+                <Grid item md={1} sm={1} ></Grid>
                 <Grid item md={6} sm={6}>  
                 <input type="range" 
                 // style={{height:'100%', width:'100%'}} 
@@ -175,7 +166,7 @@ function EditImg(props) {
               </Grid>
                <Grid item md={1}/>
 
-        <Grid item md={3} sm={3} > <p style={{alignItems:'left',fontSize:'1vw'}}>{ImgOnEdit.settings.opacity? ImgOnEdit.settings.opacity : "" }</p> </Grid>
+        <Grid item md={2} sm={2} > <p style={{alignItems:'left',fontSize:'1vw'}}>{ImgOnEdit.settings.opacity? ImgOnEdit.settings.opacity : "" }</p> </Grid>
      
     </Grid>
 
@@ -273,4 +264,4 @@ export default connect(
 
         }
     }
-)(EditImg)
+)(EditLogo)

@@ -84,6 +84,7 @@ function Part(props) {
             case 'Icon' : { calcheight=60 } break
             case 'Spacer' : { calcheight=45 } break
             case 'Sharing' : { calcheight=67 } break
+            case 'Logo': { calcheight=70 }break; 
             default : { calcheight=0 } break
         }
     console.log(calcheight)

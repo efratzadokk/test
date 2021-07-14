@@ -1,13 +1,11 @@
-
-
 import React, { useState, useRef } from 'react';
 import { useDropzone, onDragOver } from 'react-dropzone'
-import './image.css'
+import './logo.css'
 import { connect } from 'react-redux';
 import $ from "jquery";
 import {actions} from '../../redux/actions/funnel-try.action'
 
-function ImageUploader(props) {
+function Logo(props) {
     const modalImageRef = useRef();
     const modalRef = useRef();
     const { element, setValueElement, setStyleImage, user } = props
@@ -111,7 +109,7 @@ function ImageUploader(props) {
         setStyleImage('width', '100%')
         setStyleImage('height', '100%')
         setStyleImage('opacity', '0.99')
-        setStyleImage('maxHeight', '50vh')
+        setStyleImage('maxHeight', '10vh')
 
     }
   const  local_image=(url)=>{
@@ -119,48 +117,60 @@ function ImageUploader(props) {
     setStyleImage('width', '100%')
     setStyleImage('height', '100%')
     setStyleImage('opacity', '0.99')
-    setStyleImage('maxHeight', '50vh')
+    setStyleImage('maxHeight', '10vh')
 
     setImage(url)
+  //  console.log(image)
     console.log(url)
     props.setValueMe(url,'path')
+    //  console.log(element)
+    //  console.log(element.id)
      props.elementInEditing(element.id)
+    // console.log(element)
+
+
   }
 
   console.log(element)
-  return (
-    <div style={{width:'100%',height:'100%',alignItems:'center'}}>
-        <input  type="file" id={'inputFileImg'+element.id} className="d-none " onChange={(e) => chooseImg(e)} ></input>
-        <div className="content" onDoubleClick={() => changeImgOnClick()} style={{height:'100%'}} >
-            <div className="container p-0" id={image ? "" :'ddd'} style={{height:'100%'}}>
-                <div className="drop-container col-12 p-0" onDragOver={dragOver}
-                    onDragEnter={dragEnter}
-                    onDragLeave={dragLeave}
-                    onDrop={fileDrop}
-                    draggable="true" 
-                 //   id={image ? "" :'ddd'}
-                    style={{height:'100%'}}
-                >
-                    <div  style={{textAlign:element.textAlign, backgroundColor:'transparent',height:'100%'}}  >
+    return (
+        <div style={{width:'100%'}}>
+            <input  type="file" id={'inputFileImg'+element.id} className="d-none " onChange={(e) => chooseImg(e)} ></input>
+            <div className="content" onDoubleClick={() => changeImgOnClick()}>
+                <div className="container p-0">
+                    <div className="drop-container col-12 p-0" onDragOver={dragOver}
+                        onDragEnter={dragEnter}
+                        onDragLeave={dragLeave}
+                        onDrop={fileDrop}
+                        // onDrag={e => drag1(e)}
+                        draggable="true" 
+                        //  ondragstart="drag(event)" 
+                    >
+                        <div  style={{textAlign:element.textAlign, backgroundColor:'transparent'}} >
 
-                        <div className="upload-icon"> </div>
-                        {element.value ? <img src={element.value}  style={element.settings}   alt="picture" /> 
-                        : image ? <img src={image}  style={element.settings} alt="pic"  /> :
-                            <div style={{height:'100% ',width:'100%'}} className='d-flex flex-column align-items-center justify-content-center' >
-                                <span class={"material-icons-outlined"} style={{ fontSize:'5rem'}} >
-                                    panorama
-                                </span>
-                                <p className="m-0 text-center">Double click to upload</p>
-                                
-                            </div>
-                        }
+                            <div className="upload-icon"> </div>
+                            {element.value ? <img src={element.value}  style={element.settings}   alt="picture" /> 
+                            : image ? <img src={image}  style={element.settings} alt="pic"  /> :
+                                <>
+                                    <span class="material-icons-outlined" style={{ fontSize: '5rem' }} >
+                                        panorama
+                             </span>
+                                    <p className="m-0 text-center">Double click to upload</p>
+                                </>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {/* <div className="modal"  ref={modalRef}>
+    <div className="overlay"></div>
+    <span className="close">X</span>
+    <div className="modal-image" ref={modalImageRef}></div>
+</div> */}
+
         </div>
-    </div>
-   
-)
+        // </div>
+    )
 }
 
 export default connect(
@@ -180,4 +190,4 @@ export default connect(
         // uploadImage: (files) => { dispatch(uploadImage(files)) }
     }
 
-)(ImageUploader);
+)(Logo);

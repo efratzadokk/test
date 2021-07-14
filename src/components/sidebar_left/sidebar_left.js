@@ -17,7 +17,7 @@ import Html from '../../assets/html2.svg';
 import Sharing from '../../assets/sharing.svg'
 //import {CodeIcon} from '@material-ui/icons/Code';
 import Home from '../../assets/nhm.svg'
-
+import Logo from '../../assets/logo.svg'
 
 
 function Sidebar_left(props){
@@ -56,6 +56,7 @@ function Sidebar_left(props){
             <Widget name="Html" img={Html} ></Widget>
             <Widget name="Sharing" img={Sharing} ></Widget>
             <Widget name="Form" img={Form} ></Widget>
+            <Widget name="Logo" img={Logo} ></Widget>
             </>
             :""
     

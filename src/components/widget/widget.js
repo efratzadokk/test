@@ -120,7 +120,7 @@ function Widget(props) {
                 <>
                 <div ref={drag}   style={{marginBottom:'0px'}} onDrag={e => drag1(e)} draggable="true" ondragstart="drag(event)" >
                         <div  style={{textAlign:'center',height:'9vh'} }>
-                        <img  id={(props.name=='Html' || props.name=='Gallery' ||props.name=='Form'||props.name=='Sharing')? "opc":""}
+                        <img  id={(props.name=='Html' || props.name=='Gallery' ||props.name=='Form'||props.name=='Sharing'|| props.name=='Logo')? "opc":""}
                        // id={(props.name=='Html' || props.name=='Gallery' ||props.name=='Form')? "opc":""} 
                         style={{height:'50%' , alignItems: 'center' , width:'50%' }} src={props.img} alt={props.name} ></img>
                       <div style={{textAlign:'center'}}> <label 

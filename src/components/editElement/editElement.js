@@ -9,6 +9,7 @@ import EditTitle from '../editTitle/editTitle'
 import EditSpacing from '../editSpacing/editSpacing'
 import EditIcon from '../EditIcon/EditIcon'
 import EditGallery from '../editGallery/editGallery'
+import EditLogo from '../editLogo/editLogo'
 
 import './editElement.css'
 function EditElement(props) {
@@ -29,6 +30,7 @@ function EditElement(props) {
                                    {elementInEditing.type=="Icon"&& <EditIcon IconOnEdit={elementInEditing}></EditIcon>}                                   
                                    {elementInEditing.type=="Html"&& <EditHtmlElement HtmlOnEdit={elementInEditing}></EditHtmlElement>}
                                    {elementInEditing.type=="Form"&& <EditForm FormOnEdit={elementInEditing}></EditForm>}
+                                   {elementInEditing.type=="Logo"&& <EditLogo ImgOnEdit={elementInEditing}></EditLogo>}
 {/*                                 
                                     aaaabbb */}
                                  {/* <p>{elementInEditing.type}</p> */}

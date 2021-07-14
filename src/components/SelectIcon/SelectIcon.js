@@ -15,11 +15,6 @@ import Picker from 'emoji-picker-react';
  function  SelectIcon(props)  {
   debugger
 
-  // const { chosenColorIcon, chosenSizeIcon, setStyleIcon,styleIcon} = props
-  // const { element, setValueElement, user } = props
-
-  //const [value, setValue] = useState("FaSearch")
-  //console.log(element);
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [onEntr, setonEntr] = useState(true)
   const {element}=props
