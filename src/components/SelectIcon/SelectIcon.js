@@ -44,7 +44,7 @@ const mac=()=>{
     {/* {onEntr? <Picker onEmojiClick={onEmojiClick} />:""}
      */}
     {
-      onEntr? <Picker onEmojiClick={onEmojiClick}/> :""
+      onEntr?<div> <Picker onEmojiClick={onEmojiClick}/> </div>:""
     }
     {/* <Picker onEmojiClick={onEmojiClick}  /> */}
   </div>

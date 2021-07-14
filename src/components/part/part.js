@@ -97,11 +97,6 @@ function Part(props) {
                 localStorage.setItem(props.leid, JSON.stringify(newheit))
                 addElement(add1.type, add1, indexSection, indexPart, numElement)
 
-
-                
-
-           
-
         }
         else{
             let b =JSON.parse(localStorage.getItem(`${props.leid}`))
@@ -117,7 +112,6 @@ function Part(props) {
                 console.log(newheit)
                 localStorage.setItem(props.leid, JSON.stringify(newheit))
                 addElement(add1.type, add1, indexSection, indexPart, numElement)
-
             }
             else
             {
@@ -147,6 +141,7 @@ function Part(props) {
     };
 
     const mafunc = (x) => {
+        debugger
         let elem = document.querySelector(`#allmyelem${x}`);
         if (elem.children[1].getAttribute('id')) {
             let a = elem.children[1].getAttribute('id')
@@ -159,6 +154,10 @@ function Part(props) {
 
         }
 
+        const mafunc2=(x)=>{
+
+        }
+
     return (
         <>
             <div ref={drop} onDrop={e => handleDrop1(e)} onDragOver={e => handleDragOver(e)} //  אני גזרתי
@@ -166,7 +165,7 @@ function Part(props) {
                 onDragLeave={e => handleDragLeave(e)} className={flagBorder ? 'border_part' : ''} style={part.settings.style, { height:"100%", width: '100%'}}>
                 {part.arrElements.length > 0 && part.arrElements.map((item, i) => {
                     return (
-                        <Element key={i} currentKey={i} element={item} part={indexPart} section={indexSection} id={item.id} taille={props.taille} mafunc={mafunc} leid={props.leid}></Element>
+                        <Element key={i} currentKey={i} element={item} part={indexPart} section={indexSection} id={item.id} taille={props.taille} mafunc={mafunc} mafunc2={mafunc2} leid={props.leid}></Element>
                     )
                 }) ||
                     <> <div className="d-flex flex-column align-items-center justify-content-center" style={{ alignItems: 'center', width: '100%', 

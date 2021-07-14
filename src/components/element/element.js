@@ -29,6 +29,13 @@ function Element(props) {
     const titre = myTitle
     const myTxt = useRef()
     const monTxt = myTxt
+    const mytxtarea=useRef()
+    
+    const mafunc2=()=>{
+        props.mafunc2(element.id)
+    }
+
+    useEffect(mafunc2,[mytxtarea])
     
     const mafunc = () => {
         props.mafunc(element.id)
@@ -168,7 +175,7 @@ function Element(props) {
 
 
                             <textarea
-                            //ref={mytxtarea}
+                            ref={mytxtarea}
                                 //id="widgEditor" 
                                 className="montitre" type="text"
                                 id={`montxtarea${element.id}`}

@@ -1,7 +1,7 @@
 import './App.css';
-import Ex from './components/ex'
+// import Ex from './components/ex'
 import Configurator from './components/configurator/configurator';
-import ProtectedRoute from './components/protectedRoutes/protectedRoutes';
+// import ProtectedRoute from './components/protectedRoutes/protectedRoutes';
 import Top_frame from './components/top_frame/top_frame';
 import Sidebar_left from './components/sidebar_left/sidebar_left';
 import WrapCenter from './components/wrap_center/wrap_center';
@@ -11,17 +11,19 @@ import { connect } from 'react-redux';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import styled from 'styled-components';
-import WrapAll from './components/wrapAll/wrap_all'
-import MyGallery from './components/slider/slider'
+// import styled from 'styled-components';
+// import WrapAll from './components/wrapAll/wrap_all'
+// import MyGallery from './components/slider/slider'
 import ListPapers from './components/listPapers/listPapers';
 import {actions} from './redux/actions/funnel-try.action'
 import NoFunnels from './components/noFunnels/noFunnels';
 
 function App(props) {
   const [flag, setFlag] = useState(true);
-  const [aaa, setaaa] = useState(true)
-  const { flagCon,getAllFunnel, getFunnel, flagAllFunnels, editMode,allFunnels } = props
+  // const [aaa, setaaa] = useState(true)
+  const { 
+    // flagCon,getAllFunnel, getFunnel, flagAllFunnels,
+     editMode,allFunnels } = props
   const { getUid } = props
   useEffect(() => {
     if (flag) {

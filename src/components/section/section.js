@@ -161,7 +161,7 @@ export default connect(
             // setCollapseOpen:  (collapse)=> { dispatch(actions.setCollapseOpen(collapse)) },
             sectionInEditing: (indexSection) => { dispatch(actions.sectionInEditing(indexSection)) },
             addSection2: (newSection,id,s,place) => { dispatch(actions.addSection2({newSection:newSection,id:id,s:s,place:place})) },
-            changeMessage: () => { dispatch(actions.changeMessage()) }
+            changeMessage: () => { dispatch({ type: '[funnel] CHANGE_MESSAGE' }) }
         }
     }
 )(Section)

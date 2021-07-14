@@ -39,14 +39,8 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps) ( function EditTitle(props) 
 {
     const {elementInEditing}=props
-    // const Font = lazy(() => import(`./font`))
- 
-     console.log(elementInEditing)
-   //console.log('hereee'+elementInEditing.fontSize)
-   
- 
- 
-   const setValue = (newValue) => {
+    console.log(elementInEditing)
+    const setValue = (newValue) => {
     props.setValueElement(newValue)
  }
  

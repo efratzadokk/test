@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import {actions} from '../../redux/actions/funnel-try.action'
 import './grids.css'
 
-import { useDrag } from 'react-dnd'
-import { ItemTypes } from '../../ItemTypes'
-import Widget from '../widget/widget'
+// import { useDrag } from 'react-dnd'
+// import { ItemTypes } from '../../ItemTypes'
+// import Widget from '../widget/widget'
  
 import Grid  from '@material-ui/core/Grid';
 function Grids(props) {
@@ -36,6 +36,7 @@ function Grids(props) {
         // props.iframe.contentWindow.postMessage(JSON.stringify({ function: "set show grid", params: c }), '*')
         changeMessage()
     }
+    
 
     return (
        
@@ -86,15 +87,10 @@ function Grids(props) {
 <Grid item md={2} sm={2} style={{marginTop:'1%'}}>     <input type="checkbox" id="show_grid_checkbox"  onClick={(e) => setShowGrid(e)} style={{width:'1vw', height:'100%'}} /> </Grid>
 <Grid item md={9} sm={9} style={{marginTop:'0px'}} >  <label id="monlabel"  for="show_grid_checkbox" style={{color:'grey' ,marginTop:'0px',fontSize:"1vw"}}>Show Grid Line</label> </Grid>
 </Grid>
-       
-       
-       
+     
         </div>
     )
 }
-
-
-
 
 export default connect(
     (state) => {
