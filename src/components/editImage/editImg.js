@@ -163,16 +163,8 @@ function EditImg(props) {
 
 <b style={{ fontSize: "1vw" }}>Opacity</b>
 
-{/* <Row>
-<Col sm='1' md='1'> <img src={Opacity}/></Col>
-<Col>
-
-        <input type="range" className="slider" id="" data-toggle="tooltip" data-placement="bottom" value={styleImage.opacity} placeholder="" min="0" max="0.99" step="0.0001"
-         onChange={(e) => setOpacityImage(e.target.value)}/>
-</Col>
-</Row> */}
 <Grid container direction="row" style={{height:"7vh", alignItems:'center'}} >
-                {/* <Grid item md={1}/> */}
+            
                 <Grid item md={2} sm={2}>  <img src={Opacity} style={{width:'66%', height:'100%',alignItems:'right'}}></img></Grid>
                 <Grid item md={1} sm={1} ></Grid>
                 <Grid item md={6} sm={6}>  
@@ -198,18 +190,6 @@ function EditImg(props) {
     <Grid container direction="row" style={{height:"5vh"}} >
                
                <Grid item md={9} sm={9}>   
-{/*            
-               <select name="border" id="border" style={{width:'100%',height:'100%', border:'none',fontSize:'1vw'}}
-               // defaultValue={setBColor('solid','borderStyle')} 
-                onChange={e=>setBColor(e.target.value,'borderStyle') }>
-                   <option value="" selected disabled hidden>Choose your border</option>
-                   <option value="solid">___________</option>
-                   <option value="dotted">-------------</option>
-                   <option value="double">=========</option>
-           
-                   </select> */}
-
-
 
                 <FormControl  style={{width:"100%",height:'100%'}}>
                 <Select style={{width:"100%",height:'100%', border:'none',fontSize:'1vw'}} 

@@ -61,7 +61,7 @@ function Grids(props) {
 </Grid>
 <Grid container direction="row" style={{height:"11vh" ,marginLeft:'3%'}}>
 
-<Grid item md={5} sm={5} > <div id="g5" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(4,'e')}></div> </Grid>
+<Grid item md={5} sm={5} >  <div id="g5" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'80%'}} onClick={() => clickAddSection(1,'e')}><div style={{backgroundColor:'#DCDCDC',height:'90%',marginTop:'15%', marginBottom:'0px',width:'100%'}}></div></div>  </Grid>
 <Grid item md={1} sm={1}></Grid>
 <Grid item md={5} sm={5} > <div id="g6" className=" grid_imgs m-1 pointer" style={{width:'90%', height:'100%'}} onClick={() => clickAddSection(3,'f')}></div></Grid>
 
