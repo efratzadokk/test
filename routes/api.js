@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router();
 const landingPageController = require("../controller/landingPage.js");
 
-router.get('/getAllFunnels/:userId',landingPageController.getAllFunnelsByUserId);
-router.get('/getUser/:userName', landingPageController.getUidByUserName)
-router.delete('/deleteFunnel/:funnelId', landingPageController.deleteFunnelById)
-router.post("/createFunnel/:uId/:funnelName", landingPageController.createFunnel);//////////good
+const funnel=require("../controller/funnel.controller")
+const user=require("../controller/user.controller")
+
+router.get('/getAllFunnels/:userId',funnel.getAllFunnelsByUserId);
+router.get('/getUser/:userName', user.getUidByUserName)
+router.delete('/deleteFunnel/:funnelId', funnel.deleteFunnelById)
+router.post("/createFunnel/:uId/:funnelName", funnel.createFunnel);//////////good
 
 
 // router.post("/:uId/submit", landingPageController.submit);
@@ -20,9 +23,9 @@ router.post("/createFunnel/:uId/:funnelName", landingPageController.createFunnel
 
 
 
-router.get("/getFunnelByName/:uId/:funnelName", landingPageController.getFunnelByName);
-router.post("/updateFunnelDetails/:uId/:funnelId",landingPageController.updateFunnelDetails)
-router.post('/duplicateFunnel/:funnelId', landingPageController.duplicateFunnelById)
+router.get("/getFunnelByName/:uId/:funnelName", funnel.getFunnelByName);
+router.post("/updateFunnelDetails/:uId/:funnelId",funnel.updateFunnelDetails)
+router.post('/duplicateFunnel/:funnelId', funnel.duplicateFunnelById)
 
 // router.post("/:uId/:name", landingPageController.updateLandingPageDetails);
 // router.delete("/removeLandingPage/:uId/:LandingPageId", landingPageController.removeLandingPage);
