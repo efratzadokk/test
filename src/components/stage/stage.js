@@ -49,7 +49,7 @@ function Stage(props) {
                         }
                         {props.jsonPage.arrSections.map((item, i) => {
                             return (
-                                <div key={i} id="myStage" style={{height: myComputer==='c'?"70vh":'60vh',maxHeight:'70vh',width:'100%',padding:'0',marginBottom:'0px',overflow:'scroll'}} className="ui-state-default" section-id={item.id} data-id={i}>
+                                <div key={i} id="myStage" style={{height: myComputer==='c'?"70vh":'60vh',maxHeight:'70vh',width:'100%',padding:'0',marginBottom:'0px'}} className="ui-state-default" section-id={item.id} data-id={i}>
                                     <Section section={item} indexSection={i} leid={item.id}></Section>
                                     </div>
                             )

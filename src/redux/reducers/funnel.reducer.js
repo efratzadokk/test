@@ -121,7 +121,7 @@ const initialState = {
                             backgroundColor: "",
                             border: false,
                             id:`myId${4}`,
-                            settings: {borderStyle: "none", width: "100%", height: "100%", opacity: "0.99",maxHeight:'50vh'},
+                            settings: {borderStyle: "none", width: "auto", height: "100%", opacity: "0.99",maxHeight:'50vh'},
                             textAlign: "center",
                             type: "Image",
                              value: defualtValue
@@ -216,7 +216,7 @@ const funnelReducer = {
         return state
     },
     addElement(state, action) {
-        debugger
+        // debugger
         let newElement
         if (action.payload.type === 'Title' || action.payload.type === 'Paragraph') {
 
@@ -332,7 +332,7 @@ const funnelReducer = {
         state.jsonPage.arrSections.map((item, a) => {
             item.arrParts.map((item, b) => {
                 item.arrElements.map((item, c) => {
-                    debugger
+                    // debugger
                     if (item.id == state.elementInEditing.id) {
                         item[stv] = action.payload.value
                     }
@@ -352,7 +352,7 @@ const funnelReducer = {
             item.arrParts.map((item, b) => {
                 item.arrElements.map((item, c) => {
                     if (item.id == state.elementInEditing.id) {
-                        debugger
+                        // debugger
                         item.value = action.payload.value
                     }
                 })

@@ -61,7 +61,7 @@ export default connect(mapStateToProps, mapDispatchToProps) ( function EditButto
 }
 
   const changeVal= (newValue,type) => {
-    debugger
+    // debugger
    
 
 

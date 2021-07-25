@@ -73,7 +73,7 @@ function EditImg(props) {
     }
 
     function HavingBorder(e) {
-        debugger
+        // debugger
         let c = e.target.checked;
         props.elementInEditing1(ImgOnEdit.id)
 
@@ -94,7 +94,7 @@ function EditImg(props) {
   <Row style={{width:'100%' ,height:'11vh' , marginRight:'4%'}} >
   {ImgOnEdit.value ? 
         <div id='mycon'>
-     <img  onDoubleClick={changePic} style={{ width: "80%", height: "100%", margin: "0 15%" }} id="editI" src={ImgOnEdit.value}  alt="Image"   />
+     <img  onDoubleClick={changePic} style={{ width: "auto", height: "100%", margin: "0 15%" }} id="editI" src={ImgOnEdit.value}  alt="Image"   />
       
         
         <div class="moi">

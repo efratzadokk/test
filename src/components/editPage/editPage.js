@@ -37,7 +37,7 @@ function EditPage(props) {
         setStylePage('backgroundColor', stylePage.backgroundColor.replace(/[\d\.]+\)$/g, value + ')'));
     }
     const changeImgOnClick = () => {
-        debugger
+        // debugger
         $('#inputFileImage').trigger('click')
     }
 
@@ -64,7 +64,7 @@ function EditPage(props) {
     // }
 
     const chooseImg = (e) => {
-        debugger
+        // debugger
         if(e.target.files[0])
         {
         const files = Array.from(e.target.files)
@@ -82,7 +82,7 @@ function EditPage(props) {
         return true;
     }
     const handleFiles = async (files) => {
-        debugger
+        // debugger
         console.log(files[0])
         if (validateFile(files[0])) {
             // setFile(!file)
@@ -103,7 +103,7 @@ function EditPage(props) {
             setStylePage("backgroundImage",url)
 
 
-            debugger
+            // debugger
             // $.ajax({
             //     type: "POST",
             //     url: "https://files.leader.codes/api/" + "WzM020nw4TgcAo1XIyl94g0Z0152" + "/upload",

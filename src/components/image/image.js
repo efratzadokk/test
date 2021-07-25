@@ -29,7 +29,7 @@ function ImageUploader(props) {
         e.preventDefault();
     }
     const fileDrop = (e) => {
-        debugger
+        // debugger/
         e.preventDefault();
         const files = e.dataTransfer.files;
         console.log(e);
@@ -38,7 +38,7 @@ function ImageUploader(props) {
         }
     }
     const handleFiles = async (files) => {
-        debugger
+        // debugger
         console.log(files[0])
         if (validateFile(files[0])) {
             setFile(!file)
@@ -92,13 +92,13 @@ function ImageUploader(props) {
         return true;
     }
     const changeImgOnClick = (e) => {
-        debugger
+        // debugger
         console.log(e)
        // console.log(e.target.value);
         $(`#inputFileImg${element.id}`).trigger('click')
     }
     const chooseImg = (e) => {
-        debugger
+        // debugger
         if(e.target.files[0])
         {
         const files = Array.from(e.target.files)
@@ -115,7 +115,7 @@ function ImageUploader(props) {
 
     }
   const  local_image=(url)=>{
-      debugger
+    //   debugger
     setStyleImage('width', '100%')
     setStyleImage('height', '100%')
     setStyleImage('opacity', '0.99')
@@ -146,7 +146,7 @@ function ImageUploader(props) {
                         <div className="upload-icon"> </div>
                         {element.value ? <img src={element.value}  style={element.settings}   alt="picture" /> 
                         : image ? <img src={image}  style={element.settings} alt="pic"  /> :
-                            <div style={{height:'100% ',width:'100%'}} className='d-flex flex-column align-items-center justify-content-center' >
+                            <div style={{height:'auto',width:'100%'}} className='d-flex flex-column align-items-center justify-content-center' >
                                 <span class={"material-icons-outlined"} style={{ fontSize:'5rem'}} >
                                     panorama
                                 </span>

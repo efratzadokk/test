@@ -26,7 +26,7 @@ function Gallery(props) {
     const inputFile = useRef(null)
 
     function handlerLogo(event) {
-        debugger
+        // debugger
         // if (ok) {
         if (event) {
             let reader = new FileReader();
@@ -66,7 +66,7 @@ function Gallery(props) {
     }, [])
 
     useEffect(() => {
-        debugger
+        // debugger
         setCurrentPic(props.myFiles[0])
         // props.getAllImagesOfUser()
     }, [myImage])
@@ -79,7 +79,7 @@ function Gallery(props) {
 
     }
     const select = (img) => {
-        debugger
+        // debugger
         
         console.log("get!!")
         props.handleClose();

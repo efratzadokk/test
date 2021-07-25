@@ -1,6 +1,6 @@
 import $, { error } from "jquery";
 import { actions } from '../actions/funnel-try.action'
-const url = `https://funnel.leader.codes`
+const url = `https://funnel.dev.leader.codes`
 // const url = `http://localhost:3008`
 
 //////////login
@@ -39,21 +39,21 @@ export const saveOrUpdate = ({ dispatch, getState }) => next => action => {
 
 export const duplicateFunnel = ({ dispatch, getState }) => next => action => {
     if (action.type === 'DUPLICATE_FUNNEL') {
-        debugger
+        // debugger
         $.ajax({
             url: `${url}/api/duplicateFunnel/${action.payload}`,//5f6b069358a042177629086b
             type: 'POST',
             // data: { url: "efrat1", json: JSON.stringify(getState().funnel.jsonPage) },
             // data: { 'name': getState().funnel.name, json: JSON.stringify(getState().funnel.jsonPage) },
             success: function (data) {
-                debugger
+                // debugger
                 console.log(data);
                 // dispatch({ type: '[funnel] SET_ID_FUNNEL', payload: data.funnel._id  })
                 // dispatch({ type: '[funnel] CHANGE_LOADING'})
                 dispatch(actions.getAllFunnels())
             },
             error: function (err) {
-                debugger
+                // debugger
                 console.log();
                 alert(JSON.parse(err.responseText).message)
             }
@@ -91,12 +91,12 @@ export const getFromServer = ({ dispatch, getState }) => next => action => {
 export const removeFunnel = ({ dispatch, getState }) => next => action => {
     // debugger
     if (action.type === 'REMOVE_FUNNEL') {
-        debugger
+        // debugger
         $.ajax({
             url: `${url}/api/deleteFunnel/${action.payload}`,
             type: 'DELETE',
             success: function (data) {
-                debugger
+                // debugge/r
                 console.log(data);
                 // dispatch({ type: '[funnel] GET_ALL_FUNNELS'})
                 // dispatch({ type: '[funnel] REMOVE_FUNNEL'})
@@ -117,14 +117,14 @@ export const creatFunnel = ({ dispatch, getState }) => next => action => {
             type: 'POST',
             data: { url: "efrat1", json: JSON.stringify(getState().funnel.jsonPage) },
             success: function (data) {
-                debugger
+                // debugger
                 console.log(data);
                 dispatch(actions.setIdFunnel(data.funnel._id))
                 dispatch(actions.changeLoading())
                 dispatch(actions.getAllFunnels())
             },
             error: function (err) {
-                debugger
+                // debugger
                 console.log();
                 alert(JSON.parse(err.responseText).message)
             }
@@ -135,7 +135,7 @@ export const creatFunnel = ({ dispatch, getState }) => next => action => {
 }
 export const updateFunnel = ({ dispatch, getState }) => next => action => {
     if (action.type === 'UPDATE_FUNNEL') {
-        debugger
+        // debugger//
         console.log(getState().funnel.jsonPage);
         $.ajax({
             url: `${url}/api/updateFunnelDetails/${getState().user.userId}/${getState().funnel.idFunnel}`,
@@ -147,7 +147,7 @@ export const updateFunnel = ({ dispatch, getState }) => next => action => {
             success: function (data) {
                 console.log(data);
 
-                debugger
+                // debugger
                 dispatch(actions.changeLoading())
                 dispatch(actions.getAllFunnels())
             },
@@ -169,10 +169,10 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
             type: 'GET',
             success: function (data) {
                 console.log(data);
-                debugger
+                // debugger
                 let newUid = data.uid;
                 // dispatch({ type: '[user] SET_USER_ID', payload: newUid })
-                debugger
+                // debugger
                 dispatch(actions.setUserId(newUid))
                 dispatch(actions.getAllFunnels())
                 dispatch(actions.getAllFiles())
@@ -190,7 +190,7 @@ export const getUidByUserName = ({ dispatch, getState }) => next => action => {
 }
 export const getAllFilesByUserName = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_FILES') {
-        debugger
+        // debugger
         let userName = getState().user.userName
         let url = `https://files.codes/api/${getState().user.userName}`// + userName
         console.log(url)
@@ -200,7 +200,7 @@ export const getAllFilesByUserName = ({ dispatch, getState }) => next => action 
             headers: { "authorization": "liveChat/userWithOutJwt" },
             type: 'GET',
             success: function (data) {
-                debugger
+                // debugger
                 console.log("files: ", data);
                 dispatch(actions.setAllFiles(data))
             },
@@ -213,7 +213,7 @@ export const getAllFilesByUserName = ({ dispatch, getState }) => next => action 
 }
 export const downladFileFromServer = ({ dispatch, getState }) => next => action => {
     if (action.type === 'DOWNLOAD_FILE') {
-        debugger
+        // debugger
         fetch(
             // "https://files.codes/api/" + getState().user.userName + "/download/" + action.payload.url,
             "https://files.codes/api/" + getState().user.userName + "/download/" + "https://files.codes/uploads/malkysh/img/1625653847745__HJ7A0558 - Copy.JPG",
@@ -225,7 +225,7 @@ export const downladFileFromServer = ({ dispatch, getState }) => next => action 
             }
         ).then((resp) => resp.blob())
             .then((blob) => {
-                debugger
+                // debugger
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.style.display = "none";
@@ -242,7 +242,7 @@ export const downladFileFromServer = ({ dispatch, getState }) => next => action 
 }
 export const removeFile = ({ dispatch, getState }) => next => action => {
     if (action.type === 'REMOVE_FILE') {
-        debugger
+        // debugger
         try {
             $.ajax({
                 type: "DELETE",
@@ -266,7 +266,7 @@ export const removeFile = ({ dispatch, getState }) => next => action => {
 }
 export const getAllFunnelByUserId = ({ dispatch, getState }) => next => action => {
     if (action.type === 'GET_ALL_FUNNELS') {
-        debugger
+        // debugger
         let uid1 = `${getState().user.userId}`
         console.log(uid1);
         let url1 = `${url}/api/getAllFunnels/${uid1}`;
@@ -278,7 +278,7 @@ export const getAllFunnelByUserId = ({ dispatch, getState }) => next => action =
             type: 'GET',
             success: function (data) {
                 // console.log(data);
-                debugger
+                // debugger
                 dispatch(actions.setAllFunnels(data.funnels))
             },
             error: function (err) {
@@ -325,7 +325,7 @@ export const getFunnelByName = ({ dispatch, getState }) => next => action => {
 export const uploadFiles = ({ dispatch, getState }) => next => action => {
     // return new Promise((resolve, reject) => {
     if (action.type === 'UPLOAD_FILES') {
-        debugger
+        // debugger
         var formData = new FormData
         var files = getState().funnel.imgsToUpload//jsonPage.arrSections.map((item, a) => {
         var myFiles = Object.values(files)
@@ -356,17 +356,17 @@ export const uploadFiles = ({ dispatch, getState }) => next => action => {
                             headers: { "authorization": "liveChat/userWithOutJwt" },
                             data: myData,
                             success: (data) => {
-                                debugger
+                                // debugger
                                 alert("upload success");
                                 console.log("upload success", data)
                                 //Reset the 'imgToUpload' array
                                 // getState().funnel.imgToUpload = []
                                 dispatch(actions.delImgsArr())
-                                debugger
+                                // debugger
                                 // resolve(data)
                             },
                             error: function (err) {
-                                debugger
+                                // debugger
                                 console.log(err);
                                 // reject(err)
                             }
@@ -375,7 +375,7 @@ export const uploadFiles = ({ dispatch, getState }) => next => action => {
                     // resolve(data)
                 },
                 error: function (err) {
-                    debugger
+                    // debugger
                     console.log(err);
                     // reject(err)
                 }

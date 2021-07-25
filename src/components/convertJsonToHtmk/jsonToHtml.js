@@ -63,7 +63,7 @@ import { connect } from 'react-redux';
 
 
   function JsonToHtml(props) {
-    debugger
+    // debugger
     const {jsonPage, jsonFunnel}=props
     console.log(JSON.parse(jsonFunnel))
     let generatedHtml = toHtml(JSON.parse(jsonFunnel));

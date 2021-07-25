@@ -97,20 +97,23 @@ function ListPapers(props) {
     
     }
 const remove=(e)=>
-{  debugger
+{  
+    // debugger
     removeReducer(e)
 removeFunnel(e)
 
 }
 const downloadFunnel=(json)=>
-{     debugger
+{     
+    // debugger
      <JsonToHtml jsonFunnel={json}></JsonToHtml>
 }
 
 
    
 const setjsonByIdFunnel=(e)=>
-{ debugger
+{ 
+    // debugger
     console.log("jsonnnn"+e, e._id, e.name)
     setjsonReducer(e._id)
 setJsonServer(e, e.name)
@@ -174,7 +177,7 @@ setJsonServer(e, e.name)
 
     const setjsonReducer = (e) => {
         console.log(e)
-        debugger
+        // d/ebugger
         console.log("i am in func setJsonBy..." + " " + e.idFunnel)
         let indexfunnel = 0
         allFunnels.map((item, index) => {
@@ -208,7 +211,7 @@ setJsonServer(e, e.name)
     // redirectFunction()
 
   const optionDetails=()=>{
-      debugger
+    //   debugger
     console.log("aaaaaaaaaaaaaaaaaaaaa")
     $(".ui").css('display','block')
     return(<>

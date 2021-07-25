@@ -34,7 +34,7 @@ function Widget(props) {
 
 
     const findMe=(myname)=>{
-        debugger
+        // debugger
         let obj = valueWidget.find(x => x.type === myname.toLowerCase());
        // console.log(obj)
         let index = valueWidget.indexOf(obj);
@@ -55,13 +55,14 @@ function Widget(props) {
         }),
         end: async (item, monitor) => {
             //////////////
-            debugger
+            // debugger//////
             const dropResult = monitor.getDropResult();
             if (item && dropResult) {
                 console.log(settings);
                 setName(item.name)
                 if (indexPart === dropResult.indexPart && indexSection === dropResult.indexSection)
-                { debugger
+                { 
+                    // debugger
                     props.addElement(name, findMe(props.name), indexSection, indexPart, numElement)
                 }
                     else {
@@ -95,7 +96,7 @@ function Widget(props) {
         event.preventDefault();
    
         event.dataTransfer.dropEffect = 'move';
-        debugger
+        // debugger/
         addElement1(props.name, findMe(props.name))
         props.setMonIndex(1)
    

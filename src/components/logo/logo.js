@@ -27,7 +27,7 @@ function Logo(props) {
         e.preventDefault();
     }
     const fileDrop = (e) => {
-        debugger
+        // debugger
         e.preventDefault();
         const files = e.dataTransfer.files;
         console.log(e);
@@ -36,7 +36,7 @@ function Logo(props) {
         }
     }
     const handleFiles = async (files) => {
-        debugger
+        // debugger
         console.log(files[0])
         if (validateFile(files[0])) {
             setFile(!file)
@@ -90,13 +90,13 @@ function Logo(props) {
         return true;
     }
     const changeImgOnClick = (e) => {
-        debugger
+        // debugger
         console.log(e)
        // console.log(e.target.value);
         $(`#inputFileImg${element.id}`).trigger('click')
     }
     const chooseImg = (e) => {
-        debugger
+        // debugger
         if(e.target.files[0])
         {
         const files = Array.from(e.target.files)
@@ -113,7 +113,7 @@ function Logo(props) {
 
     }
   const  local_image=(url)=>{
-      debugger
+    //   debugger
     setStyleImage('width', '100%')
     setStyleImage('height', '100%')
     setStyleImage('opacity', '0.99')

@@ -13,7 +13,7 @@ import $ from "jquery";
 import Picker from 'emoji-picker-react';
 
  function  SelectIcon(props)  {
-  debugger
+  // debugger
 
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [onEntr, setonEntr] = useState(true)

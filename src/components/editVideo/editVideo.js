@@ -28,7 +28,7 @@ console.log(elementInEditing)
   
     
     const  twoCalls = e => {
-        debugger
+        // debugger
         setWidthImage(e.target.value)
         setHeightImage(e.target.value)
       }

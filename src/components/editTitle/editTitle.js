@@ -45,7 +45,7 @@ export default connect(mapStateToProps, mapDispatchToProps) ( function EditTitle
  }
  
    const changeVal= (newValue,type) => {
-     debugger
+    //  debugger
   
  
  console.log(newValue)

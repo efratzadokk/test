@@ -41,9 +41,9 @@ function Part(props) {
         e.preventDefault();
         e.stopPropagation();
         console.log("kk")
-        debugger
+        // debugger
         console.log(add, add, indexSection, indexPart, numElement)
-        debugger
+        // debugger
         console.log(indexPart)
 
         addElement(add.name, add, indexSection, indexPart, numElement)
@@ -58,7 +58,7 @@ function Part(props) {
     let calcheight=0
     let istrue=true
         console.log("droppping!!!!!")
-         debugger
+        //  debugger
         e.preventDefault();
         e.stopPropagation();
         console.log(props.leid)
@@ -142,7 +142,7 @@ function Part(props) {
     };
 
     const mafunc = (x) => {
-        debugger
+        // debugger
         let elem = document.querySelector(`#allmyelem${x}`);
         if (elem.children[1].getAttribute('id')) {
             let a = elem.children[1].getAttribute('id')

@@ -79,7 +79,7 @@ function Configurator(props) {
     }
 
     const changeTable= (v)=>{
-        debugger
+        // debugger
   console.log('here')
   console.log(monindex)
   console.log(v)

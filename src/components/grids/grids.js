@@ -30,7 +30,7 @@ function Grids(props) {
         changeMessage()
     }
     function setShowGrid(e) {
-        debugger
+        // debugger
         let c = e.target.checked;
         changeFlagBorderPart(c);
         // props.iframe.contentWindow.postMessage(JSON.stringify({ function: "set show grid", params: c }), '*')

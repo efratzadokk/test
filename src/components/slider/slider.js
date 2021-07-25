@@ -32,10 +32,10 @@ function Slider(props) {
     // console.log("id: -", props.elementID2)
 
     useEffect(() => {
-        debugger
+        // debugger
         console.log("img: ", selectedImg)
         if (selectedImg != null) {
-            debugger
+            // debugger
             // var url = URL.createObjectURL(selectedImg)
             props.addImgToSlider(selectedImg)//,{url:'https://picsum.photos/id/1018/1000/600/'})
             // addImgToGallery(selectedImg, url)
@@ -46,12 +46,12 @@ function Slider(props) {
         // console.log("hi",images)
     }, [selectedImg])
     useEffect(() => {
-        debugger
+        // debugger
         jPage.arrSections.map((item, a) => {
             item.arrParts.map((item, b) => {
                 item.arrElements.map((item, c) => {
                     if (item.id == elementId) {
-                        debugger
+                        // debugger
                         setImages(item.images)
                         console.log("imgs: ", images)
                     }
@@ -68,12 +68,12 @@ function Slider(props) {
     const SetImageGallery = (value) => {
     }
     const chooseImg = (e) => {
-        debugger
+        // debugger
         // console.log(images)
         let reader = new FileReader();
         var url = URL.createObjectURL(e)
         reader.onloadend = () => {
-            debugger
+            // debugger
             console.log('added!!');
         }
         addImgToGallery(e, url)
@@ -90,7 +90,7 @@ function Slider(props) {
     //     )
     // }
     const clickToChoose = () => {
-        debugger
+        // debugger
         handleShow()
 
         // openModal()

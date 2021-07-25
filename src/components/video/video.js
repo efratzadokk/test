@@ -49,7 +49,7 @@ function VideoUploader(props) {
         }
     }
     const handleFiles = async (files) => {
-        debugger
+        // debugger
 
      //   console.log('hhhhh'+files[0])
      console.log(files[0])
@@ -95,7 +95,7 @@ function VideoUploader(props) {
         };
     }
     const validateFile = (file) => {
-        debugger
+        // debugger
         const validTypes = ['video/mp4','image/jpeg'];
         // console.log(file.type)
         
@@ -111,7 +111,7 @@ function VideoUploader(props) {
         $(`#inputFileImg${element.id}`).trigger('click')
     }
     const chooseImg = (e) => {
-        debugger
+        // debugger
         const files = Array.from(e.target.files)
         console.log("files:", files)
         handleFiles(files)
@@ -125,7 +125,7 @@ function VideoUploader(props) {
   //      setStyleImage('opacity', '0.99')
     }
   const  local_image=(url)=>{
-      debugger
+    //   debugger
     setStyleImage('width', '100%')
     setStyleImage('height', '100%')
    // setStyleImage('opacity', '0.5')

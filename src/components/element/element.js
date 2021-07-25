@@ -49,7 +49,7 @@ function Element(props) {
         console.log("dragging!!!!")
         event.stopPropagation();
         event.preventDefault();
-        debugger
+        // debugger
         event.dataTransfer.dropEffect = 'move';
         // movingElement(id)
         // addElement1(props.name, valueWidget[props.name])
@@ -59,7 +59,7 @@ function Element(props) {
 
 
     const setValue = (newValue) => {
-         debugger
+        //  debugger
    
 
       console.log(newValue)
@@ -103,7 +103,7 @@ function Element(props) {
     //   }
     function moi(a)
     {
-        debugger
+        // debugger
         console.log(a)
         const textareas = document.querySelector(`#${a}`);
         textareas.style.height ='inherit'
@@ -112,7 +112,7 @@ function Element(props) {
     
     function delpart (id)
     {
-        debugger
+        // debugger
         let calcheight=0
         console.log(part)
        // console.log(props.myId)
@@ -464,7 +464,7 @@ function Element(props) {
                             </div>}
                             <div className='d-flex' style={{ textAlign: element.textAlign }}>
                                 <a target="_blank" className='col-10 m-auto' href={editMode ? null : element.href ? element.href : null}>
-                                    <button type='button' onClick={() => onEnterElement()} onChange={(e) => { debugger; setValue(e.target.value) }}
+                                    <button type='button' onClick={() => onEnterElement()} onChange={(e) => {  setValue(e.target.value) }}
                                         style={{
                                             border: 'none',
                                             width: element.width + "%",

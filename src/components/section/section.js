@@ -14,7 +14,7 @@ function Section(props) {
     const {changeMessage,addSection2, section, indexSection, removeSection, setCollapseOpen, sectionInEditing, editMode, jsonPage, numSections, message, saveInLocalStorage, urlPage, nameUser, nameFunnel } = props
     const bodyRef = useRef();
     const editSection = (indexSection) => {
-        debugger
+        // debugger
         //////////לשים משהוא במקום השליחה הזו
         // window.parent.postMessage(JSON.stringify({function:"set collapse open" ,params:{elementOrSection:'section',id:indexSection}}), '*')
         console.log(jsonPage)

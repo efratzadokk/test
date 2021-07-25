@@ -64,7 +64,7 @@ function EditLogo(props) {
     }
 
     function HavingBorder(e) {
-        debugger
+        // debugger
         let c = e.target.checked;
         props.elementInEditing1(ImgOnEdit.id)
 

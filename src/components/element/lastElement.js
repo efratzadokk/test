@@ -86,7 +86,7 @@ function Element(props) {
         console.log("dragging!!!!")
         event.stopPropagation();
         event.preventDefault();
-        debugger
+        // debugger
         event.dataTransfer.dropEffect = 'move';
         // movingElement(id)
         // addElement1(props.name, valueWidget[props.name])
@@ -164,7 +164,7 @@ function Element(props) {
 
 
     const setValue = (newValue) => {
-         debugger
+        //  debugger
         // console.log(newValue.target)
         // console.log(newValue);
         // console.log(newValue.target.value)
@@ -350,7 +350,7 @@ function Element(props) {
 
             )
         case "Image":
-            debugger
+            // debugger
             return (
                 <><div className={editMode && "hoverToEdit pointer"}>
                     {editMode && <div className='edit_buttons_element'>

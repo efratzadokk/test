@@ -13,14 +13,14 @@ function EditSection(props) {
         var r = parseInt(hex.substring(0, 2), 16),
             g = parseInt(hex.substring(2, 4), 16),
             b = parseInt(hex.substring(4, 6), 16);
-        debugger
+        // debugger
         let obj={indexSection:indexSectionInEditing, property:'backgroundColor', val:'rgba(' + r + ',' + g + ',' + b + ',' + 1 + ')'}
         setStyleSection(obj)
         // props.iframe.contentWindow.postMessage(JSON.stringify({ function: "set style of section", params: obj }), '*')
     }
     const setOpacity = (value) => {
         // setOpacityPage(value)
-        debugger
+        // debugger
         let obj={indexSection:indexSectionInEditing, property:'opacity', val:value}//(/[\d\.]+\)$/g, value + ')')}
         setStyleSection(obj)
         // props.iframe.contentWindow.postMessage(JSON.stringify({ function: "set style of section", params: obj }), '*')
