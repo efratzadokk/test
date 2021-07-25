@@ -63,10 +63,11 @@ function App(props) {
             {/* <div>
               <ListPapers></ListPapers>
             </div> */}
-            { (allFunnels.length) ?
+            { allFunnels?(allFunnels.length) ?
               <ListPapers/>
               :
               <NoFunnels/>
+              :<></>
 }
           </Route>
 

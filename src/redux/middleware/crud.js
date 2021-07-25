@@ -1,7 +1,12 @@
 import $, { error } from "jquery";
 import { actions } from '../actions/funnel-try.action'
-const url = `https://funnel.dev.leader.codes`
+// const url = `https://funnel.leader.codes`
+
 // const url = `http://localhost:3008`
+import keys,{API_File} from '../../config/env/keys'
+const url=keys.API_URL_BASE_CLIENT
+console.log(url)
+// import API_File from '../../config/env/keys'
 
 //////////login
 // export const getUserByJWT = ({ dispatch, getState }) => next => action => {
@@ -192,7 +197,7 @@ export const getAllFilesByUserName = ({ dispatch, getState }) => next => action 
     if (action.type === 'GET_ALL_FILES') {
         // debugger
         let userName = getState().user.userName
-        let url = `https://files.codes/api/${getState().user.userName}`// + userName
+        let url = `${API_File}/api/${getState().user.userName}`// + userName
         console.log(url)
         $.ajax({
             url: url,
@@ -200,7 +205,7 @@ export const getAllFilesByUserName = ({ dispatch, getState }) => next => action 
             headers: { "authorization": "liveChat/userWithOutJwt" },
             type: 'GET',
             success: function (data) {
-                // debugger
+                debugger
                 console.log("files: ", data);
                 dispatch(actions.setAllFiles(data))
             },
@@ -216,7 +221,7 @@ export const downladFileFromServer = ({ dispatch, getState }) => next => action 
         // debugger
         fetch(
             // "https://files.codes/api/" + getState().user.userName + "/download/" + action.payload.url,
-            "https://files.codes/api/" + getState().user.userName + "/download/" + "https://files.codes/uploads/malkysh/img/1625653847745__HJ7A0558 - Copy.JPG",
+            `${API_File}/api/${getState().user.userName}/download/${action.payload.url}`,
 
             {
                 method: "GET",
@@ -246,7 +251,7 @@ export const removeFile = ({ dispatch, getState }) => next => action => {
         try {
             $.ajax({
                 type: "DELETE",
-                url: "https://files.codes/api/" + getState().user.userName + "/remove/" + action.payload.url,
+                url: `${API_File}/api/${getState().user.userName}/remove/${action.payload.url}`,
                 // headers: { Authorization: jwtFromCookie },
                 headers: { "authorization": "liveChat/userWithOutJwt" },
                 success: function (data) {
@@ -338,7 +343,7 @@ export const uploadFiles = ({ dispatch, getState }) => next => action => {
         if (!!formData.entries().next().value == true) {
             // debugger
             $.ajax({
-                url: `https://files.codes/api/${getState().user.userName}/uploadMultipleFiles`,
+                url: `${API_File}/api/${getState().user.userName}/uploadMultipleFiles`,
                 method: 'post',
                 contentType: false,
                 processData: false,
@@ -351,7 +356,7 @@ export const uploadFiles = ({ dispatch, getState }) => next => action => {
                     // dispatch(actions.delImgsArr())
                     setTimeout(() => {
                         $.ajax({
-                            url: `https://files.codes/api/${getState().user.userName}/savedMultiFilesDB`,
+                            url: `${API_File}/api/${getState().user.userName}/savedMultiFilesDB`,
                             method: 'POST',
                             headers: { "authorization": "liveChat/userWithOutJwt" },
                             data: myData,
