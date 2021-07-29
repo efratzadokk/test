@@ -1,11 +1,8 @@
 
 import produce from 'immer'
 import createReducer from "./reducerUtil";
-
-const initialState = {
-    userName:window.location.pathname.split('/')[2],
-    userId:''
-}
+import {user} from '../../models/user'
+const initialState = user();
 
 // export default produce((state = initialState, action) => {
 //     switch (action.type) {

@@ -15,7 +15,6 @@ function ImageUploader(props) {
     const [file, setFile] = useState(false);
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-    console.log(element)
 
 
     const dragOver = (e) => {
@@ -127,7 +126,6 @@ function ImageUploader(props) {
      props.elementInEditing(element.id)
   }
 
-  console.log(element)
   return (
     <div style={{width:'100%',height:'100%',alignItems:'center',marginBottom:'0'}}>
         <input  type="file" id={'inputFileImg'+element.id} className="d-none " onChange={(e) => chooseImg(e)} ></input>

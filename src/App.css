@@ -8,7 +8,7 @@
 #body{
     background-color: #E8EAEC;
     font-size: 0.8rem !important;
-    overflow: scroll;
+    overflow: auto;
 }
 .center_width_on_open_con{
     width: 81%;

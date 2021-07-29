@@ -147,7 +147,6 @@ function Part(props) {
         if (elem.children[1].getAttribute('id')) {
             let a = elem.children[1].getAttribute('id')
             const textareas = document.querySelector(`#${a}`);
-            console.log(textareas)
 
             textareas.style.height = 'inherit'
             textareas.style.height = textareas.scrollHeight + 'px'

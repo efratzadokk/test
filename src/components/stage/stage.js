@@ -28,7 +28,6 @@ function Stage(props) {
         const btmp={myHeight:350,isBigger:false}
         newhit[0]=atmp
         newhit[1]=btmp
-        console.log(newhit)
         localStorage.setItem(0, JSON.stringify(newhit))
         // return () => {
         //   localStorage.clear()

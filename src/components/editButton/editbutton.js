@@ -264,7 +264,7 @@ console.log(type)
     <b style={{ fontSize: "1vw" }}>Send Link To</b>
 
   <Grid container direction='row' style={{height:'8vh',alignItems:'center'}}  >
-  <Grid item md={9}>  <input style={{fontSize:'1vw',color:'black'}} type="text" className="form-control input urlVideo" data-placement="bottom" placeholder="enter yout link" onChange={(e) => setMurl(e.target.value)}  /> 
+  <Grid item md={9}>  <input style={{fontSize:'1vw',color:'black'}} type="text" className="form-control input urlVideo" data-placement="bottom" placeholder="enter yout link" onChange={(e) => setMurl(e.target.value)}  /> {/* ,props.setValueMe(e.target.value,'click')*/}
  </Grid>
  <Grid item md={1}/> 
  <Grid item md={2}> 

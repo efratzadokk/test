@@ -1,7 +1,7 @@
 
   .edit_buttons_section{
     position: absolute;
-    z-index: 1001;
+    z-index: 1;
     cursor: pointer;
     left:-1px;
     color: rgb(137, 140, 143);

@@ -176,30 +176,21 @@ setJsonServer(e, e.name)
 
 
     const setjsonReducer = (e) => {
-        console.log(e)
-        // d/ebugger
-        console.log("i am in func setJsonBy..." + " " + e.idFunnel)
         let indexfunnel = 0
         allFunnels.map((item, index) => {
             if (item._id == e._id) {
                 indexfunnel = index
-                console.log(indexfunnel)
-                // console.log("uuuuu" + allFunnels[indexfunnel].json)
                 console.log("rrrr" + JSON.parse(allFunnels[indexfunnel].json))
-
                 //  history.goBack()
                 //   setJsonPage(JSON.parse(allFunnels[index].json))
             }
-            // <Stage />
 
         })
+        debugger
         setNameChosenFunnel(allFunnels[indexfunnel].name)
         setIdFunnel(allFunnels[indexfunnel]._id)
         setJsonPage(JSON.parse(allFunnels[indexfunnel].json))
     console.log("alldetailsfunnel"+" "+allFunnels[indexfunnel].name, +" "+allFunnels[indexfunnel]._id)
-        // userName = (url.pathname.split('/')[2]);
-        // history.push(`/admin/${userName}/new`)
-        // setJsonPage(JSON.parse(allFunnels[indexfunnel].json))
 
     }
 
@@ -266,21 +257,12 @@ setJsonServer(e, e.name)
     const getIdFunnelByIndex = (index) => {
         {
             allFunnels.map((item, i) => {
-
-
                 setIdFunnelChangeName(item[index]._id)
-                // return idFunnel
-
             })
         }
     }
-
     const txtName="ALL TEAM"
-
     const columns = [
-
-
-        // },
         {
 
 //             events: {
@@ -351,46 +333,24 @@ setJsonServer(e, e.name)
 // opacity: 0.9,
 //             },
 //         },
-        
-
-
-
-
             events: {
                 onDoubleClick: (e) => {
                     // console.log("eeeeeeeee:" + e.currentTarget);
                     // e.currentTarget.contentEditable = 'true';
                     // console.log("eeeeeeeee:" + e.currentTarget.innerText, +"dddd" +e._id);
                     //    console.log("fff:"+rowIndex);
-
                     e.currentTarget.contentEditable = 'true';
                     setNewName(e.currentTarget.innerText)
-
                     // getIdFunnelByIndex()
-                
-
                 // onClick: (e) => {
                     // e.stopPropagation();
                     //  e.currentTarget.contentEditable = 'true';
                     //  setNewName(e.currentTarget.innerText)
                   //   console.log("חיה"+e.currentTarget.innerText)
-
-
                 },
-                
                 onBlur: async (e) => {
-                    // debugger;
-                    console.log("חחחחחחחחחחחח"+e.currentTarget.innerText)
                     setNewName(e.currentTarget.innerText)
-
-                    console.log(e.currentTarget.innerText)
-                     console.log(newName)
-                //  await 
                    setNameFunnel(idfunnelName, e.currentTarget.innerText);
-                   console.log("ממממממממממ"+newName)
-
-                   console.log("גגגגג"+idfunnelName,"דדדדדדד"+newName)
-                 console.log(idfunnelName)
             //  console.log(e.currentTarget.innerText)
                     // if (props.quote2.currentName != e.currentTarget.innerText) {
                         // console.log(props.name)
@@ -399,9 +359,7 @@ setJsonServer(e, e.name)
                         // console.log(props.quote2.name)
                         // await props.changePaperName();
                     // }
-
                 },
-
             },
             // dataField: "name",
             // text: "NAME",
@@ -415,15 +373,11 @@ setJsonServer(e, e.name)
                 // overfolw: "hidden"
             // },
             // formatter: s => s ? s.substr(0, 20) : "",
-
             // formatter: (c, e) => {
             //    c.substr(0, 15) 
                 // console.log(e._id)
                 // setjsonByIdFunnel(e._id)
-                
                 // setNameFunnel(e._id)
-                    
-                
                     // <button className="btn
                     dataField: "name",
                     // title: "name",
@@ -436,9 +390,6 @@ setJsonServer(e, e.name)
                     // formatter: (c, e) => {
                         // setjsonByIdFunnel(e._id)
                 //         return  (<>
-                              
-
-                
                 // {/* {noDepartment||question?null:<br/>} */}
    
                 //         </>)                    // formatter: s => s ? s.substr(0, 15) : "",
@@ -455,16 +406,12 @@ color: '#202224',
 textTransform: 'uppercase',
 opacity: 0.9,
                     },
-        
                 },
-
                        // formatter: (c, e) => {
                     //    c? c.substr(0, 15) :"",
                         // console.log(e._id)
                         // return (
-        
                             // {/* <button className="btn bkg" style={{ borderRadius: "4px", position: "fixed", bottom: "4vh", color: "#FFFFFF", right: "5.7vw", width: "10%", fontSize: "1vw", marginRight: "-2vw" }}>export</button> */}
-                        
                                 // <button onBlur={() => setIdFunnelName(e._id)} style={{width:"60px", border:"none", background:"none"}}> 
                                 // {/* // onChange={()=>setNewName(e.currentTarget.innerText) */}
                             // {c.substr(0, 15)}
@@ -472,8 +419,6 @@ opacity: 0.9,
                         // )
 
                         // },           
-
-         
             // headerStyle: (column, colIndex) => {
                 // return { textAlign: 'center' };
             // },
@@ -481,7 +426,6 @@ opacity: 0.9,
             //     backgroundColor: '#F5F5FA',
         //  } ,// },
             {
-
                 events: {
                     onClick: (e, c) => {
                         userName = (url.pathname.split('/')[2]);
@@ -500,8 +444,6 @@ opacity: 0.9,
                 opacity: 0.9,},
                 text: "START"
             },
-        
-        
             // dataField: "date",
             //  text: "START",
             // align: "center",
@@ -514,14 +456,7 @@ opacity: 0.9,
             // formatter: (c, e) => {
             //     // setjsonByIdFunnel(e._id)
             //     return  (<></>)
-
-
-                    
-
-
-               
             // },
-
             // headerStyle: (column, colIndex) => {
             //     return { textAlign: 'center' };
             // },
@@ -542,7 +477,6 @@ opacity: 0.9,
 //             },
 //         },
         {
-
             events: {
                 onClick: (e, c) => {
                     userName = (url.pathname.split('/')[2]);
@@ -552,7 +486,6 @@ opacity: 0.9,
             dataField: "lastUpdate",
             style: { width: '15% !important', overfolw: "inherit" },
               formatter: s => s ? s.substr(0, 20) : "",
-            
             headerStyle: { backgroundColor: '#F5F5FA' ,    
             //   height: '2vh',
             padding: '2vh',
@@ -569,13 +502,8 @@ opacity: 0.9,
                     console.log("eeeeeee" + e)
                     console.log("cccccc" + c)
                     console.log("cccccc" + c.name)
-
-                    // userName = (url.pathname.split('/')[2]);
-                    // history.push(`/admin/${userName}/${c.name}`)
                 }
             },
-
-
 //             events: {
 //                 onDoubleClick: (e) => {
 //                     // e.currentTarget.contentEditable = 'true';
@@ -619,19 +547,7 @@ opacity: 0.9,
                 {isSend?
                 <img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img>
               :    <img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img>
-
-               } 
-                </>
-            
-                )
-
-
-               
-
-
-               
-            },
-
+               } </>)},
             headerStyle: (column, colIndex) => {
                 return { textAlign: 'center',
                 backgroundColor: '#F5F5FA' ,    
@@ -644,7 +560,6 @@ opacity: 0.9,
             },
             headerStyle: {
                 backgroundColor: '#F5F5FA',
-               
 color: '#202224',
 textTransform: 'uppercase',
 opacity: 0.9,
@@ -655,7 +570,6 @@ textTransform: 'uppercase',
 opacity: 0.9,
             },
         },
-
             //     formatter: (c) => c ? c.length : "",
             // },
             // {
@@ -664,11 +578,9 @@ opacity: 0.9,
             //             userName = (url.pathname.split('/')[2]);
             //             history.push(`/admin/${userName}/${c.name}`)
             //         }
-
-        //     dataField: "viewsNumber",
+     //     dataField: "viewsNumber",
         //     text: `ALL TEAM ${<div class="dropdown">
         //     <a class="dropbtn">           <img 
-          
         //   style={{marginLeft:"2vw",marginTop:"2vh", display:"inline-block"}} 
         //   src={threeDots}>
         //      </img> </a>
@@ -688,7 +600,6 @@ opacity: 0.9,
             //                <img style={{width:"15%", marginTop:"2vh", verticalAlign:"center"}}  src={userSolid}></img>
             //         </>)
 //             //     },
-        
 //             style: { width: '15% !important' },
 //             headerStyle: {
 //                 borderRadius: " 0 15px 0 0",
@@ -699,16 +610,13 @@ opacity: 0.9,
 // color: '#202224',
 // textTransform: 'uppercase',
 // opacity: 0.9,
-
             // },
             // sort: true,
-        
         {
             events: {
                 onClick: (e, c) => {
                     userName = (url.pathname.split('/')[2]);
                     console.log("aaaa" + c)
-                    // history.push(`/admin/${userName}/${c.name}`)
                 }
             },
             dataField: "url",
@@ -717,8 +625,6 @@ opacity: 0.9,
             align: "center",
             headerAlign: "center",
             headerStyle: { backgroundColor: '#F5F5FA' ,
-            // height: '2vh',
-            // padding: '2vh',
             letterSpacing: '0px',
             color: '#202224',
             textTransform: 'uppercase',
@@ -728,18 +634,7 @@ opacity: 0.9,
                 // setjsonByIdFunnel(e._id)
                 return  (
                 <>
-                       
-                            {/* // {c.substr(0, 15)} */}
-                         
-                            {/* // style={{marginRight:"2vw"}} */}
                             <span  style={{marginLeft:"12%"}}> { c.substr(0, 20) }</span>
-
-
-                            {/* <div className="col-md-4"> */}
-                {/* <text style={{ width: '100%', height: '35px', borderRadius: '2px',  textAlign: 'center' }}  type="button" data-toggle="dropdown"  aria-expanded="false"> */}
-                  {/* {!selectDepartment ? 'Select Knowledge Base' : selectDepartment.categoryName} */}
-    
-       
 <div class="dropdown">
   <a class="dropbtn">           <img 
 
@@ -916,11 +811,10 @@ const rowEvents = {
     onClick: (e, c) => {
         debugger
         console.log("id"+c._id)
+        // var json = JSON.parse(c.json)
         setjsonReducer(c)
         // userName = (url.pathname.split('/')[2]);
         // history.push(`/admin/${userName}/${c.name}`)
-// console.log("ffff")
-
     },
 }
     const rowClasses = (row, rowIndex) => {
@@ -983,7 +877,6 @@ const rowEvents = {
                     onClick={createNewFunnel}>Create new template+</button>
 
             </div>
-            // </div>
         );
     };
 
@@ -993,45 +886,24 @@ const rowEvents = {
 
     const indication = () => {
         return (
-
-        //   allFunnels ? 
-            // <NoFunnels></NoFunnels>:
-            // <img  style={{width:"40%", marginTop:"2vh"}} src={fileFolder}></img>:
-
-            // "oopsss...   no papers found 😞" :
                  <div className="indicationAnimate" >
-
           <img  style={{width:"40%", marginTop:"2vh"}} src={LabelCompleted}></img>
                  </div>
-                
-                // <div className="indicationAnimate">
-                    // <img src={animate} ></img>
-                // </div >
-    
         )
     }
     const createNewFunnel = () => {
         userName = (url.pathname.split('/')[2]);
-        //         console.log("aaaaaaaa"+c)
         history.push(`/admin/${userName}/new`)
     }
     return (        <>
-
-
 {
 // allFunnels ? 
-
-
-
-        
-
             <div className="row">
 
 
                 <div className={exportYN ? "container-fixed-width containerDivList mw-100 mb-0 pr-lg-5 pr-sm-1 pr-md-1 justify-content-start align-items-center col-10" : "container-fixed-width containerDivList mw-100 mb-0 pr-lg-5 pr-sm-1 pr-md-1 justify-content-start align-items-center col-12"}
                     style={{ marginTop: '7vh' }}>
                     {/* <SelectMassage ></SelectMassage> */}
-
                     <div className="pt-3">
                         {/* <Button
                             variant="filled"
